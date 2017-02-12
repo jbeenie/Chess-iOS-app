@@ -12,6 +12,24 @@
 		9FCB75961E4EAAC100275773 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75941E4EAAC100275773 /* Main.storyboard */; };
 		9FCB75981E4EAAC100275773 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75971E4EAAC100275773 /* Assets.xcassets */; };
 		9FCB759B1E4EAAC100275773 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75991E4EAAC100275773 /* LaunchScreen.storyboard */; };
+		9FCB75A31E4EAB9A00275773 /* BoardSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75A21E4EAB9A00275773 /* BoardSquare.swift */; };
+		9FCB75A51E4EB71900275773 /* ChessBoardSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75A41E4EB71900275773 /* ChessBoardSquare.swift */; };
+		9FCB75AA1E4ED43900275773 /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75A91E4ED43900275773 /* ChessPiece.swift */; };
+		9FCB75B41E4FB7EF00275773 /* blackBishop.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75AD1E4FB7EF00275773 /* blackBishop.png */; };
+		9FCB75B51E4FB7EF00275773 /* blackKing.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75AE1E4FB7EF00275773 /* blackKing.png */; };
+		9FCB75B61E4FB7EF00275773 /* blackLeftKnight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75AF1E4FB7EF00275773 /* blackLeftKnight.png */; };
+		9FCB75B71E4FB7EF00275773 /* blackPawn.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75B01E4FB7EF00275773 /* blackPawn.png */; };
+		9FCB75B81E4FB7EF00275773 /* blackQueen.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75B11E4FB7EF00275773 /* blackQueen.png */; };
+		9FCB75B91E4FB7EF00275773 /* blackRightKnight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75B21E4FB7EF00275773 /* blackRightKnight.png */; };
+		9FCB75BA1E4FB7EF00275773 /* blackRook.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75B31E4FB7EF00275773 /* blackRook.png */; };
+		9FCB75C41E4FB82700275773 /* whiteBishop.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75BD1E4FB82700275773 /* whiteBishop.png */; };
+		9FCB75C51E4FB82700275773 /* whiteKing.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75BE1E4FB82700275773 /* whiteKing.png */; };
+		9FCB75C61E4FB82700275773 /* whiteLeftKnight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75BF1E4FB82700275773 /* whiteLeftKnight.png */; };
+		9FCB75C71E4FB82700275773 /* whitePawn.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75C01E4FB82700275773 /* whitePawn.png */; };
+		9FCB75C81E4FB82700275773 /* whiteQueen.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75C11E4FB82700275773 /* whiteQueen.png */; };
+		9FCB75C91E4FB82700275773 /* whiteRightKnight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75C21E4FB82700275773 /* whiteRightKnight.png */; };
+		9FCB75CA1E4FB82700275773 /* whiteRook.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75C31E4FB82700275773 /* whiteRook.png */; };
+		9FCB75CC1E4FF1EB00275773 /* ChessBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75CB1E4FF1EB00275773 /* ChessBoard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +40,24 @@
 		9FCB75971E4EAAC100275773 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FCB759A1E4EAAC100275773 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FCB759C1E4EAAC100275773 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FCB75A21E4EAB9A00275773 /* BoardSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardSquare.swift; sourceTree = "<group>"; };
+		9FCB75A41E4EB71900275773 /* ChessBoardSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardSquare.swift; sourceTree = "<group>"; };
+		9FCB75A91E4ED43900275773 /* ChessPiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = SOURCE_ROOT; };
+		9FCB75AD1E4FB7EF00275773 /* blackBishop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blackBishop.png; path = PieceIcons/Black/blackBishop.png; sourceTree = "<group>"; };
+		9FCB75AE1E4FB7EF00275773 /* blackKing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blackKing.png; path = PieceIcons/Black/blackKing.png; sourceTree = "<group>"; };
+		9FCB75AF1E4FB7EF00275773 /* blackLeftKnight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blackLeftKnight.png; path = PieceIcons/Black/blackLeftKnight.png; sourceTree = "<group>"; };
+		9FCB75B01E4FB7EF00275773 /* blackPawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blackPawn.png; path = PieceIcons/Black/blackPawn.png; sourceTree = "<group>"; };
+		9FCB75B11E4FB7EF00275773 /* blackQueen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blackQueen.png; path = PieceIcons/Black/blackQueen.png; sourceTree = "<group>"; };
+		9FCB75B21E4FB7EF00275773 /* blackRightKnight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blackRightKnight.png; path = PieceIcons/Black/blackRightKnight.png; sourceTree = "<group>"; };
+		9FCB75B31E4FB7EF00275773 /* blackRook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blackRook.png; path = PieceIcons/Black/blackRook.png; sourceTree = "<group>"; };
+		9FCB75BD1E4FB82700275773 /* whiteBishop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteBishop.png; path = PieceIcons/White/whiteBishop.png; sourceTree = "<group>"; };
+		9FCB75BE1E4FB82700275773 /* whiteKing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteKing.png; path = PieceIcons/White/whiteKing.png; sourceTree = "<group>"; };
+		9FCB75BF1E4FB82700275773 /* whiteLeftKnight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteLeftKnight.png; path = PieceIcons/White/whiteLeftKnight.png; sourceTree = "<group>"; };
+		9FCB75C01E4FB82700275773 /* whitePawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whitePawn.png; path = PieceIcons/White/whitePawn.png; sourceTree = "<group>"; };
+		9FCB75C11E4FB82700275773 /* whiteQueen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteQueen.png; path = PieceIcons/White/whiteQueen.png; sourceTree = "<group>"; };
+		9FCB75C21E4FB82700275773 /* whiteRightKnight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteRightKnight.png; path = PieceIcons/White/whiteRightKnight.png; sourceTree = "<group>"; };
+		9FCB75C31E4FB82700275773 /* whiteRook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteRook.png; path = PieceIcons/White/whiteRook.png; sourceTree = "<group>"; };
+		9FCB75CB1E4FF1EB00275773 /* ChessBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +90,56 @@
 		9FCB758F1E4EAAC100275773 /* Chess */ = {
 			isa = PBXGroup;
 			children = (
-				9FCB75901E4EAAC100275773 /* AppDelegate.swift */,
 				9FCB75921E4EAAC100275773 /* ViewController.swift */,
+				9FCB75A91E4ED43900275773 /* ChessPiece.swift */,
+				9FCB75A21E4EAB9A00275773 /* BoardSquare.swift */,
+				9FCB75A41E4EB71900275773 /* ChessBoardSquare.swift */,
+				9FCB75CB1E4FF1EB00275773 /* ChessBoard.swift */,
 				9FCB75941E4EAAC100275773 /* Main.storyboard */,
 				9FCB75971E4EAAC100275773 /* Assets.xcassets */,
+				9FCB75A61E4EC28B00275773 /* Supporting Files */,
+				9FCB75BB1E4FB7FB00275773 /* Images */,
+			);
+			path = Chess;
+			sourceTree = "<group>";
+		};
+		9FCB75A61E4EC28B00275773 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9FCB75901E4EAAC100275773 /* AppDelegate.swift */,
 				9FCB75991E4EAAC100275773 /* LaunchScreen.storyboard */,
 				9FCB759C1E4EAAC100275773 /* Info.plist */,
 			);
-			path = Chess;
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9FCB75BB1E4FB7FB00275773 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				9FCB75BC1E4FB80F00275773 /* Pieces */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		9FCB75BC1E4FB80F00275773 /* Pieces */ = {
+			isa = PBXGroup;
+			children = (
+				9FCB75BD1E4FB82700275773 /* whiteBishop.png */,
+				9FCB75BE1E4FB82700275773 /* whiteKing.png */,
+				9FCB75BF1E4FB82700275773 /* whiteLeftKnight.png */,
+				9FCB75C01E4FB82700275773 /* whitePawn.png */,
+				9FCB75C11E4FB82700275773 /* whiteQueen.png */,
+				9FCB75C21E4FB82700275773 /* whiteRightKnight.png */,
+				9FCB75C31E4FB82700275773 /* whiteRook.png */,
+				9FCB75AD1E4FB7EF00275773 /* blackBishop.png */,
+				9FCB75AE1E4FB7EF00275773 /* blackKing.png */,
+				9FCB75AF1E4FB7EF00275773 /* blackLeftKnight.png */,
+				9FCB75B01E4FB7EF00275773 /* blackPawn.png */,
+				9FCB75B11E4FB7EF00275773 /* blackQueen.png */,
+				9FCB75B21E4FB7EF00275773 /* blackRightKnight.png */,
+				9FCB75B31E4FB7EF00275773 /* blackRook.png */,
+			);
+			name = Pieces;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,9 +202,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FCB75B71E4FB7EF00275773 /* blackPawn.png in Resources */,
+				9FCB75B41E4FB7EF00275773 /* blackBishop.png in Resources */,
 				9FCB759B1E4EAAC100275773 /* LaunchScreen.storyboard in Resources */,
+				9FCB75C71E4FB82700275773 /* whitePawn.png in Resources */,
+				9FCB75C41E4FB82700275773 /* whiteBishop.png in Resources */,
 				9FCB75981E4EAAC100275773 /* Assets.xcassets in Resources */,
+				9FCB75B91E4FB7EF00275773 /* blackRightKnight.png in Resources */,
+				9FCB75C61E4FB82700275773 /* whiteLeftKnight.png in Resources */,
+				9FCB75B81E4FB7EF00275773 /* blackQueen.png in Resources */,
+				9FCB75C81E4FB82700275773 /* whiteQueen.png in Resources */,
 				9FCB75961E4EAAC100275773 /* Main.storyboard in Resources */,
+				9FCB75CA1E4FB82700275773 /* whiteRook.png in Resources */,
+				9FCB75C91E4FB82700275773 /* whiteRightKnight.png in Resources */,
+				9FCB75B51E4FB7EF00275773 /* blackKing.png in Resources */,
+				9FCB75BA1E4FB7EF00275773 /* blackRook.png in Resources */,
+				9FCB75C51E4FB82700275773 /* whiteKing.png in Resources */,
+				9FCB75B61E4FB7EF00275773 /* blackLeftKnight.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +229,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FCB75A51E4EB71900275773 /* ChessBoardSquare.swift in Sources */,
+				9FCB75CC1E4FF1EB00275773 /* ChessBoard.swift in Sources */,
+				9FCB75A31E4EAB9A00275773 /* BoardSquare.swift in Sources */,
 				9FCB75931E4EAAC100275773 /* ViewController.swift in Sources */,
+				9FCB75AA1E4ED43900275773 /* ChessPiece.swift in Sources */,
 				9FCB75911E4EAAC100275773 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
