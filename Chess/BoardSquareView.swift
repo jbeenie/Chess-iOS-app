@@ -9,8 +9,14 @@
 import UIKit
 
 @IBDesignable
-class BoardSquare: UIView {
+class BoardSquareView: UIView {
     @IBInspectable var color: UIColor
+    
+    //invoked when view is created from code
+    convenience init(color: UIColor){
+        self.init(frame: CGRect.zero, color: color)
+        self.backgroundColor = self.color
+    }
     
     //invoked when view is created from code
     init(frame: CGRect, color: UIColor){

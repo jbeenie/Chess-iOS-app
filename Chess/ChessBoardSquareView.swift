@@ -9,14 +9,19 @@
 import UIKit
 
 @IBDesignable
-class ChessBoardSquare: BoardSquare {
+class ChessBoardSquareView: BoardSquareView {
+    
     struct Ratios{
         static let ChessPieceToSquare: CGFloat = 0.7
     }
-    
     private let ChessPieceToSquareRatio = Ratios.ChessPieceToSquare
     
-    var chessPiece: ChessPiece? = nil{
+    var occupied: Bool {
+        return chessPiece != nil
+    }
+    
+    
+    var chessPiece: ChessPieceView? = nil{
         //remove the chessPiece subview from the chessboard square if it is set to nil
         willSet(newChessPiece){
             //remove the previous chess piece from chessboard squares view if its not nil

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChessPiece: UIImageView {
+class ChessPieceView: UIImageView {
     //Dictionary associating a chess piece icon to each chess piece based on type and color
     static let ChessPieceIcons: [ChessPieceIdentifier:UIImage] =
     [
@@ -72,7 +72,7 @@ class ChessPiece: UIImageView {
     init(frame: CGRect, color: ChessPieceColor, type: ChessPieceType) {
         self.chessPieceIdentifier = ChessPieceIdentifier(color: color, type: type)
         super.init(frame: frame)
-        self.image = ChessPiece.ChessPieceIcons[self.chessPieceIdentifier]
+        self.image = ChessPieceView.ChessPieceIcons[self.chessPieceIdentifier]
     }
     
     required init?(coder aDecoder: NSCoder) {

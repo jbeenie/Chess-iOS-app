@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var chessBoardSquare: ChessBoardSquare? = nil
+    var chessBoard: ChessBoardView? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,12 +18,17 @@ class ViewController: UIViewController {
     }
     
     private func setUpView(){
-        let origin = CGPoint(x: 50, y:50)
-        let size = CGSize(width: 50, height: 50)
-        let frame = CGRect(origin: origin, size: size)
-        chessBoardSquare = ChessBoardSquare(frame: frame, color: UIColor.gray)
-        chessBoardSquare?.chessPiece = ChessPiece(color:ChessPiece.ChessPieceColor.White, type:ChessPiece.ChessPieceType.Knight_L)
-        view.addSubview(chessBoardSquare!)
+        let origin = CGPoint(x: 0, y:0)
+        let frame = CGRect(origin: origin, size: view.bounds.size)
+        chessBoard = ChessBoardView(frame: frame, colorOfWhiteSquares: UIColor.white, colorOfBlackSquares: UIColor.green)
+        if let chessBoard = chessBoard{
+            chessBoard.setUpChessBoard()
+            view.addSubview(chessBoard)
+            chessBoard[0,0].chessPiece = ChessPieceView(color:ChessPieceView.ChessPieceColor.White, type:ChessPieceView.ChessPieceType.Knight_L)
+        }
+        
+        
+//        chessBoardSquare?.chessPiece = ChessPiece(color:ChessPiece.ChessPieceColor.White, type:ChessPiece.ChessPieceType.Knight_L)
     }
     
     
