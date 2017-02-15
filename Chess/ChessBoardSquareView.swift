@@ -19,7 +19,7 @@ class ChessBoardSquareView: BoardSquareView {
         return chessPiece != nil
     }
     
-    var position: ChessBoardView.SquarePosition! = nil
+    var position: ChessBoardView.Position! = nil
     
     var chessPiece: ChessPieceView? = nil{
         //remove the chessPiece subview from the chessboard square if it is set to nil

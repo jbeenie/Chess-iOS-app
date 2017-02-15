@@ -60,7 +60,7 @@ class ChessBoardView: UIView {
                 //initialize chessboard square
                 if let chessBoardSquare = ChessBoardSquareView(frame: frame, color: color, selectedColor: selectedColor){
                     //set position of chess board square
-                    chessBoardSquare.position = SquarePosition(row: row, col: col)
+                    chessBoardSquare.position = Position(row: row, col: col)
                     chessBoardSquares[row].append(chessBoardSquare)
                 }else {
                     print("Selected Color: \(selectedColor) cannot be the same as (unselected) color \(color)")
@@ -75,7 +75,7 @@ class ChessBoardView: UIView {
     }
     
     //method used to add chess square subviews to chessboard
-    func setUpChessBoard(){
+    func setUpChessBoardView(){
         for row in 0..<Dimensions.SquaresPerRow {
             for col in 0..<Dimensions.SquaresPerColumn {
                 addSubview(chessBoardSquares[row][col])
@@ -91,24 +91,24 @@ class ChessBoardView: UIView {
         static let labels = "12345678ABCDEFGH".characters
         static let color = UIColor.black
         static let fontSize: CGFloat = 10
-        static let positions: [Character:SquarePosition] =
+        static let positions: [Character:Position] =
             [
-                "A":SquarePosition(row: 7,col: 0)!,
-                "B":SquarePosition(row: 7,col: 1)!,
-                "C":SquarePosition(row: 7,col: 2)!,
-                "D":SquarePosition(row: 7,col: 3)!,
-                "E":SquarePosition(row: 7,col: 4)!,
-                "F":SquarePosition(row: 7,col: 5)!,
-                "G":SquarePosition(row: 7,col: 6)!,
-                "H":SquarePosition(row: 7,col: 7)!,
-                "1":SquarePosition(row: 7,col: 0)!,
-                "2":SquarePosition(row: 6,col: 0)!,
-                "3":SquarePosition(row: 5,col: 0)!,
-                "4":SquarePosition(row: 4,col: 0)!,
-                "5":SquarePosition(row: 3,col: 0)!,
-                "6":SquarePosition(row: 2,col: 0)!,
-                "7":SquarePosition(row: 1,col: 0)!,
-                "8":SquarePosition(row: 0,col: 0)!
+                "A":Position(row: 7,col: 0)!,
+                "B":Position(row: 7,col: 1)!,
+                "C":Position(row: 7,col: 2)!,
+                "D":Position(row: 7,col: 3)!,
+                "E":Position(row: 7,col: 4)!,
+                "F":Position(row: 7,col: 5)!,
+                "G":Position(row: 7,col: 6)!,
+                "H":Position(row: 7,col: 7)!,
+                "1":Position(row: 7,col: 0)!,
+                "2":Position(row: 6,col: 0)!,
+                "3":Position(row: 5,col: 0)!,
+                "4":Position(row: 4,col: 0)!,
+                "5":Position(row: 3,col: 0)!,
+                "6":Position(row: 2,col: 0)!,
+                "7":Position(row: 1,col: 0)!,
+                "8":Position(row: 0,col: 0)!
         ]
     }
     
@@ -151,7 +151,7 @@ class ChessBoardView: UIView {
     //i.e. if there was a piece at oldPosition
     //the second component (ChessPieceView?) is the piece previously located at newPosition
     //or nil if no piece was there
-    func movePiece(from oldPostion: ChessBoardView.SquarePosition, to newPosition: ChessBoardView.SquarePosition)->(Bool, ChessPieceView?){
+    func movePiece(from oldPostion: ChessBoardView.Position, to newPosition: ChessBoardView.Position)->(Bool, ChessPieceView?){
         if let pieceToMove = removePiece(from: oldPostion){
             let pieceEaten = set(piece: pieceToMove, at: newPosition)
             
@@ -170,8 +170,8 @@ class ChessBoardView: UIView {
     //Method used for debugging move Piece
     private func printMoveInfo(pieceWasMoved: Bool,
                                pieceToMove: ChessPieceView,
-                               from oldPosition: ChessBoardView.SquarePosition,
-                               to newPosition: ChessBoardView.SquarePosition,
+                               from oldPosition: ChessBoardView.Position,
+                               to newPosition: ChessBoardView.Position,
                                pieceEaten: ChessPieceView?){
         if !pieceWasMoved {
             print("No Piece was moved!")
@@ -185,7 +185,7 @@ class ChessBoardView: UIView {
     
     //Places a piece at the desired position on the board
     //returns the piece that previously occupied that position or nil if no piece was there
-    func set(piece: ChessPieceView?, at position: ChessBoardView.SquarePosition)->ChessPieceView?{
+    func set(piece: ChessPieceView?, at position: ChessBoardView.Position)->ChessPieceView?{
         let replacedPiece = self[position.row,position.col].chessPiece
         self[position.row,position.col].chessPiece = piece
         return replacedPiece
@@ -193,7 +193,7 @@ class ChessBoardView: UIView {
     
     //attempts to remove a piece from the specified location
     //returns the piece it removed or nil if no piece was located at that square
-    func removePiece(from position: ChessBoardView.SquarePosition)->ChessPieceView?{
+    func removePiece(from position: ChessBoardView.Position)->ChessPieceView?{
         return set(piece: nil, at: position)
     }
     
@@ -256,7 +256,7 @@ class ChessBoardView: UIView {
     //MARK: - Struct Used to model the position of chessboard square
     //can be used as key to dictionary that stores data based on chesssquare positions
     
-    struct SquarePosition: Hashable, Equatable{
+    struct Position: Hashable, Equatable{
         static let validRowRange = (0..<ChessBoardView.Dimensions.SquaresPerRow)
         static let validColRange = (0..<ChessBoardView.Dimensions.SquaresPerColumn)
         static let columnLetters = [0:"A",1:"B",2:"C",3:"D",4:"E",5:"F",6:"G",7:"H"]
@@ -267,19 +267,18 @@ class ChessBoardView: UIView {
             return row * 10 + col
         }
         
-        //FIXME: Makes description style like A3, how do you have int to Char to get next letter?
+        //description style like A3 or E4
         var description: String{
-            let description:String = "(\(SquarePosition.columnLetters[col]!),\(8-row))"
-            return description
+            return "(\(Position.columnLetters[col]!),\(8-row))"
         }
         
-        static func == (lhs: SquarePosition, rhs: SquarePosition) -> Bool {
+        static func == (lhs: Position, rhs: Position) -> Bool {
             return lhs.row == rhs.row && lhs.col == rhs.col
         }
         
         private func isValidPosition()->Bool{
-            return  SquarePosition.validRowRange.contains(self.row) &&
-                SquarePosition.validColRange.contains(self.col)
+            return  Position.validRowRange.contains(self.row) &&
+                Position.validColRange.contains(self.col)
         }
         
         init?(row: Int, col: Int){
