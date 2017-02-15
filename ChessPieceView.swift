@@ -9,24 +9,25 @@
 import UIKit
 
 class ChessPieceView: UIImageView {
+    
     //Dictionary associating a chess piece icon to each chess piece based on type and color
     static let ChessPieceIcons: [ChessPieceIdentifier:UIImage] =
     [
-        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.Pawn): UIImage(named:"BlackPawn.png")!,
-        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.Rook): UIImage(named:"BlackRook.png")!,
-        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.Knight_L): UIImage(named:"BlackLeftKnight.png")!,
-        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.Knight_R): UIImage(named:"BlackRightKnight.png")!,
-        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.Bishop): UIImage(named:"BlackBishop.png")!,
-        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.Queen): UIImage(named:"BlackQueen.png")!,
-        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.King): UIImage(named:"BlackKing.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.Pawn): UIImage(named:"BlackPawn.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.Rook): UIImage(named:"BlackRook.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.Knight_L): UIImage(named:"BlackLeftKnight.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.Knight_R): UIImage(named:"BlackRightKnight.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.Bishop): UIImage(named:"BlackBishop.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.Queen): UIImage(named:"BlackQueen.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.King): UIImage(named:"BlackKing.png")!,
         
-        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.Pawn): UIImage(named:"WhitePawn.png")!,
-        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.Rook): UIImage(named:"WhiteRook.png")!,
-        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.Knight_L): UIImage(named:"WhiteLeftKnight.png")!,
-        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.Knight_R): UIImage(named:"WhiteRightKnight.png")!,
-        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.Bishop): UIImage(named:"WhiteBishop.png")!,
-        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.Queen): UIImage(named:"WhiteQueen.png")!,
-        ChessPieceIdentifier(color: ChessPieceColor.Black,type: ChessPieceType.King): UIImage(named:"WhiteKing.png")!
+        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.Pawn): UIImage(named:"WhitePawn.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.Rook): UIImage(named:"WhiteRook.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.Knight_L): UIImage(named:"WhiteLeftKnight.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.Knight_R): UIImage(named:"WhiteRightKnight.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.Bishop): UIImage(named:"WhiteBishop.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.Queen): UIImage(named:"WhiteQueen.png")!,
+        ChessPieceIdentifier(color: ChessPieceColor.White,type: ChessPieceType.King): UIImage(named:"WhiteKing.png")!
     ]
     
     
@@ -39,6 +40,7 @@ class ChessPieceView: UIImageView {
              Queen = "Queen",
              King = "King"
     }
+    
     enum ChessPieceColor: Character {
         case White = "W", Black = "B"
     }
@@ -62,7 +64,11 @@ class ChessPieceView: UIImageView {
         
     }
     
+    var aspectRatio: CGFloat! = nil
     var chessPieceIdentifier: ChessPieceIdentifier
+    override var description: String{
+        return "\(chessPieceIdentifier.color) \(chessPieceIdentifier.type)"
+    }
     
     convenience init(color: ChessPieceColor, type: ChessPieceType) {
         self.init(frame: CGRect.zero, color: color, type: type)
@@ -73,6 +79,8 @@ class ChessPieceView: UIImageView {
         self.chessPieceIdentifier = ChessPieceIdentifier(color: color, type: type)
         super.init(frame: frame)
         self.image = ChessPieceView.ChessPieceIcons[self.chessPieceIdentifier]
+        self.sizeToFit()
+        self.aspectRatio = bounds.width / bounds.height
     }
     
     required init?(coder aDecoder: NSCoder) {

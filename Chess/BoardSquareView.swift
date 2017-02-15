@@ -10,17 +10,37 @@ import UIKit
 
 @IBDesignable
 class BoardSquareView: UIView {
-    @IBInspectable var color: UIColor
     
-    //invoked when view is created from code
-    convenience init(color: UIColor){
-        self.init(frame: CGRect.zero, color: color)
-        self.backgroundColor = self.color
+    @IBInspectable var color: UIColor
+    @IBInspectable var selectedColor: UIColor
+    
+    var selected: Bool = false{
+        didSet{
+            backgroundColor = selected ? selectedColor : color
+            setNeedsDisplay()
+        }
     }
     
+//    //invoked when view is created from code
+//    convenience init?(color: UIColor){
+//        self.init(frame: CGRect.zero, color: color, selectedColor: Default.selectedColor)
+//    }
+//    
+//    //invoked when view is created from code
+//    convenience init?(frame: CGRect, color: UIColor){
+//        self.init(frame: frame, color: color, selectedColor: Default.selectedColor)
+//    }
+    
     //invoked when view is created from code
-    init(frame: CGRect, color: UIColor){
+    init?(frame: CGRect, color: UIColor, selectedColor: UIColor){
+        //initializer fails to prevent the situation where 
+        //the color of a square is the same as its selected color
+        if color == selectedColor{
+            return nil
+        }
         self.color = color
+        self.selectedColor = selectedColor
+        self.selected = false
         super.init(frame: frame)
         self.backgroundColor = self.color
     }
@@ -30,6 +50,8 @@ class BoardSquareView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
     
 
     /*

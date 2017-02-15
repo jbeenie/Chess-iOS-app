@@ -12,14 +12,14 @@ import UIKit
 class ChessBoardSquareView: BoardSquareView {
     
     struct Ratios{
-        static let ChessPieceToSquare: CGFloat = 0.7
+        static let ChessPieceToSquare: CGFloat = 0.575
     }
-    private let ChessPieceToSquareRatio = Ratios.ChessPieceToSquare
     
-    var occupied: Bool {
+    var isOccupied: Bool {
         return chessPiece != nil
     }
     
+    var position: ChessBoardView.SquarePosition! = nil
     
     var chessPiece: ChessPieceView? = nil{
         //remove the chessPiece subview from the chessboard square if it is set to nil
@@ -29,7 +29,11 @@ class ChessBoardSquareView: BoardSquareView {
             //if the new chess piece is not nil add as a subview of chess board square
             if let newChessPiece =  newChessPiece{
                 //center chess piece within board square
-                let chessPieceframe = CGRect(center: bounds.mid, size: bounds.size * ChessPieceToSquareRatio)
+                //and maintain its aspect ratio
+                let chessPieceHeight = bounds.size.height * Ratios.ChessPieceToSquare
+                let chessPieceWidth = newChessPiece.aspectRatio * chessPieceHeight
+                let chessPieceSize = CGSize(width: chessPieceWidth, height: chessPieceHeight)
+                let chessPieceframe = CGRect(center: bounds.mid, size: chessPieceSize)
                 newChessPiece.frame = chessPieceframe
                 self.addSubview(newChessPiece)
             }
@@ -37,20 +41,11 @@ class ChessBoardSquareView: BoardSquareView {
     }
 }
 
-extension CGRect {
-    var mid: CGPoint { return CGPoint(x: midX, y: midY) }
-    
-    
-    init(center: CGPoint, size: CGSize) {
-        let upperLeft = CGPoint(x: center.x-size.width/2, y: center.y-size.height/2)
-        self.init(origin: upperLeft, size: size)
+extension ChessBoardSquareView {
+    static func ==(lhs: ChessBoardSquareView, rhs: ChessBoardSquareView) -> Bool {
+        if let positionOfLeft = lhs.position, let positionOfRight =  rhs.position{
+            return positionOfLeft == positionOfRight
+        }
+        return false
     }
-}
-
-extension CGSize {
-    static func * (size: CGSize, scale: CGFloat) -> CGSize {
-        return CGSize(width: size.width * scale , height: size.height * scale)
-    }
-    
-    
 }

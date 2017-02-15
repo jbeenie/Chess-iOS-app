@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9FB991EC1E525F6400BD83CE /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB991EB1E525F6400BD83CE /* UIKitExtensions.swift */; };
 		9FCB75911E4EAAC100275773 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75901E4EAAC100275773 /* AppDelegate.swift */; };
-		9FCB75931E4EAAC100275773 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75921E4EAAC100275773 /* ViewController.swift */; };
+		9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75921E4EAAC100275773 /* ChessBoardViewController.swift */; };
 		9FCB75961E4EAAC100275773 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75941E4EAAC100275773 /* Main.storyboard */; };
 		9FCB75981E4EAAC100275773 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75971E4EAAC100275773 /* Assets.xcassets */; };
 		9FCB759B1E4EAAC100275773 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75991E4EAAC100275773 /* LaunchScreen.storyboard */; };
@@ -33,9 +34,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9FB991EB1E525F6400BD83CE /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		9FCB758D1E4EAAC100275773 /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCB75901E4EAAC100275773 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9FCB75921E4EAAC100275773 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9FCB75921E4EAAC100275773 /* ChessBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardViewController.swift; sourceTree = "<group>"; };
 		9FCB75951E4EAAC100275773 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9FCB75971E4EAAC100275773 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FCB759A1E4EAAC100275773 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -90,11 +92,8 @@
 		9FCB758F1E4EAAC100275773 /* Chess */ = {
 			isa = PBXGroup;
 			children = (
-				9FCB75921E4EAAC100275773 /* ViewController.swift */,
-				9FCB75A91E4ED43900275773 /* ChessPieceView.swift */,
-				9FCB75A21E4EAB9A00275773 /* BoardSquareView.swift */,
-				9FCB75A41E4EB71900275773 /* ChessBoardSquareView.swift */,
-				9FCB75CB1E4FF1EB00275773 /* ChessBoardView.swift */,
+				9FCB75921E4EAAC100275773 /* ChessBoardViewController.swift */,
+				9FDFC4851E5138F6007138F9 /* ChessBoard View */,
 				9FCB75941E4EAAC100275773 /* Main.storyboard */,
 				9FCB75971E4EAAC100275773 /* Assets.xcassets */,
 				9FCB75A61E4EC28B00275773 /* Supporting Files */,
@@ -140,6 +139,18 @@
 				9FCB75B31E4FB7EF00275773 /* blackRook.png */,
 			);
 			name = Pieces;
+			sourceTree = "<group>";
+		};
+		9FDFC4851E5138F6007138F9 /* ChessBoard View */ = {
+			isa = PBXGroup;
+			children = (
+				9FCB75A91E4ED43900275773 /* ChessPieceView.swift */,
+				9FCB75A21E4EAB9A00275773 /* BoardSquareView.swift */,
+				9FCB75A41E4EB71900275773 /* ChessBoardSquareView.swift */,
+				9FCB75CB1E4FF1EB00275773 /* ChessBoardView.swift */,
+				9FB991EB1E525F6400BD83CE /* UIKitExtensions.swift */,
+			);
+			name = "ChessBoard View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,8 +243,9 @@
 				9FCB75A51E4EB71900275773 /* ChessBoardSquareView.swift in Sources */,
 				9FCB75CC1E4FF1EB00275773 /* ChessBoardView.swift in Sources */,
 				9FCB75A31E4EAB9A00275773 /* BoardSquareView.swift in Sources */,
-				9FCB75931E4EAAC100275773 /* ViewController.swift in Sources */,
+				9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */,
 				9FCB75AA1E4ED43900275773 /* ChessPieceView.swift in Sources */,
+				9FB991EC1E525F6400BD83CE /* UIKitExtensions.swift in Sources */,
 				9FCB75911E4EAAC100275773 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
