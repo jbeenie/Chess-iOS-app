@@ -17,8 +17,8 @@ class ChessBoardViewController: UIViewController {
     }()
     
     //MARK: Translation between Model and View 
-    private func translate(viewPosition: ChessBoardView.Position)->ChessBoard.Position{
-        return ChessBoard.Position(row: viewPosition.row, col: viewPosition.col)!
+    private func translate(viewPosition: ChessBoardView.Position)->Position{
+        return Position(row: viewPosition.row, col: viewPosition.col)!
     }
     
     
@@ -76,11 +76,24 @@ class ChessBoardViewController: UIViewController {
         if tappedChessBoardSquare == lastSelectedSquare{
             //if they match deselect the square
             deselectSelectedSquare()
-        }else if let lastSelectedSquare = lastSelectedSquare{//verify whether or not square was previously selcted
+        }else if let lastSelectedSquare = lastSelectedSquare{//verify whether or not another (necessarily different square was previously selcted
+            
             
             //prepare old and new position parameters to call movePiece
             let oldPosition = translate(viewPosition: lastSelectedSquare.position)
             let newPosition = translate(viewPosition: tappedChessBoardSquare.position)
+            
+            //if that square is occupied by a piece of the same color
+            //delect the previously selected square and
+            //select the square that has just been tapped
+            if  let colorOfPiece1 = chessGame.piece(at: oldPosition)?.color,
+                let colorOfPiece2 = chessGame.piece(at: newPosition)?.color,
+                colorOfPiece1 == colorOfPiece2{
+                deselectSelectedSquare()
+                select(square: tappedChessBoardSquare)
+                return
+            }
+            
             
             //ask the model to attempt the move and verify if it is legal in doing so
             //if it is legal the move is executed in the model and view is updated accordingly
