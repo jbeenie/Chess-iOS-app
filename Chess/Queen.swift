@@ -16,14 +16,18 @@ class Queen: ChessPiece{
     let canJumpOverOtherPieces = false
     let typeId: String = "Q"
     //MARK: Variables
-    var position: Position? = nil
+    let initialPosition: Position
+    var position: Position
     var hasMoved: Bool = false
-    var chessBoard: ChessBoard? = nil
+    let chessBoard: ChessBoard
+    var reachableSquares: Set<Position> {
+        var reachableSquares = Set<Position>()
+        reachableSquares += position.squaresOnSameRow + position.squaresOnSameColumn + position.squaresOnSameDiagonal - [position]
+        return reachableSquares
+    }
     
     //MARK: Methods
     func isValidMove(to newPosition:Position)->Bool {
-        //make sure the queen is on the board
-        guard let position = self.position else {return false}
         //make sure the queen is moving along the same row, column or diagonal
         guard   nil != position.isOnSameRow(as: newPosition) ||
                 nil != position.isOnSameColumn(as: newPosition) ||
@@ -34,15 +38,17 @@ class Queen: ChessPiece{
     
     
     //MARK: - Initializers
-    required init(color: ChessPieceColor, position:Position? = nil, chessBoard:ChessBoard?=nil){
+    required init(color: ChessPieceColor, position:Position, chessBoard:ChessBoard){
         self.color = color
         self.position = position
+        self.initialPosition = position
         self.chessBoard = chessBoard
     }
     
-    required init(chessPiece: ChessPiece){
+    required init(chessPiece: ChessPiece, chessBoard:ChessBoard?=nil){
         self.color = chessPiece.color
         self.position = chessPiece.position
-        self.chessBoard = chessPiece.chessBoard
+        self.initialPosition = chessPiece.initialPosition
+        self.chessBoard = chessBoard ?? chessPiece.chessBoard
     }
 }

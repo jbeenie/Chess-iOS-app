@@ -36,21 +36,27 @@ class ChessBoard{
         }
         return description
     }
+    //pointers to kings for easy access
+    var whiteKing:King?{return _whiteKing}
+    var blackKing:King?{return _BlackKing}
+    private var _whiteKing: King? = nil
+    private var _BlackKing: King? = nil
     
     //MARK: - Initializers
     init() {
     }
     
+    //creates a copy of a chessBoard
     convenience init(chessBoard:ChessBoard){
-        //first initialize the chessBoard instances
+        //first initialize the chessBoard instance
         self.init()
         //place a new copy of each chess piece that was on chessBoard onto the new board
         for row in Position.validRowRange{
             for col in Position.validColRange{
                 let position = Position(row: row, col: col)!
-                let chessPiece = chessBoard.piece(at: position)
-                chessPiece?.chessBoard = self
-                _ = self.set(piece: chessPiece, at: position)
+                if let chessPiece = chessBoard.piece(at: position, placeOnBoard: self){//associated to old board
+                    _ = self.set(piece: chessPiece, at: position)
+                }
             }
         }
     }
@@ -73,12 +79,26 @@ class ChessBoard{
     //MARK: - Methods
     //MARK: Moving, Getting, Placing, Removing Pieces
     
-    //Get copy of piece at position
-    func piece(at position:Position)->ChessPiece?{
+    //Get copy of piece at a position which is associated to the same board
+    func piece(at position:Position, placeOnBoard chessBoard:ChessBoard? = nil)->ChessPiece?{
         if let  chessPiece = self[position.row,position.col]{
-            return type(of: chessPiece).init(chessPiece: chessPiece)
+            return type(of: chessPiece).init(chessPiece: chessPiece,chessBoard: (chessBoard ?? self))
         }
         return nil
+    }
+    //method used to place pieces on the board when
+    //does not necessarily need to place the pieces in their initial positions
+    //takes in a dictionary mapping positions to pieces non optional pieces
+    //wires up the pointers to the kings
+    func placePieces(at positions: [Position:ChessPiece]){
+        for (position, pieceToPlace) in positions{
+            _ = self.set(piece: pieceToPlace, at: position)
+            //hook up the the pointers to kings
+            if let king = pieceToPlace as? King{
+                if pieceToPlace.color == .White{_whiteKing = king}
+                else if pieceToPlace.color == .Black{_BlackKing = king}
+            }
+        }
     }
     
     //Moves a piece from oldPosition to newPosition
@@ -87,9 +107,9 @@ class ChessBoard{
     //i.e. if there was a piece at oldPosition
     //the second component (ChessPieceView?) is the piece previously located at newPosition
     //or nil if no piece was there
-    func movePiece(from oldPostion: Position, to newPosition: Position)->(Bool, ChessPiece?){
-        if let pieceToMove = removePiece(from: oldPostion){
-            let pieceEaten = set(piece: pieceToMove, at: newPosition)
+    func movePiece(from oldPostion: Position, to newPosition: Position,execute:Bool=true)->(Bool, ChessPiece?){
+        if let pieceToMove = removePiece(from: oldPostion, execute: execute){
+            let pieceEaten = set(piece: pieceToMove, at: newPosition, execute: execute)
             return (true, pieceEaten)
         }
         return (false,nil)
@@ -99,18 +119,26 @@ class ChessBoard{
     
     //Places a piece at the desired position on the board
     //returns the piece that previously occupied that position or nil if no piece was there
-    func set(piece: ChessPiece?, at position: Position)->ChessPiece?{
+    func set(piece: ChessPiece?, at position: Position, execute:Bool=true)->ChessPiece?{
+        //verify piece is associated to this board
+        if let piece = piece, piece.chessBoard  !== self {
+            return nil
+        }
         let replacedPiece = self[position.row,position.col]
+        //if execute is false simply return the piece that would be replaced if any
+        guard execute else{return replacedPiece}
         chessBoardSquares[position.row][position.col] = piece
-        piece?.chessBoard = self
+        //update pieces position, board
+        piece?.position = position
         return replacedPiece
     }
     
     //attempts to remove a piece from the specified location
     //returns the piece it removed or nil if no piece was located at that square
-    func removePiece(from position: Position)->ChessPiece?{
-        return set(piece: nil, at: position)
+    func removePiece(from position: Position, execute:Bool=true)->ChessPiece?{
+        return set(piece: nil, at: position,execute: execute)
     }
+    
     
     
     
@@ -156,7 +184,7 @@ class ChessBoard{
         if start == end {
             guard self[start,col] == nil else{
                 let position = Position(row: start, col: col)
-                print("Piece found on column slice at position \(position?.description)")
+                //print("Piece found on column slice at position \(position?.description)")
                 return false
             }
             return true
@@ -166,7 +194,7 @@ class ChessBoard{
         for row in rowRange{
             guard self[row,col] == nil else {
                 let position = Position(row: row, col: col)
-                print("Piece found on column slice at position \(position?.description)")
+                //print("Piece found on column slice at position \(position?.description)")
                 return false
             }
         }
@@ -187,7 +215,7 @@ class ChessBoard{
         if startCol == endCol {
             guard self[startPosition.row,startPosition.col] == nil else{
                 let position = Position(row: startPosition.row, col: startPosition.col)
-                print("Piece found on diagonal slice at position \(position?.description)")
+                //print("Piece found on diagonal slice at position \(position?.description)")
                 return false
             }
             return true
@@ -196,19 +224,19 @@ class ChessBoard{
         for _ in colRange{
             guard self[startPosition.row,startPosition.col] == nil else {
                 let position = Position(row: startPosition.row, col: startPosition.col)
-                print("Piece found on diagonal slice at position \(position?.description)")
+                //print("Piece found on diagonal slice at position \(position?.description)")
                 return false
             }
             guard startPosition.set(row: startPosition.row + rowOffSet, col: startPosition.col+1) else {
-                print("Could not increment to next position in diagonal: (\(startPosition.row+rowOffSet), \(startPosition.col+1))")
+                //print("Could not increment to next position in diagonal: (\(startPosition.row+rowOffSet), \(startPosition.col+1))")
                 return false
             }
         }
         return true
     }
     
-    //returns all the pieces of a given color that are on the board
-    func piecesOnBoard(ofColor color:ChessPieceColor)->[ChessPiece]{
+    //returns all the pieces of a given color on the board
+    func pieces(ofColor color:ChessPieceColor)->[ChessPiece]{
         var pieces = [ChessPiece]()
         for row in Position.validRowRange{
             for col in Position.validColRange{
@@ -220,19 +248,43 @@ class ChessBoard{
         return pieces
     }
     
+    //returns all the pieces on the board
+    func pieces()->[ChessPiece]{
+        return pieces(ofColor: ChessPieceColor.White) + pieces(ofColor: ChessPieceColor.Black)
+    }
+    
+    func areAnySquaresUnderAttck(at positions: [Position], from attackingColor: ChessPieceColor)->Bool{
+        for position in positions{
+            if squareUnderAttack(at: position, from: attackingColor){return true}
+        }
+        return false
+    }
+    
     //answers whether or not a square is under attack by any piece (occupying a different position) 
     //and that has attackingColor. This is determined by itterating through all pieces
     //on the board of the attackingColor and checking whether or not the piece
     //can move to the specified square or not. To ensure we get the correct answer
     //from pawns, a piece of non-attacking color must occupy the square under consideration
-    func isSquareUnderAttack(at position: Position, from attackingColor: ChessPieceColor)->Bool{
-        //make a copy of the board and use it for the attack analysis
-        let boardCopy = ChessBoard(chessBoard: self)
-        ChessBoard.prepare(chessBoard: boardCopy, forAttackAnalysisAt: position, from: attackingColor)
-        let potentialAttackers = boardCopy.piecesOnBoard(ofColor: attackingColor)
+    func squareUnderAttack(at position: Position, from attackingColor: ChessPieceColor)->Bool{
+        var boardOnWhichToPerformAttackAnalysis:ChessBoard
+        //****************OPTIMIZATION*****************
+        //check whether or not the square under consideration
+        //is occupied by a piece of non-attacking color
+        if let colorOfAttackedPiece = self[position.row,position.col]?.color, colorOfAttackedPiece == attackingColor.opposite(){
+            //if it is then just use the board recieving the querry
+            boardOnWhichToPerformAttackAnalysis = self
+        }else{
+            //if it is not make a copy of the board and use it for the attack analysis
+            boardOnWhichToPerformAttackAnalysis = ChessBoard(chessBoard: self)
+            ChessBoard.prepare(chessBoard: boardOnWhichToPerformAttackAnalysis, forAttackAnalysisAt: position, from: attackingColor)
+        }
+        //**********************************************
+
+        //perform attack analysis
+        let potentialAttackers = boardOnWhichToPerformAttackAnalysis.pieces(ofColor: attackingColor)
         //check whether or not the square is under attack by any of the potential attackers
         for potentialAttacker in potentialAttackers{
-            if potentialAttacker.move(to: position, execute: false){return true}
+            if let _ = potentialAttacker.move(to: position, execute: false){return true}
         }
         return false
     }
@@ -248,10 +300,9 @@ class ChessBoard{
     
     
     //answer whether or not a piece is under attack by any piece of opposite color
-    func isPieceUnderAttack(chessPiece: ChessPiece)->Bool{
-        guard let position = chessPiece.position else{return false}
+    func pieceUnderAttack(chessPiece: ChessPiece)->Bool{
         let attackingColor = chessPiece.color.opposite()
-        return isSquareUnderAttack(at: position, from: attackingColor)
+        return squareUnderAttack(at: chessPiece.position, from: attackingColor)
     }
 }
 
@@ -272,8 +323,69 @@ struct Position: Hashable, Equatable{
         return validColRange.contains(col)
     }
     
-    //MARK:Varialbes
+    //MARK: Stored Varialbes
     let (row,col): (Int, Int)
+    
+    //MARK: Computed Variables
+    var adjacentSquares: Set<Position> {
+        var adjacentSquares = Set<Position>()
+        for rowOffSet in -1...1{
+            for colOffSet in -1...1{
+                if let adjacentSquare = Position(row: self.row + rowOffSet, col: self.col + colOffSet){
+                    if adjacentSquare != self{
+                        adjacentSquares.insert(adjacentSquare)
+                    }
+                }
+            }
+        }
+        return adjacentSquares
+    }
+    
+    var squaresOnSameRow:Set<Position>{
+        var squaresOnSameRow = Set<Position>()
+        for col in Position.validColRange{
+            squaresOnSameRow.insert(Position(row: self.row, col: col)!)
+        }
+        return squaresOnSameRow
+    }
+    
+    var squaresOnSameColumn:Set<Position>{
+        var squaresOnSameColumn = Set<Position>()
+        for row in Position.validRowRange{
+            squaresOnSameColumn.insert(Position(row: row, col: self.col)!)
+        }
+        return squaresOnSameColumn
+    }
+    
+    var squaresOnSameDiagonal:Set<Position>{
+        var squaresOnSameDiagonal = Set<Position>()
+        for row in Position.validRowRange{
+            let col1 = self.col + abs(row-self.row)
+            let col2 = self.col - abs(row-self.row)
+            if let position1 = Position(row: row, col: col1){
+                squaresOnSameDiagonal.insert(position1)
+
+            }
+            if let position2 = Position(row: row, col: col2){
+                squaresOnSameDiagonal.insert(position2)
+            }
+        }
+        return squaresOnSameDiagonal
+    }
+    
+    var squareswithLRelativePosition:Set<Position>{
+        var squareswithLRelativePosition = Set<Position>()
+        for rowOffSet in [(-2)...(-1), 1...2].joined() {
+            let colOffSet = (abs(rowOffSet) == 2) ? 1: 2
+            if let position1 = Position(row: self.row + rowOffSet, col: self.col + colOffSet){
+                squareswithLRelativePosition.insert(position1)
+            }
+            if let position2 = Position(row: self.row + rowOffSet, col: self.col - colOffSet){
+                squareswithLRelativePosition.insert(position2)
+            }
+        }
+        return squareswithLRelativePosition
+    }
     
     //MARK: Conformance to Hashable Protocol
     var hashValue: Int {
@@ -293,6 +405,16 @@ struct Position: Hashable, Equatable{
             return true
         }
         return false
+    }
+    
+    //returns squares on same row as position 
+    //that are within the specified columns
+    func squaresOnSameRowWithin(col1:Int,col2:Int)->[Position]{
+        guard Position.validColRange.contains(col1), Position.validColRange.contains(col2) else {return []}
+        if col1 == col2 {return [Position(row: row,col: col1)!]}
+        let positionsOnSameRow = squaresOnSameRow
+        let columnRange = col1 < col2 ?  col1...col2 : col2...col1
+        return positionsOnSameRow.filter() {columnRange.contains($0.col)}
     }
     
     //answers whether or not two positions are on the same row
@@ -360,7 +482,7 @@ struct Position: Hashable, Equatable{
 //MARK: DIAGONAL
 struct Diagonal{
     //MARK: Properties
-    var position: Position
+    let position: Position
     let direction: Direction
     
     //MARK: NestedType

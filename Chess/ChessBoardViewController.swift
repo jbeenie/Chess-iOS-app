@@ -9,18 +9,50 @@
 import UIKit
 
 class ChessBoardViewController: UIViewController {
-    //MARK: Model
+    //MARK: - Model
     let chessGame: ChessGame = {
         let chessGame = ChessGame()
         chessGame.PlacePiecesInInitialPositions()
         return chessGame
     }()
     
-    //MARK: Translation between Model and View 
-    private func translate(viewPosition: ChessBoardView.Position)->Position{
+    //MARK: -  Translation between Model and View
+    private func modelPosition(from viewPosition: ChessBoardView.Position)->Position{
         return Position(row: viewPosition.row, col: viewPosition.col)!
     }
     
+    private func viewPosition(from modelPosition: Position)->ChessBoardView.Position{
+        return ChessBoardView.Position(row: modelPosition.row, col: modelPosition.col)!
+    }
+    
+    private func chessPieceView(from chessPiece:ChessPiece)->ChessPieceView{
+        let viewPieceColor = viewChessPieceColor(from: chessPiece.color)
+        let viewPieceType = chessPieceType(from: chessPiece.typeId)
+        return ChessPieceView(color: viewPieceColor, type: viewPieceType!)
+    }
+    
+    private func viewChessPieceColor(from chessPieceColor:ChessPieceColor)->ChessPieceView.ChessPieceColor{
+        return ChessPieceView.ChessPieceColor(rawValue: chessPieceColor.rawValue)!
+    }
+    
+    private func chessPieceType(from chessPieceTypeId:String)->ChessPieceView.ChessPieceType?{
+        switch chessPieceTypeId {
+        case "P":
+            return ChessPieceView.ChessPieceType.Pawn
+        case "R":
+            return ChessPieceView.ChessPieceType.Rook
+        case "H":
+            return ChessPieceView.ChessPieceType.Knight_R
+        case "B":
+            return ChessPieceView.ChessPieceType.Bishop
+        case "Q":
+            return ChessPieceView.ChessPieceType.Queen
+        case "K":
+            return ChessPieceView.ChessPieceType.King
+        default:
+            return nil
+        }
+    }
     
     
     //MARK: - View
@@ -72,6 +104,9 @@ class ChessBoardViewController: UIViewController {
     }
     
     private func singleTapOccured(on tappedChessBoardSquare: ChessBoardSquareView){
+        if chessGame.ended{
+            return
+        }
         //verify if the position of the previously selected matches the tapped square
         if tappedChessBoardSquare == lastSelectedSquare{
             //if they match deselect the square
@@ -80,8 +115,8 @@ class ChessBoardViewController: UIViewController {
             
             
             //prepare old and new position parameters to call movePiece
-            let oldPosition = translate(viewPosition: lastSelectedSquare.position)
-            let newPosition = translate(viewPosition: tappedChessBoardSquare.position)
+            let oldPosition = modelPosition(from: lastSelectedSquare.position)
+            let newPosition = modelPosition(from: tappedChessBoardSquare.position)
             
             //if that square is occupied by a piece of the same color
             //delect the previously selected square and
@@ -97,11 +132,29 @@ class ChessBoardViewController: UIViewController {
             
             //ask the model to attempt the move and verify if it is legal in doing so
             //if it is legal the move is executed in the model and view is updated accordingly
-            if chessGame.movePiece(from: oldPosition, to: newPosition) {
+            let (moveSuccessful,opponentInCheck,outcome) = chessGame.movePiece(from: oldPosition, to: newPosition)
+            if moveSuccessful {
                 //if the move is legal deselect the previously selected square
                 deselectSelectedSquare()
                 let (_, _) = movePiece(from: lastSelectedSquare.position, to: tappedChessBoardSquare.position)
                 deselectSelectedSquare()
+            }
+            if let outcome = outcome{
+                switch outcome {
+                case OutCome.Win(let color):
+                    print("Check Mate!")
+                    print(outcome)
+                //TODO: Animate "Check Mate!" Label Over screen
+                //TODO: Animate "White Win!" or "Black Win!"  Label Over screen (depending on color)
+                    break
+                case OutCome.Draw:
+                    print(outcome)
+                    //TODO: Animate "Draw!" Label Over screen
+                    break
+                }
+            } else if opponentInCheck == true {
+                print("Check to \(chessGame.colorWhoseTurnItIs) King!")
+                //TODO: Animate "Check to (White/Black)!" Label Over screen
             }
         } else if tappedChessBoardSquare.isOccupied {
             //otherwise if no square was previously selected
@@ -109,7 +162,7 @@ class ChessBoardViewController: UIViewController {
             //verify that the piece in the square is of the appropriate color,
             //i.e. that it is that color's turn to play
             let colorOfTappedPiece = tappedChessBoardSquare.chessPiece!.chessPieceIdentifier.color
-            if colorOfTappedPiece.rawValue == chessGame.colorWhoseTurnIs.rawValue{
+            if colorOfTappedPiece.rawValue == chessGame.colorWhoseTurnItIs.rawValue{
                 select(square: tappedChessBoardSquare)
             }
         }
@@ -119,12 +172,34 @@ class ChessBoardViewController: UIViewController {
     @objc private func handleDoubleTap(recognizer: UITapGestureRecognizer){
         if recognizer.state == .ended {
             if let _ = recognizer.view as? ChessBoardView{
-                deselectSelectedSquare()
+                //if a square is selected deselect
+                if lastSelectedSquare != nil{
+                    //
+                    deselectSelectedSquare()
+                }else {
+                    undoLastMove()
+                }
             }
         }
     }
     
-    //MARK - Highlighting/Selecting Squares
+    //MARK: - Undo Move
+    
+    private func undoLastMove(){
+        //otherwise undo the last move if any
+        if let lastMove = chessGame.undoLastMove(){
+            let startPosition = viewPosition(from: lastMove.startPosition)
+            let endPosition = viewPosition(from: lastMove.endPosition)
+            _ = movePiece(from: endPosition, to: startPosition)
+            if let pieceEaten = lastMove.pieceEaten{
+                let eatenChessPieceView = chessPieceView(from: pieceEaten)
+                _ = set(piece: eatenChessPieceView, at: endPosition)
+            }
+        }
+    }
+
+    
+    //MARK: - Highlighting/Selecting Squares
     private func select(square: ChessBoardSquareView){
         deselectSelectedSquare()
         //select the newly selected square
@@ -137,11 +212,6 @@ class ChessBoardViewController: UIViewController {
         lastSelectedSquare?.selected = false
         lastSelectedSquare = nil
     }
-    
-    
-    
-    
-    
     
     //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
@@ -176,8 +246,7 @@ class ChessBoardViewController: UIViewController {
         return chessBoardView.set(piece: piece, at: position)
     }
     
-    
-    
+       
     //MARK: - Initial Placement of Pieces in View
     
     private func placePiecesInStartingPosition(){
@@ -195,7 +264,7 @@ class ChessBoardViewController: UIViewController {
     private let pieceInitiallyAt: [ChessBoardView.Position:ChessPieceView] = [
         //Initial position of Black Pieces
         ChessBoardView.Position(row: 0,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Rook),
-        ChessBoardView.Position(row: 0,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Knight_L),
+        ChessBoardView.Position(row: 0,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Knight_R),
         ChessBoardView.Position(row: 0,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Bishop),
         ChessBoardView.Position(row: 0,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Queen),
         ChessBoardView.Position(row: 0,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.King),
@@ -220,7 +289,7 @@ class ChessBoardViewController: UIViewController {
         ChessBoardView.Position(row: 6,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
         ChessBoardView.Position(row: 6,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
         ChessBoardView.Position(row: 7,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Rook),
-        ChessBoardView.Position(row: 7,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Knight_L),
+        ChessBoardView.Position(row: 7,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Knight_R),
         ChessBoardView.Position(row: 7,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Bishop),
         ChessBoardView.Position(row: 7,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Queen),
         ChessBoardView.Position(row: 7,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.King),

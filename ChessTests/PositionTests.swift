@@ -231,4 +231,100 @@ class PositionTests: XCTestCase {
         }
     }
     
+    func testSquaresOnSameRow(){
+        guard let position1 = Position(row: 0, col: 0) else{
+            XCTFail("Improperly formed position1")
+            return
+        }
+        guard let position2 = Position(row: 5, col: 6) else {
+            XCTFail("Improperly formed position2")
+            return
+        }
+        
+        for position in position1.squaresOnSameRow{
+            XCTAssert((position1.isOnSameRow(as: position) != nil))
+        }
+        XCTAssert(position1.squaresOnSameRow.count == 8)
+        
+        for position in position2.squaresOnSameRow{
+            XCTAssert((position2.isOnSameRow(as: position) != nil))
+        }
+        XCTAssert(position2.squaresOnSameRow.count == 8)
+    }
+
+    func testSquaresOnSameCol(){
+        guard let position1 = Position(row: 0, col: 0) else{
+            XCTFail("Improperly formed position1")
+            return
+        }
+        guard let position2 = Position(row: 5, col: 6) else {
+            XCTFail("Improperly formed position2")
+            return
+        }
+        for position in position1.squaresOnSameColumn{
+            XCTAssert((position1.isOnSameColumn(as: position) != nil))
+        }
+        XCTAssert(position1.squaresOnSameColumn.count == 8)
+    
+        for position in position2.squaresOnSameColumn{
+            XCTAssert((position2.isOnSameColumn(as: position) != nil))
+        }
+        XCTAssert(position2.squaresOnSameColumn.count == 8)
+    }
+    
+    func testSquaresOnSameDiagonal(){
+        guard let position1 = Position(row: 0, col: 0) else{
+            XCTFail("Improperly formed position1")
+            return
+        }
+        guard let position2 = Position(row: 5, col: 6) else {
+            XCTFail("Improperly formed position2")
+            return
+        }
+        for position in position1.squaresOnSameDiagonal{
+            XCTAssert((position1.isOnSameDiagonal(as: position) != nil))
+        }
+        XCTAssert(position1.squaresOnSameDiagonal.count == 8)
+        
+        for position in position2.squaresOnSameDiagonal{
+            XCTAssert((position2.isOnSameDiagonal(as: position) != nil))
+        }
+        XCTAssert(position2.squaresOnSameDiagonal.count == 10)
+    }
+    
+    func testSquareswithLRelativePosition(){
+        guard let position1 = Position(row: 0, col: 0) else{
+            XCTFail("Improperly formed position1")
+            return
+        }
+        guard let position2 = Position(row: 4, col: 4) else {
+            XCTFail("Improperly formed position2")
+            return
+        }
+        guard let position3 = Position(row: 2, col:1) else {
+            XCTFail("Improperly formed position2")
+            return
+        }
+        
+        print(position1.squareswithLRelativePosition)
+        for position in position1.squareswithLRelativePosition{
+            XCTAssert(position1.isLPositionedRelative(to: position))
+        }
+        XCTAssert(position1.squareswithLRelativePosition.count == 2)
+        
+        print(position2.squareswithLRelativePosition)
+        for position in position2.squareswithLRelativePosition{
+            XCTAssert(position2.isLPositionedRelative(to: position))
+        }
+        XCTAssert(position2.squareswithLRelativePosition.count == 8)
+        
+        print(position3.squareswithLRelativePosition)
+        for position in position3.squareswithLRelativePosition{
+            XCTAssert(position3.isLPositionedRelative(to: position))
+        }
+        XCTAssert(position3.squareswithLRelativePosition.count == 6)
+    }
+    
+    
+
 }

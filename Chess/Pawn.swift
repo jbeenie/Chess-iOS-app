@@ -16,15 +16,31 @@ class Pawn: ChessPiece{
     let canJumpOverOtherPieces = false
     let typeId: String = "P"
     //MARK: Variables
-    var position: Position? = nil
+    let initialPosition: Position
+    var position: Position
     var hasMoved: Bool = false
-    var chessBoard: ChessBoard? = nil
+    let chessBoard: ChessBoard
+    var reachableSquares: Set<Position> {
+        var reachableSquares = Set<Position>()
+        var rowOffSet = (color == .White) ? -1 : 1
+        //add three reachable squares one row ahead of pawn
+        for colOffSet in -1...1{
+            if let position = Position(row: position.row+rowOffSet, col: position.col+colOffSet){
+                reachableSquares.insert(position)
+            }
+        }
+        if self.hasMoved{
+            return reachableSquares
+        }
+        //if the pawn hasn't moved add the reachable square two rows ahead
+        rowOffSet += rowOffSet
+        reachableSquares.insert(Position(row: position.row+rowOffSet, col: position.col)!)
+        return reachableSquares
+    }
     
     //MARK: Methods
     func isValidMove(to newPosition:Position)->Bool {
-        //make sure the pawn is on the board
-        guard let position = self.position, let chessBoard = self.chessBoard else {return false}
-        //make sure pawn is either moving along the column its in 
+        //make sure pawn is either moving along the column its in
         //or moving along a diagonal by one square to eat another piece
         //TODO: ADD potential for Prise En Passant
         
@@ -35,7 +51,7 @@ class Pawn: ChessPiece{
             guard  color == .White ? verticalSpacing > 0 : verticalSpacing < 0 else {return false}
             //make sure there is a piece to eat
             guard nil != chessBoard[newPosition.row,newPosition.col] else {
-                print("Pawn can only move diagonal to eat a piece.")
+                //print("Pawn can only move diagonal to eat a piece.")
                 return false
             }
             return true
@@ -59,16 +75,18 @@ class Pawn: ChessPiece{
     
     
     //MARK: - Initializers
-    required init(color: ChessPieceColor, position:Position? = nil, chessBoard:ChessBoard?=nil){
+    required init(color: ChessPieceColor, position:Position, chessBoard:ChessBoard){
         self.color = color
         self.position = position
+        self.initialPosition = position
         self.chessBoard = chessBoard
     }
     
-    required init(chessPiece: ChessPiece){
+    required init(chessPiece: ChessPiece, chessBoard:ChessBoard?=nil){
         self.color = chessPiece.color
         self.position = chessPiece.position
-        self.chessBoard = chessPiece.chessBoard
+        self.initialPosition = chessPiece.initialPosition
+        self.chessBoard = chessBoard ?? chessPiece.chessBoard
     }
 
 }

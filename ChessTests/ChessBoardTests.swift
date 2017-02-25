@@ -19,7 +19,7 @@ class ChessBoardTests: XCTestCase {
     let chessBoard1:ChessBoard = {
         let chessBoard = ChessBoard()
         let position = Position(row: 4, col: 4)!
-        let pawn = Pawn(color: ChessPieceColor.Black, position: position)
+        let pawn = Pawn(color: ChessPieceColor.Black, position: position, chessBoard:chessBoard)
         _ = chessBoard.set(piece: pawn, at: position)
         return chessBoard
     }()
@@ -31,10 +31,10 @@ class ChessBoardTests: XCTestCase {
         let position2 = Position(row: 4, col: 4)!
         let position3 = Position(row: 3, col: 5)!
         let position4 = Position(row: 4, col: 5)!
-        let pawn1 = Pawn(color: ChessPieceColor.Black, position: position1)
-        let pawn2 = Pawn(color: ChessPieceColor.Black, position: position2)
-        let pawn3 = Pawn(color: ChessPieceColor.Black, position: position3)
-        let pawn4 = Pawn(color: ChessPieceColor.Black, position: position4)
+        let pawn1 = Pawn(color: ChessPieceColor.Black, position: position1, chessBoard:chessBoard)
+        let pawn2 = Pawn(color: ChessPieceColor.Black, position: position2, chessBoard:chessBoard)
+        let pawn3 = Pawn(color: ChessPieceColor.Black, position: position3, chessBoard:chessBoard)
+        let pawn4 = Pawn(color: ChessPieceColor.Black, position: position4, chessBoard:chessBoard)
         _ = chessBoard.set(piece: pawn1, at: position1)
         _ = chessBoard.set(piece: pawn2, at: position2)
         _ = chessBoard.set(piece: pawn3, at: position3)
@@ -53,14 +53,14 @@ class ChessBoardTests: XCTestCase {
         let position6 = Position(row: 1, col: 0)!
         let position7 = Position(row: 2, col: 1)!
         
-        let rookWhite = Rook(color: ChessPieceColor.White, position: position1)
-        let knightWhite = Knight(color: ChessPieceColor.White, position: position2)
-        let queenWhite = Queen(color: ChessPieceColor.White, position: position3)
-        let bishopWhite = Bishop(color: ChessPieceColor.White, position: position4)
+        let rookWhite = Rook(color: ChessPieceColor.White, position: position1, chessBoard:chessBoard)
+        let knightWhite = Knight(color: ChessPieceColor.White, position: position2, chessBoard:chessBoard)
+        let queenWhite = Queen(color: ChessPieceColor.White, position: position3, chessBoard:chessBoard)
+        let bishopWhite = Bishop(color: ChessPieceColor.White, position: position4, chessBoard:chessBoard)
         
-        let queenBlack = Rook(color: ChessPieceColor.Black, position: position5)
-        let pawnBlack = Knight(color: ChessPieceColor.Black, position: position6)
-        let knightBlack = Queen(color: ChessPieceColor.Black, position: position7)
+        let queenBlack = Rook(color: ChessPieceColor.Black, position: position5, chessBoard:chessBoard)
+        let pawnBlack = Knight(color: ChessPieceColor.Black, position: position6, chessBoard:chessBoard)
+        let knightBlack = Queen(color: ChessPieceColor.Black, position: position7, chessBoard:chessBoard)
         
         
         _ = chessBoard.set(piece: rookWhite, at: position1)
@@ -327,19 +327,19 @@ class ChessBoardTests: XCTestCase {
         print("*****************************")
         print("black pieces")
         print("ChessBoard1:")
-        print(chessBoard1.piecesOnBoard(ofColor: black))
+        print(chessBoard1.pieces(ofColor: black))
         print("ChessBoard2:")
-        print(chessBoard2.piecesOnBoard(ofColor: black))
+        print(chessBoard2.pieces(ofColor: black))
         print()
         print("white pieces")
         print("ChessBoard1:")
-        print(chessBoard1.piecesOnBoard(ofColor: white))
+        print(chessBoard1.pieces(ofColor: white))
         print("ChessBoard2:")
-        print(chessBoard2.piecesOnBoard(ofColor: white))
+        print(chessBoard2.pieces(ofColor: white))
         print("*****************************")
     }
     
-    func testIsSquareUnderAttack(){
+    func testsquareUnderAttack(){
         let black = ChessPieceColor.Black
         let white = ChessPieceColor.White
         //chessBoard1
@@ -367,26 +367,26 @@ class ChessBoardTests: XCTestCase {
         
         
         //chessBoard1
-        XCTAssert(chessBoard1.isSquareUnderAttack(at: position1, from: black))
-        XCTAssert(chessBoard1.isSquareUnderAttack(at: position2, from: black))
+        XCTAssert(chessBoard1.squareUnderAttack(at: position1, from: black))
+        XCTAssert(chessBoard1.squareUnderAttack(at: position2, from: black))
         
-        XCTAssertFalse(chessBoard1.isSquareUnderAttack(at: position3, from: black))
-        XCTAssertFalse(chessBoard1.isSquareUnderAttack(at: position4, from: black))
-        XCTAssertFalse(chessBoard1.isSquareUnderAttack(at: position5, from: black))
-        XCTAssertFalse(chessBoard1.isSquareUnderAttack(at: position6, from: black))
+        XCTAssertFalse(chessBoard1.squareUnderAttack(at: position3, from: black))
+        XCTAssertFalse(chessBoard1.squareUnderAttack(at: position4, from: black))
+        XCTAssertFalse(chessBoard1.squareUnderAttack(at: position5, from: black))
+        XCTAssertFalse(chessBoard1.squareUnderAttack(at: position6, from: black))
         
         //chessBoard3
-        XCTAssert(chessBoard3.isSquareUnderAttack(at: position7, from: white))
-        XCTAssert(chessBoard3.isSquareUnderAttack(at: position8, from: white))
-        XCTAssert(chessBoard3.isSquareUnderAttack(at: position9, from: white))
-        XCTAssert(chessBoard3.isSquareUnderAttack(at: position10, from: white))
-        XCTAssert(chessBoard3.isSquareUnderAttack(at: position11, from: white))
-        XCTAssert(chessBoard3.isSquareUnderAttack(at: position12, from: white))
+        XCTAssert(chessBoard3.squareUnderAttack(at: position7, from: white))
+        XCTAssert(chessBoard3.squareUnderAttack(at: position8, from: white))
+        XCTAssert(chessBoard3.squareUnderAttack(at: position9, from: white))
+        XCTAssert(chessBoard3.squareUnderAttack(at: position10, from: white))
+        XCTAssert(chessBoard3.squareUnderAttack(at: position11, from: white))
+        XCTAssert(chessBoard3.squareUnderAttack(at: position12, from: white))
         
         
-        XCTAssertFalse(chessBoard3.isSquareUnderAttack(at: position13, from: white))
-        XCTAssertFalse(chessBoard3.isSquareUnderAttack(at: position14, from: white))
-        XCTAssertFalse(chessBoard3.isSquareUnderAttack(at: position15, from: white))
+        XCTAssertFalse(chessBoard3.squareUnderAttack(at: position13, from: white))
+        XCTAssertFalse(chessBoard3.squareUnderAttack(at: position14, from: white))
+        XCTAssertFalse(chessBoard3.squareUnderAttack(at: position15, from: white))
     }
    
     
