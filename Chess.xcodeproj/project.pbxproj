@@ -13,8 +13,8 @@
 		9FB7E15A1E5E53AB007E9A6E /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E1591E5E53AB007E9A6E /* FoundationExtensions.swift */; };
 		9FB7E15C1E5EB360007E9A6E /* ChessPieceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E15B1E5EB360007E9A6E /* ChessPieceTests.swift */; };
 		9FB7E15E1E612509007E9A6E /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E15D1E612509007E9A6E /* Move.swift */; };
-		9FB7E1601E6125E8007E9A6E /* Castling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E15F1E6125E8007E9A6E /* Castling.swift */; };
 		9FB7E1621E6126D5007E9A6E /* PriseEnPassant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E1611E6126D5007E9A6E /* PriseEnPassant.swift */; };
+		9FB7E1671E624EDF007E9A6E /* Castle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E1661E624EDF007E9A6E /* Castle.swift */; };
 		9FB991EC1E525F6400BD83CE /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB991EB1E525F6400BD83CE /* UIKitExtensions.swift */; };
 		9FCB75911E4EAAC100275773 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75901E4EAAC100275773 /* AppDelegate.swift */; };
 		9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75921E4EAAC100275773 /* ChessBoardViewController.swift */; };
@@ -69,8 +69,8 @@
 		9FB7E1591E5E53AB007E9A6E /* FoundationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
 		9FB7E15B1E5EB360007E9A6E /* ChessPieceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceTests.swift; sourceTree = "<group>"; };
 		9FB7E15D1E612509007E9A6E /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
-		9FB7E15F1E6125E8007E9A6E /* Castling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Castling.swift; sourceTree = "<group>"; };
 		9FB7E1611E6126D5007E9A6E /* PriseEnPassant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriseEnPassant.swift; sourceTree = "<group>"; };
+		9FB7E1661E624EDF007E9A6E /* Castle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Castle.swift; sourceTree = "<group>"; };
 		9FB991EB1E525F6400BD83CE /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		9FCB758D1E4EAAC100275773 /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCB75901E4EAAC100275773 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 		9FCB759C1E4EAAC100275773 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FCB75A21E4EAB9A00275773 /* BoardSquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardSquareView.swift; sourceTree = "<group>"; };
 		9FCB75A41E4EB71900275773 /* ChessBoardSquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChessBoardSquareView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		9FCB75A91E4ED43900275773 /* ChessPieceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceView.swift; sourceTree = SOURCE_ROOT; };
+		9FCB75A91E4ED43900275773 /* ChessPieceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceView.swift; sourceTree = "<group>"; };
 		9FCB75AD1E4FB7EF00275773 /* blackBishop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blackBishop.png; path = PieceIcons/Black/blackBishop.png; sourceTree = "<group>"; };
 		9FCB75AE1E4FB7EF00275773 /* blackKing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blackKing.png; path = PieceIcons/Black/blackKing.png; sourceTree = "<group>"; };
 		9FCB75AF1E4FB7EF00275773 /* blackLeftKnight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blackLeftKnight.png; path = PieceIcons/Black/blackLeftKnight.png; sourceTree = "<group>"; };
@@ -142,8 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				9FB7E15D1E612509007E9A6E /* Move.swift */,
-				9FB7E15F1E6125E8007E9A6E /* Castling.swift */,
 				9FB7E1611E6126D5007E9A6E /* PriseEnPassant.swift */,
+				9FB7E1661E624EDF007E9A6E /* Castle.swift */,
 			);
 			name = Moves;
 			sourceTree = "<group>";
@@ -385,8 +385,8 @@
 				9FD74CE61E54DDED00FFC762 /* ChessPiece.swift in Sources */,
 				9FD74CEB1E551FCF00FFC762 /* Knight.swift in Sources */,
 				9FD74CE21E54DDC700FFC762 /* ChessGame.swift in Sources */,
-				9FB7E1601E6125E8007E9A6E /* Castling.swift in Sources */,
 				9FD74CF11E551FF200FFC762 /* Queen.swift in Sources */,
+				9FB7E1671E624EDF007E9A6E /* Castle.swift in Sources */,
 				9FCB75A31E4EAB9A00275773 /* BoardSquareView.swift in Sources */,
 				9FD74CED1E551FDD00FFC762 /* Bishop.swift in Sources */,
 				9FD74CEF1E551FE700FFC762 /* Rook.swift in Sources */,
