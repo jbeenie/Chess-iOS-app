@@ -62,15 +62,15 @@ class King: ChessPiece{
     private func attemptingToCastle(to newPosition:Position)->Bool{
         guard let squaresTraversedByKing = position.isOnSameRow(as: newPosition)
             else {return false}
-        return !self.hasMoved && abs(squaresTraversedByKing) == Castling.squaresTraversedByKing
+        return !self.hasMoved && abs(squaresTraversedByKing) == Castle.squaresTraversedByKing
     }
     
-    private func castle(to newPosition: Position, execute:Bool=true)->Castling?{
+    private func castle(to newPosition: Position, execute:Bool=true)->Castle?{
         //check what side the king is attempting to Castle on
         //and check that the rook involved has not moved yet
         let castlingSide =  position.col < newPosition.col ? Side.King : Side.Queen
         //get the initial position of rookinvolved
-        let initialPosOfRook = Castling.initialPositionOfRook(with: color, on: castlingSide)
+        let initialPosOfRook = Castle.initialPositionOfRook(with: color, on: castlingSide)
         //get the piece located at this position 
         //and verify 
         //1. its a rook 
@@ -88,15 +88,15 @@ class King: ChessPiece{
         guard !chessBoard.areAnySquaresUnderAttck(at: positions, from: color.opposite()) else {return nil}
         guard chessBoard.isRow(position.row, emptyBetweenColumns: position.col, initialPosOfRook.col, inclusive: false) else {return nil}
         //create the castling move 
-        let castling = Castling(startPosition: self.position, endPosition: newPosition, pieceEaten: nil, firstTimePieceMoved: true,side: castlingSide, rookInvolved:rookInvolved)
+        let castle = Castle(startPosition: self.position, endPosition: newPosition, pieceEaten: nil, firstTimePieceMoved: true,side: castlingSide, rook:rookInvolved)
         //Execute the castling move if execute is true
         if execute{
             //move the king
             _ = chessBoard.movePiece(from: self.position, to: newPosition)
             //move the rook
-            _ = chessBoard.movePiece(from: rookInvolved.position, to: Castling.finalPositionOfRook(with: color, on: castlingSide))
+            _ = chessBoard.movePiece(from: rookInvolved.position, to: Castle.finalPositionOfRook(with: color, on: castlingSide))
         }
-        return castling
+        return castle
     }
     
     

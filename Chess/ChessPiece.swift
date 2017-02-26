@@ -91,9 +91,9 @@ extension ChessPiece{
     //makes the peice undo the specified move
     //returns true if successful otherwise false
     func undo(move:Move)->Bool{
-        //check if move is a Castling and handle appropriately if so
-        if let castling = move as? Castling{
-            return undoCastling(castling: castling)
+        //check if move is a Castle and handle appropriately if so
+        if let castle = move as? Castle{
+            return undoCastling(castle: castle)
         }
         //determine the outcome that results in undoing the move
         let (pieceWasMoved,unexpectedlyEatenPiece) = chessBoard.movePiece(from: move.endPosition, to: move.startPosition,execute: false)
@@ -114,15 +114,15 @@ extension ChessPiece{
         return true
     }
     
-    func undoCastling(castling:Castling)->Bool{
+    func undoCastling(castle:Castle)->Bool{
         //move king Back
-        _ = chessBoard.movePiece(from: castling.endPosition, to: castling.startPosition)
+        _ = chessBoard.movePiece(from: castle.endPosition, to: castle.startPosition)
         //if it was the first time that piece was moved,
         //reset its hasMoved property to false
-        self.hasMoved = castling.firstTimePieceMoved ? false : self.hasMoved
+        self.hasMoved = castle.firstTimePieceMoved ? false : self.hasMoved
         //if a piece was eaten during the move
         //put it back on the board
-        _ = chessBoard.set(piece: castling.pieceEaten, at: castling.endPosition)
+        _ = chessBoard.set(piece: castle.pieceEaten, at: castle.endPosition)
         return true
 
     }
