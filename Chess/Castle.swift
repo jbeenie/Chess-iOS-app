@@ -53,8 +53,8 @@ class Castle: Move{
     }
     
     //MARK: - Initialization
-    init(startPosition:Position, pieceMoved:ChessPiece, pieceEaten:ChessPiece?=nil, firstTimePieceMoved:Bool,rook:Rook){
+    init(startPosition:Position, endPosition:Position, pieceMoved:ChessPiece, pieceEaten:ChessPiece?=nil, firstTimePieceMoved:Bool,rook:Rook){
         self.rook = rook
-        super.init(startPosition: startPosition, pieceMoved: pieceMoved, pieceEaten: pieceEaten, firstTimePieceMoved: firstTimePieceMoved)
+        super.init(startPosition: startPosition, endPosition:endPosition, pieceMoved: pieceMoved, pieceEaten: pieceEaten, firstTimePieceMoved: firstTimePieceMoved)
     }
 }

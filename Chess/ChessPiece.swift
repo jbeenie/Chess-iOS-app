@@ -68,7 +68,7 @@ extension ChessPiece{
         //if piece couldn't be moved return nil
         guard pieceWasMoved else {return nil}
         //otherwise record the move just executed
-        let move = Move(startPosition: oldPosition, pieceMoved: self, pieceEaten: pieceEaten, firstTimePieceMoved: self.hasMoved)
+        let move = Move(startPosition: oldPosition, endPosition: newPosition, pieceMoved: self, pieceEaten: pieceEaten, firstTimePieceMoved: self.hasMoved)
         //now verify that the move does not leave the king in check
         guard (king?.isInCheck().not()  ?? true) else {
             //if it is in check then undo the move and return nil

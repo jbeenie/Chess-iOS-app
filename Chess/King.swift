@@ -88,7 +88,7 @@ class King: ChessPiece{
         guard !chessBoard.areAnySquaresUnderAttck(at: positions, from: color.opposite()) else {return nil}
         guard chessBoard.isRow(position.row, emptyBetweenColumns: position.col, initialPosOfRook.col, inclusive: false) else {return nil}
         //create the castling move 
-        let castle = Castle(startPosition: self.position, pieceMoved: self, pieceEaten: nil, firstTimePieceMoved: true, rook:rookInvolved)
+        let castle = Castle(startPosition: self.position, endPosition: newPosition, pieceMoved: self, pieceEaten: nil, firstTimePieceMoved: true, rook:rookInvolved)
         //Execute the castling move if execute is true
         if execute{
             //move the king

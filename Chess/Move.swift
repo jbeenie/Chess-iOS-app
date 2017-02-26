@@ -20,9 +20,9 @@ class Move{
         return "\(startPosition.description) -> \(pieceMoved.description) piece eaten: \(pieceEaten?.description), first Time piece moved: \(firstTimePieceMoved)"
     }
     
-    init(startPosition:Position, pieceMoved:ChessPiece, pieceEaten:ChessPiece?=nil, firstTimePieceMoved:Bool){
+    init(startPosition:Position, endPosition:Position, pieceMoved:ChessPiece, pieceEaten:ChessPiece?=nil, firstTimePieceMoved:Bool){
         self.startPosition = startPosition
-        self.endPosition = pieceMoved.position
+        self.endPosition = endPosition
         self.pieceMoved = pieceMoved
         self.pieceEaten = pieceEaten
         self.firstTimePieceMoved = firstTimePieceMoved

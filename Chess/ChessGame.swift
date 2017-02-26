@@ -109,14 +109,14 @@ class ChessGame{
     //move is successful if:
     //  1.The piece can move in that way
     //  2.The acting piece's king is not left in check as a result of the move
-    func movePiece(from oldPosition: Position, to newPosition: Position)->(Bool,Bool?,OutCome?) {
+    func movePiece(from oldPosition: Position, to newPosition: Position)->(Move?,Bool?,OutCome?) {
         //check if game is ended
-        guard !ended else{return (false,nil,nil)}
+        guard !ended else{return (nil,nil,nil)}
         //check if there is even a piece to move at the oldPosition
-        guard let pieceToMove = chessBoard[oldPosition.row,oldPosition.col] else { return (false,nil,nil) }
+        guard let pieceToMove = chessBoard[oldPosition.row,oldPosition.col] else { return (nil,nil,nil) }
         //check if it is the appropriate color, 
         //i.e. it is that colors turn to move
-        guard pieceToMove.color == colorWhoseTurnItIs else { return (false,nil,nil) }
+        guard pieceToMove.color == colorWhoseTurnItIs else { return (nil,nil,nil) }
         
         //ask the piece to move itself to the new position and check if the move succeeds
         //this updates the piece's position on the board and within its own class
@@ -130,7 +130,7 @@ class ChessGame{
             move = pieceToMove.move(to: newPosition)
         }
         guard move != nil  else {
-            return (false,nil,nil)
+            return (nil,nil,nil)
         }
         
         //record themove
@@ -144,7 +144,7 @@ class ChessGame{
         //indicate if move succeeded
         //if king whosTurnItIs is in check
         //if game is ended
-        return (true, activeKingInCheck, outCome)
+        return (move, activeKingInCheck, outCome)
     }
     
     //undoes the last move in the game and returns the move that was undone
