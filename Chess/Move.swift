@@ -10,17 +10,20 @@ import Foundation
 
 class Move{
     let startPosition: Position
-    let endPosition: Position
+    var endPosition: Position
+    let pieceMoved: ChessPiece
     var pieceEaten: ChessPiece?
     let firstTimePieceMoved: Bool
     
+    
     var description: String{
-        return "\(startPosition.description) -> \(endPosition.description) piece eaten: \(pieceEaten?.description), first Time piece moved: \(firstTimePieceMoved)"
+        return "\(startPosition.description) -> \(pieceMoved.description) piece eaten: \(pieceEaten?.description), first Time piece moved: \(firstTimePieceMoved)"
     }
     
-    init(startPosition:Position, endPosition:Position, pieceEaten:ChessPiece?=nil, firstTimePieceMoved:Bool){
+    init(startPosition:Position, pieceMoved:ChessPiece, pieceEaten:ChessPiece?=nil, firstTimePieceMoved:Bool){
         self.startPosition = startPosition
-        self.endPosition = endPosition
+        self.endPosition = pieceMoved.position
+        self.pieceMoved = pieceMoved
         self.pieceEaten = pieceEaten
         self.firstTimePieceMoved = firstTimePieceMoved
     }

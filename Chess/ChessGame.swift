@@ -156,7 +156,8 @@ class ChessGame{
         {return nil}
         //undo the last move
         guard lastPieceMoved.undo(move: lastMove) else {
-            print("Error: piece could not be moved back to previous position")
+            print("Error: piece could not be moved back to previous position, putting move back onto stack")
+            moves.append(lastMove)
             return nil
         }
         print(chessBoard.description)//debugging

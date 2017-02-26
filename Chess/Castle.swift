@@ -36,18 +36,25 @@ class Castle: Move{
     
     static let squaresTraversedByKing = 2
     //MARK: - Properties
-    let side: Side
+    //Stored
     let rook: Rook
+    //Computed
+    var side: Side{return rook.side!}
+    var initialRookPosition: Position{
+        return Castle.initialPositionOfRook(with: rook.color, on: side)
+    }
+    var finalRookPosition: Position{
+        return Castle.finalPositionOfRook(with: rook.color, on: side)
+    }
     
     //MARK: - Debugging
     override var description: String{
         return "\(super.description), castling Side:\(side)"
     }
     
-    //MARL: - Initialization
-    init(startPosition:Position, endPosition:Position, pieceEaten:ChessPiece?=nil, firstTimePieceMoved:Bool, side:Side,rook:Rook){
-        self.side = side
+    //MARK: - Initialization
+    init(startPosition:Position, pieceMoved:ChessPiece, pieceEaten:ChessPiece?=nil, firstTimePieceMoved:Bool,rook:Rook){
         self.rook = rook
-        super.init(startPosition: startPosition, endPosition: endPosition, pieceEaten: pieceEaten, firstTimePieceMoved: firstTimePieceMoved)
+        super.init(startPosition: startPosition, pieceMoved: pieceMoved, pieceEaten: pieceEaten, firstTimePieceMoved: firstTimePieceMoved)
     }
 }
