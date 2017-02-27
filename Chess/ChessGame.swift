@@ -161,24 +161,23 @@ class ChessGame{
     //undoes the last move in the game and returns the move that was undone
     func undoLastMove()->Move?{
         //check if there are any moves to undo
-        guard let lastMove = moves.popLast() else {return nil}
+        guard let moveToUndo = moves.popLast() else {return nil}
         //undo the last move
         //check if move is a castle to handle it seperately
-        if let castle = lastMove as? Castle, let king = lastMove.pieceMoved as? King{
+        if let castle = moveToUndo as? Castle, let king = moveToUndo.pieceMoved as? King{
             king.undo(castle: castle)
         } else{
-            lastMove.pieceMoved.undo(move: lastMove)
+            moveToUndo.pieceMoved.undo(move: moveToUndo)
         }
-        
-//        //undo the regular chess move or priseEnpassant 
-//        guard lastMove.pieceMoved.undo(move: lastMove) else {
-//            print("Error: piece could not be moved back to previous position, putting move back onto stack")
-//            moves.append(lastMove)
-//            return nil
-//        }
+        //check if the move at the top of the moves stack is a pawn double step
+        //if it is reset the pawnThatJustDoubleStepped variable
+        if let moveBeforeThat = moves.last, moveBeforeThat.isPawnDoubleStep(){
+            pawnThatJustDoubleStepped = moveBeforeThat.pieceMoved as? Pawn
+        }
+
         print(chessBoard.description)//debugging
         _colorWhoseTurnItIs.alternate()
-        return lastMove
+        return moveToUndo
     }
     
     

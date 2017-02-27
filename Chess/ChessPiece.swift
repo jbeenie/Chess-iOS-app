@@ -43,25 +43,32 @@ extension ChessPiece{
     //MARK: - Computed Properties
     //King of that chesspiece
     var king:King?{return color == .White ? chessBoard.whiteKing : chessBoard.blackKing}
-    
+    //rank the piece is on (takes into account peices color)
     var rank:Int{return (color == .Black ?  position.row + 1 : ChessBoard.Dimensions.SquaresPerColumn - position.row)}
+    
+    //MARK: - Methods
+    func attackingSquare(at targetedPosition: Position)->Bool{
+        //make sure targeted position is different from the piece's current position
+        guard self.position != targetedPosition else {return false}
+        //verify the piece at the targeted position is not another piece of the same color
+        if let targetedPiece = chessBoard[targetedPosition.row,targetedPosition.col], targetedPiece.color == self.color{
+            return false
+        }
+        //check if the piece can move in that way
+        guard isValidMove(to: targetedPosition) else{return false}
+        //check whether or not piece illegally jumps over other peices
+        guard !doesPieceIllegalyJumpOverOtherPieceWhenMoving(to: targetedPosition) else {return false}
+        return true
+    }
     
     //answers whether or not the piece can move to the new position
     //and executes the move if execute is set to true
     //returns a Move if the move can be executed and nil otherwise
     func move(to newPosition: Position, execute:Bool=true)->Move?{
-        let oldPosition = self.position
-        //make sure new position is different from current position
-        guard oldPosition != newPosition else {return nil}
-        //verify the piece is not capturing another piece of the same color
-        if let pieceToEat = chessBoard[newPosition.row,newPosition.col], pieceToEat.color == self.color{
-            return nil
-        }
-        //check if the piece can move in that way
-        guard isValidMove(to: newPosition) else{return nil}
-        //check whether or not piece illegally jumps over other peices
-        guard !doesPieceIllegalyJumpOverOtherPieceWhenMoving(to: newPosition) else {return nil}
-        
+        //verify the piece is attacking the square at the new position
+        guard attackingSquare(at: newPosition) else {return nil}
+        //need to remember old position of piece after the peice has been moved
+        let oldPosition = position
         //verify if the the piece can be moved on the board, 
         //executes the move regardless of whether execute == true
         //then the move is simply undone if execute == false
@@ -92,15 +99,7 @@ extension ChessPiece{
     //makes the peice undo the specified move
     //returns true if successful otherwise false
     func undo(move:Move){
-//        //determine the outcome that results in undoing the move
-//        let (pieceWasMoved,unexpectedlyEatenPiece) = chessBoard.movePiece(from: move.endPosition, to: move.startPosition,execute: false)
-//        //verify verify the outcome is as expected
-//        guard pieceWasMoved && unexpectedlyEatenPiece == nil else {
-//            print("Could not undo move: \(move)")
-//            print("Piece was moved:\(pieceWasMoved), unexpectedly Eaten Piece: \(unexpectedlyEatenPiece)")
-//            return false
-//        }
-//        //once the outcome is validated undo the move
+        //move the piece bac to its original position
         _ = chessBoard.movePiece(from: move.endPosition, to: move.startPosition)
         //if it was the first time that piece was moved,
         //reset its hasMoved property to false

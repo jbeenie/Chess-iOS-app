@@ -284,7 +284,7 @@ class ChessBoard{
         let potentialAttackers = boardOnWhichToPerformAttackAnalysis.pieces(ofColor: attackingColor)
         //check whether or not the square is under attack by any of the potential attackers
         for potentialAttacker in potentialAttackers{
-            if let _ = potentialAttacker.move(to: position, execute: false){return true}
+            if potentialAttacker.attackingSquare(at: position){return true}
         }
         return false
     }
