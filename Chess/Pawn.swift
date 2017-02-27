@@ -42,8 +42,8 @@ class Pawn: ChessPiece{
     func move(to newPosition: Position, given pawnThatJustDoubleStepped:Pawn?, execute: Bool=true) -> Move? {
         print("*************Pawn is Moving*****")
         //check if the pawn is attempting a prise en passant
-        if self.attemptingToCapture(at: newPosition){
-            return self.priseEnPassant(to: newPosition, given: pawnThatJustDoubleStepped, execute: execute)
+        if attemptingToPriseEnPassant(at: newPosition){
+            return priseEnPassant(to: newPosition, given: pawnThatJustDoubleStepped, execute: execute)
         }else{
             return (self as ChessPiece).move(to: newPosition, execute: execute)
         }
@@ -88,27 +88,45 @@ class Pawn: ChessPiece{
         return false
     }
     
+    private func attemptingToPriseEnPassant(at newPosition:Position)->Bool{
+        let newPositionUnOccupied = chessBoard[newPosition.row,newPosition.col] == nil
+        return attemptingToCapture(at: newPosition) && newPositionUnOccupied
+    }
+    
     
     private func priseEnPassant(to newPosition:Position, given pawnThatJustDoubleStepped:Pawn?, execute:Bool=true)->PriseEnPassant?{
         //verify 
         //1. the pawn attempting the prise EnPassant is on the 5th rank
         //2. There is a pawn that just double stepped
-        //3. the pawn to capture is in the appropriate position
-        //   i.e : adjacent to it on the same row
+        //3. the pawn to capture is in the appropriate position i.e.:
+        //   3.1 adjacent to it on the same row
+        //   3.2 and along the same column of the capturing pawns new position
         //4. double check newPosition is unOccupied
         guard self.rank == 5 else {return nil}
         guard let pawnToCapture = pawnThatJustDoubleStepped else {return nil}
         guard self.position.isOnSameRow(as: pawnToCapture.position) == 1 else {return nil}
+        guard pawnToCapture.position.isOnSameColumn(as: newPosition) == 1 else {return nil}
         guard self.chessBoard[newPosition.row,newPosition.col] == nil else {return nil}
         //record the prise EnPassant move
         let priseEnPassant = PriseEnPassant(startPosition: self.position, endPosition: newPosition, pieceMoved: self, pieceCaptured: pawnToCapture, firstTimePieceMoved: false)
         
-        //execute the move if execute is true
-        if execute{
-            //move the capturing pawn
-            _ = chessBoard.movePiece(from: self.position, to: newPosition)
-            //remove the captured pawn
-            _ = chessBoard.removePiece(from: pawnToCapture.position)
+        //execute the move
+        //move the capturing pawn
+        _ = chessBoard.movePiece(from: self.position, to: newPosition)
+        //remove the captured pawn
+        _ = chessBoard.removePiece(from: pawnToCapture.position)
+        
+        //now verify that the move does not leave the king in check
+        guard (king?.isInCheck().not()  ?? true) else {
+            //if it is in check then undo the move and return nil
+            //to indicate the move was unscucessful
+            _ = undo(move:priseEnPassant)
+            //print("Move could not be applied because \(color) King is left in Check")
+            return nil
+        }
+        //if the king is not left in check and execute is false
+        if !execute{//undo the move
+            _ = undo(move: priseEnPassant)
         }
         return  priseEnPassant
     }

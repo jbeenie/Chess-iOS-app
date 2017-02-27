@@ -104,9 +104,7 @@ class ChessBoardViewController: UIViewController {
     }
     
     private func singleTapOccured(on tappedChessBoardSquare: ChessBoardSquareView){
-        if chessGame.ended{
-            return
-        }
+
         //verify if the position of the previously selected matches the tapped square
         if tappedChessBoardSquare == lastSelectedSquare{
             //if they match deselect the square

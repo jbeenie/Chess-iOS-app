@@ -114,7 +114,7 @@ class ChessGame{
     //  2.The acting piece's king is not left in check as a result of the move
     func movePiece(from oldPosition: Position, to newPosition: Position)->(Move?,Bool?,OutCome?) {
         //check if game is ended
-        guard !ended else{return (nil,nil,nil)}
+        //guard !ended else{return (nil,nil,nil)}
         //check if there is even a piece to move from that oldPosition
         guard let pieceToMove = chessBoard[oldPosition.row,oldPosition.col] else { return (nil,nil,nil) }
         //check if it is the appropriate color, 
