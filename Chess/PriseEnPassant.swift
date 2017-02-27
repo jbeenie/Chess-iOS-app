@@ -9,5 +9,7 @@
 import Foundation
 
 class PriseEnPassant: Move {
-    
+    var pawnCaptured:ChessPiece{
+        return self.pieceCaptured!
+    }
 }

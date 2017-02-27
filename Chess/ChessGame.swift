@@ -77,6 +77,7 @@ class ChessGame{
     private var chessBoard = ChessBoard() //no pieces placed initially
     private var moves:[Move] = [Move]()
     
+    
     //King Related
     private var whiteKing: King?{return chessBoard.whiteKing}
     private var blackKing: King?{return chessBoard.blackKing}
@@ -92,6 +93,8 @@ class ChessGame{
     private var nonActiveKingInCheck: Bool{
         return nonActiveKing?.isInCheck() ?? false
     }
+    //Prise EnPassant
+    var pawnThatJustDoubleStepped:Pawn?
 
     
     //MARK: - Methods
@@ -112,7 +115,7 @@ class ChessGame{
     func movePiece(from oldPosition: Position, to newPosition: Position)->(Move?,Bool?,OutCome?) {
         //check if game is ended
         guard !ended else{return (nil,nil,nil)}
-        //check if there is even a piece to move at the oldPosition
+        //check if there is even a piece to move from that oldPosition
         guard let pieceToMove = chessBoard[oldPosition.row,oldPosition.col] else { return (nil,nil,nil) }
         //check if it is the appropriate color, 
         //i.e. it is that colors turn to move
@@ -126,15 +129,23 @@ class ChessGame{
         let move:Move?
         if let king = pieceToMove as? King{
             move = king.move(to: newPosition)
+        }else if let pawn = pieceToMove as? Pawn{
+            move = pawn.move(to: newPosition, given:pawnThatJustDoubleStepped)
         }else{
             move = pieceToMove.move(to: newPosition)
         }
-        guard move != nil  else {
+        guard let successfulMove = move  else {
             return (nil,nil,nil)
         }
         
-        //record themove
-        moves.append(move!)
+        //record the move
+        moves.append(successfulMove)
+        //if a pawn double stepped keep track of it until the end of the next turn
+        if successfulMove.isPawnDoubleStep() {
+            pawnThatJustDoubleStepped = successfulMove.pieceMoved as! Pawn
+        }else{
+            pawnThatJustDoubleStepped = nil
+        }
         
         //debugging
         print(chessBoard.description)
@@ -151,15 +162,20 @@ class ChessGame{
     func undoLastMove()->Move?{
         //check if there are any moves to undo
         guard let lastMove = moves.popLast() else {return nil}
-        //get the last piece moved
-        guard let lastPieceMoved = chessBoard[lastMove.endPosition.row,lastMove.endPosition.col] else
-        {return nil}
         //undo the last move
-        guard lastPieceMoved.undo(move: lastMove) else {
-            print("Error: piece could not be moved back to previous position, putting move back onto stack")
-            moves.append(lastMove)
-            return nil
+        //check if move is a castle to handle it seperately
+        if let castle = lastMove as? Castle, let king = lastMove.pieceMoved as? King{
+            king.undo(castle: castle)
+        } else{
+            lastMove.pieceMoved.undo(move: lastMove)
         }
+        
+//        //undo the regular chess move or priseEnpassant 
+//        guard lastMove.pieceMoved.undo(move: lastMove) else {
+//            print("Error: piece could not be moved back to previous position, putting move back onto stack")
+//            moves.append(lastMove)
+//            return nil
+//        }
         print(chessBoard.description)//debugging
         _colorWhoseTurnItIs.alternate()
         return lastMove

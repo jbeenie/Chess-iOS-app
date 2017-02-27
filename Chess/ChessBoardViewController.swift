@@ -136,6 +136,7 @@ class ChessBoardViewController: UIViewController {
             if let successfulMove = move {
                 //if the move is legal deselect the previously selected square
                 deselectSelectedSquare()
+                
                 let (_, _) = movePiece(from: lastSelectedSquare.position, to: tappedChessBoardSquare.position)
                 //if move was a castle
                 if let castle = successfulMove as? Castle{
@@ -143,6 +144,11 @@ class ChessBoardViewController: UIViewController {
                     let rookStartPosition = viewPosition(from: castle.initialRookPosition)
                     let rookEndPosition = viewPosition(from: castle.finalRookPosition)
                     _ = movePiece(from: rookStartPosition, to: rookEndPosition)
+                }
+                //if move was prise Enpassant
+                if let priseEnPassant = successfulMove as? PriseEnPassant{
+                    let capturedPawnPosition = viewPosition(from: priseEnPassant.pawnCaptured.position)
+                    _ = removePiece(from:capturedPawnPosition)
                 }
                 deselectSelectedSquare()
             }
@@ -198,9 +204,10 @@ class ChessBoardViewController: UIViewController {
             let startPosition = viewPosition(from: lastMove.startPosition)
             let endPosition = viewPosition(from: lastMove.endPosition)
             _ = movePiece(from: endPosition, to: startPosition)
-            if let pieceEaten = lastMove.pieceEaten{
-                let eatenChessPieceView = chessPieceView(from: pieceEaten)
-                _ = set(piece: eatenChessPieceView, at: endPosition)
+            if let pieceCaptured = lastMove.pieceCaptured{
+                let capturedChessPieceView = chessPieceView(from: pieceCaptured)
+                let positionOfCapturedPiece = viewPosition(from: pieceCaptured.position)
+                _ = set(piece: capturedChessPieceView, at: positionOfCapturedPiece)
             }
             //if move was a castle
             if let castle = lastMove as? Castle{

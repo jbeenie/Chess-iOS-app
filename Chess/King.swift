@@ -99,6 +99,32 @@ class King: ChessPiece{
         return castle
     }
     
+    func undo(castle:Castle){
+//        //determine the outcome that results in undoing the castle
+//        let (kingWasMoved,pieceUnexpectedlyEatenByKing) = chessBoard.movePiece(from: castle.endPosition, to: castle.startPosition,execute:  false)
+//        let (rookWasMoved,pieceUnexpectedlyEatenByRook) = chessBoard.movePiece(from: castle.finalRookPosition, to: castle.initialRookPosition, execute:  false)
+//        //verify verify the outcome is as expected
+//        guard kingWasMoved && rookWasMoved,
+//            pieceUnexpectedlyEatenByKing == nil,
+//            pieceUnexpectedlyEatenByRook == nil else {
+//                print("Could not undo move: \(castle)")
+//                print("King was moved:\(kingWasMoved)")
+//                print("Rook was moved:\(rookWasMoved)")
+//                print("Piece unexpectedly captured by King: \(pieceUnexpectedlyEatenByKing)")
+//                print("Piece unexpectedly captured by Rook: \(pieceUnexpectedlyEatenByRook)")
+//                return false
+//        }
+        
+        //move king Back
+        _ = chessBoard.movePiece(from: castle.endPosition, to: castle.startPosition)
+        //move the rook back
+        _ = chessBoard.movePiece(from: castle.finalRookPosition, to: castle.initialRookPosition)
+        //reset hasMoved properties to false
+        //because it was the first time that king and rook were moved
+        castle.pieceMoved.hasMoved = false
+        castle.rook.hasMoved = false
+    }
+    
     
     //MARK: - Initializers
     required init(color: ChessPieceColor, position:Position, chessBoard:ChessBoard){

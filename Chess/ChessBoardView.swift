@@ -178,7 +178,7 @@ class ChessBoardView: UIView {
         }else{
             print("\(pieceToMove.description) was moved from \(oldPosition.description) to \(newPosition.description)")
             if let pieceEaten = pieceEaten{
-                print("\(pieceEaten.description) was eaten!")
+                print("\(pieceEaten.description) was captured!")
             }
         }
     }

@@ -44,6 +44,7 @@ extension ChessPiece{
     //King of that chesspiece
     var king:King?{return color == .White ? chessBoard.whiteKing : chessBoard.blackKing}
     
+    var rank:Int{return (color == .Black ?  position.row + 1 : ChessBoard.Dimensions.SquaresPerColumn - position.row)}
     
     //answers whether or not the piece can move to the new position
     //and executes the move if execute is set to true
@@ -52,7 +53,7 @@ extension ChessPiece{
         let oldPosition = self.position
         //make sure new position is different from current position
         guard oldPosition != newPosition else {return nil}
-        //verify the piece is not eating another piece of the same color
+        //verify the piece is not capturing another piece of the same color
         if let pieceToEat = chessBoard[newPosition.row,newPosition.col], pieceToEat.color == self.color{
             return nil
         }
@@ -64,11 +65,11 @@ extension ChessPiece{
         //verify if the the piece can be moved on the board, 
         //executes the move regardless of whether execute == true
         //then the move is simply undone if execute == false
-        let (pieceWasMoved, pieceEaten) = chessBoard.movePiece(from: oldPosition, to: newPosition, execute: true)
+        let (pieceWasMoved, pieceCaptured) = chessBoard.movePiece(from: oldPosition, to: newPosition, execute: true)
         //if piece couldn't be moved return nil
         guard pieceWasMoved else {return nil}
         //otherwise record the move just executed
-        let move = Move(startPosition: oldPosition, endPosition: newPosition, pieceMoved: self, pieceEaten: pieceEaten, firstTimePieceMoved: self.hasMoved)
+        let move = Move(startPosition: oldPosition, endPosition: newPosition, pieceMoved: self, pieceCaptured: pieceCaptured, firstTimePieceMoved: self.hasMoved)
         //now verify that the move does not leave the king in check
         guard (king?.isInCheck().not()  ?? true) else {
             //if it is in check then undo the move and return nil
@@ -90,57 +91,26 @@ extension ChessPiece{
     
     //makes the peice undo the specified move
     //returns true if successful otherwise false
-    func undo(move:Move)->Bool{
-        //check if move is a Castle handle it seperately
-        if let castle = move as? Castle{
-            return undo(castle: castle)
-        }
-        //determine the outcome that results in undoing the move
-        let (pieceWasMoved,unexpectedlyEatenPiece) = chessBoard.movePiece(from: move.endPosition, to: move.startPosition,execute: false)
-        //verify verify the outcome is as expected
-        guard pieceWasMoved && unexpectedlyEatenPiece == nil else {
-            print("Could not undo move: \(move)")
-            print("Piece was moved:\(pieceWasMoved), unexpectedly Eaten Piece: \(unexpectedlyEatenPiece)")
-            return false
-        }
-        //once the outcome is validated undo the move
+    func undo(move:Move){
+//        //determine the outcome that results in undoing the move
+//        let (pieceWasMoved,unexpectedlyEatenPiece) = chessBoard.movePiece(from: move.endPosition, to: move.startPosition,execute: false)
+//        //verify verify the outcome is as expected
+//        guard pieceWasMoved && unexpectedlyEatenPiece == nil else {
+//            print("Could not undo move: \(move)")
+//            print("Piece was moved:\(pieceWasMoved), unexpectedly Eaten Piece: \(unexpectedlyEatenPiece)")
+//            return false
+//        }
+//        //once the outcome is validated undo the move
         _ = chessBoard.movePiece(from: move.endPosition, to: move.startPosition)
         //if it was the first time that piece was moved,
         //reset its hasMoved property to false
         self.hasMoved = move.firstTimePieceMoved ? false : self.hasMoved
-        //if a piece was eaten during the move
+        //if a piece was captured during the move
         //put it back on the board
-        _ = chessBoard.set(piece: move.pieceEaten, at: move.endPosition)
-        return true
+        _ = chessBoard.set(piece: move.pieceCaptured, at: move.pieceCaptured?.position ?? move.endPosition)
     }
     
-    private func undo(castle:Castle)->Bool{
-        //determine the outcome that results in undoing the castle
-        let (kingWasMoved,pieceUnexpectedlyEatenByKing) = chessBoard.movePiece(from: castle.endPosition, to: castle.startPosition,execute:  false)
-        let (rookWasMoved,pieceUnexpectedlyEatenByRook) = chessBoard.movePiece(from: castle.finalRookPosition, to: castle.initialRookPosition, execute:  false)
-        //verify verify the outcome is as expected
-        guard kingWasMoved && rookWasMoved,
-            pieceUnexpectedlyEatenByKing == nil,
-            pieceUnexpectedlyEatenByRook == nil else {
-            print("Could not undo move: \(castle)")
-            print("King was moved:\(kingWasMoved)")
-            print("Rook was moved:\(rookWasMoved)")
-            print("Piece unexpectedly eaten by King: \(pieceUnexpectedlyEatenByKing)")
-            print("Piece unexpectedly eaten by Rook: \(pieceUnexpectedlyEatenByRook)")
-            return false
-        }
-        
-        //move king Back
-        _ = chessBoard.movePiece(from: castle.endPosition, to: castle.startPosition)
-        //move the rook back
-        _ = chessBoard.movePiece(from: castle.finalRookPosition, to: castle.initialRookPosition)
-        //reset hasMoved properties to false 
-        //because it was the first time that king and rook were moved
-        castle.pieceMoved.hasMoved = false
-        castle.rook.hasMoved = false
-        return true
-
-    }
+    
     
     //method used to make sure piece is not jumping over other pieces if it is not supposed to
     func doesPieceIllegalyJumpOverOtherPieceWhenMoving(to position: Position)->Bool{

@@ -12,19 +12,23 @@ class Move{
     let startPosition: Position
     var endPosition: Position
     let pieceMoved: ChessPiece
-    var pieceEaten: ChessPiece?
+    var pieceCaptured: ChessPiece?
     let firstTimePieceMoved: Bool
+    
+    func isPawnDoubleStep()->Bool{
+        return  (pieceMoved is Pawn) && abs(startPosition.row - endPosition.row) == 2
+    }
     
     
     var description: String{
-        return "\(startPosition.description) -> \(pieceMoved.description) piece eaten: \(pieceEaten?.description), first Time piece moved: \(firstTimePieceMoved)"
+        return "\(startPosition.description) -> \(pieceMoved.description) piece captured: \(pieceCaptured?.description), first Time piece moved: \(firstTimePieceMoved)"
     }
     
-    init(startPosition:Position, endPosition:Position, pieceMoved:ChessPiece, pieceEaten:ChessPiece?=nil, firstTimePieceMoved:Bool){
+    init(startPosition:Position, endPosition:Position, pieceMoved:ChessPiece, pieceCaptured:ChessPiece?=nil, firstTimePieceMoved:Bool){
         self.startPosition = startPosition
         self.endPosition = endPosition
         self.pieceMoved = pieceMoved
-        self.pieceEaten = pieceEaten
+        self.pieceCaptured = pieceCaptured
         self.firstTimePieceMoved = firstTimePieceMoved
     }
 }
