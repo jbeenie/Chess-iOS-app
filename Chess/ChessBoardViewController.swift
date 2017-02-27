@@ -104,9 +104,7 @@ class ChessBoardViewController: UIViewController {
     }
     
     private func singleTapOccured(on tappedChessBoardSquare: ChessBoardSquareView){
-        if chessGame.ended{
-            return
-        }
+
         //verify if the position of the previously selected matches the tapped square
         if tappedChessBoardSquare == lastSelectedSquare{
             //if they match deselect the square
@@ -132,11 +130,24 @@ class ChessBoardViewController: UIViewController {
             
             //ask the model to attempt the move and verify if it is legal in doing so
             //if it is legal the move is executed in the model and view is updated accordingly
-            let (moveSuccessful,opponentInCheck,outcome) = chessGame.movePiece(from: oldPosition, to: newPosition)
-            if moveSuccessful {
+            let (move,opponentInCheck,outcome) = chessGame.movePiece(from: oldPosition, to: newPosition)
+            if let successfulMove = move {
                 //if the move is legal deselect the previously selected square
                 deselectSelectedSquare()
+                
                 let (_, _) = movePiece(from: lastSelectedSquare.position, to: tappedChessBoardSquare.position)
+                //if move was a castle
+                if let castle = successfulMove as? Castle{
+                    //also move rook back
+                    let rookStartPosition = viewPosition(from: castle.initialRookPosition)
+                    let rookEndPosition = viewPosition(from: castle.finalRookPosition)
+                    _ = movePiece(from: rookStartPosition, to: rookEndPosition)
+                }
+                //if move was prise Enpassant
+                if let priseEnPassant = successfulMove as? PriseEnPassant{
+                    let capturedPawnPosition = viewPosition(from: priseEnPassant.pawnCaptured.position)
+                    _ = removePiece(from:capturedPawnPosition)
+                }
                 deselectSelectedSquare()
             }
             if let outcome = outcome{
@@ -191,9 +202,18 @@ class ChessBoardViewController: UIViewController {
             let startPosition = viewPosition(from: lastMove.startPosition)
             let endPosition = viewPosition(from: lastMove.endPosition)
             _ = movePiece(from: endPosition, to: startPosition)
-            if let pieceEaten = lastMove.pieceEaten{
-                let eatenChessPieceView = chessPieceView(from: pieceEaten)
-                _ = set(piece: eatenChessPieceView, at: endPosition)
+            if let pieceCaptured = lastMove.pieceCaptured{
+                let capturedChessPieceView = chessPieceView(from: pieceCaptured)
+                let positionOfCapturedPiece = viewPosition(from: pieceCaptured.position)
+                _ = set(piece: capturedChessPieceView, at: positionOfCapturedPiece)
+            }
+            //if move was a castle
+            if let castle = lastMove as? Castle{
+                //also move rook back
+                let rookStartPosition = viewPosition(from: castle.initialRookPosition)
+                let rookEndPosition = viewPosition(from: castle.finalRookPosition)
+                _ = movePiece(from: rookEndPosition, to: rookStartPosition)
+
             }
         }
     }

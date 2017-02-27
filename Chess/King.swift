@@ -62,15 +62,15 @@ class King: ChessPiece{
     private func attemptingToCastle(to newPosition:Position)->Bool{
         guard let squaresTraversedByKing = position.isOnSameRow(as: newPosition)
             else {return false}
-        return !self.hasMoved && abs(squaresTraversedByKing) == Castling.squaresTraversedByKing
+        return !self.hasMoved && abs(squaresTraversedByKing) == Castle.squaresTraversedByKing
     }
     
-    private func castle(to newPosition: Position, execute:Bool=true)->Castling?{
+    private func castle(to newPosition: Position, execute:Bool=true)->Castle?{
         //check what side the king is attempting to Castle on
         //and check that the rook involved has not moved yet
         let castlingSide =  position.col < newPosition.col ? Side.King : Side.Queen
         //get the initial position of rookinvolved
-        let initialPosOfRook = Castling.initialPositionOfRook(with: color, on: castlingSide)
+        let initialPosOfRook = Castle.initialPositionOfRook(with: color, on: castlingSide)
         //get the piece located at this position 
         //and verify 
         //1. its a rook 
@@ -88,15 +88,41 @@ class King: ChessPiece{
         guard !chessBoard.areAnySquaresUnderAttck(at: positions, from: color.opposite()) else {return nil}
         guard chessBoard.isRow(position.row, emptyBetweenColumns: position.col, initialPosOfRook.col, inclusive: false) else {return nil}
         //create the castling move 
-        let castling = Castling(startPosition: self.position, endPosition: newPosition, pieceEaten: nil, firstTimePieceMoved: true,side: castlingSide, rookInvolved:rookInvolved)
+        let castle = Castle(startPosition: self.position, endPosition: newPosition, pieceMoved: self, pieceEaten: nil, firstTimePieceMoved: true, rook:rookInvolved)
         //Execute the castling move if execute is true
         if execute{
             //move the king
             _ = chessBoard.movePiece(from: self.position, to: newPosition)
             //move the rook
-            _ = chessBoard.movePiece(from: rookInvolved.position, to: Castling.finalPositionOfRook(with: color, on: castlingSide))
+            _ = chessBoard.movePiece(from: rookInvolved.position, to: Castle.finalPositionOfRook(with: color, on: castlingSide))
         }
-        return castling
+        return castle
+    }
+    
+    func undo(castle:Castle){
+//        //determine the outcome that results in undoing the castle
+//        let (kingWasMoved,pieceUnexpectedlyEatenByKing) = chessBoard.movePiece(from: castle.endPosition, to: castle.startPosition,execute:  false)
+//        let (rookWasMoved,pieceUnexpectedlyEatenByRook) = chessBoard.movePiece(from: castle.finalRookPosition, to: castle.initialRookPosition, execute:  false)
+//        //verify verify the outcome is as expected
+//        guard kingWasMoved && rookWasMoved,
+//            pieceUnexpectedlyEatenByKing == nil,
+//            pieceUnexpectedlyEatenByRook == nil else {
+//                print("Could not undo move: \(castle)")
+//                print("King was moved:\(kingWasMoved)")
+//                print("Rook was moved:\(rookWasMoved)")
+//                print("Piece unexpectedly captured by King: \(pieceUnexpectedlyEatenByKing)")
+//                print("Piece unexpectedly captured by Rook: \(pieceUnexpectedlyEatenByRook)")
+//                return false
+//        }
+        
+        //move king Back
+        _ = chessBoard.movePiece(from: castle.endPosition, to: castle.startPosition)
+        //move the rook back
+        _ = chessBoard.movePiece(from: castle.finalRookPosition, to: castle.initialRookPosition)
+        //reset hasMoved properties to false
+        //because it was the first time that king and rook were moved
+        castle.pieceMoved.hasMoved = false
+        castle.rook.hasMoved = false
     }
     
     

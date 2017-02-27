@@ -10,18 +10,25 @@ import Foundation
 
 class Move{
     let startPosition: Position
-    let endPosition: Position
-    var pieceEaten: ChessPiece?
+    var endPosition: Position
+    let pieceMoved: ChessPiece
+    var pieceCaptured: ChessPiece?
     let firstTimePieceMoved: Bool
     
-    var description: String{
-        return "\(startPosition.description) -> \(endPosition.description) piece eaten: \(pieceEaten?.description), first Time piece moved: \(firstTimePieceMoved)"
+    func isPawnDoubleStep()->Bool{
+        return  (pieceMoved is Pawn) && abs(startPosition.row - endPosition.row) == 2
     }
     
-    init(startPosition:Position, endPosition:Position, pieceEaten:ChessPiece?=nil, firstTimePieceMoved:Bool){
+    
+    var description: String{
+        return "\(startPosition.description) -> \(pieceMoved.description) piece captured: \(pieceCaptured?.description), first Time piece moved: \(firstTimePieceMoved)"
+    }
+    
+    init(startPosition:Position, endPosition:Position, pieceMoved:ChessPiece, pieceCaptured:ChessPiece?=nil, firstTimePieceMoved:Bool){
         self.startPosition = startPosition
         self.endPosition = endPosition
-        self.pieceEaten = pieceEaten
+        self.pieceMoved = pieceMoved
+        self.pieceCaptured = pieceCaptured
         self.firstTimePieceMoved = firstTimePieceMoved
     }
 }

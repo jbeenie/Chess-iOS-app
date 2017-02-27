@@ -156,7 +156,7 @@ class ChessBoard{
         if start == end {
             guard self[row,start] == nil else{
                 let position = Position(row: row, col: start)
-                print("Piece found on row slice at position \(position?.description)")
+                //print("Piece found on row slice at position \(position?.description)")
                 return false
             }
             return true
@@ -166,7 +166,7 @@ class ChessBoard{
         for col in colRange{
             guard self[row,col] == nil else{
                 let position = Position(row: row, col: col)
-                print("Piece found on row slice at position \(position?.description)")
+                //print("Piece found on row slice at position \(position?.description)")
                 return false
             }
         }
