@@ -10,6 +10,12 @@ import UIKit
 
 class ChessBoardView: UIView {
     //MARK: - Constants
+    //Animation Constants
+    struct Animation{
+        static let moveDuration: TimeInterval = 0.4
+        static let moveDelay: TimeInterval = 0.2
+    }
+    
     //MARK: Defaults
     struct Default{
         static let colorOfWhiteSquares = UIColor.white
@@ -38,12 +44,17 @@ class ChessBoardView: UIView {
         return (colorOfSelectedBlackSquares.copy() as! UIColor).withAlphaComponent(Default.alphaOfSelectedWhiteSquares)
     }
     
+    //MARK: - Helper methods
+    private func centerOfSquare(at position: ChessBoardView.Position)->CGPoint{
+        return self[position.row,position.col].center
+    }
+    
     //MARK: - Subviews
     //MARK: ChessBoard square array
-    lazy private var chessBoardSquares: [[ChessBoardSquareView]] = self.setUpChessBoardSqaures()
+    lazy private var chessBoardSquares: [[ChessBoardSquareView]] = self.setUpChessBoardSquares()
     
-    //help method used to setup the chessboard square array
-    private func setUpChessBoardSqaures() -> [[ChessBoardSquareView]] {
+    //helper method used to setup the chessboard square array
+    private func setUpChessBoardSquares() -> [[ChessBoardSquareView]] {
         var chessBoardSquares = [[ChessBoardSquareView]]()
         var isBlack = false
         for row in 0..<Dimensions.SquaresPerRow {
@@ -142,6 +153,22 @@ class ChessBoardView: UIView {
             return CGRect(lowerRight: bounds.lowerRight, size: frameSize)
         }
     }
+    //MARK: - Animation
+    
+    private func animateMovingOfChessPieceView(from oldPosition: ChessBoardView.Position, to newPosition: ChessBoardView.Position){
+        let squareToMoveFrom = self[oldPosition.row, oldPosition.col]
+        let movingChessPiece = squareToMoveFrom.chessPiece!
+        let newCenterRelativeToCurrentSquare = self.convert(centerOfSquare(at: newPosition), to: squareToMoveFrom)
+        //send chessBoardSquareView to front of view hierarchy
+        //in order for chesspiece subview to move "over" other views
+        self.bringSubview(toFront: squareToMoveFrom)
+        UIView.animate(withDuration: Animation.moveDuration,
+                       delay: Animation.moveDelay,
+                       options: [UIViewAnimationOptions.curveEaseInOut],
+                       animations: {movingChessPiece.center =  newCenterRelativeToCurrentSquare },
+                       completion: {finished in self._movePiece(from: oldPosition, to: newPosition)})
+    }
+    
     
     //MARK: - Moving SubViews AKA moving Pieces
     
@@ -151,21 +178,34 @@ class ChessBoardView: UIView {
     //i.e. if there was a piece at oldPosition
     //the second component (ChessPieceView?) is the piece previously located at newPosition
     //or nil if no piece was there
-    func movePiece(from oldPostion: ChessBoardView.Position, to newPosition: ChessBoardView.Position)->(Bool, ChessPieceView?){
+    func movePiece(from oldPosition: ChessBoardView.Position, to newPosition: ChessBoardView.Position, animate:Bool=true)->(Bool, ChessPieceView?){
+        //first check if there is in fact a piece to move at the old position
+        guard self[oldPosition.row,oldPosition.col].chessPiece != nil else {return (false,nil)}
+        //if so record the piece to be captured if any
+        let pieceCaptured = self[newPosition.row,newPosition.col].chessPiece
+        //if animate is true, animate the move of the piece
+        //otherwise, by pass the animation
+        if animate{
+            animateMovingOfChessPieceView(from: oldPosition, to: newPosition)
+        }else{
+            _movePiece(from: oldPosition, to: newPosition)
+        }
+        return (true,pieceCaptured)
+    }
+    
+    //private helper method used to actually move a piece
+    private func _movePiece(from oldPostion: ChessBoardView.Position, to newPosition: ChessBoardView.Position){
         if let pieceToMove = removePiece(from: oldPostion){
-            let pieceEaten = set(piece: pieceToMove, at: newPosition)
+            let pieceCaptured = set(piece: pieceToMove, at: newPosition)
             
             printMoveInfo(pieceWasMoved: true,
                           pieceToMove: pieceToMove,
                           from: oldPostion,
                           to: newPosition,
-                          pieceEaten: pieceEaten)
-            
-            return (true, pieceEaten)
+                          pieceEaten: pieceCaptured)
         }
-        return (false,nil)
-        
     }
+    
     
     //Method used for debugging move Piece
     private func printMoveInfo(pieceWasMoved: Bool,

@@ -9,6 +9,18 @@
 import UIKit
 
 class ChessBoardViewController: UIViewController {
+    //MARK: - Ratios
+    struct Ratios{
+        static let ChessBoardWidthToSuperViewWidth:CGFloat = 0.95
+    }
+    
+    //MARK: - Position of Views
+    lazy var chessBoardSize:CGSize = {
+        let chessBoardSideLength = self.view.bounds.width * Ratios.ChessBoardWidthToSuperViewWidth
+        return CGSize(width: chessBoardSideLength, height: chessBoardSideLength)
+    }()
+    lazy var ChessBoardFrame:CGRect = CGRect(center: self.view.bounds.mid, size: self.chessBoardSize)
+    
     //MARK: - Model
     let chessGame: ChessGame = {
         let chessGame = ChessGame()
@@ -241,9 +253,7 @@ class ChessBoardViewController: UIViewController {
     }
     
     private func setUpView(){
-        let origin = CGPoint(x: 0, y:0)
-        let frame = CGRect(origin: origin, size: view.bounds.size)
-        chessBoardView = ChessBoardView(frame: frame, colorOfWhiteSquares: UIColor.white, colorOfBlackSquares: UIColor.green)
+        chessBoardView = ChessBoardView(frame: ChessBoardFrame, colorOfWhiteSquares: UIColor.white, colorOfBlackSquares: UIColor.green)
         if let chessBoardView = chessBoardView{
             chessBoardView.setUpChessBoardView()
             view.addSubview(chessBoardView)

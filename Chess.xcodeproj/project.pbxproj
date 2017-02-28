@@ -141,6 +141,15 @@
 			path = ChessTests;
 			sourceTree = "<group>";
 		};
+		9FA896811E64EC4A000B8F5E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9FB7E1591E5E53AB007E9A6E /* FoundationExtensions.swift */,
+				9FB991EB1E525F6400BD83CE /* UIKitExtensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		9FB7E1631E6126FC007E9A6E /* Moves */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				9FCB75921E4EAAC100275773 /* ChessBoardViewController.swift */,
+				9FA896811E64EC4A000B8F5E /* Extensions */,
 				9FD74CE71E54DDFB00FFC762 /* Model */,
 				9FDFC4851E5138F6007138F9 /* ChessBoard View */,
 				9FCB75941E4EAAC100275773 /* Main.storyboard */,
@@ -246,8 +256,6 @@
 				9FCB75A21E4EAB9A00275773 /* BoardSquareView.swift */,
 				9FCB75A41E4EB71900275773 /* ChessBoardSquareView.swift */,
 				9FCB75CB1E4FF1EB00275773 /* ChessBoardView.swift */,
-				9FB991EB1E525F6400BD83CE /* UIKitExtensions.swift */,
-				9FB7E1591E5E53AB007E9A6E /* FoundationExtensions.swift */,
 			);
 			name = "ChessBoard View";
 			sourceTree = "<group>";
