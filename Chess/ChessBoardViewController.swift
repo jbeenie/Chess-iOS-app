@@ -11,15 +11,26 @@ import UIKit
 class ChessBoardViewController: UIViewController {
     //MARK: - Ratios
     struct Ratios{
-        static let ChessBoardWidthToSuperViewWidth:CGFloat = 0.95
+        static let ChessBoardWidthToSuperViewWidth:CGFloat = 1
     }
     
     //MARK: - Position of Views
+    //chessBoard
     lazy var chessBoardSize:CGSize = {
         let chessBoardSideLength = self.view.bounds.width * Ratios.ChessBoardWidthToSuperViewWidth
         return CGSize(width: chessBoardSideLength, height: chessBoardSideLength)
     }()
     lazy var ChessBoardFrame:CGRect = CGRect(center: self.view.bounds.mid, size: self.chessBoardSize)
+    //PLayerPanels
+    lazy var playerPanelSize:CGSize = {
+        let playerPanelWidth = self.chessBoardSize.width
+        let playerPanelHeight = (self.view.bounds.height - self.chessBoardSize.height)/2
+        return CGSize(width: playerPanelWidth, height: playerPanelHeight)
+    }()
+    lazy var whitePlayerPanelFrame:CGRect = CGRect(lowerRight: self.view.bounds.lowerRight, size: self.playerPanelSize)
+    lazy var blackPlayerPanelFrame:CGRect = CGRect(origin: self.view.bounds.origin, size: self.playerPanelSize)
+    
+    
     
     //MARK: - Model
     let chessGame: ChessGame = {
@@ -73,6 +84,8 @@ class ChessBoardViewController: UIViewController {
             setUpGestureRecognizers()
         }
     }
+    var whitePlayerPanel: PlayerPanelView! = nil
+    var blackPlayerPanel: PlayerPanelView! = nil
     
     private var lastSelectedSquare: ChessBoardSquareView? = nil
     
@@ -253,11 +266,20 @@ class ChessBoardViewController: UIViewController {
     }
     
     private func setUpView(){
+        //ChessBoardView Setup
         chessBoardView = ChessBoardView(frame: ChessBoardFrame, colorOfWhiteSquares: UIColor.white, colorOfBlackSquares: UIColor.green)
         if let chessBoardView = chessBoardView{
             chessBoardView.setUpChessBoardView()
             view.addSubview(chessBoardView)
             placePiecesInStartingPosition()
+        }
+        //whitePlayerPanel Setup
+        whitePlayerPanel = PlayerPanelView(frame: whitePlayerPanelFrame, playerColor: ChessPieceColor.White)
+        //BlackPlayerPanel Setup
+        blackPlayerPanel = PlayerPanelView(frame: blackPlayerPanelFrame, playerColor: ChessPieceColor.Black)
+        if let whitePlayerPanel = whitePlayerPanel, let blackPlayerPanel = blackPlayerPanel{
+            view.addSubview(whitePlayerPanel)
+            view.addSubview(blackPlayerPanel)
         }
     }
     

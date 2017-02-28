@@ -30,3 +30,9 @@ extension Set{
     }
     
 }
+
+extension Array {
+    public init(count: Int, elementCreator: @autoclosure () -> Element) {
+        self = (0 ..< count).map { _ in elementCreator() }
+    }
+}
