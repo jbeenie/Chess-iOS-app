@@ -160,7 +160,7 @@ class ChessBoardViewController: UIViewController {
                 //if the move is legal deselect the previously selected square
                 deselectSelectedSquare()
                 
-                let (_, _) = movePiece(from: lastSelectedSquare.position, to: tappedChessBoardSquare.position)
+                let (_, pieceCaptured) = movePiece(from: lastSelectedSquare.position, to: tappedChessBoardSquare.position)
                 //if move was a castle
                 if let castle = successfulMove as? Castle{
                     //also move rook back
@@ -173,6 +173,11 @@ class ChessBoardViewController: UIViewController {
                     let capturedPawnPosition = viewPosition(from: priseEnPassant.pawnCaptured.position)
                     _ = removePiece(from:capturedPawnPosition)
                 }
+                //if a piece was captured add it to the graveyard so players can keep track of what pieces were captured
+                if pieceCaptured != nil{
+                    addChessPieceToGraveYard(chessPieceView: pieceCaptured!)
+                }
+                //deselect the last square selected after the move is complete
                 deselectSelectedSquare()
             }
             if let outcome = outcome{
@@ -210,9 +215,8 @@ class ChessBoardViewController: UIViewController {
             if let _ = recognizer.view as? ChessBoardView{
                 //if a square is selected deselect
                 if lastSelectedSquare != nil{
-                    //
                     deselectSelectedSquare()
-                }else {
+                }else {//otherwise undo the last move
                     undoLastMove()
                 }
             }
@@ -284,7 +288,7 @@ class ChessBoardViewController: UIViewController {
     }
     
     
-    //MARK: - Moving Pieces in View
+    //MARK: - Moving Pieces On ChessBoard View
     
     func movePiece(from oldPostion: ChessBoardView.Position, to newPosition: ChessBoardView.Position)->(Bool, ChessPieceView?){
         return chessBoardView.movePiece(from: oldPostion, to: newPosition)
@@ -296,6 +300,16 @@ class ChessBoardViewController: UIViewController {
     
     func set(piece: ChessPieceView?, at position: ChessBoardView.Position)->ChessPieceView?{
         return chessBoardView.set(piece: piece, at: position)
+    }
+    
+    //MARK: - Adding Captured Pieces to GraveYardView
+    
+    //whites peices go to the black players graveYard
+    //black pieces go to the white players graveYard
+    private func addChessPieceToGraveYard(chessPieceView:ChessPieceView){
+        //get the appropriate player's panel
+        let playerPanel = chessPieceView.chessPieceIdentifier.color == .White ? blackPlayerPanel :whitePlayerPanel
+        playerPanel?.graveYardView.add(chessPieceView: chessPieceView)
     }
     
        

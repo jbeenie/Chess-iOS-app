@@ -27,8 +27,6 @@ class PlayerPanelView: UIView {
     private func setUpSubViews(){
         //GraveYardView
         graveYardView.frame = graveYardFrame
-        graveYardView.backgroundColor = UIColor.blue
-        graveYardView.setUpSubviews()
         self.addSubview(graveYardView)
         //ClockView
         clockView.frame = clockFrame

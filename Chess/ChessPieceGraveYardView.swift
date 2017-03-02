@@ -10,70 +10,68 @@ import UIKit
 
 class ChessPieceGraveYardView: UIView {
     //MARK: - Constants
-    static let numberOfPawnSlots = 8
-    static let numberOfNonPawnSlots = 7
-    
-    struct Slot{
-        static let Color = UIColor.white
-        static let SelectedColor = UIColor.gray
-    }
+    let slotsPerRow = 8
+    let Color = UIColor.white
+    let SelectedColor = UIColor.gray
     
     struct Ratios{
-        static let RowWidthToGraveYardViewWidth:CGFloat = 0.9
-        static let spaceBetweenRowSlotsToSlotHeight:CGFloat = 0.25
+        static let GraveYardSlotsWidthToGraveYardWidth:CGFloat = 0.9
+        static let spaceBetweenGraveYardSlotsToGraveYardSlotHeight:CGFloat = 0.75
     }
     
     //MARK: - Computed Variables
-    private var slotSideLength:CGFloat{
-        return (self.bounds.width * Ratios.RowWidthToGraveYardViewWidth)/CGFloat(ChessPieceGraveYardView.numberOfPawnSlots)
-    }
-    private var slotSize:CGSize{
-        return CGSize(width: slotSideLength, height: slotSideLength)
+    private var graveYardSlotWidth:CGFloat{
+        return (self.bounds.width * Ratios.GraveYardSlotsWidthToGraveYardWidth)
     }
     
-    private var xOfLeftMostSlot:CGFloat{
-        return (self.bounds.width * (1-Ratios.RowWidthToGraveYardViewWidth))/2
+    private var graveYardSlotHeight:CGFloat{
+        return graveYardSlotWidth/CGFloat(slotsPerRow)
     }
     
-    private var yOfPawnSlot:CGFloat{
-        return (self.bounds.height - slotSideLength * (2 + Ratios.spaceBetweenRowSlotsToSlotHeight))/2
+    private var graveYardSlotSize:CGSize{
+        return CGSize(width: graveYardSlotWidth, height: graveYardSlotHeight)
     }
     
-    private var yOfNonPawnSlot:CGFloat{
-        return yOfPawnSlot + slotSideLength * (1 + Ratios.spaceBetweenRowSlotsToSlotHeight)
+    private var xOfGraveYardSlots:CGFloat{
+        return (self.bounds.width - graveYardSlotWidth)/2
+    }
+    
+    private var yOfPawnSlots:CGFloat{
+        return (self.bounds.height - graveYardSlotHeight * (2 + Ratios.spaceBetweenGraveYardSlotsToGraveYardSlotHeight))/2
+    }
+    
+    private var yOfNonPawnSlots:CGFloat{
+        return yOfPawnSlots + graveYardSlotHeight * (1 + Ratios.spaceBetweenGraveYardSlotsToGraveYardSlotHeight)
     }
     
     //MARK: - SubViews
     
-    private lazy var pawnSlots: [ChessBoardSquareView] = {
-        return Array<ChessBoardSquareView>(count: numberOfPawnSlots, elementCreator: self.createSlot())
+    private lazy var pawnSlots: ChessPieceGraveYardSlotsView = {
+        let pawnSlotsFrame = CGRect(x: self.xOfGraveYardSlots, y: self.yOfPawnSlots, width: self.graveYardSlotWidth, height: self.graveYardSlotHeight)
+        let pawnSlots = ChessPieceGraveYardSlotsView(frame: pawnSlotsFrame, numberOfSlots:self.slotsPerRow)
+        self.addSubview(pawnSlots)
+        return pawnSlots
+
     }()
     
-    private lazy var nonPawnSlots: [ChessBoardSquareView] = {
-        return Array<ChessBoardSquareView>(count: numberOfPawnSlots, elementCreator: self.createSlot())
+    private lazy var nonPawnSlots: ChessPieceGraveYardSlotsView = {
+        let nonPawnSlotsFrame = CGRect(x: self.xOfGraveYardSlots, y: self.yOfNonPawnSlots, width: self.graveYardSlotWidth, height: self.graveYardSlotHeight)
+        let nonPawnSlots = ChessPieceGraveYardSlotsView(frame: nonPawnSlotsFrame, numberOfSlots:self.slotsPerRow)
+        self.addSubview(nonPawnSlots)
+        return nonPawnSlots
     }()
     
-    //Helper method used to Create slot subviews
-    private func createSlot()->ChessBoardSquareView{
-        return ChessBoardSquareView(frame: CGRect.zero, color: Slot.Color, selectedColor: Slot.SelectedColor)!
+    
+    //Adding ChessPieces to graveYard
+    func add(chessPieceView:ChessPieceView){
+        //get the appropriate set of slots to add the piece to
+        let slots = chessPieceView.chessPieceIdentifier.type == ChessPieceView.ChessPieceType.Pawn ? pawnSlots : nonPawnSlots
+        //create a copy of the chessPieceView 
+        let chessPieceViewCopy = ChessPieceView(chessPieceView: chessPieceView)
+        //add the piece to the slots
+        slots.add(chessPieceView: chessPieceViewCopy)
     }
     
-    //set the frames of the subviews
-    //add each slot as a subview
-    func setUpSubviews(){
-        //setup pawn slots
-        for (i,pawnSlot) in pawnSlots.enumerated(){
-            let origin = CGPoint(x: xOfLeftMostSlot+CGFloat(i)*slotSideLength, y: yOfPawnSlot)
-            pawnSlot.frame = CGRect(origin: origin, size: slotSize)
-            addSubview(pawnSlot)
-        }
-        //setup non pawn slots
-        for (i,nonPawnSlot) in nonPawnSlots.enumerated(){
-            let origin = CGPoint(x: xOfLeftMostSlot+CGFloat(i)*slotSideLength, y: yOfNonPawnSlot)
-            nonPawnSlot.frame = CGRect(origin: origin, size: slotSize)
-            addSubview(nonPawnSlot)
-        }
-    }
     
     //MARK: - Initializers
     override init(frame: CGRect) {

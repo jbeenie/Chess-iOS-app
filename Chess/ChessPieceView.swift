@@ -70,6 +70,10 @@ class ChessPieceView: UIImageView {
         return "\(chessPieceIdentifier.color) \(chessPieceIdentifier.type)"
     }
     
+    convenience init(chessPieceView:ChessPieceView){
+        self.init(frame: chessPieceView.frame, color: chessPieceView.chessPieceIdentifier.color, type: chessPieceView.chessPieceIdentifier.type)
+    }
+    
     convenience init(color: ChessPieceColor, type: ChessPieceType) {
         self.init(frame: CGRect.zero, color: color, type: type)
     }
