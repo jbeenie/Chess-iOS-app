@@ -31,3 +31,13 @@ extension CGSize {
         return CGSize(width: size.width * scale , height: size.height * scale)
     }
 }
+
+extension UIView{
+    static func animateAlphaTransition(of view:UIView, toAlpha alpha:CGFloat,  withDuration duration:TimeInterval, delay:TimeInterval,options: UIViewAnimationOptions = [], completion: ((Bool) -> Void)? = nil){
+        UIView.animate(withDuration: duration,
+                       delay: delay,
+                       options: options,
+                       animations: {view.alpha = alpha},
+                       completion: completion)
+        }
+}

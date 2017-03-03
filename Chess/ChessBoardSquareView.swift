@@ -28,16 +28,24 @@ class ChessBoardSquareView: BoardSquareView {
             chessPiece?.removeFromSuperview()
             //if the new chess piece is not nil add as a subview of chess board square
             if let newChessPiece =  newChessPiece{
-                //center chess piece within board square
-                //and maintain its aspect ratio
-                let chessPieceHeight = bounds.size.height * Ratios.ChessPieceToSquare
-                let chessPieceWidth = newChessPiece.aspectRatio * chessPieceHeight
-                let chessPieceSize = CGSize(width: chessPieceWidth, height: chessPieceHeight)
-                let chessPieceframe = CGRect(center: bounds.mid, size: chessPieceSize)
-                newChessPiece.frame = chessPieceframe
                 self.addSubview(newChessPiece)
+                //resize chess pieceView
+                resize(chessPieceView: newChessPiece)
+                //position chess pieceView
+                newChessPiece.center = bounds.mid
             }
         }
+    }
+    
+    //MARK: - Methods
+    
+    func resize(chessPieceView:ChessPieceView){
+        //resize the chessPieceView so it fits within the chessBoardSquare
+        //and maintain its aspect ratio
+        let newChessPieceHeight = bounds.size.height * Ratios.ChessPieceToSquare
+        let newChessPieceWidth = chessPieceView.aspectRatio * newChessPieceHeight
+        let newChessPieceSize = CGSize(width: newChessPieceWidth, height: newChessPieceHeight)
+        chessPieceView.frame =  CGRect(center: chessPieceView.center, size: newChessPieceSize)
     }
 }
 

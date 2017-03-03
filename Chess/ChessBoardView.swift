@@ -40,7 +40,7 @@ class ChessBoardView: UIView {
     }
     
     //MARK: - Helper methods
-    private func centerOfSquare(at position: ChessBoardView.Position)->CGPoint{
+    func centerOfSquare(at position: ChessBoardView.Position)->CGPoint{
         return self[position.row,position.col].center
     }
     
@@ -152,17 +152,35 @@ class ChessBoardView: UIView {
     //MARK: - Moving SubViews AKA moving Pieces
     
     //Moves a piece from oldPosition to newPosition
-    //returns a tuple containing a Bool and an optional ChessPieceView
+    //the optional pieceToPutBack parameter is placed at the oldPosition
+    //this parameters is used when undoing a move in which a piece was captured
+    //the animate parameter is used subclasses overriding this method
+    //return tuple contains a Bool and an optional ChessPieceView
     //the first component (Bool) is true if a piece was infact moved,
     //i.e. if there was a piece at oldPosition
     //the second component (ChessPieceView?) is the piece previously located at newPosition
     //or nil if no piece was there
-    func movePiece(from oldPosition: ChessBoardView.Position, to newPosition: ChessBoardView.Position, animate:Bool=true)->(Bool, ChessPieceView?){
-        //get the piece to move at the old position
+    func movePiece(from oldPosition: ChessBoardView.Position,
+                   to newPosition: ChessBoardView.Position,
+                   positionOfPieceCaptured: Position?=nil,
+                   putPieceBack:(view:ChessPieceView,position: Position)?=nil,
+                   animate:Bool=false)->(Bool, ChessPieceView?){
+        //get the piece to move from old position
         //if no piece is present at this position return with failure
         guard let pieceToMove = removePiece(from: oldPosition) else {return (false,nil)}
-        //place it at the new position and retrieve the captured piece if any
-        let pieceCaptured = set(piece: pieceToMove, at: newPosition)
+        //place it at the new position and retrieve the piece replaced if any
+        let pieceReplaced = set(piece: pieceToMove, at: newPosition)
+        //check if moving the piece removed the captured piece form the boardView
+        var pieceCaptured:ChessPieceView?
+        if pieceReplaced == nil, positionOfPieceCaptured != nil{
+            //if it did not, remove it (Deals with Prise En passant)
+            pieceCaptured = removePiece(from: positionOfPieceCaptured!)
+        }
+        
+        //put the piece Back if applicable
+        if let pieceToPutBack = putPieceBack{
+            _ = set(piece: pieceToPutBack.view, at: pieceToPutBack.position)
+        }
         //debugging
         printMoveInfo(pieceWasMoved: true,
                       pieceToMove: pieceToMove,
@@ -191,7 +209,7 @@ class ChessBoardView: UIView {
     
     //Places a piece at the desired position on the board
     //returns the piece that previously occupied that position or nil if no piece was there
-    func set(piece: ChessPieceView?, at position: ChessBoardView.Position)->ChessPieceView?{
+    func set(piece: ChessPieceView?, at position: ChessBoardView.Position, animate:Bool=false)->ChessPieceView?{
         let replacedPiece = self[position.row,position.col].chessPiece
         self[position.row,position.col].chessPiece = piece
         return replacedPiece
@@ -199,7 +217,7 @@ class ChessBoardView: UIView {
     
     //attempts to remove a piece from the specified location
     //returns the piece it removed or nil if no piece was located at that square
-    func removePiece(from position: ChessBoardView.Position)->ChessPieceView?{
+    func removePiece(from position: ChessBoardView.Position, animate:Bool=false)->ChessPieceView?{
         return set(piece: nil, at: position)
     }
     

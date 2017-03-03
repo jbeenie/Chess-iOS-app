@@ -48,6 +48,10 @@ class ChessBoardViewController: UIViewController {
         return ChessBoardView.Position(row: modelPosition.row, col: modelPosition.col)!
     }
     
+    private func viewPosition(of chessPiece:ChessPiece?)->ChessBoardView.Position?{
+        return  chessPiece != nil ? viewPosition(from: chessPiece!.position) : nil
+    }
+    
     private func chessPieceView(from chessPiece:ChessPiece)->ChessPieceView{
         let viewPieceColor = viewChessPieceColor(from: chessPiece.color)
         let viewPieceType = chessPieceType(from: chessPiece.typeId)
@@ -79,7 +83,7 @@ class ChessBoardViewController: UIViewController {
     
     
     //MARK: - View
-    var chessBoardView: ChessBoardView! = nil{
+    var chessBoardView: AnimatedChessBoardView! = nil{
         didSet{
             setUpGestureRecognizers()
         }
@@ -160,7 +164,12 @@ class ChessBoardViewController: UIViewController {
                 //if the move is legal deselect the previously selected square
                 deselectSelectedSquare()
                 
-                let (_, pieceCaptured) = movePiece(from: lastSelectedSquare.position, to: tappedChessBoardSquare.position)
+                //Get the Position of the captured piece (if any)
+                let positionOfPieceCaptured = viewPosition(of: move?.pieceCaptured)
+                //move the piece in the BoardView
+                let (_, pieceCaptured) = movePiece(from: lastSelectedSquare.position,
+                                                   to: tappedChessBoardSquare.position,
+                                                   positionOfPieceCaptured: positionOfPieceCaptured)
                 //if move was a castle
                 if let castle = successfulMove as? Castle{
                     //also move rook back
@@ -168,11 +177,11 @@ class ChessBoardViewController: UIViewController {
                     let rookEndPosition = viewPosition(from: castle.finalRookPosition)
                     _ = movePiece(from: rookStartPosition, to: rookEndPosition)
                 }
-                //if move was prise Enpassant
-                if let priseEnPassant = successfulMove as? PriseEnPassant{
-                    let capturedPawnPosition = viewPosition(from: priseEnPassant.pawnCaptured.position)
-                    _ = removePiece(from:capturedPawnPosition)
-                }
+//                //if move was prise Enpassant
+//                if let priseEnPassant = successfulMove as? PriseEnPassant{
+//                    let capturedPawnPosition = viewPosition(from: priseEnPassant.pawnCaptured.position)
+//                    _ = removePiece(from:capturedPawnPosition)
+//                }
                 //if a piece was captured add it to the graveyard so players can keep track of what pieces were captured
                 if pieceCaptured != nil{
                     addChessPieceToGraveYard(chessPieceView: pieceCaptured!)
@@ -228,14 +237,21 @@ class ChessBoardViewController: UIViewController {
     private func undoLastMove(){
         //otherwise undo the last move if any
         if let lastMove = chessGame.undoLastMove(){
+            //translate the positions to view Positions
             let startPosition = viewPosition(from: lastMove.startPosition)
             let endPosition = viewPosition(from: lastMove.endPosition)
-            _ = movePiece(from: endPosition, to: startPosition)
-            if let pieceCaptured = lastMove.pieceCaptured{
-                let capturedChessPieceView = chessPieceView(from: pieceCaptured)
-                let positionOfCapturedPiece = viewPosition(from: pieceCaptured.position)
-                _ = set(piece: capturedChessPieceView, at: positionOfCapturedPiece)
-            }
+            //Get piece to put back tuple
+            let putPieceBack:(ChessPieceView,ChessBoardView.Position)? = (lastMove.pieceCaptured != nil) ?
+                (chessPieceView(from: lastMove.pieceCaptured!),viewPosition(from: lastMove.pieceCaptured!.position)):
+                nil
+            //move the piece back to its startPosition and put a piece back if one was captured during the move
+            _ = movePiece(from: endPosition, to: startPosition, putPieceBack:putPieceBack)
+//            //put the captured piece back if applicable
+//            if let pieceCaptured = lastMove.pieceCaptured{
+//                let capturedChessPieceView = chessPieceView(from: pieceCaptured)
+//                let positionOfCapturedPiece = viewPosition(from: pieceCaptured.position)
+//                _ = set(piece: capturedChessPieceView, at: positionOfCapturedPiece, animate:true)
+//            }
             //if move was a castle
             if let castle = lastMove as? Castle{
                 //also move rook back
@@ -271,7 +287,7 @@ class ChessBoardViewController: UIViewController {
     
     private func setUpView(){
         //ChessBoardView Setup
-        chessBoardView = ChessBoardView(frame: ChessBoardFrame, colorOfWhiteSquares: UIColor.white, colorOfBlackSquares: UIColor.green)
+        chessBoardView = AnimatedChessBoardView(frame: ChessBoardFrame, colorOfWhiteSquares: UIColor.white, colorOfBlackSquares: UIColor.green)
         if let chessBoardView = chessBoardView{
             chessBoardView.setUpChessBoardView()
             view.addSubview(chessBoardView)
@@ -290,17 +306,25 @@ class ChessBoardViewController: UIViewController {
     
     //MARK: - Moving Pieces On ChessBoard View
     
-    func movePiece(from oldPostion: ChessBoardView.Position, to newPosition: ChessBoardView.Position)->(Bool, ChessPieceView?){
-        return chessBoardView.movePiece(from: oldPostion, to: newPosition)
+    func movePiece(from oldPostion: ChessBoardView.Position,
+                   to newPosition: ChessBoardView.Position,
+                   positionOfPieceCaptured:ChessBoardView.Position? = nil,
+                   putPieceBack:(ChessPieceView,ChessBoardView.Position)?=nil,
+                   animate:Bool=true)->(Bool, ChessPieceView?){
+        return chessBoardView.movePiece(from: oldPostion,
+                                        to: newPosition,
+                                        positionOfPieceCaptured: positionOfPieceCaptured,
+                                        putPieceBack: putPieceBack,
+                                        animate: animate)
     }
     
-    func removePiece(from position: ChessBoardView.Position)->ChessPieceView?{
-        return chessBoardView.removePiece(from: position)
-    }
-    
-    func set(piece: ChessPieceView?, at position: ChessBoardView.Position)->ChessPieceView?{
-        return chessBoardView.set(piece: piece, at: position)
-    }
+//    func removePiece(from position: ChessBoardView.Position,animate:Bool=false)->ChessPieceView?{
+//        return chessBoardView.removePiece(from: position,animate: animate)
+//    }
+//    
+//    func set(piece: ChessPieceView?, at position: ChessBoardView.Position,animate:Bool=false)->ChessPieceView?{
+//        return chessBoardView.set(piece: piece, at: position,animate: animate)
+//    }
     
     //MARK: - Adding Captured Pieces to GraveYardView
     
