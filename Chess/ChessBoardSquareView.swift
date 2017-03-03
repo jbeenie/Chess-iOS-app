@@ -28,11 +28,11 @@ class ChessBoardSquareView: BoardSquareView {
             chessPiece?.removeFromSuperview()
             //if the new chess piece is not nil add as a subview of chess board square
             if let newChessPiece =  newChessPiece{
-                self.addSubview(newChessPiece)
-                //resize chess pieceView
+                self.superview?.addSubview(newChessPiece)
+                //resize chess pieceView and its animation copy
                 resize(chessPieceView: newChessPiece)
                 //position chess pieceView
-                newChessPiece.center = bounds.mid
+                newChessPiece.center = frame.mid
             }
         }
     }

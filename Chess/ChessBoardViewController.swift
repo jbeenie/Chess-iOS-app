@@ -177,11 +177,7 @@ class ChessBoardViewController: UIViewController {
                     let rookEndPosition = viewPosition(from: castle.finalRookPosition)
                     _ = movePiece(from: rookStartPosition, to: rookEndPosition)
                 }
-//                //if move was prise Enpassant
-//                if let priseEnPassant = successfulMove as? PriseEnPassant{
-//                    let capturedPawnPosition = viewPosition(from: priseEnPassant.pawnCaptured.position)
-//                    _ = removePiece(from:capturedPawnPosition)
-//                }
+
                 //if a piece was captured add it to the graveyard so players can keep track of what pieces were captured
                 if pieceCaptured != nil{
                     addChessPieceToGraveYard(chessPieceView: pieceCaptured!)
@@ -241,17 +237,12 @@ class ChessBoardViewController: UIViewController {
             let startPosition = viewPosition(from: lastMove.startPosition)
             let endPosition = viewPosition(from: lastMove.endPosition)
             //Get piece to put back tuple
-            let putPieceBack:(ChessPieceView,ChessBoardView.Position)? = (lastMove.pieceCaptured != nil) ?
+            let putPieceBack:(view:ChessPieceView,ChessBoardView.Position)? = (lastMove.pieceCaptured != nil) ?
                 (chessPieceView(from: lastMove.pieceCaptured!),viewPosition(from: lastMove.pieceCaptured!.position)):
                 nil
             //move the piece back to its startPosition and put a piece back if one was captured during the move
             _ = movePiece(from: endPosition, to: startPosition, putPieceBack:putPieceBack)
-//            //put the captured piece back if applicable
-//            if let pieceCaptured = lastMove.pieceCaptured{
-//                let capturedChessPieceView = chessPieceView(from: pieceCaptured)
-//                let positionOfCapturedPiece = viewPosition(from: pieceCaptured.position)
-//                _ = set(piece: capturedChessPieceView, at: positionOfCapturedPiece, animate:true)
-//            }
+
             //if move was a castle
             if let castle = lastMove as? Castle{
                 //also move rook back
@@ -260,6 +251,14 @@ class ChessBoardViewController: UIViewController {
                 _ = movePiece(from: rookEndPosition, to: rookStartPosition)
 
             }
+            //if there was a piece putback remove it from the graveYard it came from
+            if let putPieceBack = putPieceBack{
+                let removeSucceeded = RemoveChessPieceFromGraveYard(chessPieceView: putPieceBack.view)
+                if !removeSucceeded{
+                    print("Failed to remove piece from Grave Yard!")
+                }
+            }
+            
         }
     }
 
@@ -318,15 +317,8 @@ class ChessBoardViewController: UIViewController {
                                         animate: animate)
     }
     
-//    func removePiece(from position: ChessBoardView.Position,animate:Bool=false)->ChessPieceView?{
-//        return chessBoardView.removePiece(from: position,animate: animate)
-//    }
-//    
-//    func set(piece: ChessPieceView?, at position: ChessBoardView.Position,animate:Bool=false)->ChessPieceView?{
-//        return chessBoardView.set(piece: piece, at: position,animate: animate)
-//    }
     
-    //MARK: - Adding Captured Pieces to GraveYardView
+    //MARK: - Adding and Removing Captured Pieces to GraveYardView
     
     //whites peices go to the black players graveYard
     //black pieces go to the white players graveYard
@@ -334,6 +326,12 @@ class ChessBoardViewController: UIViewController {
         //get the appropriate player's panel
         let playerPanel = chessPieceView.chessPieceIdentifier.color == .White ? blackPlayerPanel :whitePlayerPanel
         playerPanel?.graveYardView.add(chessPieceView: chessPieceView)
+    }
+    
+    private func RemoveChessPieceFromGraveYard(chessPieceView:ChessPieceView)->Bool{
+        //get the appropriate player's panel
+        let playerPanel = chessPieceView.chessPieceIdentifier.color == .White ? blackPlayerPanel :whitePlayerPanel
+        return playerPanel?.graveYardView.remove(chessPieceView: chessPieceView) ?? false
     }
     
        

@@ -46,7 +46,7 @@ class ChessPieceView: UIImageView {
     }
     
     //struct used to uniquely identify a chess piece type and color
-    struct ChessPieceIdentifier: Hashable{
+    struct ChessPieceIdentifier: Hashable,Equatable{
         var color: ChessPieceColor
         var type: ChessPieceType
         
@@ -64,11 +64,27 @@ class ChessPieceView: UIImageView {
         
     }
     
+    //MARK: - Properties
     var aspectRatio: CGFloat! = nil
     var chessPieceIdentifier: ChessPieceIdentifier
     override var description: String{
         return "\(chessPieceIdentifier.color) \(chessPieceIdentifier.type)"
     }
+    lazy var aninmationCopy:ChessPieceView = {
+        //create the animation copy
+        let animationCopy = ChessPieceView(chessPieceView:self as ChessPieceView)
+        //hide it
+        animationCopy.isHidden = true
+        //add it as a subview of the animated chess board view
+        (self.superview as? AnimatedChessBoardView)?.addSubview(animationCopy)
+
+
+        return animationCopy
+        }()
+    
+    
+    //MARK:  - Initializers
+
     
     convenience init(chessPieceView:ChessPieceView){
         self.init(frame: chessPieceView.frame, color: chessPieceView.chessPieceIdentifier.color, type: chessPieceView.chessPieceIdentifier.type)
@@ -77,7 +93,6 @@ class ChessPieceView: UIImageView {
     convenience init(color: ChessPieceColor, type: ChessPieceType) {
         self.init(frame: CGRect.zero, color: color, type: type)
     }
-    
     
     init(frame: CGRect, color: ChessPieceColor, type: ChessPieceType) {
         self.chessPieceIdentifier = ChessPieceIdentifier(color: color, type: type)
@@ -90,5 +105,13 @@ class ChessPieceView: UIImageView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: - Conforming to Equatable
+    
+    static func == (lhs: ChessPieceView, rhs: ChessPieceView) -> Bool {
+        return lhs.chessPieceIdentifier == rhs.chessPieceIdentifier
+    }
+    
+    
     
 }

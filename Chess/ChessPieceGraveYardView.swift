@@ -61,17 +61,27 @@ class ChessPieceGraveYardView: UIView {
         return nonPawnSlots
     }()
     
+    //MARK: - Methods
     
     //Adding ChessPieces to graveYard
     func add(chessPieceView:ChessPieceView){
         //get the appropriate set of slots to add the piece to
-        let slots = chessPieceView.chessPieceIdentifier.type == ChessPieceView.ChessPieceType.Pawn ? pawnSlots : nonPawnSlots
+        let slotToAddTo = getSlot(for: chessPieceView)
         //create a copy of the chessPieceView 
         let chessPieceViewCopy = ChessPieceView(chessPieceView: chessPieceView)
         //add the piece to the slots
-        slots.add(chessPieceView: chessPieceViewCopy)
+        slotToAddTo.add(chessPieceView: chessPieceViewCopy)
     }
     
+    func remove(chessPieceView:ChessPieceView)->Bool{
+        let slotToRemoveFrom = getSlot(for: chessPieceView)
+        return slotToRemoveFrom.remove(chessPieceView: chessPieceView)
+    }
+    
+    //MARK: Helper methods
+    private func getSlot(for chessPieceView:ChessPieceView)->ChessPieceGraveYardSlotsView{
+        return chessPieceView.chessPieceIdentifier.type == ChessPieceView.ChessPieceType.Pawn ? pawnSlots : nonPawnSlots
+    }
     
     //MARK: - Initializers
     override init(frame: CGRect) {

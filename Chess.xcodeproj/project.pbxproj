@@ -149,6 +149,14 @@
 			path = ChessTests;
 			sourceTree = "<group>";
 		};
+		9F677DBA1E692E95009B2EED /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				9F1489861E67B89B00177826 /* AnimatedChessBoardView.swift */,
+			);
+			name = Animation;
+			sourceTree = "<group>";
+		};
 		9FA896811E64EC4A000B8F5E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,7 +275,7 @@
 				9FA896841E655589000B8F5E /* ChessPieceGraveYardView.swift */,
 				9F26280E1E6620DF00EB9CBF /* ChessPieceGraveYardSlotsView.swift */,
 				9FCB75CB1E4FF1EB00275773 /* ChessBoardView.swift */,
-				9F1489861E67B89B00177826 /* AnimatedChessBoardView.swift */,
+				9F677DBA1E692E95009B2EED /* Animation */,
 			);
 			name = View;
 			sourceTree = "<group>";
