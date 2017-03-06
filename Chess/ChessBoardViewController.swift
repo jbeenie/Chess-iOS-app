@@ -39,6 +39,9 @@ class ChessBoardViewController: UIViewController {
         return chessGame
     }()
     
+    //MARK: - Animation
+    var animate = true
+    
     //MARK: -  Translation between Model and View
     private func modelPosition(from viewPosition: ChessBoardView.Position)->Position{
         return Position(row: viewPosition.row, col: viewPosition.col)!
@@ -237,6 +240,7 @@ class ChessBoardViewController: UIViewController {
             let startPosition = viewPosition(from: lastMove.startPosition)
             let endPosition = viewPosition(from: lastMove.endPosition)
             //Get piece to put back tuple
+            //Create a new instance of a chess piece view
             let putPieceBack:(view:ChessPieceView,ChessBoardView.Position)? = (lastMove.pieceCaptured != nil) ?
                 (chessPieceView(from: lastMove.pieceCaptured!),viewPosition(from: lastMove.pieceCaptured!.position)):
                 nil
@@ -343,7 +347,12 @@ class ChessBoardViewController: UIViewController {
             let blackRowRange = 6...7
             for row in [whiteRowRange, blackRowRange].joined(){
                 for col in 0..<ChessBoardView.Dimensions.SquaresPerColumn{
-                    chessBoardView[row,col].chessPiece = pieceInitiallyAt[ChessBoardView.Position(row:row,col:col)!]
+                    let position = ChessBoardView.Position(row:row,col:col)!
+                    if let chessPiece = pieceInitiallyAt[position]{
+                        chessBoardView[row,col].chessPiece = chessPiece
+                        //resize and position animation copy
+                        chessBoardView.resize(chessPieceView: chessPiece.aninmationCopy, at: position)
+                    }
                 }
             }
         }

@@ -74,10 +74,10 @@ class ChessPieceView: UIImageView {
         //create the animation copy
         let animationCopy = ChessPieceView(chessPieceView:self as ChessPieceView)
         //hide it
-        animationCopy.isHidden = true
+        //animationCopy.isHidden = true
         //add it as a subview of the animated chess board view
         (self.superview as? AnimatedChessBoardView)?.addSubview(animationCopy)
-
+        animationCopy.frame = self.frame
 
         return animationCopy
         }()

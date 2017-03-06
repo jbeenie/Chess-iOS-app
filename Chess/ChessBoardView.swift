@@ -169,10 +169,9 @@ class ChessBoardView: UIView {
         //if no piece is present at this position return with failure
         guard let pieceToMove = removePiece(from: oldPosition) else {return (false,nil)}
         //place it at the new position and retrieve the piece replaced if any
-        let pieceReplaced = set(piece: pieceToMove, at: newPosition)
+        var pieceCaptured = set(piece: pieceToMove, at: newPosition)
         //check if moving the piece removed the captured piece form the boardView
-        var pieceCaptured:ChessPieceView?
-        if pieceReplaced == nil, positionOfPieceCaptured != nil{
+        if pieceCaptured == nil && positionOfPieceCaptured != nil{
             //if it did not, remove it (Deals with Prise En passant)
             pieceCaptured = removePiece(from: positionOfPieceCaptured!)
         }

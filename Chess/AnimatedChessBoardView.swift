@@ -11,22 +11,30 @@ import UIKit
 class AnimatedChessBoardView: ChessBoardView {
     //MARK: - Animation Constants
     struct Animation{
-        static let MoveDuration: TimeInterval = 1
-        static let MoveDelay: TimeInterval = 0
-        static let MoveOptions: UIViewAnimationOptions = [UIViewAnimationOptions.curveEaseInOut]
-        static let DisAppearDuration: TimeInterval = 0.3
+        static let MoveDuration: TimeInterval = 0.5
+        static let MoveDelay: TimeInterval = 0.1
+        static let MoveOptions: UIViewAnimationOptions = [UIViewAnimationOptions.curveEaseInOut,UIViewAnimationOptions.beginFromCurrentState]
+        
+        static let DisAppearDuration: TimeInterval = 0.5
         static let DisAppearDelay: TimeInterval = 0
         static let DisAppearOptions: UIViewAnimationOptions = [UIViewAnimationOptions.curveLinear]
+        static let AlphaPreDisAppear: CGFloat = 1
+        static let AlphaPostDisAppear: CGFloat = 0
+        
         static let AppearDuration: TimeInterval = Animation.DisAppearDuration
         static let AppearDelay: TimeInterval = Animation.DisAppearDelay
         static let AppearOptions: UIViewAnimationOptions = [UIViewAnimationOptions.curveLinear]
+        static let AlphaPreAppear: CGFloat = 0
+        static let AlphaPostAppear: CGFloat = 1
     }
+    
+    var dissappearanceInProgress: Bool = false
     
     //MARK: - Methods
     
     //MARK: - Helper Methods
     
-    private func resize(chessPieceView:ChessPieceView, at position:Position){
+    func resize(chessPieceView:ChessPieceView, at position:Position){
         //first resize the chessPieceView
         self[position.row,position.col].resize(chessPieceView: chessPieceView)
         //then position it
@@ -34,18 +42,16 @@ class AnimatedChessBoardView: ChessBoardView {
     }
 
     private func animateMovingOf(chessPieceView:ChessPieceView, from oldPosition: Position, to newPosition:Position, completion: ((Bool) -> Void)? = nil){
-        //resize and position chesspiece
-        resize(chessPieceView: chessPieceView, at: oldPosition)
-        //make sure piece is not hidden
-        chessPieceView.isHidden = false
+        
         UIView.animate(
             withDuration: Animation.MoveDuration,
             delay: Animation.MoveDelay,
             options: Animation.MoveOptions,
             animations: {chessPieceView.center = self.centerOfSquare(at: newPosition)},
-            completion: {finished in
-                if (finished){
-                    chessPieceView.isHidden=true;completion?(finished)
+            completion: { finished in
+                if (chessPieceView.center == self.centerOfSquare(at: newPosition)){
+                    print("Finished Moving Piece")
+                    completion?(true)
                 }
             }
         )
@@ -53,40 +59,40 @@ class AnimatedChessBoardView: ChessBoardView {
 
     
     private func animateDisAppearanceOf(chessPieceView:ChessPieceView, at position:Position, completion: ((Bool) -> Void)? = nil){
-        //resize and position chesspiece
-        resize(chessPieceView: chessPieceView, at: position)
-        //make sure piece is not hidden to begin with
-        chessPieceView.isHidden = false
+        dissappearanceInProgress = true
+        chessPieceView.alpha = Animation.AlphaPreDisAppear
         UIView.animateAlphaTransition(
             of: chessPieceView,
-            toAlpha: 0,
+            toAlpha: Animation.AlphaPostDisAppear,
             withDuration: Animation.DisAppearDuration,
             delay: Animation.DisAppearDelay,
             options: Animation.DisAppearOptions,
             completion: {finished in
-                if(finished){
-                    chessPieceView.isHidden=true;completion?(finished)
+                if(self.dissappearanceInProgress){
+                    //indicate disappearance finished
+                    self.dissappearanceInProgress = false
+                    //remove animation copy from superview
+                    //a new copy is created when it appears
+                    chessPieceView.removeFromSuperview();
+                    completion?(true)
                 }
             }
         )
     }
     
     private func animateAppearanceOf(chessPieceView:ChessPieceView, at position:Position, completion: ((Bool) -> Void)? = nil){
-        //resize and position chesspiece
-        resize(chessPieceView: chessPieceView, at: position)
+        //interup dissapearance animation
+        dissappearanceInProgress = false
         //make sure piece is not hidden and alpha is 0
-        chessPieceView.alpha = 0
-        chessPieceView.isHidden = false
+        chessPieceView.alpha = Animation.AlphaPreAppear
         UIView.animateAlphaTransition(
             of: chessPieceView,
-            toAlpha: 1,
+            toAlpha: Animation.AlphaPostAppear,
             withDuration: Animation.AppearDuration,
             delay: Animation.AppearDelay,
             options: Animation.AppearOptions,
             completion: {finished in
-                if(finished) {
-                    chessPieceView.isHidden=true;completion?(finished)
-                }
+                    completion?(true)
             }
         )
     }
@@ -116,9 +122,7 @@ class AnimatedChessBoardView: ChessBoardView {
         //Temporarily Hide the piece that was put back
         putPieceBack?.view.isHidden = true
         
-        //Reveal the animation copy at the starting position
-        //resize and position chesspiece
-        resize(chessPieceView: pieceMoved.aninmationCopy, at: oldPosition)
+        
         pieceMoved.aninmationCopy.isHidden = false
         
         var animateReapperanceOfPiecePutBack:(()->Void)? = nil
@@ -142,6 +146,7 @@ class AnimatedChessBoardView: ChessBoardView {
                 to: newPosition,
                 completion: {finished in
                         pieceMoved.isHidden = false;
+                        print("finished moving closure")
                         animateReapperanceOfPiecePutBack?()
                 }
             )
@@ -158,7 +163,8 @@ class AnimatedChessBoardView: ChessBoardView {
             animateDisAppearanceOf(
                 chessPieceView: pieceCaptured!.aninmationCopy,
                 at: positionOfPieceCaptured,
-                completion: {finished in if(finished) {animateMovingOfPiece()}})
+                completion: {finished in animateMovingOfPiece()}
+            )
         }else{
             animateMovingOfPiece()
         }
