@@ -66,21 +66,24 @@ class ChessPieceGraveYardSlotsView: UIView {
     }
     
     //returns true if piece was removed
-    func remove(chessPieceView:ChessPieceView)->Bool{
+    func remove(_ chessPieceViewToRemove:ChessPieceView)->Bool{
         //find a slot containing an identical chessPieceView 
         //and empty it contents
         var pieceRemoved:Bool = false
-        for i in 0..<numberOfSlots{
-            if slots[i].chessPiece == chessPieceView{
+        searchLoop: for i in 0..<numberOfSlots{
+            if let chessPieceView = slots[i].chessPiece, chessPieceView == chessPieceViewToRemove{
                 slots[i].chessPiece = nil
                 pieceRemoved = true
+                break searchLoop
             }
         }
         //if no piece was removed return
         guard pieceRemoved else {return false}
-        top -= 1
         //otherwise shift remaining pieces over if necessary
         shift()
+        //update top
+        top -= 1
+        print("after remove \(top)")
         return true
     }
     

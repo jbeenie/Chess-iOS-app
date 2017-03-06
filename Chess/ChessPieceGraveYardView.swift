@@ -75,7 +75,7 @@ class ChessPieceGraveYardView: UIView {
     
     func remove(chessPieceView:ChessPieceView)->Bool{
         let slotToRemoveFrom = getSlot(for: chessPieceView)
-        return slotToRemoveFrom.remove(chessPieceView: chessPieceView)
+        return slotToRemoveFrom.remove(chessPieceView)
     }
     
     //MARK: Helper methods

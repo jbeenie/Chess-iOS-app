@@ -9,12 +9,16 @@
 import Foundation
 
 class Bishop: ChessPiece{
+    //MARK: - Type Properties
+    static var typeId = "B"
+    
+    
     //MARK: - Properties
     //MARK: Constants
     let color: ChessPieceColor
     let value = 3
     let canJumpOverOtherPieces = false
-    let typeId: String = "B"
+    let typeId: String = Bishop.typeId
     //MARK: Variables
     let initialPosition: Position
     var position: Position

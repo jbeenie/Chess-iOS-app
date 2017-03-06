@@ -12,6 +12,7 @@
 		9F2B51CC1E56A8CA0046FAC9 /* ChessBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51CB1E56A8CA0046FAC9 /* ChessBoardTests.swift */; };
 		9F2B51DC1E56B01C0046FAC9 /* PositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DB1E56B01C0046FAC9 /* PositionTests.swift */; };
 		9F2B51DE1E56BEB60046FAC9 /* DiagonalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DD1E56BEB60046FAC9 /* DiagonalTests.swift */; };
+		9F3575AB1E6DF4A3008267B7 /* ChessPieceGraveYard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3575AA1E6DF4A3008267B7 /* ChessPieceGraveYard.swift */; };
 		9F61AB4B1E63DCCB008141B6 /* PawnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61AB4A1E63DCCB008141B6 /* PawnTests.swift */; };
 		9FA896831E654079000B8F5E /* PlayerPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA896821E654079000B8F5E /* PlayerPanelView.swift */; };
 		9FA896851E655589000B8F5E /* ChessPieceGraveYardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA896841E655589000B8F5E /* ChessPieceGraveYardView.swift */; };
@@ -73,6 +74,7 @@
 		9F2B51CB1E56A8CA0046FAC9 /* ChessBoardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardTests.swift; sourceTree = "<group>"; };
 		9F2B51DB1E56B01C0046FAC9 /* PositionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionTests.swift; sourceTree = "<group>"; };
 		9F2B51DD1E56BEB60046FAC9 /* DiagonalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagonalTests.swift; sourceTree = "<group>"; };
+		9F3575AA1E6DF4A3008267B7 /* ChessPieceGraveYard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceGraveYard.swift; sourceTree = "<group>"; };
 		9F61AB4A1E63DCCB008141B6 /* PawnTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PawnTests.swift; sourceTree = "<group>"; };
 		9FA896821E654079000B8F5E /* PlayerPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerPanelView.swift; sourceTree = "<group>"; };
 		9FA896841E655589000B8F5E /* ChessPieceGraveYardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceGraveYardView.swift; sourceTree = "<group>"; };
@@ -147,6 +149,20 @@
 				9F2B51C51E56A87B0046FAC9 /* Info.plist */,
 			);
 			path = ChessTests;
+			sourceTree = "<group>";
+		};
+		9F3575AC1E6DFB30008267B7 /* ChessPieces */ = {
+			isa = PBXGroup;
+			children = (
+				9FD74CE51E54DDED00FFC762 /* ChessPiece.swift */,
+				9FD74CE81E551FC000FFC762 /* Pawn.swift */,
+				9FD74CEA1E551FCF00FFC762 /* Knight.swift */,
+				9FD74CEC1E551FDD00FFC762 /* Bishop.swift */,
+				9FD74CEE1E551FE700FFC762 /* Rook.swift */,
+				9FD74CF01E551FF200FFC762 /* Queen.swift */,
+				9FD74CF21E551FFF00FFC762 /* King.swift */,
+			);
+			name = ChessPieces;
 			sourceTree = "<group>";
 		};
 		9F677DBA1E692E95009B2EED /* Animation */ = {
@@ -252,15 +268,10 @@
 			isa = PBXGroup;
 			children = (
 				9FD74CE11E54DDC700FFC762 /* ChessGame.swift */,
-				9FB7E1631E6126FC007E9A6E /* Moves */,
+				9F3575AA1E6DF4A3008267B7 /* ChessPieceGraveYard.swift */,
 				9FD74CE31E54DDD800FFC762 /* ChessBoard.swift */,
-				9FD74CE51E54DDED00FFC762 /* ChessPiece.swift */,
-				9FD74CE81E551FC000FFC762 /* Pawn.swift */,
-				9FD74CEA1E551FCF00FFC762 /* Knight.swift */,
-				9FD74CEC1E551FDD00FFC762 /* Bishop.swift */,
-				9FD74CEE1E551FE700FFC762 /* Rook.swift */,
-				9FD74CF01E551FF200FFC762 /* Queen.swift */,
-				9FD74CF21E551FFF00FFC762 /* King.swift */,
+				9F3575AC1E6DFB30008267B7 /* ChessPieces */,
+				9FB7E1631E6126FC007E9A6E /* Moves */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -430,6 +441,7 @@
 				9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */,
 				9FCB75AA1E4ED43900275773 /* ChessPieceView.swift in Sources */,
 				9FD74CE91E551FC000FFC762 /* Pawn.swift in Sources */,
+				9F3575AB1E6DF4A3008267B7 /* ChessPieceGraveYard.swift in Sources */,
 				9FB7E1621E6126D5007E9A6E /* PriseEnPassant.swift in Sources */,
 				9FB991EC1E525F6400BD83CE /* UIKitExtensions.swift in Sources */,
 				9FD74CF31E551FFF00FFC762 /* King.swift in Sources */,

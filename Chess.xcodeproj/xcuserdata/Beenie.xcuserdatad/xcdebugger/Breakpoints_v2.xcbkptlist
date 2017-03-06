@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Chess/AnimatedChessBoardView.swift"
-            timestampString = "510453548.834445"
+            timestampString = "510456332.648816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "movePiece(from:to:positionOfPieceCaptured:putPieceBack:animate:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -217,13 +217,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Chess/AnimatedChessBoardView.swift"
-            timestampString = "510455258.346967"
+            filePath = "Chess/ChessPieceGraveYardSlotsView.swift"
+            timestampString = "510457807.065982"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "movePiece(from:to:positionOfPieceCaptured:putPieceBack:animate:)"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "remove(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -233,13 +233,61 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Chess/AnimatedChessBoardView.swift"
-            timestampString = "510455283.704394"
+            filePath = "Chess/ChessPieceGraveYardSlotsView.swift"
+            timestampString = "510457970.65947"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "animateMovingOf(chessPieceView:from:to:completion:)"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "shift()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chess/ChessPieceGraveYardSlotsView.swift"
+            timestampString = "510457987.517499"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "shift()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chess/ChessPieceGraveYardSlotsView.swift"
+            timestampString = "510458022.619006"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "remove(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chess/ChessPieceGraveYardSlotsView.swift"
+            timestampString = "510458065.888168"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "shift()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

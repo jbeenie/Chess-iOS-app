@@ -8,13 +8,18 @@
 
 import Foundation
 
+
+
 class Pawn: ChessPiece{
+    //MARK: - Type Properties
+    static var typeId = "P"
+    
     //MARK: - Properties
     //MARK: Constants
     let color: ChessPieceColor
     let value = 1
     let canJumpOverOtherPieces = false
-    let typeId: String = "P"
+    let typeId: String = Pawn.typeId
     //MARK: Variables
     let initialPosition: Position
     var position: Position
