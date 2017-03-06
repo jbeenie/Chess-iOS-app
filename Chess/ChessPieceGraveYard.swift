@@ -19,13 +19,18 @@ class ChessPieceGraveYard{
     
     //MARK: - Stored Properties
     let color: ChessPieceColor
-    private var capturedChessPieces:[ChessPiece] = [ChessPiece]()
+    private var _capturedChessPieces:[ChessPiece] = [ChessPiece]()
+    
+    //MARK: - Computed Properties
+    var capturedChessPieces:[ChessPiece]{
+        return _capturedChessPieces
+    }
     
     
     //MARK: - Computed Properties
     var description: String{
         var description = "Captured chess pieces:(\(color)):\n"
-        for capturedChessPiece in capturedChessPieces{
+        for capturedChessPiece in _capturedChessPieces{
             description += capturedChessPiece.description + ","
         }
         return description
@@ -38,7 +43,7 @@ class ChessPieceGraveYard{
         //first check that the piece being added is of the appropriate color
         guard chessPiece.color == self.color else{return false}
         //if it does add the chesspiece to the graveYard
-        capturedChessPieces.append(chessPiece)
+        _capturedChessPieces.append(chessPiece)
         //sort the pieces in the graveYard
         sort()
         return true
@@ -46,10 +51,10 @@ class ChessPieceGraveYard{
     
     func remove(_ chessPieceToRemove:ChessPiece)->Bool{
         //search for the piece to remove in the captured pieces array
-        for (index,capturedChessPiece) in capturedChessPieces.enumerated(){
+        for (index,capturedChessPiece) in _capturedChessPieces.enumerated(){
             if capturedChessPiece.typeId == chessPieceToRemove.typeId{
                 //if you find it remove and return true
-                capturedChessPieces.remove(at: index)
+                _capturedChessPieces.remove(at: index)
                 return true
             }
         }
@@ -60,7 +65,7 @@ class ChessPieceGraveYard{
     
     //MARK: Private
     private func sort(){
-        capturedChessPieces.sort { (piece1, piece2) -> Bool in
+        _capturedChessPieces.sort { (piece1, piece2) -> Bool in
             order[piece1.typeId]! < order[piece2.typeId]!
         }
     }

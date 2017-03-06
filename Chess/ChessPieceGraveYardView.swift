@@ -11,43 +11,44 @@ import UIKit
 class ChessPieceGraveYardView: UIView {
     //MARK: - Constants
     let slotsPerRow = 8
+    let numberOfRows = 2
     let Color = UIColor.white
     let SelectedColor = UIColor.gray
     
     struct Ratios{
-        static let GraveYardSlotsWidthToGraveYardWidth:CGFloat = 0.9
-        static let spaceBetweenGraveYardSlotsToGraveYardSlotHeight:CGFloat = 0.75
+        static let rowWidthToTotalWidth:CGFloat = 0.9
+        static let spaceBetweenRowsToRowHeight:CGFloat = 0.75
     }
     
     //MARK: - Computed Variables
-    private var graveYardSlotWidth:CGFloat{
-        return (self.bounds.width * Ratios.GraveYardSlotsWidthToGraveYardWidth)
+    private var rowWidth:CGFloat{
+        return (self.bounds.width * Ratios.rowWidthToTotalWidth)
     }
     
-    private var graveYardSlotHeight:CGFloat{
-        return graveYardSlotWidth/CGFloat(slotsPerRow)
+    private var rowHeight:CGFloat{
+        return rowWidth/CGFloat(slotsPerRow)
     }
     
-    private var graveYardSlotSize:CGSize{
-        return CGSize(width: graveYardSlotWidth, height: graveYardSlotHeight)
+    private var rowSize:CGSize{
+        return CGSize(width: rowWidth, height: rowHeight)
     }
     
-    private var xOfGraveYardSlots:CGFloat{
-        return (self.bounds.width - graveYardSlotWidth)/2
+    private var xOriginOfRows:CGFloat{
+        return (self.bounds.width - rowWidth)/2
     }
     
     private var yOfPawnSlots:CGFloat{
-        return (self.bounds.height - graveYardSlotHeight * (2 + Ratios.spaceBetweenGraveYardSlotsToGraveYardSlotHeight))/2
+        return (self.bounds.height - rowHeight * (2 + Ratios.spaceBetweenRowsToRowHeight))/2
     }
     
     private var yOfNonPawnSlots:CGFloat{
-        return yOfPawnSlots + graveYardSlotHeight * (1 + Ratios.spaceBetweenGraveYardSlotsToGraveYardSlotHeight)
+        return yOfPawnSlots + rowHeight * (1 + Ratios.spaceBetweenRowsToRowHeight)
     }
     
     //MARK: - SubViews
     
     private lazy var pawnSlots: ChessPieceGraveYardSlotsView = {
-        let pawnSlotsFrame = CGRect(x: self.xOfGraveYardSlots, y: self.yOfPawnSlots, width: self.graveYardSlotWidth, height: self.graveYardSlotHeight)
+        let pawnSlotsFrame = CGRect(x: self.xOriginOfRows, y: self.yOfPawnSlots, width: self.rowWidth, height: self.rowHeight)
         let pawnSlots = ChessPieceGraveYardSlotsView(frame: pawnSlotsFrame, numberOfSlots:self.slotsPerRow)
         self.addSubview(pawnSlots)
         return pawnSlots
@@ -55,7 +56,7 @@ class ChessPieceGraveYardView: UIView {
     }()
     
     private lazy var nonPawnSlots: ChessPieceGraveYardSlotsView = {
-        let nonPawnSlotsFrame = CGRect(x: self.xOfGraveYardSlots, y: self.yOfNonPawnSlots, width: self.graveYardSlotWidth, height: self.graveYardSlotHeight)
+        let nonPawnSlotsFrame = CGRect(x: self.xOriginOfRows, y: self.yOfNonPawnSlots, width: self.rowWidth, height: self.rowHeight)
         let nonPawnSlots = ChessPieceGraveYardSlotsView(frame: nonPawnSlotsFrame, numberOfSlots:self.slotsPerRow)
         self.addSubview(nonPawnSlots)
         return nonPawnSlots

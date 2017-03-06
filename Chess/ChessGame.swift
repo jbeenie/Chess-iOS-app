@@ -78,8 +78,8 @@ class ChessGame{
     private var _colorWhoseTurnItIs: ChessPieceColor = ChessPieceColor.White
     private var chessBoard = ChessBoard() //no pieces placed initially
     private var moves:[Move] = [Move]()
-    private var whitesCapturedPieces = ChessPieceGraveYard(color: .White)
-    private var blacksCapturedPieces = ChessPieceGraveYard(color: .Black)
+    private var _whitesCapturedPieces = ChessPieceGraveYard(color: .White)
+    private var _blacksCapturedPieces = ChessPieceGraveYard(color: .Black)
     
     //King Related
     private var whiteKing: King?{return chessBoard.whiteKing}
@@ -153,14 +153,14 @@ class ChessGame{
         //update the graveYard with the move information
         if let pieceCaptured = successfulMove.pieceCaptured{
             //get the appropriate graveYard to add the piece to
-            let graveYard = pieceCaptured.color == .White ? whitesCapturedPieces : blacksCapturedPieces
+            let graveYard = pieceCaptured.color == .White ? _whitesCapturedPieces : _blacksCapturedPieces
             _ = graveYard.add(pieceCaptured)
         }
         
         //debugging
         print(chessBoard.description)
-        print(whitesCapturedPieces.description)
-        print(blacksCapturedPieces.description)
+        print(_whitesCapturedPieces.description)
+        print(_blacksCapturedPieces.description)
         //next players turn (always do this last)
         _colorWhoseTurnItIs.alternate()
         
@@ -189,15 +189,15 @@ class ChessGame{
         //remove a piece from the graveyard if a piece was put back
         if let pieceCaptured = moveToUndo.pieceCaptured{
             //get the appropriate graveYard to add the piece to
-            let graveYard = pieceCaptured.color == .White ? whitesCapturedPieces : blacksCapturedPieces
+            let graveYard = pieceCaptured.color == .White ? _whitesCapturedPieces : _blacksCapturedPieces
             if !graveYard.remove(pieceCaptured){
                 print("Could not remove piece from graveYard")
             }
         }
         
         print(chessBoard.description)//debugging
-        print(whitesCapturedPieces.description)
-        print(blacksCapturedPieces.description)
+        print(_whitesCapturedPieces.description)
+        print(_blacksCapturedPieces.description)
         _colorWhoseTurnItIs.alternate()
         return moveToUndo
     }

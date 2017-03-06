@@ -181,7 +181,7 @@ class ChessBoardViewController: UIViewController {
                     _ = movePiece(from: rookStartPosition, to: rookEndPosition)
                 }
 
-                //if a piece was captured add it to the graveyard so players can keep track of what pieces were captured
+                //if a piece was captured update the graveyardView so players can keep track of what pieces were captured
                 if pieceCaptured != nil{
                     addChessPieceToGraveYard(chessPieceView: pieceCaptured!)
                 }
