@@ -155,7 +155,7 @@ class ChessBoard{
         //handle case where range is of length 1 seperately because a==b is not allow for a...b
         if start == end {
             guard self[row,start] == nil else{
-                let position = Position(row: row, col: start)
+                _ = Position(row: row, col: start)
                 //print("Piece found on row slice at position \(position?.description)")
                 return false
             }
@@ -165,7 +165,7 @@ class ChessBoard{
         let colRange = start...end
         for col in colRange{
             guard self[row,col] == nil else{
-                let position = Position(row: row, col: col)
+                _ = Position(row: row, col: col)
                 //print("Piece found on row slice at position \(position?.description)")
                 return false
             }
@@ -183,7 +183,7 @@ class ChessBoard{
         //handle case where range is of length 1 seperately because a==b is not allow for a...b
         if start == end {
             guard self[start,col] == nil else{
-                let position = Position(row: start, col: col)
+                _ = Position(row: start, col: col)
                 //print("Piece found on column slice at position \(position?.description)")
                 return false
             }
@@ -193,7 +193,7 @@ class ChessBoard{
         let rowRange = start...end
         for row in rowRange{
             guard self[row,col] == nil else {
-                let position = Position(row: row, col: col)
+                _ = Position(row: row, col: col)
                 //print("Piece found on column slice at position \(position?.description)")
                 return false
             }
@@ -214,7 +214,7 @@ class ChessBoard{
         //handle case where range is of length 1 seperately because a==b is not allow for a...b
         if startCol == endCol {
             guard self[startPosition.row,startPosition.col] == nil else{
-                let position = Position(row: startPosition.row, col: startPosition.col)
+                _ = Position(row: startPosition.row, col: startPosition.col)
                 //print("Piece found on diagonal slice at position \(position?.description)")
                 return false
             }
@@ -223,7 +223,7 @@ class ChessBoard{
         //otherwise go through the range
         for _ in colRange{
             guard self[startPosition.row,startPosition.col] == nil else {
-                let position = Position(row: startPosition.row, col: startPosition.col)
+                _ = Position(row: startPosition.row, col: startPosition.col)
                 //print("Piece found on diagonal slice at position \(position?.description)")
                 return false
             }

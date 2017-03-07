@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,11 +21,161 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xNX-LZ-rkn">
+                                <rect key="frame" x="0.0" y="20" width="375" height="126"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhZ-1X-Rin">
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="126"/>
+                                    </containerView>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x44-js-ujQ">
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="126"/>
+                                        <connections>
+                                            <segue destination="mNR-ht-neA" kind="embed" identifier="BlackChessPieceGraveYardViewController" id="PhQ-bv-Gsw"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vS4-0A-zC3" customClass="AnimatedChessBoardView" customModule="Chess" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="146" width="375" height="375"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="vS4-0A-zC3" secondAttribute="height" multiplier="1:1" id="Dii-gn-kYl"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="YE3-k5-SWm">
+                                <rect key="frame" x="0.0" y="521" width="375" height="146"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Whu-xK-2an">
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="146"/>
+                                        <connections>
+                                            <segue destination="hNP-up-IeE" kind="embed" identifier="WhiteChessPieceGraveYardViewController" id="0ln-kM-1GT"/>
+                                        </connections>
+                                    </containerView>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzc-kR-iyF">
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="146"/>
+                                    </containerView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="xNX-LZ-rkn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="2HR-Za-AoX"/>
+                            <constraint firstItem="xNX-LZ-rkn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4CU-D2-9YC"/>
+                            <constraint firstItem="vS4-0A-zC3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="LYb-Lh-azh"/>
+                            <constraint firstItem="YE3-k5-SWm" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Ptg-dm-TOA"/>
+                            <constraint firstItem="xNX-LZ-rkn" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="ZI2-bz-Zq4"/>
+                            <constraint firstItem="YE3-k5-SWm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bgO-da-hHM"/>
+                            <constraint firstItem="YE3-k5-SWm" firstAttribute="top" secondItem="vS4-0A-zC3" secondAttribute="bottom" id="d8q-ez-Kmu"/>
+                            <constraint firstItem="vS4-0A-zC3" firstAttribute="top" secondItem="xNX-LZ-rkn" secondAttribute="bottom" id="e54-dh-Vm0"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="YE3-k5-SWm" secondAttribute="bottom" id="kQN-RU-oOk"/>
+                            <constraint firstItem="vS4-0A-zC3" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="l47-ec-wpM"/>
+                            <constraint firstItem="vS4-0A-zC3" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="uBh-AX-Kqc"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chessBoardView" destination="vS4-0A-zC3" id="KKC-2q-ifT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+        </scene>
+        <!--Black Chess Piece Grave Yard View Controller-->
+        <scene sceneID="A4v-MP-SQm">
+            <objects>
+                <viewController storyboardIdentifier="BlackChessPieceGraveYardViewController" id="mNR-ht-neA" customClass="BlackChessPieceGraveYardViewController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U4h-aK-yFy"/>
+                        <viewControllerLayoutGuide type="bottom" id="8aV-Pj-f9Z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qhc-NS-Lc6">
+                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="126"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="gEJ-gi-vKt">
+                                <rect key="frame" x="0.0" y="0.0" width="188" height="126"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9G-7X-DZH" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="188" height="42"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ja2-rm-Fhn" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="42" width="188" height="42"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v6Q-Br-kv7" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="84" width="188" height="42"/>
+                                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="gEJ-gi-vKt" secondAttribute="bottom" id="8sz-yJ-1TK"/>
+                            <constraint firstAttribute="trailing" secondItem="gEJ-gi-vKt" secondAttribute="trailing" id="NUb-jW-1bb"/>
+                            <constraint firstItem="gEJ-gi-vKt" firstAttribute="leading" secondItem="qhc-NS-Lc6" secondAttribute="leading" id="Xmp-m5-6UG"/>
+                            <constraint firstItem="gEJ-gi-vKt" firstAttribute="top" secondItem="qhc-NS-Lc6" secondAttribute="top" id="qXT-75-5nL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="nonPawnGraveYardRowView1" destination="Ja2-rm-Fhn" id="84j-6f-MzT"/>
+                        <outlet property="nonPawnGraveYardRowView2" destination="g9G-7X-DZH" id="nRB-uS-iNs"/>
+                        <outlet property="pawnGraveYardRowView" destination="v6Q-Br-kv7" id="kOK-yF-Xf1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uss-Y1-IXc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="889.60000000000002" y="-201.49925037481262"/>
+        </scene>
+        <!--White Chess Piece Grave Yard View Controller-->
+        <scene sceneID="3mc-tF-5gM">
+            <objects>
+                <viewController storyboardIdentifier="WhiteChessPieceGraveYardViewController" id="hNP-up-IeE" customClass="WhiteChessPieceGraveYardViewController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pVC-Ij-P8U"/>
+                        <viewControllerLayoutGuide type="bottom" id="Qbi-LB-haG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8fs-H4-tkk">
+                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="146"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="bpb-43-f0V">
+                                <rect key="frame" x="0.0" y="0.0" width="188" height="146"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eXK-GV-lc2" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="188" height="48.5"/>
+                                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wme-DY-gaw" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="48.5" width="188" height="49"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o0y-fB-VIo" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="97.5" width="188" height="48.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="bpb-43-f0V" secondAttribute="trailing" id="2Pp-vy-APQ"/>
+                            <constraint firstItem="bpb-43-f0V" firstAttribute="top" secondItem="pVC-Ij-P8U" secondAttribute="bottom" id="MOY-9T-EyY"/>
+                            <constraint firstAttribute="bottom" secondItem="bpb-43-f0V" secondAttribute="bottom" id="Wcf-8A-8CB"/>
+                            <constraint firstItem="bpb-43-f0V" firstAttribute="leading" secondItem="8fs-H4-tkk" secondAttribute="leading" id="kX8-hN-h1X"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="nonPawnGraveYardRowView1" destination="wme-DY-gaw" id="SxD-9T-a8c"/>
+                        <outlet property="nonPawnGraveYardRowView2" destination="o0y-fB-VIo" id="a6h-ek-6dZ"/>
+                        <outlet property="pawnGraveYardRowView" destination="eXK-GV-lc2" id="0c1-5k-4FX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bF4-MY-uh8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-32" y="669.26536731634189"/>
         </scene>
     </scenes>
 </document>
