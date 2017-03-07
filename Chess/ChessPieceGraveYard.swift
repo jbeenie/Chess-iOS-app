@@ -18,7 +18,7 @@ class ChessPieceGraveYard{
                          King.typeId:6]
     
     //MARK: - Stored Properties
-    let color: ChessPieceColor
+    var color: ChessPieceColor? = nil
     private var _capturedChessPieces:[ChessPiece] = [ChessPiece]()
     
     //MARK: - Computed Properties
@@ -29,7 +29,7 @@ class ChessPieceGraveYard{
     
     //MARK: - Computed Properties
     var description: String{
-        var description = "Captured chess pieces:(\(color)):\n"
+        var description = "Captured chess pieces:\n"
         for capturedChessPiece in _capturedChessPieces{
             description += capturedChessPiece.description + ","
         }
@@ -41,7 +41,7 @@ class ChessPieceGraveYard{
 
     func add(_ chessPiece: ChessPiece)->Bool{
         //first check that the piece being added is of the appropriate color
-        guard chessPiece.color == self.color else{return false}
+        guard color == nil || chessPiece.color == color else{return false}
         //if it does add the chesspiece to the graveYard
         _capturedChessPieces.append(chessPiece)
         //sort the pieces in the graveYard
@@ -71,7 +71,7 @@ class ChessPieceGraveYard{
     }
     
     //MARK: - Initializer
-    init(color:ChessPieceColor) {
+    init(color:ChessPieceColor? = nil) {
         self.color = color
     }
 }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+@IBDesignable
 class ChessBoardView: UIView {
     //MARK: - Constants
     
@@ -253,7 +253,12 @@ class ChessBoardView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.colorOfWhiteSquares = Default.colorOfWhiteSquares
+        self.colorOfBlackSquares = Default.colorOfBlackSquares
+        self.colorOfSelectedBlackSquares = Default.colorOfSelectedBlackSquares
+        self.drawIndices = true
+        self.isSetUp = false
+        super.init(coder: aDecoder)
     }
     
     //MARK - Subscript used to access chessBoardSquares array

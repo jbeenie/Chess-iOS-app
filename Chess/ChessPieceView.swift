@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+@IBDesignable
 class ChessPieceView: UIImageView {
     
     //Dictionary associating a chess piece icon to each chess piece based on type and color
