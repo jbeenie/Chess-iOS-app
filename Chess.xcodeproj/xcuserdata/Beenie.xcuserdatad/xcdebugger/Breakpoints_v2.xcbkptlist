@@ -190,9 +190,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "init(chessPieceView:)"
-            landmarkType = "7">
+            endingLineNumber = "90">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -206,9 +204,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "movePiece(from:to:positionOfPieceCaptured:putPieceBack:animate:)"
-            landmarkType = "7">
+            endingLineNumber = "109">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
