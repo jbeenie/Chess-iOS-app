@@ -190,7 +190,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "90"
-            endingLineNumber = "90">
+            endingLineNumber = "90"
+            landmarkName = "init(chessPieceView:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -204,7 +206,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "109"
-            endingLineNumber = "109">
+            endingLineNumber = "109"
+            landmarkName = "movePiece(from:to:positionOfPieceCaptured:putPieceBack:animate:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -293,46 +297,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "510572002.063557"
+            filePath = "Chess/ChessPieceGraveYardRowView.swift"
+            timestampString = "510572712.154358"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "singleTapOccured(on:)"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "update(with:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Chess.ChessBoardViewController.(singleTapOccured in _BE76B3443BB7DAFB8672EB08167A572F) (on : Chess.ChessBoardSquareView) -&gt; ()"
-                  moduleName = "Chess"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessBoardViewController.swift"
-                  timestampString = "510572372.467373"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "128"
-                  endingLineNumber = "128"
-                  offsetFromSymbolStart = "3181">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Chess.ChessBoardViewController.(singleTapOccured in _BE76B3443BB7DAFB8672EB08167A572F) (on : Chess.ChessBoardSquareView) -&gt; ()"
-                  moduleName = "Chess"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessBoardViewController.swift"
-                  timestampString = "510572372.470431"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "128"
-                  endingLineNumber = "128"
-                  offsetFromSymbolStart = "3282">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -341,13 +313,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Chess/ChessPieceGraveYardRowView.swift"
-            timestampString = "510572712.154358"
+            filePath = "Chess/ChessBoardViewController.swift"
+            timestampString = "510623867.422843"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "update(with:)"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
+            landmarkName = "giveUserFeedBackBased(on:opponentInCheck:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

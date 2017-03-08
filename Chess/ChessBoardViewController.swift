@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChessBoardViewController: UIViewController {
+class ChessBoardViewController: UIViewController,PromotionDelegate{
 
     //MARK: - Animation
     var animate = true
@@ -38,6 +38,18 @@ class ChessBoardViewController: UIViewController {
     }
 
     private var lastSelectedSquare: ChessBoardSquareView? = nil
+    
+    //MARK: - Promition 
+    
+    //Conform To Promotion Delegate
+    func getPieceToPromoteTo(ofColor color: ChessPieceColor, at position: Position, on board:ChessBoard)->ChessPiece{
+        //TODO: Initiate PopOver Segue and get choice from User
+        //Use color to display pieces of appropriate color
+        //get type ID
+        
+        return Queen(color: color, position: position, chessBoard: board)
+    }
+    
     
     //MARK: - Gesture Recognizers
     private func setUpGestureRecognizers(){
@@ -84,7 +96,9 @@ class ChessBoardViewController: UIViewController {
         if tappedChessBoardSquare == lastSelectedSquare{
             //if they match deselect the square
             deselectSelectedSquare()
-        }else if let lastSelectedSquare = lastSelectedSquare{//verify whether or not another (necessarily different square was previously selcted
+        
+        //else verify whether or not another (necessarily different square was previously selcted
+        }else if let lastSelectedSquare = lastSelectedSquare{
             
             
             //prepare old and new position parameters to call movePiece
@@ -102,53 +116,41 @@ class ChessBoardViewController: UIViewController {
                 return
             }
             
-            
             //ask the model to attempt the move and verify if it is legal in doing so
-            //if it is legal the move is executed in the model and view is updated accordingly
-            let (move,opponentInCheck,outcome) = chessGame.movePiece(from: oldPosition, to: newPosition)
-            if let successfulMove = move {
-                //if the move is legal deselect the previously selected square
-                deselectSelectedSquare()
-                
-                //Get the Position of the captured piece (if any)
-                let positionOfPieceCaptured = ModelViewTranslation.viewPosition(of: move?.pieceCaptured)
-                //move the piece in the BoardView
-                _ = movePiece(from: lastSelectedSquare.position,
-                                                   to: tappedChessBoardSquare.position,
-                                                   positionOfPieceCaptured: positionOfPieceCaptured)
-                //if move was a castle
-                if let castle = successfulMove as? Castle{
-                    //also move rook back
-                    let rookStartPosition = ModelViewTranslation.viewPosition(from: castle.initialRookPosition)
-                    let rookEndPosition = ModelViewTranslation.viewPosition(from: castle.finalRookPosition)
-                    _ = movePiece(from: rookStartPosition, to: rookEndPosition)
-                }
+            //if the move is legal it is executed in the model
+            guard let (move,opponentInCheck,outcome) = chessGame.movePiece(from: oldPosition, to: newPosition) else{return}
+            
+            
+            //now the view must be updated accordingly
+            //deselect the previously selected square
+            deselectSelectedSquare()
+            
+            //Get the Position of the captured piece (if any)
+            let positionOfPieceCaptured = ModelViewTranslation.viewPosition(of: move.pieceCaptured)
+            //move the piece in the BoardView
+            _ = movePiece(from: lastSelectedSquare.position,
+                                               to: tappedChessBoardSquare.position,
+                                               positionOfPieceCaptured: positionOfPieceCaptured)
+            //if move was a castle
+            if let castle = move as? Castle{
+                //also move rook back
+                let rookStartPosition = ModelViewTranslation.viewPosition(from: castle.initialRookPosition)
+                let rookEndPosition = ModelViewTranslation.viewPosition(from: castle.finalRookPosition)
+                _ = movePiece(from: rookStartPosition, to: rookEndPosition)
+            }
 
-                //if a piece was captured update the graveyardView so players can keep track of what pieces were captured
-                if let pieceCaptured =  successfulMove.pieceCaptured{
-                    _ = addChessPieceToGraveYard(chessPiece: pieceCaptured)
-                }
-                //deselect the last square selected after the move is complete
-                deselectSelectedSquare()
+            //if a piece was captured update the graveyardView so players can keep track of what pieces were captured
+            if let pieceCaptured =  move.pieceCaptured{
+                _ = addChessPieceToGraveYard(chessPiece: pieceCaptured)
             }
-            if let outcome = outcome{
-                switch outcome {
-                    //TODO: USE Color when announcing outcome
-                case OutCome.Win(_):
-                    print("Check Mate!")
-                    print(outcome)
-                //TODO: Animate "Check Mate!" Label Over screen
-                //TODO: Animate "White Win!" or "Black Win!"  Label Over screen (depending on color)
-                    break
-                case OutCome.Draw:
-                    print(outcome)
-                    //TODO: Animate "Draw!" Label Over screen
-                    break
-                }
-            } else if opponentInCheck == true {
-                print("Check to \(chessGame.colorWhoseTurnItIs) King!")
-                //TODO: Animate "Check to (White/Black)!" Label Over screen
-            }
+            
+            //give the user visual feedback based on the outcome of the move
+            //tells players:
+            //1. when king is in check
+            //2. check mate occurs
+            //3. reach a draw
+            giveUserFeedBackBased(on: outcome, opponentInCheck: opponentInCheck)
+            
         } else if tappedChessBoardSquare.isOccupied {
             //otherwise if no square was previously selected
             //and there is a piece on the tapped square, select the square
@@ -226,6 +228,8 @@ class ChessBoardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        //Set yourself as the promotion delegate of the chessgame
+        chessGame.promotionDelegate = self
     }
     
     private func setUpView(){
@@ -237,8 +241,31 @@ class ChessBoardViewController: UIViewController {
         }
     }
     
-    //MARK: - Navigation
+    //MARK: - User FeedBack
     
+    private func giveUserFeedBackBased(on outcome: Outcome?, opponentInCheck:Bool){
+        if let outcome = outcome{
+            switch outcome {
+            //TODO: USE Color when announcing outcome
+            case Outcome.Win(_):
+                print("Check Mate!")
+                print(outcome)
+                //TODO: Animate "Check Mate!" Label Over screen
+                //TODO: Animate "White Win!" or "Black Win!"  Label Over screen (depending on color)
+                break
+            case Outcome.Draw:
+                print(outcome)
+                //TODO: Animate "Draw!" Label Over screen
+                break
+            }
+        } else if opponentInCheck == true {
+            print("Check to \(chessGame.colorWhoseTurnItIs) King!")
+            //TODO: Animate "Check to (White/Black)!" Label Over screen
+        }
+    }
+    
+    //MARK: - Navigation
+    //Embed SubViewControllers
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "BlackChessPieceGraveYardViewController"){
             blackChessPieceGraveYardViewController = segue.destination as! BlackChessPieceGraveYardViewController

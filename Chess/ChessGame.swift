@@ -62,9 +62,9 @@ class ChessGame{
         return outCome == nil ? false : true
     }
     //returns the outcome of the game if it has ended or nil if the game is still in session
-    var outCome:OutCome?{
+    var outCome:Outcome?{
         if noPieceCanMove(in: chessBoard.pieces(ofColor: colorWhoseTurnItIs)){
-            return (activeKingInCheck ? OutCome.Win(colorWhoseTurnItIs.opposite()) : OutCome.Draw)
+            return (activeKingInCheck ? Outcome.Win(colorWhoseTurnItIs.opposite()) : Outcome.Draw)
         }
         return nil
     }
@@ -98,6 +98,9 @@ class ChessGame{
     }
     //Prise EnPassant
     var pawnThatJustDoubleStepped:Pawn?
+    
+    //Promotion Delegate
+    var promotionDelegate:PromotionDelegate! = nil
 
     
     //MARK: - Methods
@@ -115,14 +118,16 @@ class ChessGame{
     //move is successful if:
     //  1.The piece can move in that way
     //  2.The acting piece's king is not left in check as a result of the move
-    func movePiece(from oldPosition: Position, to newPosition: Position)->(Move?,Bool?,OutCome?) {
+    func movePiece(from oldPosition: Position, to newPosition: Position)->(Move,Bool,Outcome?)? {
+        
         //check if game is ended
-        //guard !ended else{return (nil,nil,nil)}
+        //guard !ended else{return nil}
+        
         //check if there is even a piece to move from that oldPosition
-        guard let pieceToMove = chessBoard[oldPosition.row,oldPosition.col] else { return (nil,nil,nil) }
+        guard let pieceToMove = chessBoard[oldPosition.row,oldPosition.col] else { return nil }
         //check if it is the appropriate color, 
         //i.e. it is that colors turn to move
-        guard pieceToMove.color == colorWhoseTurnItIs else { return (nil,nil,nil) }
+        guard pieceToMove.color == colorWhoseTurnItIs else { return nil }
         
         //ask the piece to move itself to the new position and check if the move succeeds
         //this updates the piece's position on the board and within its own class
@@ -138,8 +143,14 @@ class ChessGame{
             move = pieceToMove.move(to: newPosition)
         }
         guard let successfulMove = move  else {
-            return (nil,nil,nil)
+            return nil
         }
+        //check if a promotion occured during the move
+        //and get the new piece chosen by user if it did
+        if successfulMove.promotionOccured{
+           promote(chessPiece: successfulMove.pieceMoved)
+        }
+        
         
         //record the move
         moves.append(successfulMove)
@@ -167,20 +178,30 @@ class ChessGame{
         //indicate if move succeeded
         //if king whosTurnItIs is in check
         //if game is ended
-        return (move, activeKingInCheck, outCome)
+        return (successfulMove, activeKingInCheck, outCome)
     }
     
     //undoes the last move in the game and returns the move that was undone
     func undoLastMove()->Move?{
         //check if there are any moves to undo
         guard let moveToUndo = moves.popLast() else {return nil}
-        //undo the last move
+        
+        //if so undo the last move
+        
         //check if move is a castle to handle it seperately
         if let castle = moveToUndo as? Castle, let king = moveToUndo.pieceMoved as? King{
             king.undo(castle: castle)
         } else{
+            //if a promotion occured in the last move,
+            if moveToUndo.promotionOccured{
+                //first undo the promotion
+                _ = chessBoard.set(piece: moveToUndo.pieceMoved, at: moveToUndo.endPosition)
+            }
+            //then move the piece back
             moveToUndo.pieceMoved.undo(move: moveToUndo)
         }
+        
+        
         //check if the move at the top of the moves stack is a pawn double step
         //if it is reset the pawnThatJustDoubleStepped variable
         if let moveBeforeThat = moves.last, moveBeforeThat.isPawnDoubleStep(){
@@ -202,6 +223,11 @@ class ChessGame{
         return moveToUndo
     }
     
+    private func promote(chessPiece:ChessPiece){
+        let pieceToPromoteTo = promotionDelegate.getPieceToPromoteTo(ofColor: colorWhoseTurnItIs, at: chessPiece.position, on: chessBoard)
+        _ = chessBoard.set(piece: pieceToPromoteTo, at: chessPiece.position)
+    }
+    
     
     func PlacePiecesInInitialPositions(){
         chessBoard.placePieces(at: initialPiecePositions)
@@ -221,7 +247,7 @@ class ChessGame{
 
 
 
-enum OutCome{
+enum Outcome{
     case Win(ChessPieceColor)
     case Draw
 }

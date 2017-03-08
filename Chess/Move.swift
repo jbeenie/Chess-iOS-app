@@ -9,11 +9,17 @@
 import Foundation
 
 class Move{
+    static let promotionRank = ChessBoard.Dimensions.SquaresPerColumn
+    
     let startPosition: Position
     var endPosition: Position
     let pieceMoved: ChessPiece
     var pieceCaptured: ChessPiece?
     let firstTimePieceMoved: Bool
+    
+    var promotionOccured: Bool{
+        return (pieceMoved is Pawn && pieceMoved.rank == Move.promotionRank)
+    }
     
     func isPawnDoubleStep()->Bool{
         return  (pieceMoved is Pawn) && abs(startPosition.row - endPosition.row) == 2
@@ -30,5 +36,9 @@ class Move{
         self.pieceMoved = pieceMoved
         self.pieceCaptured = pieceCaptured
         self.firstTimePieceMoved = firstTimePieceMoved
+    }
+    
+    struct Promotion{
+        
     }
 }
