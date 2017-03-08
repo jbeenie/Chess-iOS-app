@@ -16,6 +16,7 @@ class Move{
     let pieceMoved: ChessPiece
     var pieceCaptured: ChessPiece?
     let firstTimePieceMoved: Bool
+    var pieceToPromoteTo:ChessPiece?=nil
     
     var promotionOccured: Bool{
         return (pieceMoved is Pawn && pieceMoved.rank == Move.promotionRank)
@@ -38,7 +39,4 @@ class Move{
         self.firstTimePieceMoved = firstTimePieceMoved
     }
     
-    struct Promotion{
-        
-    }
 }

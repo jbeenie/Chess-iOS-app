@@ -11,7 +11,7 @@ import UIKit
 class ChessBoardViewController: UIViewController,PromotionDelegate{
 
     //MARK: - Animation
-    var animate = true
+    var animate = false
     
     //MARK: - Model
     let chessGame: ChessGame = {
@@ -127,16 +127,21 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
             
             //Get the Position of the captured piece (if any)
             let positionOfPieceCaptured = ModelViewTranslation.viewPosition(of: move.pieceCaptured)
+            
+            //Get the piece to promote to (if any)
+            let pieceToPromoteTo = ModelViewTranslation.chessPieceView(from: move.pieceToPromoteTo)
             //move the piece in the BoardView
             _ = movePiece(from: lastSelectedSquare.position,
                                                to: tappedChessBoardSquare.position,
-                                               positionOfPieceCaptured: positionOfPieceCaptured)
+                                               positionOfPieceCaptured: positionOfPieceCaptured,
+                                               pieceToPromoteTo: pieceToPromoteTo,
+                                               animate:animate)
             //if move was a castle
             if let castle = move as? Castle{
                 //also move rook back
                 let rookStartPosition = ModelViewTranslation.viewPosition(from: castle.initialRookPosition)
                 let rookEndPosition = ModelViewTranslation.viewPosition(from: castle.finalRookPosition)
-                _ = movePiece(from: rookStartPosition, to: rookEndPosition)
+                _ = movePiece(from: rookStartPosition, to: rookEndPosition, animate:animate)
             }
 
             //if a piece was captured update the graveyardView so players can keep track of what pieces were captured
@@ -188,17 +193,17 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
             //Get piece to put back tuple
             //Create a new instance of a chess piece view
             let putPieceBack:(view:ChessPieceView,ChessBoardView.Position)? = (lastMove.pieceCaptured != nil) ?
-                (ModelViewTranslation.chessPieceView(from: lastMove.pieceCaptured!),ModelViewTranslation.viewPosition(from: lastMove.pieceCaptured!.position)):
+                (ModelViewTranslation.chessPieceView(from: lastMove.pieceCaptured)!,ModelViewTranslation.viewPosition(from: lastMove.pieceCaptured!.position)):
                 nil
             //move the piece back to its startPosition and put a piece back if one was captured during the move
-            _ = movePiece(from: endPosition, to: startPosition, putPieceBack:putPieceBack)
+            _ = movePiece(from: endPosition, to: startPosition, putPieceBack:putPieceBack, animate:animate)
 
             //if move was a castle
             if let castle = lastMove as? Castle{
                 //also move rook back
                 let rookStartPosition = ModelViewTranslation.viewPosition(from: castle.initialRookPosition)
                 let rookEndPosition = ModelViewTranslation.viewPosition(from: castle.finalRookPosition)
-                _ = movePiece(from: rookEndPosition, to: rookStartPosition)
+                _ = movePiece(from: rookEndPosition, to: rookStartPosition, animate:animate)
 
             }
             //if there was a piece putback remove it from the graveYard it came from
@@ -237,7 +242,7 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
         if let chessBoardView = chessBoardView{
             chessBoardView.setUpChessBoardView()
             //view.addSubview(chessBoardView)
-            placePiecesInStartingPosition()
+            placePiecesAtStartingPosition()
         }
     }
     
@@ -281,11 +286,13 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
                    to newPosition: ChessBoardView.Position,
                    positionOfPieceCaptured:ChessBoardView.Position? = nil,
                    putPieceBack:(ChessPieceView,ChessBoardView.Position)?=nil,
+                   pieceToPromoteTo:ChessPieceView?=nil,
                    animate:Bool=true)->(Bool, ChessPieceView?){
         return chessBoardView.movePiece(from: oldPostion,
                                         to: newPosition,
                                         positionOfPieceCaptured: positionOfPieceCaptured,
                                         putPieceBack: putPieceBack,
+                                        pieceToPromoteTo:pieceToPromoteTo,
                                         animate: animate)
     }
     
@@ -307,24 +314,26 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
        
     //MARK: - Initial Placement of Pieces in View
     
-    private func placePiecesInStartingPosition(){
+    private func placePiecesAtStartingPosition(){
+        placePiecesAt(positions: initialChessPiecePositions)
+    }
+    
+    private func placePiecesAt(positions: [ChessBoardView.Position:ChessPieceView]){
         if let chessBoardView = chessBoardView, chessBoardView.isSetUp {
-            let whiteRowRange = 0...1
-            let blackRowRange = 6...7
-            for row in [whiteRowRange, blackRowRange].joined(){
-                for col in 0..<ChessBoardView.Dimensions.SquaresPerColumn{
-                    let position = ChessBoardView.Position(row:row,col:col)!
-                    if let chessPiece = pieceInitiallyAt[position]{
-                        chessBoardView[row,col].chessPiece = chessPiece
-                        //resize and position animation copy
-                        chessBoardView.resize(chessPieceView: chessPiece.aninmationCopy, at: position)
-                    }
+            for (position, chessPieceView) in positions{
+                chessBoardView[position.row,position.col].chessPiece = chessPieceView
+                //resize and position animation copy
+                chessBoardView.resize(chessPieceView: chessPieceView.aninmationCopy, at: position)
+                //if animate = false hide the animation copies
+                if !animate{
+                    chessPieceView.aninmationCopy.isHidden = true
                 }
             }
         }
+        
     }
     
-    private let pieceInitiallyAt: [ChessBoardView.Position:ChessPieceView] = [
+    private let initialChessPiecePositions: [ChessBoardView.Position:ChessPieceView] = [
         //Initial position of Black Pieces
         ChessBoardView.Position(row: 0,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Rook),
         ChessBoardView.Position(row: 0,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Knight_R),

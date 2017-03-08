@@ -23,14 +23,15 @@ class ModelViewTranslation{
         return  chessPiece != nil ? viewPosition(from: chessPiece!.position) : nil
     }
     
-    static func chessPieceView(from chessPiece:ChessPiece)->ChessPieceView{
+    static func chessPieceView(from chessPiece:ChessPiece?)->ChessPieceView?{
+        guard let chessPiece = chessPiece else{return nil}
         let viewPieceColor = viewChessPieceColor(from: chessPiece.color)
         let viewPieceType = chessPieceType(from: chessPiece.typeId)
         return ChessPieceView(color: viewPieceColor, type: viewPieceType!)
     }
     
     static func chessPieceViews(from chessPieces:[ChessPiece])->[ChessPieceView]{
-        return chessPieces.map {return chessPieceView(from: $0)}
+        return chessPieces.map {return chessPieceView(from: $0)!}
     }
     
     static func viewChessPieceColor(from chessPieceColor:ChessPieceColor)->ChessPieceView.ChessPieceColor{

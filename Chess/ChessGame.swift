@@ -78,8 +78,6 @@ class ChessGame{
     private var _colorWhoseTurnItIs: ChessPieceColor = ChessPieceColor.White
     private var chessBoard = ChessBoard() //no pieces placed initially
     private var moves:[Move] = [Move]()
-    private var _whitesCapturedPieces = ChessPieceGraveYard(color: .White)
-    private var _blacksCapturedPieces = ChessPieceGraveYard(color: .Black)
     
     //King Related
     private var whiteKing: King?{return chessBoard.whiteKing}
@@ -148,9 +146,8 @@ class ChessGame{
         //check if a promotion occured during the move
         //and get the new piece chosen by user if it did
         if successfulMove.promotionOccured{
-           promote(chessPiece: successfulMove.pieceMoved)
+           successfulMove.pieceToPromoteTo = promote(chessPiece: successfulMove.pieceMoved)
         }
-        
         
         //record the move
         moves.append(successfulMove)
@@ -160,18 +157,9 @@ class ChessGame{
         }else{
             pawnThatJustDoubleStepped = nil
         }
-        
-        //update the graveYard with the move information
-        if let pieceCaptured = successfulMove.pieceCaptured{
-            //get the appropriate graveYard to add the piece to
-            let graveYard = pieceCaptured.color == .White ? _whitesCapturedPieces : _blacksCapturedPieces
-            _ = graveYard.add(pieceCaptured)
-        }
-        
+                
         //debugging
         print(chessBoard.description)
-        print(_whitesCapturedPieces.description)
-        print(_blacksCapturedPieces.description)
         //next players turn (always do this last)
         _colorWhoseTurnItIs.alternate()
         
@@ -207,25 +195,17 @@ class ChessGame{
         if let moveBeforeThat = moves.last, moveBeforeThat.isPawnDoubleStep(){
             pawnThatJustDoubleStepped = moveBeforeThat.pieceMoved as? Pawn
         }
-        //remove a piece from the graveyard if a piece was put back
-        if let pieceCaptured = moveToUndo.pieceCaptured{
-            //get the appropriate graveYard to add the piece to
-            let graveYard = pieceCaptured.color == .White ? _whitesCapturedPieces : _blacksCapturedPieces
-            if !graveYard.remove(pieceCaptured){
-                print("Could not remove piece from graveYard")
-            }
-        }
+        
         
         print(chessBoard.description)//debugging
-        print(_whitesCapturedPieces.description)
-        print(_blacksCapturedPieces.description)
         _colorWhoseTurnItIs.alternate()
         return moveToUndo
     }
     
-    private func promote(chessPiece:ChessPiece){
+    private func promote(chessPiece:ChessPiece)->ChessPiece{
         let pieceToPromoteTo = promotionDelegate.getPieceToPromoteTo(ofColor: colorWhoseTurnItIs, at: chessPiece.position, on: chessBoard)
         _ = chessBoard.set(piece: pieceToPromoteTo, at: chessPiece.position)
+        return pieceToPromoteTo
     }
     
     

@@ -48,7 +48,7 @@ class ChessBoardView: UIView {
     //MARK: ChessBoard square array
     lazy private var chessBoardSquares: [[ChessBoardSquareView]] = self.setUpChessBoardSquares()
     
-    //helper method used to setup the chessboard square array
+    //MARK: Helper method used to setup the chessboard square array
     private func setUpChessBoardSquares() -> [[ChessBoardSquareView]] {
         var chessBoardSquares = [[ChessBoardSquareView]]()
         var isBlack = false
@@ -118,7 +118,7 @@ class ChessBoardView: UIView {
         ]
     }
     
-    
+    //MARK: Setting up board indices
     private func setUpChessBoardIndices(){
         for label in ChessBoardIndex.labels {
             if let position = ChessBoardIndex.positions[label]{
@@ -151,6 +151,19 @@ class ChessBoardView: UIView {
     
     //MARK: - Moving SubViews AKA moving Pieces
     
+    //MARK: Struct that encapsulates the information used by the ChessBoardView 
+    //to move a chessPiece view. When External classes tell a ChessBoardView to 
+    //move its pieces on a they must do so using instances of this move struct 
+    //i.e. by calling the perform(move:) and undo(move:) methods
+    struct Move{
+        let startPosition: ChessBoardView.Position
+        let endPosition: ChessBoardView.Position
+        let pieceToMove: ChessPieceView
+        let pieceToCapture: ChessPieceView?
+        let positionOfPieceToCapture:ChessBoardView.Position?
+        let pieceToPromoteTo: ChessPieceView?
+    }
+    
     //Moves a piece from oldPosition to newPosition
     //the optional pieceToPutBack parameter is placed at the oldPosition
     //this parameters is used when undoing a move in which a piece was captured
@@ -164,7 +177,8 @@ class ChessBoardView: UIView {
                    to newPosition: ChessBoardView.Position,
                    positionOfPieceCaptured: Position?=nil,
                    putPieceBack:(view:ChessPieceView,position: Position)?=nil,
-                   animate:Bool=false)->(Bool, ChessPieceView?){
+                   pieceToPromoteTo:ChessPieceView? = nil
+                   )->(Bool, ChessPieceView?){
         //get the piece to move from old position
         //if no piece is present at this position return with failure
         guard let pieceToMove = removePiece(from: oldPosition) else {return (false,nil)}
@@ -180,6 +194,11 @@ class ChessBoardView: UIView {
         if let pieceToPutBack = putPieceBack{
             _ = set(piece: pieceToPutBack.view, at: pieceToPutBack.position)
         }
+        //if a promotion occured promote the piece
+        if let pieceToPromoteTo = pieceToPromoteTo{
+            _ = set(piece: pieceToPromoteTo, at: newPosition)
+        }
+        
         //debugging
         printMoveInfo(pieceWasMoved: true,
                       pieceToMove: pieceToMove,
