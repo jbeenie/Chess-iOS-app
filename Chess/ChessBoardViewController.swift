@@ -11,7 +11,7 @@ import UIKit
 class ChessBoardViewController: UIViewController,PromotionDelegate{
 
     //MARK: - Animation
-    var animate = false
+    var animate = true
     
     //MARK: - Model
     let chessGame: ChessGame = {
@@ -54,10 +54,10 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
     //MARK: - Gesture Recognizers
     private func setUpGestureRecognizers(){
         if let chessBoardView = chessBoardView{
-            //add single tap gesture recognizer to each ChessBoard square to enable selction
+            //add single tap gesture recognizer to each ChessBoard square to enable selection
             for row in 0..<ChessBoardView.Dimensions.SquaresPerRow{
                 for col in 0..<ChessBoardView.Dimensions.SquaresPerColumn{
-                    chessBoardView[row,col].addGestureRecognizer(chessBoardSquareTapRecognizer)
+                    chessBoardView[row,col]!.addGestureRecognizer(chessBoardSquareTapRecognizer)
                 }
             }
             //add double tap gesture recognizer to the overall ChessBoard to enable deselection of squares
@@ -155,7 +155,11 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
                 if lastSelectedSquare != nil{
                     deselectSelectedSquare()
                 }else {//otherwise undo the last move
-                    undoLastMove()
+                    let lastMove = undoLastMove()
+                    //if a piece was put back remove it from the graveyard
+                    if let pieceResurrected = lastMove?.pieceCaptured{
+                        removeChessPieceFromGraveYard(chessPiece: pieceResurrected)
+                    }
                 }
             }
         }
@@ -181,14 +185,16 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
     }
     
     //MARK: Undo Move
-    private func undoLastMove(){
+    private func undoLastMove()->Move?{
         //otherwise undo the last move if any
         if let lastMove = chessGame.undoLastMove(){
             //translate move to view move
             let lastViewMove = ModelViewTranslation.chessBoardViewMove(from: lastMove)
             //undo the last move on the chessBoardView
             chessBoardView.undo(move: lastViewMove, animate:animate)
+            return lastMove
         }
+        return nil
     }
 
     
@@ -257,9 +263,6 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
     }
     
     
-    
-    
-    
     //MARK: - Adding and Removing Captured Pieces to GraveYardView
     
     //whites peices go to the black players graveYard
@@ -284,7 +287,7 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
     private func placePiecesAt(positions: [ChessBoardView.Position:ChessPieceView]){
         if let chessBoardView = chessBoardView, chessBoardView.isSetUp {
             for (position, chessPieceView) in positions{
-                chessBoardView[position.row,position.col].chessPiece = chessPieceView
+                chessBoardView[position.row,position.col]!.chessPiece = chessPieceView
                 //resize and position animation copy
                 chessBoardView.resize(chessPieceView: chessPieceView.aninmationCopy, at: position)
                 //if animate = false hide the animation copies

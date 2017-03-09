@@ -40,8 +40,8 @@ class ChessBoardView: UIView {
     }
     
     //MARK: - Helper methods
-    func centerOfSquare(at position: ChessBoardView.Position)->CGPoint{
-        return self[position.row,position.col].center
+    func centerOfSquare(at position: ChessBoardView.Position?)->CGPoint?{
+        return self[position?.row,position?.col]?.center ?? nil
     }
     
     //MARK: - Subviews
@@ -210,7 +210,7 @@ class ChessBoardView: UIView {
             _ = set(piece: move.pieceToDemoteTo, at: move.endPosition)
         }
         
-        //move the piece to the new position
+        //move the piece to the start position
         movePiece(from: move.endPosition, endPosition: move.startPosition)
         
         //move the rook back if the move was a castle
@@ -234,8 +234,8 @@ class ChessBoardView: UIView {
     //returns the piece that previously occupied that position or nil if no piece was there
     private func set(piece: ChessPieceView?, at position: ChessBoardView.Position?)->ChessPieceView?{
         guard let position = position else {return nil}
-        let replacedPiece = self[position.row,position.col].chessPiece
-        self[position.row,position.col].chessPiece = piece
+        let replacedPiece = self[position.row,position.col]!.chessPiece
+        self[position.row,position.col]!.chessPiece = piece
         return replacedPiece
     }
     
@@ -295,15 +295,12 @@ class ChessBoardView: UIView {
                 column < Dimensions.SquaresPerColumn
     }
     
-    subscript(row: Int, col: Int) -> ChessBoardSquareView {
+    subscript(row: Int?, col: Int?) -> ChessBoardSquareView? {
         get {
-            assert(indexIsValid(row: row, column: col), "Index out of range")
+            guard let row = row, let col = col else {return nil}
+            guard indexIsValid(row: row, column: col) else {return nil}
             return chessBoardSquares[row][col]
         }
-//        set {
-//            //assert(indexIsValid(row: row, column: column), "Index out of range")
-//            chessBoardSquares[row][col] = newValue
-//        }
     }
     
     //MARK: - Struct Used to model the position of chessboard square
