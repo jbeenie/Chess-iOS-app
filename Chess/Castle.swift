@@ -23,7 +23,7 @@ class Castle: Move{
         return Position(row: row, col: col)!
     }
     
-    //MARK: Properties
+    //MARK: Constants
     private static let RowOfWhiteRook = 7
     private static let RowOfBlackRook = 0
     //Initial columns of rooks before castling
@@ -35,6 +35,7 @@ class Castle: Move{
     private static let finalColOfQueenSideRook = 3
     
     static let squaresTraversedByKing = 2
+    
     //MARK: - Properties
     //Stored
     let rook: Rook

@@ -105,180 +105,162 @@ class AnimatedChessBoardView: ChessBoardView {
         chessPieceView.center = self.centerOfSquare(at:position)
     }
     
-    func movePiece(from oldPosition: Position,
-                            to newPosition: Position,
-                            positionOfPieceCaptured:Position?=nil,
-                            putPieceBack:(view:ChessPieceView,position: Position)?=nil,
-                            pieceToPromoteTo:ChessPieceView?,
-                            animate: Bool=true) -> (Bool, ChessPieceView?) {
+    func perform(move: Move, animate: Bool){
         
-        //Handle the case where promotion occurs in a seperate method
-        //to minimize the complexity of this animation movePiece method
-        if let pieceToPromoteTo = pieceToPromoteTo {
-            return movePiece(from: oldPosition,
-                             to: newPosition,
-                             positionOfPieceCaptured: positionOfPieceCaptured,
-                             putPieceBack: putPieceBack,
-                             andPromoteTo: pieceToPromoteTo,
-                             animate: animate)
-        }
+        //move the piece on the board and
+        //ensure move is successful before proceeding
+        super.perform(move: move)
         
         
-        //move the piece on the board
-        let (moveSuccessful,pieceCaptured) = super.movePiece(
-            from: oldPosition,
-            to: newPosition,
-            positionOfPieceCaptured: positionOfPieceCaptured,
-            putPieceBack: putPieceBack,
-            pieceToPromoteTo: pieceToPromoteTo)
-        
-        //Ensure move is successful before proceeding
-        guard moveSuccessful else {return (false,nil)}
         //if animate is false your done
-        guard animate else {return (moveSuccessful,pieceCaptured)}
-        //Get the ChessPieceView that was moved and temporarily hide it
-        let pieceMoved = self[newPosition.row,newPosition.col].chessPiece!
-        pieceMoved.isHidden = true
-        //Temporarily Hide the piece that was put back
-        putPieceBack?.view.isHidden = true
-        
-        
-        pieceMoved.aninmationCopy.isHidden = false
-        
-        var animateReapperanceOfPiecePutBack:(()->Void)? = nil
-        if let putPieceBack = putPieceBack{
-            animateReapperanceOfPiecePutBack = {
-                self.animateAppearanceOf(
-                    chessPieceView: putPieceBack.view.aninmationCopy,
-                    completion: {finished in
-                            putPieceBack.view.isHidden = false
-                    }
-                )
-            }
-        }
-        
-        //prepare moving closure
-        let animateMovingOfPiece = {
-            self.animateMovingOf(
-                chessPieceView: pieceMoved.aninmationCopy,
-                from: oldPosition,
-                to: newPosition,
-                completion: {finished in
-                        pieceMoved.isHidden = false;
-                        print("finished moving closure")
-                        animateReapperanceOfPiecePutBack?()
-                }
-            )
-        }
-
-        
-        //if there was a piece captured during the move
-        if pieceCaptured != nil{
-            //make sure position of piece captured is not nil
-            guard let _ = positionOfPieceCaptured else {
-                print("Error: piece Captured not nil but positionOfPieceCaptured is nil!")
-                return (false,nil)
-            }
-            animateDisAppearanceOf(
-                chessPieceView: pieceCaptured!.aninmationCopy,
-                completion: {finished in animateMovingOfPiece()}
-            )
-        }else{
-            animateMovingOfPiece()
-        }
-        return (moveSuccessful,pieceCaptured)
+//        guard animate else {return (moveSuccessful,pieceCaptured)}
+//        //Get the ChessPieceView that was moved and temporarily hide it
+//        let pieceMoved = self[newPosition.row,newPosition.col].chessPiece!
+//        pieceMoved.isHidden = true
+//        //Temporarily Hide the piece that was put back
+//        putPieceBack?.view.isHidden = true
+//        
+//        
+//        pieceMoved.aninmationCopy.isHidden = false
+//        
+//        var animateReapperanceOfPiecePutBack:(()->Void)? = nil
+//        if let putPieceBack = putPieceBack{
+//            animateReapperanceOfPiecePutBack = {
+//                self.animateAppearanceOf(
+//                    chessPieceView: putPieceBack.view.aninmationCopy,
+//                    completion: {finished in
+//                            putPieceBack.view.isHidden = false
+//                    }
+//                )
+//            }
+//        }
+//        
+//        //prepare moving closure
+//        let animateMovingOfPiece = {
+//            self.animateMovingOf(
+//                chessPieceView: pieceMoved.aninmationCopy,
+//                from: oldPosition,
+//                to: newPosition,
+//                completion: {finished in
+//                        pieceMoved.isHidden = false;
+//                        print("finished moving closure")
+//                        animateReapperanceOfPiecePutBack?()
+//                }
+//            )
+//        }
+//
+//        
+//        //if there was a piece captured during the move
+//        if pieceCaptured != nil{
+//            //make sure position of piece captured is not nil
+//            guard let _ = positionOfPieceCaptured else {
+//                print("Error: piece Captured not nil but positionOfPieceCaptured is nil!")
+//                return (false,nil)
+//            }
+//            animateDisAppearanceOf(
+//                chessPieceView: pieceCaptured!.aninmationCopy,
+//                completion: {finished in animateMovingOfPiece()}
+//            )
+//        }else{
+//            animateMovingOfPiece()
+//        }
+//        return (moveSuccessful,pieceCaptured)
+    }
+    
+    func undo(move: ChessBoardView.Move,animate:Bool) {
+        super.undo(move: move)
     }
     
     
-    //Handle Animation sequences that involve promitions seperately
-    private func movePiece(from oldPosition: Position,
-                   to newPosition: Position,
-                   positionOfPieceCaptured:Position?=nil,
-                   putPieceBack:(view:ChessPieceView,position: Position)?=nil,
-                   andPromoteTo pieceToPromoteTo:ChessPieceView,
-                   animate: Bool=true) -> (Bool, ChessPieceView?){
-        
-        //record the piece to move before you move it
-        //because it gets replaced by another chessPieceView when promotions occur
-        let pieceToMove = self[oldPosition.row,oldPosition.col].chessPiece!
-
-        //move the piece on the board
-        let (moveSuccessful,pieceCaptured) = super.movePiece(
-            from: oldPosition,
-            to: newPosition,
-            positionOfPieceCaptured: positionOfPieceCaptured,
-            putPieceBack: putPieceBack,
-            pieceToPromoteTo: pieceToPromoteTo)
-        
-        //Ensure move is successful before proceeding
-        guard moveSuccessful else {return (false,nil)}
-        //if animate is false your done
-        guard animate else {return (moveSuccessful,pieceCaptured)}
-        
-        //temporarily hide the promoted to piece
-        let pieceChangedTo = self[newPosition.row,newPosition.col].chessPiece!
-        pieceChangedTo.isHidden = true
-        
-        //determine whether or not you are undoing a move or not
-        let undoingAMove = (pieceToMove.chessPieceIdentifier.type != .Pawn)
-        
-        //Temporarily Hide the piece that was put back
-        putPieceBack?.view.isHidden = true
-        
-        //Note there is no need to hide the piece to move itself
-        //because it was remove during the promotion (in the call to super.movePiece)
-        pieceToMove.aninmationCopy.isHidden = false
-        
-        //Closure for putting piece back
-        var animateReapperanceOfPiecePutBack:(()->Void)? = nil
-        if let putPieceBack = putPieceBack{
-            animateReapperanceOfPiecePutBack = {
-                self.animateAppearanceOf(
-                    chessPieceView: putPieceBack.view.aninmationCopy,
-                    completion: {finished in
-                        putPieceBack.view.isHidden = false
-                    }
-                )
-            }
-        }
-        
-        //Closure for moving piece
-        let animateMovingOfPiece = { (completion:((Bool)->Void)?) in
-            self.animateMovingOf(
-                chessPieceView: pieceToMove.aninmationCopy,
-                from: oldPosition,
-                to: newPosition,
-                completion: completion
-            )
-        }
-        
-        //Closure for promotion/demotion
-        let animateChangingOfPiece = { (completion:((Bool)->Void)?) in
-            self.animateTranstion(
-                from: pieceToMove,
-                to: pieceChangedTo,
-                completion: completion
-            )
-        }
-        
-        if !undoingAMove{
-            //if there was a piece captured during the move
-            if let pieceCaptured = pieceCaptured{
-                animateDisAppearanceOf(chessPieceView: pieceCaptured.aninmationCopy) { finished in
-                    animateMovingOfPiece{ finished in animateChangingOfPiece(nil)}
-                }
-                //otherwise if there was no piece captured during the move
-            }else {
-                animateMovingOfPiece{ finished in animateChangingOfPiece(nil)}
-            }
-        }else{
-            animateChangingOfPiece{ finished in
-                animateMovingOfPiece{ finished in
-                    animateReapperanceOfPiecePutBack?()
-                }
-            }
-
-        }
-                return (moveSuccessful,pieceCaptured)
-    }
+//    //Handle Animation sequences that involve promitions seperately
+//    private func movePiece(from oldPosition: Position,
+//                   to newPosition: Position,
+//                   positionOfPieceCaptured:Position?=nil,
+//                   putPieceBack:(view:ChessPieceView,position: Position)?=nil,
+//                   andPromoteTo pieceToPromoteTo:ChessPieceView,
+//                   animate: Bool=true) -> (Bool, ChessPieceView?){
+//        
+//        //record the piece to move before you move it
+//        //because it gets replaced by another chessPieceView when promotions occur
+//        let pieceToMove = self[oldPosition.row,oldPosition.col].chessPiece!
+//
+//        //move the piece on the board
+//        let (moveSuccessful,pieceCaptured) = super.movePiece(
+//            from: oldPosition,
+//            to: newPosition,
+//            positionOfPieceCaptured: positionOfPieceCaptured,
+//            putPieceBack: putPieceBack,
+//            pieceToPromoteTo: pieceToPromoteTo)
+//        
+//        //Ensure move is successful before proceeding
+//        guard moveSuccessful else {return (false,nil)}
+//        //if animate is false your done
+//        guard animate else {return (moveSuccessful,pieceCaptured)}
+//        
+//        //temporarily hide the promoted to piece
+//        let pieceChangedTo = self[newPosition.row,newPosition.col].chessPiece!
+//        pieceChangedTo.isHidden = true
+//        
+//        //determine whether or not you are undoing a move or not
+//        let undoingAMove = (pieceToMove.chessPieceIdentifier.type != .Pawn)
+//        
+//        //Temporarily Hide the piece that was put back
+//        putPieceBack?.view.isHidden = true
+//        
+//        //Note there is no need to hide the piece to move itself
+//        //because it was remove during the promotion (in the call to super.movePiece)
+//        pieceToMove.aninmationCopy.isHidden = false
+//        
+//        //Closure for putting piece back
+//        var animateReapperanceOfPiecePutBack:(()->Void)? = nil
+//        if let putPieceBack = putPieceBack{
+//            animateReapperanceOfPiecePutBack = {
+//                self.animateAppearanceOf(
+//                    chessPieceView: putPieceBack.view.aninmationCopy,
+//                    completion: {finished in
+//                        putPieceBack.view.isHidden = false
+//                    }
+//                )
+//            }
+//        }
+//        
+//        //Closure for moving piece
+//        let animateMovingOfPiece = { (completion:((Bool)->Void)?) in
+//            self.animateMovingOf(
+//                chessPieceView: pieceToMove.aninmationCopy,
+//                from: oldPosition,
+//                to: newPosition,
+//                completion: completion
+//            )
+//        }
+//        
+//        //Closure for promotion/demotion
+//        let animateChangingOfPiece = { (completion:((Bool)->Void)?) in
+//            self.animateTranstion(
+//                from: pieceToMove,
+//                to: pieceChangedTo,
+//                completion: completion
+//            )
+//        }
+//        
+//        if !undoingAMove{
+//            //if there was a piece captured during the move
+//            if let pieceCaptured = pieceCaptured{
+//                animateDisAppearanceOf(chessPieceView: pieceCaptured.aninmationCopy) { finished in
+//                    animateMovingOfPiece{ finished in animateChangingOfPiece(nil)}
+//                }
+//                //otherwise if there was no piece captured during the move
+//            }else {
+//                animateMovingOfPiece{ finished in animateChangingOfPiece(nil)}
+//            }
+//        }else{
+//            animateChangingOfPiece{ finished in
+//                animateMovingOfPiece{ finished in
+//                    animateReapperanceOfPiecePutBack?()
+//                }
+//            }
+//
+//        }
+//                return (moveSuccessful,pieceCaptured)
+//    }
 }

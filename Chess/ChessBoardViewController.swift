@@ -116,33 +116,12 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
                 return
             }
             
-            //ask the model to attempt the move and verify if it is legal in doing so
-            //if the move is legal it is executed in the model
-            guard let (move,opponentInCheck,outcome) = chessGame.movePiece(from: oldPosition, to: newPosition) else{return}
-            
+            //Attempt to perform the move and return if the move fails
+            guard let (move,opponentInCheck,outcome) = performMove(from: oldPosition, to: newPosition) else {return}
             
             //now the view must be updated accordingly
             //deselect the previously selected square
             deselectSelectedSquare()
-            
-            //Get the Position of the captured piece (if any)
-            let positionOfPieceCaptured = ModelViewTranslation.viewPosition(of: move.pieceCaptured)
-            
-            //Get the piece to promote to (if any)
-            let pieceToPromoteTo = ModelViewTranslation.chessPieceView(from: move.pieceToPromoteTo)
-            //move the piece in the BoardView
-            _ = movePiece(from: lastSelectedSquare.position,
-                                               to: tappedChessBoardSquare.position,
-                                               positionOfPieceCaptured: positionOfPieceCaptured,
-                                               pieceToPromoteTo: pieceToPromoteTo,
-                                               animate:animate)
-            //if move was a castle
-            if let castle = move as? Castle{
-                //also move rook back
-                let rookStartPosition = ModelViewTranslation.viewPosition(from: castle.initialRookPosition)
-                let rookEndPosition = ModelViewTranslation.viewPosition(from: castle.finalRookPosition)
-                _ = movePiece(from: rookStartPosition, to: rookEndPosition, animate:animate)
-            }
 
             //if a piece was captured update the graveyardView so players can keep track of what pieces were captured
             if let pieceCaptured =  move.pieceCaptured{
@@ -181,36 +160,34 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
             }
         }
     }
+
     
-    //MARK: - Undo Move
     
+    //MARK: Performing and Undoing Move
+    
+    //MARK: Perform Move
+    private func performMove(from oldPosition: Position,to newPosition: Position)->((Move, Bool, Outcome?)?){
+        //ask the model to attempt the move and verify if it is legal in doing so
+        //if the move is legal it is executed in the model
+        guard let (move,opponentInCheck,outcome) = chessGame.movePiece(from: oldPosition, to: newPosition) else{return nil}
+        
+        //Translate the model move into view move
+        let viewMove = ModelViewTranslation.chessBoardViewMove(from: move)
+        
+        //move the piece in the ChessBoardView
+        chessBoardView.perform(move: viewMove,animate:animate)
+        //return the appropriate information
+        return (move,opponentInCheck,outcome)
+    }
+    
+    //MARK: Undo Move
     private func undoLastMove(){
         //otherwise undo the last move if any
         if let lastMove = chessGame.undoLastMove(){
-            //translate the positions to view Positions
-            let startPosition = ModelViewTranslation.viewPosition(from: lastMove.startPosition)
-            let endPosition = ModelViewTranslation.viewPosition(from: lastMove.endPosition)
-            //Get piece to put back tuple
-            //Create a new instance of a chess piece view
-            let putPieceBack:(view:ChessPieceView,ChessBoardView.Position)? = (lastMove.pieceCaptured != nil) ?
-                (ModelViewTranslation.chessPieceView(from: lastMove.pieceCaptured)!,ModelViewTranslation.viewPosition(from: lastMove.pieceCaptured!.position)):
-                nil
-            //move the piece back to its startPosition and put a piece back if one was captured during the move
-            _ = movePiece(from: endPosition, to: startPosition, putPieceBack:putPieceBack, animate:animate)
-
-            //if move was a castle
-            if let castle = lastMove as? Castle{
-                //also move rook back
-                let rookStartPosition = ModelViewTranslation.viewPosition(from: castle.initialRookPosition)
-                let rookEndPosition = ModelViewTranslation.viewPosition(from: castle.finalRookPosition)
-                _ = movePiece(from: rookEndPosition, to: rookStartPosition, animate:animate)
-
-            }
-            //if there was a piece putback remove it from the graveYard it came from
-            if let putPieceBack = lastMove.pieceCaptured{
-                 removeChessPieceFromGraveYard(chessPiece: putPieceBack)
-            }
-            
+            //translate move to view move
+            let lastViewMove = ModelViewTranslation.chessBoardViewMove(from: lastMove)
+            //undo the last move on the chessBoardView
+            chessBoardView.undo(move: lastViewMove, animate:animate)
         }
     }
 
@@ -280,21 +257,7 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
     }
     
     
-    //MARK: - Moving Pieces On ChessBoard View
     
-    func movePiece(from oldPostion: ChessBoardView.Position,
-                   to newPosition: ChessBoardView.Position,
-                   positionOfPieceCaptured:ChessBoardView.Position? = nil,
-                   putPieceBack:(ChessPieceView,ChessBoardView.Position)?=nil,
-                   pieceToPromoteTo:ChessPieceView?=nil,
-                   animate:Bool=true)->(Bool, ChessPieceView?){
-        return chessBoardView.movePiece(from: oldPostion,
-                                        to: newPosition,
-                                        positionOfPieceCaptured: positionOfPieceCaptured,
-                                        putPieceBack: putPieceBack,
-                                        pieceToPromoteTo:pieceToPromoteTo,
-                                        animate: animate)
-    }
     
     
     //MARK: - Adding and Removing Captured Pieces to GraveYardView

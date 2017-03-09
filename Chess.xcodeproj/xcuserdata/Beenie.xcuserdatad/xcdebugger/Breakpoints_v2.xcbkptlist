@@ -198,22 +198,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/AnimatedChessBoardView.swift"
-            timestampString = "510632339.480526"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "movePiece(from:to:positionOfPieceCaptured:putPieceBack:pieceToPromoteTo:animate:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -298,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "510632339.480526"
+            timestampString = "510712915.350315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
             landmarkName = "giveUserFeedBackBased(on:opponentInCheck:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "510632907.2473"
+            timestampString = "510712915.350315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "singleTapOccured(on:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "510632984.828037"
+            timestampString = "510712915.350315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "singleTapOccured(on:)"
             landmarkType = "7">
             <Locations>
@@ -346,12 +330,12 @@
                   moduleName = "Chess"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessBoardViewController.swift"
-                  timestampString = "510695259.121445"
+                  timestampString = "510713307.272958"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "159"
-                  endingLineNumber = "159"
-                  offsetFromSymbolStart = "2921">
+                  startingLineNumber = "138"
+                  endingLineNumber = "138"
+                  offsetFromSymbolStart = "1583">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -361,12 +345,12 @@
                   moduleName = "Chess"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessBoardViewController.swift"
-                  timestampString = "510695259.123143"
+                  timestampString = "510713307.275921"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "159"
-                  endingLineNumber = "159"
-                  offsetFromSymbolStart = "2993">
+                  startingLineNumber = "138"
+                  endingLineNumber = "138"
+                  offsetFromSymbolStart = "1636">
                </Location>
             </Locations>
          </BreakpointContent>

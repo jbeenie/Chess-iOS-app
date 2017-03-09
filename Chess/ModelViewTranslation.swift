@@ -11,6 +11,8 @@ import Foundation
 class ModelViewTranslation{
     
     //MARK: -  Translation between Model and View
+    
+    //MARK: Position Translation
     static func modelPosition(from viewPosition: ChessBoardView.Position)->Position{
         return Position(row: viewPosition.row, col: viewPosition.col)!
     }
@@ -23,6 +25,7 @@ class ModelViewTranslation{
         return  chessPiece != nil ? viewPosition(from: chessPiece!.position) : nil
     }
     
+    //MARK: ChessPieceViewTranslation
     static func chessPieceView(from chessPiece:ChessPiece?)->ChessPieceView?{
         guard let chessPiece = chessPiece else{return nil}
         let viewPieceColor = viewChessPieceColor(from: chessPiece.color)
@@ -34,10 +37,12 @@ class ModelViewTranslation{
         return chessPieces.map {return chessPieceView(from: $0)!}
     }
     
+    //MARK:ChessPieceColor Translation
     static func viewChessPieceColor(from chessPieceColor:ChessPieceColor)->ChessPieceView.ChessPieceColor{
         return ChessPieceView.ChessPieceColor(rawValue: chessPieceColor.rawValue)!
     }
     
+    //MARK: ChessPieceType Translation
     static func chessPieceType(from chessPieceTypeId:String)->ChessPieceView.ChessPieceType?{
         switch chessPieceTypeId {
         case "P":
@@ -55,6 +60,37 @@ class ModelViewTranslation{
         default:
             return nil
         }
+    }
+    
+    //MARK: Move Translation
+    
+    static func chessBoardViewMove(from modelMove:Move)->ChessBoardView.Move{
+        var rookStartPosition:ChessBoardView.Position?=nil
+        var rookEndPosition:ChessBoardView.Position?=nil
+        
+        if let castle = modelMove as? Castle{
+            rookStartPosition = viewPosition(from: castle.initialRookPosition)
+            rookEndPosition = viewPosition(from: castle.finalRookPosition)
+        }
+        
+        let pieceToPromoteTo = chessPieceView(from:modelMove.pieceToPromoteTo)
+        var pieceToDemoteTo:ChessPieceView? = nil
+        if pieceToPromoteTo != nil{
+            pieceToDemoteTo = chessPieceView(from: modelMove.pieceMoved)
+        }
+        
+        return ChessBoardView.Move(
+                            startPosition: viewPosition(from: modelMove.startPosition),
+                            endPosition: viewPosition(from:modelMove.endPosition),
+                            pieceCaptured: chessPieceView(from: modelMove.pieceCaptured),
+                            positionOfPieceToCapture: viewPosition(of: modelMove.pieceCaptured),
+                            pieceToPromoteTo: pieceToPromoteTo,
+                            pieceToDemoteTo: pieceToDemoteTo,
+                            rookStartPosition: rookStartPosition,
+                            rookEndPosition: rookEndPosition
+            )
+        
+        
     }
 
 }
