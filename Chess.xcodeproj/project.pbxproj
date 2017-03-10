@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F09A3841E7267F200C0AA95 /* PromotionChoicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F09A3831E7267F200C0AA95 /* PromotionChoicesViewController.swift */; };
 		9F1489871E67B89B00177826 /* AnimatedChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1489861E67B89B00177826 /* AnimatedChessBoardView.swift */; };
 		9F2B51CC1E56A8CA0046FAC9 /* ChessBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51CB1E56A8CA0046FAC9 /* ChessBoardTests.swift */; };
 		9F2B51DC1E56B01C0046FAC9 /* PositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DB1E56B01C0046FAC9 /* PositionTests.swift */; };
@@ -70,6 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F09A3831E7267F200C0AA95 /* PromotionChoicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionChoicesViewController.swift; path = ../PromotionChoicesViewController.swift; sourceTree = "<group>"; };
 		9F1489861E67B89B00177826 /* AnimatedChessBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedChessBoardView.swift; sourceTree = "<group>"; };
 		9F2B51C11E56A87B0046FAC9 /* ChessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F2B51C51E56A87B0046FAC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 		9F3575B91E6E9857008267B7 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9F09A3831E7267F200C0AA95 /* PromotionChoicesViewController.swift */,
 				9F3575AF1E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift */,
 				9F3575B31E6E84E9008267B7 /* WhiteChessPieceGraveYardViewController.swift */,
 				9F3575B51E6E853F008267B7 /* BlackChessPieceGraveYardViewController.swift */,
@@ -439,6 +442,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F09A3841E7267F200C0AA95 /* PromotionChoicesViewController.swift in Sources */,
 				9FCB75A51E4EB71900275773 /* ChessBoardSquareView.swift in Sources */,
 				9FD74CE41E54DDD800FFC762 /* ChessBoard.swift in Sources */,
 				9FCB75CC1E4FF1EB00275773 /* ChessBoardView.swift in Sources */,
