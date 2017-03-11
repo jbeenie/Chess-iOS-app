@@ -15,6 +15,10 @@ extension CGRect {
     var upperRight: CGPoint { return CGPoint(x: maxX, y: minY) }
     var lowerRight: CGPoint { return CGPoint(x: maxX, y: maxY) }
     
+    mutating func setHeight(to height:CGFloat){
+        self = CGRect(origin: self.origin, size: CGSize(width: self.width, height: height))
+    }
+    
     init(center: CGPoint, size: CGSize) {
         let upperLeft = CGPoint(x: center.x-size.width/2, y: center.y-size.height/2)
         self.init(origin: upperLeft, size: size)
@@ -24,6 +28,8 @@ extension CGRect {
         let upperLeft = CGPoint(x: lowerRight.x-size.width, y: lowerRight.y-size.height)
         self.init(origin: upperLeft, size: size)
     }
+    
+    
 }
 
 extension CGSize {

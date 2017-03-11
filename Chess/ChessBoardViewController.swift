@@ -8,8 +8,17 @@
 
 import UIKit
 
-class ChessBoardViewController: UIViewController,PromotionDelegate{
+class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPresentationControllerDelegate{
 
+    struct StoryBoard{
+        static let promotionChoicesVCID = "PromotionPopOver"
+    }
+    
+    struct Ratios{
+        static let popOverWidthToChessBoardWidth:CGFloat = 0.5
+        static let popOverWidthToPopOverHeight:CGFloat = 4
+    }
+    
     //MARK: - Animation
     var animate = true
     
@@ -39,15 +48,86 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
 
     private var lastSelectedSquare: ChessBoardSquareView? = nil
     
-    //MARK: - Promition 
+    //MARK: - Promition
     
-    //Conform To Promotion Delegate
-    func getPieceToPromoteTo(ofColor color: ChessPieceColor, at position: Position, on board:ChessBoard)->ChessPiece{
-        //TODO: Initiate PopOver Segue and get choice from User
-        //Use color to display pieces of appropriate color
-        //get type ID
+    //MARK: Conform To Promotion Delegate
+    func getPieceToPromoteTo(ofColor color: ChessPieceColor, at position: Position){
+        //Translate arguments from model to view counterparts
+        let viewColor = ModelViewTranslation.viewChessPieceColor(from: color)
+        let viewPosition = ModelViewTranslation.viewPosition(from: position)
+
+        //Create the promotion choices pop over VC to ask user what piece
+        //to promote to
+        let promotionChoicesPopOverVC = createPromotionChoicesPopOverVC(for: viewColor)
         
-        return Queen(color: color, position: position, chessBoard: board)
+        // show the pop over and make it point to the chess piece being promoted
+        if let chessPieceToPointTo = chessBoardView[viewPosition.row,viewPosition.col]?.chessPiece{
+            show(promotionChoicesPopOver: promotionChoicesPopOverVC, pointingTo: chessPieceToPointTo, of: viewColor)
+        }
+    }
+    
+    //MARK: Creating Promotion Choices PopOver VC
+    
+    private var promotionChoicesPopOverSize:CGSize{
+        let width:CGFloat = chessBoardView.frame.width * Ratios.popOverWidthToChessBoardWidth
+        let height:CGFloat = width / Ratios.popOverWidthToPopOverHeight
+        return CGSize(width:width, height:height)
+    }
+    
+    private func createPromotionChoicesPopOverVC(for color:ChessPieceView.ChessPieceColor)->PromotionChoicesViewController{
+        let promotionChoicesPopOverVC = storyboard?.instantiateViewController(withIdentifier: StoryBoard.promotionChoicesVCID) as! PromotionChoicesViewController
+        promotionChoicesPopOverVC.colorOfPieces = color
+        promotionChoicesPopOverVC.completionHandler = promotionCompletionHandler
+        promotionChoicesPopOverVC.preferredContentSize = promotionChoicesPopOverSize
+        return promotionChoicesPopOverVC
+    }
+    
+    //MARK: Presenting the pop over
+    private func show(promotionChoicesPopOver: PromotionChoicesViewController,pointingTo chessPiece:ChessPieceView, of color: ChessPieceView.ChessPieceColor){
+        //set the pop over VC's presentation style to popover
+        promotionChoicesPopOver.modalPresentationStyle = .popover
+        //configure the popoverPresentationController
+        guard let popoverPresentationController = promotionChoicesPopOver.popoverPresentationController else{ return }
+        
+        //make it point to the chessPiece being promoted
+        //*********For debugging purposes make it point to the chessboardView
+        popoverPresentationController.sourceView = chessBoardView
+        popoverPresentationController.sourceRect = chessBoardView.bounds
+        //***************************//
+        //orient the pop over appropriately
+        let permittedArrowDirection: UIPopoverArrowDirection = (color == .White) ? .down : .up
+        popoverPresentationController.permittedArrowDirections = [permittedArrowDirection]
+        //set yourself as the delegate of the popoverPresentationController
+        popoverPresentationController.delegate = self
+        //finally show the pop over
+        present(promotionChoicesPopOver, animated: true)
+    }
+    
+    //MARK:Implementation of UIPopoverPresentationControllerDelegate methods
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
+        popoverPresentationController.backgroundColor = UIColor.darkGray
+        print (popoverPresentationController.presentationStyle)
+    }
+    
+    //Prevent the promotion choices vc from being dismissed when user taps outside of the VC's bounds
+    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool{
+        return false
+    }
+    
+    //For the promotion choices vc to always be displayed as a popover
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle{return .none}
+    
+    //MARK: Handling Completion of Promotion Choice
+    
+    private func promotionCompletionHandler(chessPieceViewToPromoteTo: ChessPieceView){
+        //Convert view chess piece to a model counterpart
+        //First get its position given that it is on the selected square
+        guard let lastSelectedSquare = lastSelectedSquare else{ return }
+        let positionOfPieceToPromote = ModelViewTranslation.modelPosition(from: lastSelectedSquare.position)
+        //Then create it
+        let chessPieceToPromote = ModelViewTranslation.chessPiece(from: chessPieceViewToPromoteTo, with: positionOfPieceToPromote, on: chessGame.)
+        
+        //TODO: reperform the the move but with the chesspieceto promote
     }
     
     
@@ -167,7 +247,7 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
 
     
     
-    //MARK: Performing and Undoing Move
+    //MARK: - Performing and Undoing Move
     
     //MARK: Perform Move
     private func performMove(from oldPosition: Position,to newPosition: Position)->((Move, Bool, Outcome?)?){
@@ -218,6 +298,11 @@ class ChessBoardViewController: UIViewController,PromotionDelegate{
         setUpView()
         //Set yourself as the promotion delegate of the chessgame
         chessGame.promotionDelegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //DEbugging:
+        _ = getPieceToPromoteTo(ofColor: .White, at: Position(row:7,col:7)!)
     }
     
     private func setUpView(){

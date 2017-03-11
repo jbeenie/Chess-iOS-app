@@ -133,7 +133,7 @@
         <!--Promotion Choices View Controller-->
         <scene sceneID="rRM-3o-NTi">
             <objects>
-                <viewController id="ro2-Z3-tlb" customClass="PromotionChoicesViewController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PromotionPopOver" id="ro2-Z3-tlb" customClass="PromotionChoicesViewController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3Zw-d3-mWv"/>
                         <viewControllerLayoutGuide type="bottom" id="Bge-OL-hpK"/>
@@ -142,39 +142,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="43" translatesAutoresizingMaskIntoConstraints="NO" id="Dip-sH-3dI">
-                                <rect key="frame" x="15" y="45" width="570" height="110"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dip-sH-3dI">
+                                <rect key="frame" x="30" y="30" width="540" height="140"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4J0-HL-mlm">
-                                        <rect key="frame" x="0.0" y="0.0" width="110.5" height="110"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="4J0-HL-mlm" secondAttribute="height" multiplier="1:1" id="3ac-6U-Qrz"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="0.0" width="105" height="140"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <state key="normal" image="blackLeftKnight.png"/>
                                         <connections>
                                             <action selector="chosePieceToPromoteTo:" destination="ro2-Z3-tlb" eventType="touchUpInside" id="cWg-qC-vJs"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3Y-MA-Ibm">
-                                        <rect key="frame" x="153.5" y="0.0" width="110" height="110"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="145" y="0.0" width="105" height="140"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <state key="normal" image="blackBishop.png"/>
                                         <connections>
                                             <action selector="chosePieceToPromoteTo:" destination="ro2-Z3-tlb" eventType="touchUpInside" id="i7I-9K-L4k"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXf-2R-cJh">
-                                        <rect key="frame" x="306.5" y="0.0" width="110.5" height="110"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="290" y="0.0" width="105" height="140"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <state key="normal" image="blackRook.png"/>
                                         <connections>
                                             <action selector="chosePieceToPromoteTo:" destination="ro2-Z3-tlb" eventType="touchUpInside" id="EJu-y5-qGL"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prn-yl-xYB">
-                                        <rect key="frame" x="460" y="0.0" width="110" height="110"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="435" y="0.0" width="105" height="140"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <state key="normal" image="blackQueen.png"/>
                                         <connections>
                                             <action selector="chosePieceToPromoteTo:" destination="ro2-Z3-tlb" eventType="touchUpInside" id="FaC-l6-xbe"/>
@@ -183,17 +180,18 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                         <constraints>
-                            <constraint firstItem="Dip-sH-3dI" firstAttribute="width" secondItem="HLe-Rk-r5w" secondAttribute="width" multiplier="0.95" id="XEm-C6-Hb2"/>
-                            <constraint firstItem="Dip-sH-3dI" firstAttribute="centerX" secondItem="HLe-Rk-r5w" secondAttribute="centerX" id="zSY-7C-ck0"/>
-                            <constraint firstItem="Dip-sH-3dI" firstAttribute="centerY" secondItem="HLe-Rk-r5w" secondAttribute="centerY" id="zYx-7d-GL1"/>
+                            <constraint firstItem="Dip-sH-3dI" firstAttribute="centerY" secondItem="HLe-Rk-r5w" secondAttribute="centerY" id="Dre-9h-6QF"/>
+                            <constraint firstItem="Dip-sH-3dI" firstAttribute="centerX" secondItem="HLe-Rk-r5w" secondAttribute="centerX" id="Yes-m2-pet"/>
+                            <constraint firstItem="Dip-sH-3dI" firstAttribute="width" secondItem="HLe-Rk-r5w" secondAttribute="width" multiplier="0.9" id="n50-69-1cM"/>
+                            <constraint firstItem="Dip-sH-3dI" firstAttribute="height" secondItem="HLe-Rk-r5w" secondAttribute="height" multiplier="0.7" id="s4o-QW-WSQ"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="200"/>
                     <connections>
                         <outlet property="bishopUIButton" destination="J3Y-MA-Ibm" id="gEG-Rj-Dfu"/>
+                        <outlet property="buttonStack" destination="Dip-sH-3dI" id="3PM-SG-nd7"/>
                         <outlet property="knightUIButton" destination="4J0-HL-mlm" id="LXR-hE-wmc"/>
                         <outlet property="queenUIButton" destination="prn-yl-xYB" id="rud-vQ-MHI"/>
                         <outlet property="rookUIButton" destination="fXf-2R-cJh" id="po4-r8-AAN"/>

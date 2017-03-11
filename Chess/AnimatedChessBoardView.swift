@@ -122,9 +122,6 @@ class AnimatedChessBoardView: ChessBoardView {
         //Get the piece captured as well
         //(do this before calling super.perform)
         let pieceToMove = self[move.startPosition.row,move.startPosition.col]!.chessPiece!
-        print(pieceToMove.aninmationCopy)
-        print(pieceToMove.aninmationCopy.isHidden)
-        print(pieceToMove.aninmationCopy.superview)
         
         let pieceCaptured = self[move.positionOfPieceToCapture?.row,move.positionOfPieceToCapture?.col]?.chessPiece
         

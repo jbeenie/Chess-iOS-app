@@ -9,5 +9,5 @@
 import Foundation
 
 protocol PromotionDelegate{
-    func getPieceToPromoteTo(ofColor color: ChessPieceColor, at position: Position, on board:ChessBoard)->ChessPiece
+    func getPieceToPromoteTo(ofColor color: ChessPieceColor, at position: Position)
 }

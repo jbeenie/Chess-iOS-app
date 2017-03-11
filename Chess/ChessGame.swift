@@ -116,7 +116,7 @@ class ChessGame{
     //move is successful if:
     //  1.The piece can move in that way
     //  2.The acting piece's king is not left in check as a result of the move
-    func movePiece(from oldPosition: Position, to newPosition: Position)->(Move,Bool,Outcome?)? {
+    func movePiece(from oldPosition: Position, to newPosition: Position, pieceToPromoteTo:ChessPiece?=nil)->(Move,Bool,Outcome?)? {
         
         //check if game is ended
         //guard !ended else{return nil}
@@ -136,18 +136,37 @@ class ChessGame{
         if let king = pieceToMove as? King{
             move = king.move(to: newPosition)
         }else if let pawn = pieceToMove as? Pawn{
-            move = pawn.move(to: newPosition, given:pawnThatJustDoubleStepped)
+            //Test if the move is legal
+            move = pawn.move(to: newPosition, given:pawnThatJustDoubleStepped, execute: false)
+            
+            //check if a promotion needs to occur during the move
+            if move?.promotionOccured ?? false{
+                
+                //if a promotion needs to occur and the piece to promote to is provided
+                if let pieceToPromoteTo = pieceToPromoteTo{
+                    
+                    //execute the move and record the piece to promote to
+                    move = pawn.move(to: newPosition, given:pawnThatJustDoubleStepped, execute: true)
+                    move?.pieceToPromoteTo = pieceToPromoteTo
+                    
+                    //promote the piece
+                    _ = chessBoard.set(piece: pieceToPromoteTo, at: newPosition)
+                }else{
+                    //ask the promotion delegate to fetch the piece to promote to
+                    promotionDelegate.getPieceToPromoteTo(ofColor: colorWhoseTurnItIs, at: newPosition)
+                    return nil
+                }
+            //if a promotion did not occur
+            } else{//execute the move
+                move = pawn.move(to: newPosition, given:pawnThatJustDoubleStepped, execute: true)
+            }
         }else{
             move = pieceToMove.move(to: newPosition)
         }
         guard let successfulMove = move  else {
             return nil
         }
-        //check if a promotion occured during the move
-        //and get the new piece chosen by user if it did
-        if successfulMove.promotionOccured{
-           successfulMove.pieceToPromoteTo = promote(chessPiece: successfulMove.pieceMoved)
-        }
+        
         
         //record the move
         moves.append(successfulMove)
@@ -201,13 +220,6 @@ class ChessGame{
         _colorWhoseTurnItIs.alternate()
         return moveToUndo
     }
-    
-    private func promote(chessPiece:ChessPiece)->ChessPiece{
-        let pieceToPromoteTo = promotionDelegate.getPieceToPromoteTo(ofColor: colorWhoseTurnItIs, at: chessPiece.position, on: chessBoard)
-        _ = chessBoard.set(piece: pieceToPromoteTo, at: chessPiece.position)
-        return pieceToPromoteTo
-    }
-    
     
     func PlacePiecesInInitialPositions(){
         chessBoard.placePieces(at: initialPiecePositions)
