@@ -103,11 +103,9 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ja2-rm-Fhn" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="42" width="188" height="42"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v6Q-Br-kv7" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="84" width="188" height="42"/>
-                                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
                             </stackView>
@@ -218,11 +216,9 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eXK-GV-lc2" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="188" height="48.5"/>
-                                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wme-DY-gaw" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="48.5" width="188" height="49"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o0y-fB-VIo" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="97.5" width="188" height="48.5"/>

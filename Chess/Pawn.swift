@@ -12,14 +12,14 @@ import Foundation
 
 class Pawn: ChessPiece{
     //MARK: - Type Properties
-    static var typeId = "P"
+    static var typeId:ChessPieceType = .Pawn
     
     //MARK: - Properties
     //MARK: Constants
     let color: ChessPieceColor
     let value = 1
     let canJumpOverOtherPieces = false
-    let typeId: String = Pawn.typeId
+    let typeId: ChessPieceType = Pawn.typeId
     //MARK: Variables
     let initialPosition: Position
     var position: Position

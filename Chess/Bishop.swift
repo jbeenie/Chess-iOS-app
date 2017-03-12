@@ -10,7 +10,7 @@ import Foundation
 
 class Bishop: ChessPiece{
     //MARK: - Type Properties
-    static var typeId = "B"
+    static var typeId:ChessPieceType = .Bishop
     
     
     //MARK: - Properties
@@ -18,7 +18,7 @@ class Bishop: ChessPiece{
     let color: ChessPieceColor
     let value = 3
     let canJumpOverOtherPieces = false
-    let typeId: String = Bishop.typeId
+    let typeId:ChessPieceType = Bishop.typeId
     //MARK: Variables
     let initialPosition: Position
     var position: Position

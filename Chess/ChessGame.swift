@@ -116,7 +116,7 @@ class ChessGame{
     //move is successful if:
     //  1.The piece can move in that way
     //  2.The acting piece's king is not left in check as a result of the move
-    func movePiece(from oldPosition: Position, to newPosition: Position, pieceToPromoteTo:ChessPiece?=nil)->(Move,Bool,Outcome?)? {
+    func movePiece(from oldPosition: Position, to newPosition: Position, typeOfPieceToPromoteTo:ChessPieceType?=nil)->(Move,Bool,Outcome?)? {
         
         //check if game is ended
         //guard !ended else{return nil}
@@ -139,27 +139,33 @@ class ChessGame{
             //Test if the move is legal
             move = pawn.move(to: newPosition, given:pawnThatJustDoubleStepped, execute: false)
             
-            //check if a promotion needs to occur during the move
+            //if the was legal and a promotion needs to occur during the move
             if move?.promotionOccured ?? false{
                 
-                //if a promotion needs to occur and the piece to promote to is provided
-                if let pieceToPromoteTo = pieceToPromoteTo{
+                //check if the type of piece to promote to is provided
+                if let typeOfPieceToPromoteTo = typeOfPieceToPromoteTo{
                     
-                    //execute the move and record the piece to promote to
-                    move = pawn.move(to: newPosition, given:pawnThatJustDoubleStepped, execute: true)
-                    move?.pieceToPromoteTo = pieceToPromoteTo
+                    //if so execute the move
+                    _ = pawn.move(to: newPosition, given:pawnThatJustDoubleStepped, execute: true)
                     
                     //promote the piece
-                    _ = chessBoard.set(piece: pieceToPromoteTo, at: newPosition)
+                    let pieceToPromoteTo = Pawn.createChessPiece(of: typeOfPieceToPromoteTo, color: pawn.color, at: pawn.position, on: pawn.chessBoard)
+                    _ = chessBoard.set(piece: pieceToPromoteTo, at: pieceToPromoteTo.position)
+                    
+                    //and record the piece to promote to
+                    move?.pieceToPromoteTo = pieceToPromoteTo
+                
+                //otherwise
                 }else{
                     //ask the promotion delegate to fetch the piece to promote to
                     promotionDelegate.getPieceToPromoteTo(ofColor: colorWhoseTurnItIs, at: newPosition)
                     return nil
                 }
-            //if a promotion did not occur
-            } else{//execute the move
-                move = pawn.move(to: newPosition, given:pawnThatJustDoubleStepped, execute: true)
+            //if a promotion did not occur but the move was still legal
+            } else if move != nil{//execute the move
+                _ = pawn.move(to: newPosition, given:pawnThatJustDoubleStepped, execute: true)
             }
+            //if the piece moving is neither a pawn or a king
         }else{
             move = pieceToMove.move(to: newPosition)
         }
@@ -187,6 +193,10 @@ class ChessGame{
         //if game is ended
         return (successfulMove, activeKingInCheck, outCome)
     }
+    
+    
+    
+    
     
     //undoes the last move in the game and returns the move that was undone
     func undoLastMove()->Move?{

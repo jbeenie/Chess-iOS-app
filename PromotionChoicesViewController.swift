@@ -27,7 +27,7 @@ class PromotionChoicesViewController: UIViewController {
     
     //MARK: - Stored Properties
     var colorOfPieces: ChessPieceView.ChessPieceColor? = nil
-    var completionHandler: ((ChessPieceView)->Void)? = nil
+    var completionHandler: (closure:((ChessPieceType,Position)->Void),positionData: Position)? = nil
     
     //MARK: - Computed Properties
     
@@ -77,8 +77,8 @@ class PromotionChoicesViewController: UIViewController {
         ]
     }
     
-    var buttonTypes: [Int:ChessPieceView.ChessPieceType] {
-        return [1:.Knight_R, 2:.Bishop, 3:.Rook, 4:.Queen]
+    var buttonTypes: [Int:ChessPieceType] {
+        return [1:.Knight, 2:.Bishop, 3:.Rook, 4:.Queen]
     }
     
     //Set up Button Appearance
@@ -109,9 +109,9 @@ class PromotionChoicesViewController: UIViewController {
     //MARK: Actions
     
     @IBAction func chosePieceToPromoteTo(_ sender: UIButton) {
-        guard let chessPieceType = buttonTypes[sender.tag], let chessPieceColor = colorOfPieces else {return}
-        let chessPieceToPromoteTo = ChessPieceView(color: chessPieceColor, type: chessPieceType)
-        self.presentingViewController?.dismiss(animated: true, completion: {self.completionHandler?(chessPieceToPromoteTo)})
+        guard let chessPieceType = buttonTypes[sender.tag] else {return}
+        self.presentingViewController?.dismiss(animated: true, completion:
+            {self.completionHandler?.closure(chessPieceType,self.completionHandler!.positionData)})
     }
     
 }

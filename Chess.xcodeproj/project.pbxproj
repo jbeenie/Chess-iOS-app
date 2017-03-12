@@ -58,6 +58,7 @@
 		9FD74CEF1E551FE700FFC762 /* Rook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CEE1E551FE700FFC762 /* Rook.swift */; };
 		9FD74CF11E551FF200FFC762 /* Queen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CF01E551FF200FFC762 /* Queen.swift */; };
 		9FD74CF31E551FFF00FFC762 /* King.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CF21E551FFF00FFC762 /* King.swift */; };
+		9FEB946E1E74BE460042F0DE /* ChessNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEB946D1E74BE460042F0DE /* ChessNotification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +127,7 @@
 		9FD74CEE1E551FE700FFC762 /* Rook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rook.swift; sourceTree = "<group>"; };
 		9FD74CF01E551FF200FFC762 /* Queen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queen.swift; sourceTree = "<group>"; };
 		9FD74CF21E551FFF00FFC762 /* King.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = King.swift; sourceTree = "<group>"; };
+		9FEB946D1E74BE460042F0DE /* ChessNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessNotification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +308,7 @@
 				9FCB75A41E4EB71900275773 /* ChessBoardSquareView.swift */,
 				9F3575B71E6E9474008267B7 /* ChessPieceGraveYardRowView.swift */,
 				9FCB75CB1E4FF1EB00275773 /* ChessBoardView.swift */,
+				9FEB946D1E74BE460042F0DE /* ChessNotification.swift */,
 				9F677DBA1E692E95009B2EED /* Animation */,
 			);
 			name = View;
@@ -449,6 +452,7 @@
 				9F1489871E67B89B00177826 /* AnimatedChessBoardView.swift in Sources */,
 				9F9BEFDC1E6F78860069F917 /* PromotionDelegate.swift in Sources */,
 				9FD74CE61E54DDED00FFC762 /* ChessPiece.swift in Sources */,
+				9FEB946E1E74BE460042F0DE /* ChessNotification.swift in Sources */,
 				9F3575B61E6E853F008267B7 /* BlackChessPieceGraveYardViewController.swift in Sources */,
 				9FD74CEB1E551FCF00FFC762 /* Knight.swift in Sources */,
 				9FD74CE21E54DDC700FFC762 /* ChessGame.swift in Sources */,

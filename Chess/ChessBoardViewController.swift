@@ -19,6 +19,8 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
         static let popOverWidthToPopOverHeight:CGFloat = 4
     }
     
+    
+    
     //MARK: - Animation
     var animate = true
     
@@ -58,11 +60,11 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
 
         //Create the promotion choices pop over VC to ask user what piece
         //to promote to
-        let promotionChoicesPopOverVC = createPromotionChoicesPopOverVC(for: viewColor)
+        let promotionChoicesPopOverVC = createPromotionChoicesPopOverVC(for: viewColor, position: position)
         
         // show the pop over and make it point to the chess piece being promoted
-        if let chessPieceToPointTo = chessBoardView[viewPosition.row,viewPosition.col]?.chessPiece{
-            show(promotionChoicesPopOver: promotionChoicesPopOverVC, pointingTo: chessPieceToPointTo, of: viewColor)
+        if let chessBoardSquareToPointTo = chessBoardView[viewPosition.row,viewPosition.col]{
+            show(promotionChoicesPopOver: promotionChoicesPopOverVC, pointingTo: chessBoardSquareToPointTo, of: viewColor)
         }
     }
     
@@ -74,26 +76,25 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
         return CGSize(width:width, height:height)
     }
     
-    private func createPromotionChoicesPopOverVC(for color:ChessPieceView.ChessPieceColor)->PromotionChoicesViewController{
+    private func createPromotionChoicesPopOverVC(for color:ChessPieceView.ChessPieceColor, position: Position)->PromotionChoicesViewController{
         let promotionChoicesPopOverVC = storyboard?.instantiateViewController(withIdentifier: StoryBoard.promotionChoicesVCID) as! PromotionChoicesViewController
         promotionChoicesPopOverVC.colorOfPieces = color
-        promotionChoicesPopOverVC.completionHandler = promotionCompletionHandler
+        promotionChoicesPopOverVC.completionHandler = (promotionCompletionHandler,position)
         promotionChoicesPopOverVC.preferredContentSize = promotionChoicesPopOverSize
         return promotionChoicesPopOverVC
     }
     
     //MARK: Presenting the pop over
-    private func show(promotionChoicesPopOver: PromotionChoicesViewController,pointingTo chessPiece:ChessPieceView, of color: ChessPieceView.ChessPieceColor){
+    private func show(promotionChoicesPopOver: PromotionChoicesViewController,pointingTo chessBoardSquare:ChessBoardSquareView, of color: ChessPieceView.ChessPieceColor){
         //set the pop over VC's presentation style to popover
         promotionChoicesPopOver.modalPresentationStyle = .popover
         //configure the popoverPresentationController
         guard let popoverPresentationController = promotionChoicesPopOver.popoverPresentationController else{ return }
         
         //make it point to the chessPiece being promoted
-        //*********For debugging purposes make it point to the chessboardView
-        popoverPresentationController.sourceView = chessBoardView
-        popoverPresentationController.sourceRect = chessBoardView.bounds
-        //***************************//
+        popoverPresentationController.sourceView = chessBoardSquare
+        popoverPresentationController.sourceRect = chessBoardSquare.bounds
+        
         //orient the pop over appropriately
         let permittedArrowDirection: UIPopoverArrowDirection = (color == .White) ? .down : .up
         popoverPresentationController.permittedArrowDirections = [permittedArrowDirection]
@@ -111,7 +112,11 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
     
     //Prevent the promotion choices vc from being dismissed when user taps outside of the VC's bounds
     func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool{
-        return false
+        return true
+    }
+    
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        deselectSelectedSquare()
     }
     
     //For the promotion choices vc to always be displayed as a popover
@@ -119,15 +124,12 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
     
     //MARK: Handling Completion of Promotion Choice
     
-    private func promotionCompletionHandler(chessPieceViewToPromoteTo: ChessPieceView){
-        //Convert view chess piece to a model counterpart
-        //First get its position given that it is on the selected square
-        guard let lastSelectedSquare = lastSelectedSquare else{ return }
-        let positionOfPieceToPromote = ModelViewTranslation.modelPosition(from: lastSelectedSquare.position)
-        //Then create it
-        let chessPieceToPromote = ModelViewTranslation.chessPiece(from: chessPieceViewToPromoteTo, with: positionOfPieceToPromote, on: chessGame.)
-        
-        //TODO: reperform the the move but with the chesspieceto promote
+    private func promotionCompletionHandler(chessPieceTypeToPromoteTo: ChessPieceType,endPosition:Position)
+    {
+        let startPosition = ModelViewTranslation.modelPosition(from:(self.lastSelectedSquare?.position)!)
+        //reperform the the move but with the type of the chess piece to promote
+        guard let (move,opponentInCheck,outcome) = performMove(from: startPosition, to: endPosition, chessPieceTypeToPromoteTo: chessPieceTypeToPromoteTo) else {return}
+        updateBoardAfter(move:move, opponentInCheck:opponentInCheck,outCome:outcome)
     }
     
     
@@ -199,21 +201,8 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
             //Attempt to perform the move and return if the move fails
             guard let (move,opponentInCheck,outcome) = performMove(from: oldPosition, to: newPosition) else {return}
             
-            //now the view must be updated accordingly
-            //deselect the previously selected square
-            deselectSelectedSquare()
-
-            //if a piece was captured update the graveyardView so players can keep track of what pieces were captured
-            if let pieceCaptured =  move.pieceCaptured{
-                _ = addChessPieceToGraveYard(chessPiece: pieceCaptured)
-            }
-            
-            //give the user visual feedback based on the outcome of the move
-            //tells players:
-            //1. when king is in check
-            //2. check mate occurs
-            //3. reach a draw
-            giveUserFeedBackBased(on: outcome, opponentInCheck: opponentInCheck)
+            //update the board appropriately after the move and give user appropriate feedback
+            updateBoardAfter(move:move, opponentInCheck:opponentInCheck,outCome:outcome)
             
         } else if tappedChessBoardSquare.isOccupied {
             //otherwise if no square was previously selected
@@ -250,10 +239,10 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
     //MARK: - Performing and Undoing Move
     
     //MARK: Perform Move
-    private func performMove(from oldPosition: Position,to newPosition: Position)->((Move, Bool, Outcome?)?){
+    private func performMove(from oldPosition: Position,to newPosition: Position, chessPieceTypeToPromoteTo: ChessPieceType? = nil)->((Move, Bool, Outcome?)?){
         //ask the model to attempt the move and verify if it is legal in doing so
         //if the move is legal it is executed in the model
-        guard let (move,opponentInCheck,outcome) = chessGame.movePiece(from: oldPosition, to: newPosition) else{return nil}
+        guard let (move,opponentInCheck,outcome) = chessGame.movePiece(from: oldPosition, to: newPosition, typeOfPieceToPromoteTo: chessPieceTypeToPromoteTo) else{return nil}
         
         //Translate the model move into view move
         let viewMove = ModelViewTranslation.chessBoardViewMove(from: move)
@@ -302,7 +291,7 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
     
     override func viewDidAppear(_ animated: Bool) {
         //DEbugging:
-        _ = getPieceToPromoteTo(ofColor: .White, at: Position(row:7,col:7)!)
+        //_ = getPieceToPromoteTo(ofColor: .White, at: Position(row:7,col:7)!)
     }
     
     private func setUpView(){
@@ -314,27 +303,50 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
         }
     }
     
-    //MARK: - User FeedBack
+    //MARK: - Post Move Execution
+    
+    private func updateBoardAfter(move:Move, opponentInCheck:Bool,outCome:Outcome?){
+        //deselect the previously selected square
+        deselectSelectedSquare()
+        
+        //if a piece was captured update the graveyardView so players can keep track of what pieces were captured
+        if let pieceCaptured =  move.pieceCaptured{
+            _ = addChessPieceToGraveYard(chessPiece: pieceCaptured)
+        }
+        
+        //give the user visual feedback based on the outcome of the move
+        //tells players:
+        //1. when king is in check
+        //2. check mate occurs
+        //3. reach a draw
+        giveUserFeedBackBased(on: outCome, opponentInCheck: opponentInCheck)
+    }
+    
+    //MARK: - ChessGame Notifications
+    
+    var notificationsFrame:CGRect{
+        let notificationSize = CGSize(width: 100, height: 30)
+        return CGRect(center: chessBoardView.bounds.mid, size: notificationSize)
+    }
+    
+    
+    //MARK: User FeedBack
     
     private func giveUserFeedBackBased(on outcome: Outcome?, opponentInCheck:Bool){
+        var notificationType:ChessNotification.NotificationType? = nil
         if let outcome = outcome{
             switch outcome {
-            //TODO: USE Color when announcing outcome
-            case Outcome.Win(_):
-                print("Check Mate!")
-                print(outcome)
-                //TODO: Animate "Check Mate!" Label Over screen
-                //TODO: Animate "White Win!" or "Black Win!"  Label Over screen (depending on color)
-                break
+            case Outcome.Win(let winingColor):
+                notificationType = .Win(winingColor)
             case Outcome.Draw:
-                print(outcome)
-                //TODO: Animate "Draw!" Label Over screen
-                break
+                notificationType = .Draw
             }
         } else if opponentInCheck == true {
-            print("Check to \(chessGame.colorWhoseTurnItIs) King!")
-            //TODO: Animate "Check to (White/Black)!" Label Over screen
+            notificationType = .Check
         }
+        guard notificationType != nil else {return}
+        let chessNotification = ChessNotification(frame: notificationsFrame, type: notificationType!)
+        self.chessBoardView.addSubview(chessNotification)
     }
     
     //MARK: - Navigation

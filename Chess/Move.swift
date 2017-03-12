@@ -19,7 +19,7 @@ class Move{
     var pieceToPromoteTo:ChessPiece?=nil
     
     var promotionOccured: Bool{
-        return (pieceMoved is Pawn && pieceMoved.rank == Move.promotionRank)
+        return (pieceMoved is Pawn && pieceMoved.rank(ifAt:endPosition) == Move.promotionRank)
     }
     
     func isPawnDoubleStep()->Bool{

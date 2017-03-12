@@ -10,9 +10,9 @@ import Foundation
 
 class ModelViewTranslation{
     
-    //MARK: -  Translation between Model and View
+    //MARK:   Translation between Model and View
     
-    //MARK: Position Translation
+    //MARK: - Position Translation
     static func modelPosition(from viewPosition: ChessBoardView.Position)->Position{
         return Position(row: viewPosition.row, col: viewPosition.col)!
     }
@@ -25,37 +25,19 @@ class ModelViewTranslation{
         return  chessPiece != nil ? viewPosition(from: chessPiece!.position) : nil
     }
     
-    //MARK: ChessPiece -> ChessPieceView Translation
+    //MARK: - ChessPiece -> ChessPieceView Translation
     static func chessPieceView(from chessPiece:ChessPiece?)->ChessPieceView?{
         guard let chessPiece = chessPiece else{return nil}
         let viewPieceColor = viewChessPieceColor(from: chessPiece.color)
         let viewPieceType = chessPieceType(from: chessPiece.typeId)
-        return ChessPieceView(color: viewPieceColor, type: viewPieceType!)
+        return ChessPieceView(color: viewPieceColor, type: viewPieceType)
     }
     
     static func chessPieceViews(from chessPieces:[ChessPiece])->[ChessPieceView]{
         return chessPieces.map {return chessPieceView(from: $0)!}
     }
     
-    //MARK: ChessPieceView -> ChessPiece
-    static func chessPiece(from chessPieceView: ChessPieceView, with position:Position, on chessboard: ChessBoard)->ChessPiece{
-        let pieceColor = chessPieceColor(from: chessPieceView.chessPieceIdentifier.color)
-        let pieceType = chessPieceView.chessPieceIdentifier.type
-        let chessPieceCreator = chessPieceCreators[pieceType]!
-        return chessPieceCreator(pieceColor, position, chessboard)
-    }
-    
-    private static let chessPieceCreators:[ChessPieceView.ChessPieceType:(ChessPieceColor,Position,ChessBoard)->ChessPiece] = [
-        .Pawn: {(color,pos,board) in return Pawn(color:color, position:pos, chessBoard:board)},
-        .Rook: {(color,pos,board) in return Rook(color:color, position:pos, chessBoard:board)},
-        .Knight_L: {(color,pos,board) in return Knight(color:color, position:pos, chessBoard:board)},
-        .Knight_R: {(color,pos,board) in return Knight(color:color, position:pos, chessBoard:board)},
-        .Bishop: {(color,pos,board) in return Bishop(color:color, position:pos, chessBoard:board)},
-        .Queen: {(color,pos,board) in return Queen(color:color, position:pos, chessBoard:board)},
-        .King: {(color,pos,board) in return King(color:color, position:pos, chessBoard:board)}
-    ]
-    
-    //MARK: ChessPieceColor Translation
+    //MARK: - ChessPieceColor Translation
     static func viewChessPieceColor(from chessPieceColor:ChessPieceColor)->ChessPieceView.ChessPieceColor{
         return ChessPieceView.ChessPieceColor(rawValue: chessPieceColor.rawValue)!
     }
@@ -64,27 +46,47 @@ class ModelViewTranslation{
         return ChessPieceColor(rawValue: viewChessPieceColor.rawValue)!
     }
     
-    //MARK: ChessPieceType Translation
-    static func chessPieceType(from chessPieceTypeId:String)->ChessPieceView.ChessPieceType?{
+    //MARK: - ChessPiece Type
+    //MARK ChessPieceType -> ChessPieceView.ChessPieceType Translation
+    static func chessPieceType(from chessPieceTypeId:ChessPieceType)->ChessPieceView.ChessPieceType{
         switch chessPieceTypeId {
-        case "P":
+        case .Pawn:
             return ChessPieceView.ChessPieceType.Pawn
-        case "R":
+        case .Rook:
             return ChessPieceView.ChessPieceType.Rook
-        case "H":
+        case .Knight:
             return ChessPieceView.ChessPieceType.Knight_R
-        case "B":
+        case .Bishop:
             return ChessPieceView.ChessPieceType.Bishop
-        case "Q":
+        case .Queen:
             return ChessPieceView.ChessPieceType.Queen
-        case "K":
+        case .King:
             return ChessPieceView.ChessPieceType.King
-        default:
-            return nil
         }
     }
     
-    //MARK: Move Translation
+    //MARK ChessPieceView.ChessPieceType -> ChessPieceType Translation
+    static func chessPieceType(from chessPieceViewTypeId:ChessPieceView.ChessPieceType)->ChessPieceType{
+        switch chessPieceViewTypeId {
+        case .Pawn:
+            return ChessPieceType.Pawn
+        case .Rook:
+            return ChessPieceType.Rook
+        case .Knight_R:
+            return ChessPieceType.Knight
+        case .Knight_L:
+            return ChessPieceType.Knight
+        case .Bishop:
+            return ChessPieceType.Bishop
+        case .Queen:
+            return ChessPieceType.Queen
+        case .King:
+            return ChessPieceType.King
+        }
+    }
+    
+    
+    //MARK: - Move Translation
     
     static func chessBoardViewMove(from modelMove:Move)->ChessBoardView.Move{
         var rookStartPosition:ChessBoardView.Position?=nil

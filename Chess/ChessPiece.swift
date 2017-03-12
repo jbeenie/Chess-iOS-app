@@ -16,7 +16,7 @@ protocol ChessPiece:class{
     var value: Int {get}
     var canJumpOverOtherPieces: Bool {get}
     var hasMoved: Bool {get set}
-    var typeId: String {get}
+    var typeId: ChessPieceType {get}
     var chessBoard: ChessBoard {get}
     var reachableSquares:Set<Position> {get}
     
@@ -37,16 +37,43 @@ protocol ChessPiece:class{
 extension ChessPiece{
     //MARK: - Debugging
     var description: String{
-        return "\(color.rawValue)"+typeId
+        return "\(color.rawValue)\(typeId.rawValue)"
     }
+    
+    //MARK: - Static Properties and Methods
+    
+    //MARK: Creating ChessPiece from type ID
+    
+    private static var chessPieceCreators:[ChessPieceType:(ChessPieceColor,Position,ChessBoard)->ChessPiece] {
+        return [
+        .Pawn: {(color,pos,board) in return Pawn(color:color, position:pos, chessBoard:board)},
+        .Rook: {(color,pos,board) in return Rook(color:color, position:pos, chessBoard:board)},
+        .Knight: {(color,pos,board) in return Knight(color:color, position:pos, chessBoard:board)},
+        .Bishop: {(color,pos,board) in return Bishop(color:color, position:pos, chessBoard:board)},
+        .Queen: {(color,pos,board) in return Queen(color:color, position:pos, chessBoard:board)},
+        .King: {(color,pos,board) in return King(color:color, position:pos, chessBoard:board)}]
+    }
+    
+    static func createChessPiece(of type:ChessPieceType, color: ChessPieceColor, at position:Position, on chessBoard:ChessBoard)->ChessPiece{
+        let chessPieceCreator = chessPieceCreators[type]!
+        return chessPieceCreator(color,position,chessBoard)
+    }
+    
     
     //MARK: - Computed Properties
     //King of that chesspiece
     var king:King?{return color == .White ? chessBoard.whiteKing : chessBoard.blackKing}
-    //rank the piece is on (takes into account peices color)
-    var rank:Int{return (color == .Black ?  position.row + 1 : ChessBoard.Dimensions.SquaresPerColumn - position.row)}
+    
+    //the rank the piece is currently on (takes into account peices color)
+    var rank:Int{return (color == .Black ?  position.row + 1 : (ChessBoard.Dimensions.SquaresPerColumn - position.row))}
+    
     
     //MARK: - Methods
+    //returns the rank the piece would be on if it was on the given position
+    func rank(ifAt position:Position)->Int{
+        return (color == .Black ?  position.row + 1 : (ChessBoard.Dimensions.SquaresPerColumn - position.row))
+    }
+    
     func attackingSquare(at targetedPosition: Position)->Bool{
         //make sure targeted position is different from the piece's current position
         guard self.position != targetedPosition else {return false}
@@ -170,6 +197,15 @@ enum ChessPieceColor: Character {
             return ChessPieceColor.White
         }
     }
+}
+
+enum ChessPieceType: Character{
+    case    Pawn = "P",
+            Knight = "H",
+            Bishop = "B",
+            Rook = "R",
+            Queen = "Q",
+            King = "K"
 }
 
 enum Side:Character{

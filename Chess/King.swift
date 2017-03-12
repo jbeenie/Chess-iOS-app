@@ -10,14 +10,14 @@ import Foundation
 
 class King: ChessPiece{
     //MARK: - Type Properties
-    static var typeId = "K"
+    static var typeId:ChessPieceType = .King
     
     //MARK: - Properties
     //MARK: Constant Properties
     let color: ChessPieceColor
     let value = 0
     let canJumpOverOtherPieces = false
-    let typeId: String = King.typeId
+    let typeId: ChessPieceType = King.typeId
     
     //MARK: Variable Properties
     let initialPosition: Position
