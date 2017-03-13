@@ -23,10 +23,13 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
         static let popOverWidthToPopOverHeight:CGFloat = 4
     }
     
+    //MARK: - Properties
+    //MARK: Chess Timers
+    let timersEnabled = true
+    let initialTime: Int = 120 //seconds
     
-    
-    //MARK: - Animation
-    var animate = true
+    //MARK: Animation
+    let animate = true
     
     //MARK: - Model
     let chessGame: ChessGame = {
@@ -294,23 +297,29 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
     //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpView()
+        setUpChessBoardView()
         //Set yourself as the promotion delegate of the chessgame
         chessGame.promotionDelegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //DEbugging:
-        //_ = getPieceToPromoteTo(ofColor: .White, at: Position(row:7,col:7)!)
+        setUpTimers()
     }
     
-    private func setUpView(){
+    private func setUpChessBoardView(){
         //ChessBoardView Setup
         if let chessBoardView = chessBoardView{
             chessBoardView.setUpChessBoardView()
             //view.addSubview(chessBoardView)
             placePiecesAtStartingPosition()
         }
+    }
+    
+    private func setUpTimers(){
+        blackTimerViewController?.mode = .CountDown
+        blackTimerViewController?.setInitialTime(to: initialTime)
+        whiteTimerViewController?.mode = .CountDown
+        whiteTimerViewController?.setInitialTime(to: initialTime)
     }
     
     //MARK: - Post Move Execution
@@ -360,16 +369,16 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
     }
     
     //MARK: - Navigation
-    //MARK: Embed SubViewControllers
+    //MARK:
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "BlackChessPieceGraveYardViewController"){
+        if (segue.identifier == StoryBoard.BlackChessPieceGraveYardViewController){
             blackChessPieceGraveYardViewController = segue.destination as! BlackChessPieceGraveYardViewController
-        }else if (segue.identifier == "WhiteChessPieceGraveYardViewController"){
+        }else if (segue.identifier == StoryBoard.WhiteChessPieceGraveYardViewController){
             whiteChessPieceGraveYardViewController = segue.destination as! WhiteChessPieceGraveYardViewController
-        }else if (segue.identifier == "WhiteChessPieceGraveYardViewController"){
-            whiteChessPieceGraveYardViewController = segue.destination as! WhiteChessPieceGraveYardViewController
-        }else if (segue.identifier == "WhiteChessPieceGraveYardViewController"){
-            whiteChessPieceGraveYardViewController = segue.destination as! WhiteChessPieceGraveYardViewController
+        }else if (segue.identifier == StoryBoard.BlackTimerViewController && timersEnabled){
+            blackTimerViewController = segue.destination as? BlackTimerViewController
+        }else if (segue.identifier == StoryBoard.WhiteTimerViewController && timersEnabled){
+            whiteTimerViewController = segue.destination as? WhiteTimerViewController
         }
         
     }

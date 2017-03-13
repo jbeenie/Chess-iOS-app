@@ -64,7 +64,7 @@
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhZ-1X-Rin">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="126"/>
                                         <connections>
-                                            <segue destination="rmS-HA-pAQ" kind="embed" id="mnK-HN-TPH"/>
+                                            <segue destination="rmS-HA-pAQ" kind="embed" identifier="BlackTimerViewController" id="mnK-HN-TPH"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x44-js-ujQ">
@@ -94,7 +94,7 @@
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzc-kR-iyF">
                                         <rect key="frame" x="187.5" y="0.0" width="187.5" height="146"/>
                                         <connections>
-                                            <segue destination="Yas-s8-bUv" kind="embed" id="N0W-bv-zO6"/>
+                                            <segue destination="Yas-s8-bUv" kind="embed" identifier="WhiteTimerViewController" id="N0W-bv-zO6"/>
                                         </connections>
                                     </containerView>
                                 </subviews>

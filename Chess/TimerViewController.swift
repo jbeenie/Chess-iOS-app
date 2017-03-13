@@ -19,33 +19,38 @@ class TimerViewController: UIViewController {
     
     //MARK: - Stored Properties
     //Total Number of seconds elapsed on timer
-    var totalSeconds:TimeInterval = 45 //in seconds
-    //Object used to convert total number of seconds into
-    var timeFormatter: TimeFormatter = TimeFormatter()
-    //timer object used to update timer display at regular interval
-    var timer = Timer()
-    var timerIsRunning = false
-    //The increment of time between timer updates
-    let increment:TimeInterval = 1//seconds
     //closure to execute when timer ends
     var timerCompletionHandler: (()->Void)? = nil
     //mode of operation
-    let mode: Mode = .CountDown
+    var mode: Mode = .CountDown
+    
+    //MARK: Private
+    private var totalSeconds:Int = 45 {//in seconds
+        didSet{
+            updateTimerLabel()
+        }
+    }
+    //Object used to convert total number of seconds into
+    private var timeFormatter: TimeFormatter = TimeFormatter()
+    //timer object used to update timer display at regular interval
+    private var timer = Timer()
+    private var timerIsRunning = false
+    //The increment of time between timer updates
+    private let increment:Int = 1//seconds
+    private var timeIncrement:TimeInterval{
+        return TimeInterval(increment)
+    }
+    
     
     
     
     
     //MARK: - Methods
-    
-    private func incrementTime()
-    {
-        totalSeconds += increment
-        updateTimerLabel()
-    }
+    //MARK: Private
+    private func incrementTime() {totalSeconds += increment}
     
     private func decrementTime(){
         totalSeconds -= increment
-        updateTimerLabel()
         if totalSeconds == 0{
             pause()
             timerCompletionHandler?()
@@ -58,16 +63,23 @@ class TimerViewController: UIViewController {
     }
     
     private func updateTimerLabel(){
-        timeFormatter.totalSeconds = Int(totalSeconds)
+        timeFormatter.totalSeconds = totalSeconds
         timerLabel.text = timeFormatter.simpleTimeString
         timerLabel.setNeedsDisplay()
+    }
+    
+    //MARK: API
+    func setInitialTime(to initialTime: Int){
+        if mode == .CountDown{
+            totalSeconds = initialTime > 0 ? initialTime : 0
+        }
     }
     
     func resume(){
         //if the the timer is already running do nothing
         if timerIsRunning{return}
         //otherwise restart it
-        timer = Timer.scheduledTimer(timeInterval: increment, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: timeIncrement, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
         timerIsRunning = true
     }
     
@@ -77,30 +89,14 @@ class TimerViewController: UIViewController {
         
     }
     
-    func reset(to totalSeconds:TimeInterval){
+    func reset(to totalSeconds:Int){
         timer.invalidate()
         timerIsRunning = false
         self.totalSeconds = totalSeconds
-        updateTimerLabel()
     }
     
     
-    //MArK: - Actions
-    
-    @IBAction func startButtonPressed(_ sender: UIButton)
-    {
-        resume()
-    }
-    @IBAction func pauseButtonPressed(_ sender: AnyObject)
-    {
-        pause()
-    }
-    @IBAction func resetButtonPressed(_ sender: AnyObject)
-    {
-        reset(to: 0)
-    }
-    
-    
+
     //MARK: - View Controller Life Cycle
     override func viewDidLoad()
     {
