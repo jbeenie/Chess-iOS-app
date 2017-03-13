@@ -11,7 +11,11 @@ import UIKit
 class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPresentationControllerDelegate{
 
     struct StoryBoard{
-        static let promotionChoicesVCID = "PromotionPopOver"
+        static let PromotionChoicesVCID = "PromotionPopOver"
+        static let BlackChessPieceGraveYardViewController = "BlackChessPieceGraveYardViewController"
+        static let WhiteChessPieceGraveYardViewController = "WhiteChessPieceGraveYardViewController"
+        static let BlackTimerViewController = "BlackTimerViewController"
+        static let WhiteTimerViewController = "WhiteTimerViewController"
     }
     
     struct Ratios{
@@ -32,12 +36,18 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
     }()
     
     
+    
     //MARK: - SubViewControllers
     
    
     private var blackChessPieceGraveYardViewController: BlackChessPieceGraveYardViewController!
     
     private var whiteChessPieceGraveYardViewController: WhiteChessPieceGraveYardViewController!
+    
+    private var whiteTimerViewController:WhiteTimerViewController?
+    private var blackTimerViewController:BlackTimerViewController?
+    
+    
     
     
     //MARK: - View
@@ -77,7 +87,7 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
     }
     
     private func createPromotionChoicesPopOverVC(for color:ChessPieceView.ChessPieceColor, position: Position)->PromotionChoicesViewController{
-        let promotionChoicesPopOverVC = storyboard?.instantiateViewController(withIdentifier: StoryBoard.promotionChoicesVCID) as! PromotionChoicesViewController
+        let promotionChoicesPopOverVC = storyboard?.instantiateViewController(withIdentifier: StoryBoard.PromotionChoicesVCID) as! PromotionChoicesViewController
         promotionChoicesPopOverVC.colorOfPieces = color
         promotionChoicesPopOverVC.completionHandler = (promotionCompletionHandler,position)
         promotionChoicesPopOverVC.preferredContentSize = promotionChoicesPopOverSize
@@ -350,13 +360,18 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
     }
     
     //MARK: - Navigation
-    //Embed SubViewControllers
+    //MARK: Embed SubViewControllers
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "BlackChessPieceGraveYardViewController"){
             blackChessPieceGraveYardViewController = segue.destination as! BlackChessPieceGraveYardViewController
         }else if (segue.identifier == "WhiteChessPieceGraveYardViewController"){
             whiteChessPieceGraveYardViewController = segue.destination as! WhiteChessPieceGraveYardViewController
+        }else if (segue.identifier == "WhiteChessPieceGraveYardViewController"){
+            whiteChessPieceGraveYardViewController = segue.destination as! WhiteChessPieceGraveYardViewController
+        }else if (segue.identifier == "WhiteChessPieceGraveYardViewController"){
+            whiteChessPieceGraveYardViewController = segue.destination as! WhiteChessPieceGraveYardViewController
         }
+        
     }
     
     

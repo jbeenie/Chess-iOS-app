@@ -11,6 +11,41 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Black Timer View Controller-->
+        <scene sceneID="JjS-ve-M8d">
+            <objects>
+                <viewController storyboardIdentifier="BlackTimerViewController" id="rmS-HA-pAQ" customClass="BlackTimerViewController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bNO-e1-AIc"/>
+                        <viewControllerLayoutGuide type="bottom" id="Tow-eD-h0l"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JRU-Be-EOp">
+                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="126"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="40" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q0t-rM-5bJ">
+                                <rect key="frame" x="16" y="0.0" width="172" height="126"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="q0t-rM-5bJ" secondAttribute="trailing" id="L3Z-mD-ume"/>
+                            <constraint firstItem="q0t-rM-5bJ" firstAttribute="leading" secondItem="JRU-Be-EOp" secondAttribute="leading" constant="16" id="M3m-en-F3T"/>
+                            <constraint firstItem="q0t-rM-5bJ" firstAttribute="top" secondItem="bNO-e1-AIc" secondAttribute="bottom" id="hST-gG-fhD"/>
+                            <constraint firstItem="Tow-eD-h0l" firstAttribute="top" secondItem="q0t-rM-5bJ" secondAttribute="bottom" id="sAG-YL-Lf0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="timerLabel" destination="q0t-rM-5bJ" id="gZx-Fn-YON"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MZ1-OM-mX2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-59.200000000000003" y="-294.15292353823088"/>
+        </scene>
         <!--Chess Board View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -28,6 +63,9 @@
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhZ-1X-Rin">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="126"/>
+                                        <connections>
+                                            <segue destination="rmS-HA-pAQ" kind="embed" id="mnK-HN-TPH"/>
+                                        </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x44-js-ujQ">
                                         <rect key="frame" x="187.5" y="0.0" width="187.5" height="126"/>
@@ -55,6 +93,9 @@
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzc-kR-iyF">
                                         <rect key="frame" x="187.5" y="0.0" width="187.5" height="146"/>
+                                        <connections>
+                                            <segue destination="Yas-s8-bUv" kind="embed" id="N0W-bv-zO6"/>
+                                        </connections>
                                     </containerView>
                                 </subviews>
                             </stackView>
@@ -126,7 +167,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uss-Y1-IXc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="889.60000000000002" y="-201.49925037481262"/>
+            <point key="canvasLocation" x="286" y="-294"/>
         </scene>
         <!--Promotion Choices View Controller-->
         <scene sceneID="rRM-3o-NTi">
@@ -244,6 +285,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bF4-MY-uh8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-32" y="669.26536731634189"/>
+        </scene>
+        <!--White Timer View Controller-->
+        <scene sceneID="PMH-v0-fBD">
+            <objects>
+                <viewController storyboardIdentifier="WhiteTimerViewController" id="Yas-s8-bUv" customClass="WhiteTimerViewController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hXD-sp-6r8"/>
+                        <viewControllerLayoutGuide type="bottom" id="KkZ-tP-l25"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NWx-ig-bpK">
+                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="146"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="40" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5VI-hD-mND">
+                                <rect key="frame" x="16" y="0.0" width="172" height="146"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5VI-hD-mND" firstAttribute="leading" secondItem="NWx-ig-bpK" secondAttribute="leading" constant="16" id="H2u-oh-aoH"/>
+                            <constraint firstItem="KkZ-tP-l25" firstAttribute="top" secondItem="5VI-hD-mND" secondAttribute="bottom" id="MVh-Vf-SG0"/>
+                            <constraint firstItem="5VI-hD-mND" firstAttribute="top" secondItem="hXD-sp-6r8" secondAttribute="bottom" id="neb-V0-bRZ"/>
+                            <constraint firstAttribute="trailing" secondItem="5VI-hD-mND" secondAttribute="trailing" id="tmu-Tj-UlI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="timerLabel" destination="5VI-hD-mND" id="8Pi-t7-ibv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bS5-K3-RLR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="324.80000000000001" y="668.36581709145435"/>
         </scene>
     </scenes>
     <resources>
