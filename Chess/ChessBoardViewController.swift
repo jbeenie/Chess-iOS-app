@@ -24,19 +24,21 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
     }
     
     //MARK: - Properties
-    //MARK: Chess Timers
-    let timersEnabled = true
-    let initialTime: Int = 120 //seconds
     
     //MARK: Animation
     let animate = true
     
     //MARK: - Model
+    //MARK: Chess game
     let chessGame: ChessGame = {
         let chessGame = ChessGame()
         chessGame.PlacePiecesInInitialPositions()
         return chessGame
     }()
+    
+    //MARK: Chess Timer
+    let timersEnabled = true
+    let initialTime: Int = 120 //seconds
     
     
     
@@ -123,16 +125,17 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
         print (popoverPresentationController.presentationStyle)
     }
     
-    //Prevent the promotion choices vc from being dismissed when user taps outside of the VC's bounds
+    //Allow the promotion choices vc to be dismissed when user taps outside of the VC's bounds
     func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool{
         return true
     }
     
+    //deselect the selected square if the user dismisses the promtion choices pop over
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
         deselectSelectedSquare()
     }
     
-    //For the promotion choices vc to always be displayed as a popover
+    //Ensure the promotion choices vc is always displayed as a popover
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle{return .none}
     
     //MARK: Handling Completion of Promotion Choice
@@ -369,7 +372,7 @@ class ChessBoardViewController: UIViewController,PromotionDelegate,UIPopoverPres
     }
     
     //MARK: - Navigation
-    //MARK:
+    //MARK: Embed 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == StoryBoard.BlackChessPieceGraveYardViewController){
             blackChessPieceGraveYardViewController = segue.destination as! BlackChessPieceGraveYardViewController
