@@ -457,86 +457,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "511082194.099169"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "promotionCompletionHandler(chessPieceTypeToPromoteTo:endPosition:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Chess.ChessBoardViewController.(promotionCompletionHandler in _BE76B3443BB7DAFB8672EB08167A572F) (chessPieceTypeToPromoteTo : Chess.ChessPieceType, endPosition : Chess.Position) -&gt; ()"
-                  moduleName = "Chess"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessBoardViewController.swift"
-                  timestampString = "511083229.902871"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "142"
-                  endingLineNumber = "142"
-                  offsetFromSymbolStart = "37">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Chess.ChessBoardViewController.(promotionCompletionHandler in _BE76B3443BB7DAFB8672EB08167A572F) (chessPieceTypeToPromoteTo : Chess.ChessPieceType, endPosition : Chess.Position) -&gt; ()"
-                  moduleName = "Chess"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessBoardViewController.swift"
-                  timestampString = "511083229.905508"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "142"
-                  endingLineNumber = "142"
-                  offsetFromSymbolStart = "611">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "511082194.099169"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "promotionCompletionHandler(chessPieceTypeToPromoteTo:endPosition:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "511082758.797277"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
-            landmarkName = "setUpTimers()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Chess/TimerViewController.swift"
             timestampString = "511082655.308951"
             startingColumnNumber = "9223372036854775807"
@@ -554,44 +474,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "511082950.642551"
+            timestampString = "511150916.667743"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
-            landmarkName = "prepare(for:sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "511082983.180992"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
-            landmarkName = "prepare(for:sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "511083047.175205"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
-            landmarkName = "prepare(for:sender:)"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "perform(move:animate:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

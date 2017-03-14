@@ -23,6 +23,8 @@
 		9F82AD4F1E76714E00DBBF00 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82AD4E1E76714E00DBBF00 /* TimeFormatter.swift */; };
 		9F82AD521E76766100DBBF00 /* WhiteTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82AD511E76766100DBBF00 /* WhiteTimerViewController.swift */; };
 		9F82AD541E76767E00DBBF00 /* BlackTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82AD531E76767E00DBBF00 /* BlackTimerViewController.swift */; };
+		9F952CF31E77772300C90615 /* ChessGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952CF21E77772300C90615 /* ChessGameViewController.swift */; };
+		9F952CF51E777DB500C90615 /* ChessBoardViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952CF41E777DB500C90615 /* ChessBoardViewControllerDelegate.swift */; };
 		9F9BEFDC1E6F78860069F917 /* PromotionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9BEFDB1E6F78860069F917 /* PromotionDelegate.swift */; };
 		9FB7E15A1E5E53AB007E9A6E /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E1591E5E53AB007E9A6E /* FoundationExtensions.swift */; };
 		9FB7E15C1E5EB360007E9A6E /* ChessPieceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E15B1E5EB360007E9A6E /* ChessPieceTests.swift */; };
@@ -94,6 +96,8 @@
 		9F82AD4E1E76714E00DBBF00 /* TimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		9F82AD511E76766100DBBF00 /* WhiteTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteTimerViewController.swift; sourceTree = "<group>"; };
 		9F82AD531E76767E00DBBF00 /* BlackTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackTimerViewController.swift; sourceTree = "<group>"; };
+		9F952CF21E77772300C90615 /* ChessGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessGameViewController.swift; sourceTree = "<group>"; };
+		9F952CF41E777DB500C90615 /* ChessBoardViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardViewControllerDelegate.swift; sourceTree = "<group>"; };
 		9F9BEFDB1E6F78860069F917 /* PromotionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionDelegate.swift; sourceTree = "<group>"; };
 		9FB7E1591E5E53AB007E9A6E /* FoundationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
 		9FB7E15B1E5EB360007E9A6E /* ChessPieceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceTests.swift; sourceTree = "<group>"; };
@@ -188,6 +192,8 @@
 			children = (
 				9F09A3831E7267F200C0AA95 /* PromotionChoicesViewController.swift */,
 				9FCB75921E4EAAC100275773 /* ChessBoardViewController.swift */,
+				9F952CF41E777DB500C90615 /* ChessBoardViewControllerDelegate.swift */,
+				9F952CF21E77772300C90615 /* ChessGameViewController.swift */,
 				9F82AD551E7676AB00DBBF00 /* TimerViewControllers */,
 				9F82AD501E76761C00DBBF00 /* ChessPieceGraveYardViewControllers */,
 			);
@@ -501,6 +507,8 @@
 				9F3575B41E6E84E9008267B7 /* WhiteChessPieceGraveYardViewController.swift in Sources */,
 				9F82AD541E76767E00DBBF00 /* BlackTimerViewController.swift in Sources */,
 				9F3575AB1E6DF4A3008267B7 /* ChessPieceGraveYard.swift in Sources */,
+				9F952CF31E77772300C90615 /* ChessGameViewController.swift in Sources */,
+				9F952CF51E777DB500C90615 /* ChessBoardViewControllerDelegate.swift in Sources */,
 				9FB7E1621E6126D5007E9A6E /* PriseEnPassant.swift in Sources */,
 				9FB991EC1E525F6400BD83CE /* UIKitExtensions.swift in Sources */,
 				9FD74CF31E551FFF00FFC762 /* King.swift in Sources */,
