@@ -47,9 +47,9 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     }()
     
     
-    //MARK: Chess Timer
-    let timersEnabled = true
-    let initialTime: Int = 120 //seconds
+    //MARK: Chess Clock
+    let chessClock:ChessClock? = ChessClock(with: 120)
+    
     
     //MARK: - SubViewControllers
     //MARK: GRAVEYARDS
@@ -145,6 +145,10 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     }
     
     func singleTapOccured(on tappedChessBoardSquare: ChessBoardSquareView){
+        //ensure timers are started before allowing players to perform moves if timers are enable
+        if let chessClock = chessClock{
+            guard chessClock.clockStarted else {return}
+        }
         
         //verify if the position of the previously selected matches the tapped square
         if tappedChessBoardSquare == lastSelectedSquare{
@@ -188,6 +192,10 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     }
     
     func doubleTapOccured() {
+        if let chessClock = chessClock, !chessClock.clockStarted{
+            chessClock.startClock()//start whites timer
+            return
+        }
         //if a square is selected deselect
         if lastSelectedSquare != nil{
             chessBoardViewController.deselectSelectedSquare()
@@ -213,6 +221,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         
         //move the piece in the ChessBoardView
         chessBoardViewController.perform(move: viewMove,animate:animate)
+        //Toggle timers
+        chessClock?.moveOccured()
         //return the appropriate information
         return (move,opponentInCheck,outcome)
     }
@@ -225,7 +235,11 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             let lastViewMove = ModelViewTranslation.chessBoardViewMove(from: lastMove)
             //undo the last move on the chessBoardView
             chessBoardViewController.undo(move: lastViewMove, animate:animate)
+            //Toggle timers
+            chessClock?.moveUndone()
             return lastMove
+        }else{//reset the timers
+            chessClock?.resetClock()
         }
         return nil
     }
@@ -233,21 +247,20 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     //MARK: View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Set up the chess timers
-        setUpTimers()
-        //Set yourself as the promotion delegate of the chessgame
+        //Set up delegation
+        //promotion delegate of the chessgame
         chessGame.promotionDelegate = self
+        //delegate of chessBoardViewController
+        chessBoardViewController.delegate = self
+        
         //place piece in initial positions
         placePiecesAtStartingPosition()
+        
+        //Hookup the chessClock to the timer view controllers
+        whiteTimerViewController?.timer = chessClock?.whiteTimer
+        blackTimerViewController?.timer = chessClock?.blackTimer
     }
 
-   
-    private func setUpTimers(){
-        blackTimerViewController?.mode = .CountDown
-        blackTimerViewController?.setInitialTime(to: initialTime)
-        whiteTimerViewController?.mode = .CountDown
-        whiteTimerViewController?.setInitialTime(to: initialTime)
-    }
     
     
     //MARK: - Post Move Execution
@@ -296,6 +309,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         self.chessBoardView.addSubview(chessNotification)
     }
     
+    
+    
     //MARK: - Navigation
     //MARK: Embed
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -303,9 +318,9 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             blackChessPieceGraveYardViewController = segue.destination as! BlackChessPieceGraveYardViewController
         }else if (segue.identifier == StoryBoard.WhiteChessPieceGraveYardViewController){
             whiteChessPieceGraveYardViewController = segue.destination as! WhiteChessPieceGraveYardViewController
-        }else if (segue.identifier == StoryBoard.BlackTimerViewController && timersEnabled){
+        }else if (segue.identifier == StoryBoard.BlackTimerViewController){
             blackTimerViewController = segue.destination as? BlackTimerViewController
-        }else if (segue.identifier == StoryBoard.WhiteTimerViewController && timersEnabled){
+        }else if (segue.identifier == StoryBoard.WhiteTimerViewController){
             whiteTimerViewController = segue.destination as? WhiteTimerViewController
         }else if (segue.identifier == StoryBoard.ChessBoardViewController){
             chessBoardViewController = segue.destination as? ChessBoardViewController

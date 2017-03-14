@@ -343,6 +343,9 @@
                             <constraint firstItem="Rmd-Lu-JdY" firstAttribute="centerY" secondItem="hpU-9Y-980" secondAttribute="centerY" id="e1v-aa-Klp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chessBoardView" destination="Rmd-Lu-JdY" id="b9v-0N-5ue"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PXa-ob-nm3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
