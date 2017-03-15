@@ -10,15 +10,11 @@ import Foundation
 
 class ChessTimer {
     //enum defining different modes of operation for the timer
-    enum Mode{
-        case CountUp,CountDown
-    }
     
     //MARK: - Stored Properties
     //closure to execute when timer ends
     var timerCompletionHandler: (()->Void)? = nil
-    //mode of operation
-    var mode: Mode = .CountDown
+    
     //running or not
     var isRunning:Bool{
         return _isRunning
@@ -32,10 +28,9 @@ class ChessTimer {
     //time left on timer
     private var totalSeconds:TimeInterval{//in seconds
         didSet{
-            //Update the timer display every second
-            if TimeInterval(Int(totalSeconds)) == totalSeconds{
-                delegate.updateTimerDisplay(with:Int(totalSeconds))
-            }
+            let secondsToDisplay = ceil(totalSeconds)
+            //Update the timer display
+            delegate.updateTimerDisplay(with:Int(secondsToDisplay))
         }
     }
     
@@ -55,15 +50,16 @@ class ChessTimer {
     
     private func decrementTime(){
         totalSeconds -= timeIncrement
+        //if the timer is up
         if totalSeconds == 0{
             pause()
             timerCompletionHandler?()
-            print("done")
+            pause()
         }
     }
     
     @objc private func updateTime(){
-        mode == .CountDown ? decrementTime() : incrementTime()
+        decrementTime()
     }
     
     //MARK: API
@@ -72,9 +68,7 @@ class ChessTimer {
     }
     
     func setInitialTime(to initialTime: Int){
-        if mode == .CountDown{
             totalSeconds = TimeInterval(initialTime > 0 ? initialTime : 0)
-        }
     }
     
     func resume(){
@@ -88,7 +82,6 @@ class ChessTimer {
     func pause(){
         timer.invalidate()
         _isRunning = false
-        
     }
     
     

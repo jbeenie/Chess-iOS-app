@@ -41,8 +41,7 @@ struct TimeFormatter{
         return totalSeconds % 60
     }
     
-    //simplified to what OP wanted
-    var hoursMinutesAndSeconds: (hours: Int, minutes: Int, seconds: Int) {
+    var hoursMinutesAndSeconds:(hours: Int, minutes: Int, seconds: Int) {
         return (hours, minutes, seconds)
     }
     

@@ -30,7 +30,6 @@ class TimerViewController: UIViewController,ChessTimerDelegate{
     func updateTimerDisplay(with seconds:Int) {
         timeFormatter.totalSeconds = seconds
         timerLabel?.text = timeFormatter.simpleTimeString
-        timerLabel?.setNeedsDisplay()
     }
     
     private func setUpTimerLabel(){

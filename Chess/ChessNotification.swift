@@ -10,33 +10,11 @@ import UIKit
 
 class ChessNotification: UILabel {
     
-    enum NotificationType{
-        case Check
-        case Draw
-        case Win(ChessPieceColor)
-    }
+    let temporary:Bool
     
-    //MARK: - Properties
-    let type:NotificationType
-    
-    //String displayed by the notification
-    private func setText(){
-        let text:String
-        switch type {
-        case .Check:
-            text = "Check!"
-        case .Draw:
-            text = "Draw!"
-        case .Win(let winningColor):
-            text = "Check Mate! \(winningColor) Wins!"
-        }
-        self.text = text
-    }
-    
-    init(frame: CGRect, type:NotificationType) {
-        self.type = type
+    init(frame: CGRect, temporary:Bool) {
+        self.temporary = temporary
         super.init(frame: frame)
-        self.setText()
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -58,6 +58,8 @@
 		9FCB75C91E4FB82700275773 /* whiteRightKnight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75C21E4FB82700275773 /* whiteRightKnight.png */; };
 		9FCB75CA1E4FB82700275773 /* whiteRook.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75C31E4FB82700275773 /* whiteRook.png */; };
 		9FCB75CC1E4FF1EB00275773 /* ChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75CB1E4FF1EB00275773 /* ChessBoardView.swift */; };
+		9FCDBB251E78CA9B00ED5B1A /* ChessClockDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCDBB241E78CA9B00ED5B1A /* ChessClockDelegate.swift */; };
+		9FCDBB271E78DA2A00ED5B1A /* ChessNotificationCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCDBB261E78DA2A00ED5B1A /* ChessNotificationCreator.swift */; };
 		9FD74CE21E54DDC700FFC762 /* ChessGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CE11E54DDC700FFC762 /* ChessGame.swift */; };
 		9FD74CE41E54DDD800FFC762 /* ChessBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CE31E54DDD800FFC762 /* ChessBoard.swift */; };
 		9FD74CE61E54DDED00FFC762 /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CE51E54DDED00FFC762 /* ChessPiece.swift */; };
@@ -136,6 +138,8 @@
 		9FCB75C21E4FB82700275773 /* whiteRightKnight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteRightKnight.png; path = PieceIcons/White/whiteRightKnight.png; sourceTree = "<group>"; };
 		9FCB75C31E4FB82700275773 /* whiteRook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteRook.png; path = PieceIcons/White/whiteRook.png; sourceTree = "<group>"; };
 		9FCB75CB1E4FF1EB00275773 /* ChessBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardView.swift; sourceTree = "<group>"; };
+		9FCDBB241E78CA9B00ED5B1A /* ChessClockDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessClockDelegate.swift; sourceTree = "<group>"; };
+		9FCDBB261E78DA2A00ED5B1A /* ChessNotificationCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessNotificationCreator.swift; sourceTree = "<group>"; };
 		9FD74CE11E54DDC700FFC762 /* ChessGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessGame.swift; sourceTree = "<group>"; };
 		9FD74CE31E54DDD800FFC762 /* ChessBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoard.swift; sourceTree = "<group>"; };
 		9FD74CE51E54DDED00FFC762 /* ChessPiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
@@ -200,6 +204,7 @@
 				9FCB75921E4EAAC100275773 /* ChessBoardViewController.swift */,
 				9F952CF41E777DB500C90615 /* ChessBoardViewControllerDelegate.swift */,
 				9F952CF21E77772300C90615 /* ChessGameViewController.swift */,
+				9FCDBB261E78DA2A00ED5B1A /* ChessNotificationCreator.swift */,
 				9F82AD551E7676AB00DBBF00 /* TimerViewControllers */,
 				9F82AD501E76761C00DBBF00 /* ChessPieceGraveYardViewControllers */,
 			);
@@ -331,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				9F952CF61E77ACB000C90615 /* ChessClock.swift */,
+				9FCDBB241E78CA9B00ED5B1A /* ChessClockDelegate.swift */,
 				9F952CF81E77AE0F00C90615 /* ChessTimer.swift */,
 				9F952CFA1E77B30A00C90615 /* ChessTimerDelegate.swift */,
 				9F82AD4E1E76714E00DBBF00 /* TimeFormatter.swift */,
@@ -511,7 +517,9 @@
 				9F3575B01E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift in Sources */,
 				9F82AD521E76766100DBBF00 /* WhiteTimerViewController.swift in Sources */,
 				9FB7E15E1E612509007E9A6E /* Move.swift in Sources */,
+				9FCDBB271E78DA2A00ED5B1A /* ChessNotificationCreator.swift in Sources */,
 				9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */,
+				9FCDBB251E78CA9B00ED5B1A /* ChessClockDelegate.swift in Sources */,
 				9FCB75AA1E4ED43900275773 /* ChessPieceView.swift in Sources */,
 				9FD74CE91E551FC000FFC762 /* Pawn.swift in Sources */,
 				9F3575B41E6E84E9008267B7 /* WhiteChessPieceGraveYardViewController.swift in Sources */,
