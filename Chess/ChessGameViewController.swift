@@ -281,18 +281,14 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: - ChessGame Notifications
     
-    private var notificationsFrame:CGRect{
-        let notificationSize = CGSize(width: 100, height: 30)
-        return CGRect(center: chessBoardView.bounds.mid, size: notificationSize)
-    }
-    
     private func post(notification:ChessNotification, temporarily:Bool=true){
-        self.chessBoardView.addSubview(notification)
+        self.view.addSubview(notification)
+        notification.center = view.bounds.mid
     }
     
     //MARK: Conforming to ChessClock Delegate
     func timerUp(for color: ChessPieceColor) {
-        let notification = ChessNotificationCreator.createChessNotification(type: Outcome.Win(color, .TimerUp), frame: notificationsFrame)
+        let notification = ChessNotificationCreator.createChessNotification(type: Outcome.Win(color.opposite(), .TimerUp))
         post(notification: notification)
     }
     
@@ -306,7 +302,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     //3. reach a draw
     private func giveUserFeedBackBased(on outcome: Outcome?){
         guard outcome != nil else {return}
-        let notification = ChessNotificationCreator.createChessNotification(type: outcome!,frame: notificationsFrame)
+        let notification = ChessNotificationCreator.createChessNotification(type: outcome!)
         post(notification: notification)
     }
     

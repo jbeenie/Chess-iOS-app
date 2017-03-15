@@ -30,13 +30,14 @@ class ChessNotificationCreator{
     
     private static func winNotificationText(for color:ChessPieceColor, reason: Outcome.Reason)->String{
         var text = reason == .CheckMate ? "Check Mate!" : "Timer Up!"
-        text += "\(color) Wins!"
+        text += " \(color) Wins!"
         return text
     }
     //String displayed by the notification
-    static func createChessNotification(type:Outcome, frame: CGRect)->ChessNotification{
-        let chessNotification = ChessNotification(frame: frame,temporary: notificationTemporary[type]!)
+    static func createChessNotification(type:Outcome)->ChessNotification{
+        let chessNotification = ChessNotification(frame: CGRect.zero,temporary: notificationTemporary[type]!)
         chessNotification.text = notificationText[type]
+        chessNotification.sizeToFit()
         return chessNotification
     }
 }
