@@ -67,6 +67,10 @@ class ChessTimer {
         return totalSeconds
     }
     
+    var timeIsUp:Bool{
+        return timeRemaining == 0
+    }
+    
     func setInitialTime(to initialTime: Int){
             totalSeconds = TimeInterval(initialTime > 0 ? initialTime : 0)
     }

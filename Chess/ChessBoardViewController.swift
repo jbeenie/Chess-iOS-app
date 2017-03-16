@@ -117,7 +117,7 @@ class ChessBoardViewController: UIViewController{
     
     // Animating the Performance and Undoing of Moves
     
-    func perform(move: ChessBoardView.Move, animate: Bool){
+    func perform(move: ChessBoardView.Move, animate: Bool, moveCompletionHandler:(()->Void)? = nil){
         //Get the piece to move in case its a pawn that is promoted
         //Get the piece captured as well
         //(do this before calling super.perform)
@@ -184,7 +184,9 @@ class ChessBoardViewController: UIViewController{
         animateCapturingOfPiece {finished in
             animateMovingOfPiece {finished in rookMoved?.isHidden = false
                 pieceToMove.isHidden = false
-                animatePromotion{finished in move.pieceToPromoteTo?.isHidden = false}
+                animatePromotion {finished in move.pieceToPromoteTo?.isHidden = false
+                    moveCompletionHandler?()
+                }
             }
         }
         

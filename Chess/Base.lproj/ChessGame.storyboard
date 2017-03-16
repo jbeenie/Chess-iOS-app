@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -20,11 +20,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Tow-eD-h0l"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="JRU-Be-EOp">
-                        <rect key="frame" x="0.0" y="0.0" width="188" height="126"/>
+                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="126"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="40" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q0t-rM-5bJ">
-                                <rect key="frame" x="16" y="0.0" width="172" height="127"/>
+                                <rect key="frame" x="16" y="0.0" width="172" height="126"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -49,7 +49,7 @@
         <!--Chess Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ChessGameViewController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChessGameViewController" id="BYZ-38-t0r" customClass="ChessGameViewController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -62,13 +62,13 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="126"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhZ-1X-Rin">
-                                        <rect key="frame" x="0.0" y="0.0" width="188" height="126"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="126"/>
                                         <connections>
                                             <segue destination="rmS-HA-pAQ" kind="embed" identifier="BlackTimerViewController" id="mnK-HN-TPH"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x44-js-ujQ">
-                                        <rect key="frame" x="188" y="0.0" width="187" height="126"/>
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="126"/>
                                         <connections>
                                             <segue destination="mNR-ht-neA" kind="embed" identifier="BlackChessPieceGraveYardViewController" id="PhQ-bv-Gsw"/>
                                         </connections>
@@ -88,13 +88,13 @@
                                 <rect key="frame" x="0.0" y="521" width="375" height="146"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Whu-xK-2an">
-                                        <rect key="frame" x="0.0" y="0.0" width="188" height="146"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="146"/>
                                         <connections>
                                             <segue destination="hNP-up-IeE" kind="embed" identifier="WhiteChessPieceGraveYardViewController" id="0ln-kM-1GT"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kzc-kR-iyF">
-                                        <rect key="frame" x="188" y="0.0" width="187" height="146"/>
+                                        <rect key="frame" x="187.5" y="0.0" width="187.5" height="146"/>
                                         <connections>
                                             <segue destination="Yas-s8-bUv" kind="embed" identifier="WhiteTimerViewController" id="N0W-bv-zO6"/>
                                         </connections>
@@ -131,21 +131,21 @@
                         <viewControllerLayoutGuide type="bottom" id="8aV-Pj-f9Z"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qhc-NS-Lc6">
-                        <rect key="frame" x="0.0" y="0.0" width="187" height="126"/>
+                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="126"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="gEJ-gi-vKt">
-                                <rect key="frame" x="0.0" y="0.0" width="188" height="127"/>
+                                <rect key="frame" x="0.0" y="0.0" width="187" height="126"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9G-7X-DZH" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="188" height="42"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="187" height="42"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ja2-rm-Fhn" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="42" width="188" height="42"/>
+                                        <rect key="frame" x="0.0" y="42" width="187" height="42"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v6Q-Br-kv7" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="84" width="188" height="43"/>
+                                        <rect key="frame" x="0.0" y="84" width="187" height="42"/>
                                     </view>
                                 </subviews>
                             </stackView>
@@ -248,20 +248,20 @@
                         <viewControllerLayoutGuide type="bottom" id="Qbi-LB-haG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8fs-H4-tkk">
-                        <rect key="frame" x="0.0" y="0.0" width="188" height="146"/>
+                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="146"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="bpb-43-f0V">
                                 <rect key="frame" x="0.0" y="0.0" width="188" height="146"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eXK-GV-lc2" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="188" height="49"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="188" height="48.5"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wme-DY-gaw" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49" width="188" height="48"/>
+                                        <rect key="frame" x="0.0" y="48.5" width="188" height="49"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o0y-fB-VIo" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="97" width="188" height="49"/>
+                                        <rect key="frame" x="0.0" y="97.5" width="188" height="48.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
@@ -294,7 +294,7 @@
                         <viewControllerLayoutGuide type="bottom" id="KkZ-tP-l25"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="NWx-ig-bpK">
-                        <rect key="frame" x="0.0" y="0.0" width="187" height="146"/>
+                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="146"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="40" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5VI-hD-mND">
@@ -324,6 +324,10 @@
         <scene sceneID="7Dk-7n-MKr">
             <objects>
                 <viewController id="Kdx-Y6-DZb" customClass="ChessBoardViewController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mJl-1X-SQc"/>
+                        <viewControllerLayoutGuide type="bottom" id="neS-E6-PFV"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hpU-9Y-980">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

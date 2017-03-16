@@ -36,8 +36,8 @@ class ChessNotificationCreator{
     //String displayed by the notification
     static func createChessNotification(type:Outcome)->ChessNotification{
         let chessNotification = ChessNotification(frame: CGRect.zero,temporary: notificationTemporary[type]!)
-        chessNotification.text = notificationText[type]
-        chessNotification.sizeToFit()
+        chessNotification.label.text = notificationText[type]
+        chessNotification.centerAndResizeLabel()
         return chessNotification
     }
 }

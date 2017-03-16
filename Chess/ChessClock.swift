@@ -16,6 +16,11 @@ class ChessClock{
     var history: [(TimeInterval,TimeInterval)]
     var delegate: ChessClockDelegate? = nil
     
+    //returns whether or not one of the timers ran out of time
+    var timeIsUp:Bool{
+        return blackTimer.timeIsUp || whiteTimer.timeIsUp
+    }
+    
     private func timerUp(for color:ChessPieceColor){
         self.pause()
         delegate?.timerUp(for: color)

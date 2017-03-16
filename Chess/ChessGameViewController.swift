@@ -26,9 +26,11 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: - Properties
     
-    //MARK: Animation
+    let initialTimeOnClock:Int = 120 //seconds
     let animate = true
     
+    
+    //MARK: SubViews
     //MARK: Board
     private var chessBoardView:ChessBoardView!{
         return chessBoardViewController.chessBoardView
@@ -36,6 +38,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     private var lastSelectedSquare: ChessBoardSquareView?{
         return chessBoardViewController.lastSelectedSquare
     }
+    private var currentNotification:ChessNotification? = nil
     
     
     //MARK: - Model
@@ -46,9 +49,12 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         return chessGame
     }()
     
+    private var gameEnded:Bool{
+        return chessGame.ended || (chessClock?.timeIsUp ?? false)
+    }
     
     //MARK: Chess Clock
-    let chessClock:ChessClock? = ChessClock(with: 2)
+    lazy var chessClock:ChessClock? = ChessClock(with: self.initialTimeOnClock)
     
     
     
@@ -141,15 +147,19 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     {
         let startPosition = ModelViewTranslation.modelPosition(from:(lastSelectedSquare?.position)!)
         //reperform the the move but with the type of the chess piece to promote
-        guard let (move,outcome) = performMove(from: startPosition, to: endPosition, chessPieceTypeToPromoteTo: chessPieceTypeToPromoteTo) else {return}
-        updateGameAfter(move:move,outCome:outcome)
+        _ = performMove(from: startPosition, to: endPosition, chessPieceTypeToPromoteTo: chessPieceTypeToPromoteTo)
     }
+    
+    //MARK: ChessBoardViewControllerDelegate Conformance
     
     func singleTapOccured(on tappedChessBoardSquare: ChessBoardSquareView){
         //ensure timers are started before allowing players to perform moves if timers are enable
         if let chessClock = chessClock{
             guard chessClock.clockStarted else {return}
         }
+        
+        //ensure game is not ended
+        guard !gameEnded else {return}
         
         //verify if the position of the previously selected matches the tapped square
         if tappedChessBoardSquare == lastSelectedSquare{
@@ -175,10 +185,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             }
             
             //Attempt to perform the move and return if the move fails
-            guard let (move,outcome) = performMove(from: oldPosition, to: newPosition) else {return}
-            
-            //update the board appropriately after the move and give user appropriate feedback
-            updateGameAfter(move:move,outCome:outcome)
+            _ = performMove(from: oldPosition, to: newPosition)
             
         } else if tappedChessBoardSquare.isOccupied {
             //otherwise if no square was previously selected
@@ -217,13 +224,23 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         //if the move is legal it is executed in the model
         guard let (move,outcome) = chessGame.movePiece(from: oldPosition, to: newPosition, typeOfPieceToPromoteTo: chessPieceTypeToPromoteTo) else{return nil}
         
+        //deselect the last selected square
+        chessBoardViewController.deselectSelectedSquare()
+        
         //Translate the model move into view move
         let viewMove = ModelViewTranslation.chessBoardViewMove(from: move)
         
-        //move the piece in the ChessBoardView
-        chessBoardViewController.perform(move: viewMove,animate:animate)
+        
         //Toggle timers
         chessClock?.moveOccured()
+        
+        //update the board appropriately after the move and give user appropriate feedback
+        //if move is successful
+        let moveCompletionHandler = { self.updateGameAfter(move: move, outCome: outcome) }
+        
+        //move the piece in the ChessBoardView
+        chessBoardViewController.perform(move: viewMove,animate:animate,moveCompletionHandler:moveCompletionHandler)
+        
         //return the appropriate information
         return (move,outcome)
     }
@@ -234,8 +251,9 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         if let lastMove = chessGame.undoLastMove(){
             //translate move to view move
             let lastViewMove = ModelViewTranslation.chessBoardViewMove(from: lastMove)
-            //undo the last move on the chessBoardView
-            chessBoardViewController.undo(move: lastViewMove, animate:animate)
+            //remove the current notification if necessary
+            //then undo the last move on the chessBoardView
+            removeNotification {self.chessBoardViewController.undo(move: lastViewMove, animate:self.animate)}
             chessClock?.moveUndone()
             return lastMove
         }
@@ -244,7 +262,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         return nil
     }
     
-    //MARK: View Controller Life Cycle
+    //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         //Set up delegation
@@ -263,37 +281,16 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         blackTimerViewController?.timer = chessClock?.blackTimer
     }
 
+
     
-    
-    //MARK: - Post Move Execution
-    
-    private func updateGameAfter(move:Move,outCome:Outcome?){
-        //deselect the previously selected square
-        chessBoardViewController.deselectSelectedSquare()
-        
-        //if a piece was captured update the graveyardView so players can keep track of what pieces were captured
-        if let pieceCaptured =  move.pieceCaptured{
-            _ = addChessPieceToGraveYard(chessPiece: pieceCaptured)
-        }
-        
-        giveUserFeedBackBased(on: outCome)
-    }
-    
-    //MARK: - ChessGame Notifications
-    
-    private func post(notification:ChessNotification, temporarily:Bool=true){
-        self.view.addSubview(notification)
-        notification.center = view.bounds.mid
-    }
-    
-    //MARK: Conforming to ChessClock Delegate
+    //MARK: - Conforming to ChessClock Delegate
     func timerUp(for color: ChessPieceColor) {
         let notification = ChessNotificationCreator.createChessNotification(type: Outcome.Win(color.opposite(), .TimerUp))
         post(notification: notification)
     }
     
     
-    //MARK: User FeedBack
+    //MARK: - User FeedBack
     
     //give the user visual feedback based on the outcome of the move
     //tells players:
@@ -306,6 +303,33 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         post(notification: notification)
     }
     
+    //MARK: - Post Move Execution
+    
+    private func updateGameAfter(move:Move,outCome:Outcome?){
+        
+        //if a piece was captured update the graveyardView so players can keep track of what pieces were captured
+        if let pieceCaptured =  move.pieceCaptured{
+            _ = addChessPieceToGraveYard(chessPiece: pieceCaptured)
+        }
+        
+        giveUserFeedBackBased(on: outCome)
+    }
+    
+    //MARK: - ChessGame Notifications
+    
+    private func post(notification:ChessNotification, temporarily:Bool=true){
+        self.chessBoardView.addSubview(notification)
+        currentNotification = notification
+        notification.frame = chessBoardView.bounds
+        notification.centerAndResizeLabel()
+        notification.animatePosting()
+    }
+    
+    private func removeNotification(completionHandler:(()->Void)? = nil){
+        if let notification = currentNotification{
+            notification.animateRemoval(completionHanlder: completionHandler)
+        }else{completionHandler?()}
+    }
     
     
     //MARK: - Navigation
