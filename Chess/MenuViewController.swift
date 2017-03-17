@@ -12,8 +12,11 @@ class MenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        //hide the navigation bar
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     
@@ -21,10 +24,21 @@ class MenuViewController: UIViewController {
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        //extract the desired destination view controller if it is inside of a navigation view controller
+        //cast the destination view controller to the appropriate view controller subclass: Settings View Controller
+        if let settingsVC = segue.destination.contentViewController as? SettingsTableViewController{
+            //prepare settings VC with NSUserDefaults
+            print("******prepare for settings*********")
+            //TODO: Prepare Settings VC with NS User defaults
+            //Create a settings model object  that you load with the 
+            //NSUSER defaults data which updates the settings accordingly
+        }else if let chessGameVC = segue.destination.contentViewController as? ChessGameViewController{
+            //TODO: Prepare the Chess game VC with the NSUSER Defaults
+            print("*********prepare for chess game*********")
+        }
     }
 
 

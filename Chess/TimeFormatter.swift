@@ -45,11 +45,17 @@ struct TimeFormatter{
         return (hours, minutes, seconds)
     }
     
-    var simpleTimeString: String {
+    var hoursMinutesSecondsString: String {
         let hoursText = hours
         let minutesText = zeroPaddedTimeText(from: minutes)
         let secondsText = zeroPaddedTimeText(from: seconds)
         return "\(hoursText):\(minutesText):\(secondsText)"
+    }
+    
+    var hoursMinutesString:String{
+        let hoursText = hours
+        let minutesText = zeroPaddedTimeText(from: minutes)
+        return "\(hoursText):\(minutesText)"
     }
     
     private func zeroPaddedTimeText(from number: Int) -> String {

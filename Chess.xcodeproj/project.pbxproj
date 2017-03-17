@@ -29,6 +29,12 @@
 		9F952CF91E77AE0F00C90615 /* ChessTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952CF81E77AE0F00C90615 /* ChessTimer.swift */; };
 		9F952CFB1E77B30A00C90615 /* ChessTimerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952CFA1E77B30A00C90615 /* ChessTimerDelegate.swift */; };
 		9F9BEFDC1E6F78860069F917 /* PromotionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9BEFDB1E6F78860069F917 /* PromotionDelegate.swift */; };
+		9FAC3AA31E7B3A38008F7900 /* SliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC3AA21E7B3A38008F7900 /* SliderViewController.swift */; };
+		9FAC3AA71E7B47F1008F7900 /* IntegerSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC3AA61E7B47F1008F7900 /* IntegerSliderViewController.swift */; };
+		9FAC3AA91E7B588A008F7900 /* MaxTakebackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC3AA81E7B588A008F7900 /* MaxTakebackViewController.swift */; };
+		9FAC3AAB1E7B5B9D008F7900 /* TimeControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC3AAA1E7B5B9D008F7900 /* TimeControlViewController.swift */; };
+		9FAC3AAD1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC3AAC1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift */; };
+		9FAC3AB31E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC3AB21E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift */; };
 		9FB7E15A1E5E53AB007E9A6E /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E1591E5E53AB007E9A6E /* FoundationExtensions.swift */; };
 		9FB7E15C1E5EB360007E9A6E /* ChessPieceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E15B1E5EB360007E9A6E /* ChessPieceTests.swift */; };
 		9FB7E15E1E612509007E9A6E /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E15D1E612509007E9A6E /* Move.swift */; };
@@ -111,6 +117,12 @@
 		9F952CF81E77AE0F00C90615 /* ChessTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessTimer.swift; sourceTree = "<group>"; };
 		9F952CFA1E77B30A00C90615 /* ChessTimerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessTimerDelegate.swift; sourceTree = "<group>"; };
 		9F9BEFDB1E6F78860069F917 /* PromotionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionDelegate.swift; sourceTree = "<group>"; };
+		9FAC3AA21E7B3A38008F7900 /* SliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderViewController.swift; sourceTree = "<group>"; };
+		9FAC3AA61E7B47F1008F7900 /* IntegerSliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntegerSliderViewController.swift; path = ../IntegerSliderViewController.swift; sourceTree = "<group>"; };
+		9FAC3AA81E7B588A008F7900 /* MaxTakebackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxTakebackViewController.swift; sourceTree = "<group>"; };
+		9FAC3AAA1E7B5B9D008F7900 /* TimeControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeControlViewController.swift; sourceTree = "<group>"; };
+		9FAC3AAC1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardThemeCollectionViewController.swift; sourceTree = "<group>"; };
+		9FAC3AB21E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardThemeCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		9FB7E1591E5E53AB007E9A6E /* FoundationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
 		9FB7E15B1E5EB360007E9A6E /* ChessPieceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceTests.swift; sourceTree = "<group>"; };
 		9FB7E15D1E612509007E9A6E /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
@@ -255,6 +267,17 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		9FAC3AAF1E7B738B008F7900 /* SliderViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				9FAC3AA61E7B47F1008F7900 /* IntegerSliderViewController.swift */,
+				9FAC3AA21E7B3A38008F7900 /* SliderViewController.swift */,
+				9FAC3AA81E7B588A008F7900 /* MaxTakebackViewController.swift */,
+				9FAC3AAA1E7B5B9D008F7900 /* TimeControlViewController.swift */,
+			);
+			name = SliderViewControllers;
+			sourceTree = "<group>";
+		};
 		9FB7E1631E6126FC007E9A6E /* Moves */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +387,9 @@
 			children = (
 				9FCDBB2F1E7A337500ED5B1A /* Settings.storyboard */,
 				9FCDBB331E7A343800ED5B1A /* SettingsTableViewController.swift */,
+				9FAC3AAF1E7B738B008F7900 /* SliderViewControllers */,
+				9FAC3AAC1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift */,
+				9FAC3AB21E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift */,
 			);
 			name = SettingsScene;
 			sourceTree = "<group>";
@@ -538,7 +564,9 @@
 				9FCB75CC1E4FF1EB00275773 /* ChessBoardView.swift in Sources */,
 				9F1489871E67B89B00177826 /* AnimatedChessBoardView.swift in Sources */,
 				9F9BEFDC1E6F78860069F917 /* PromotionDelegate.swift in Sources */,
+				9FAC3AAB1E7B5B9D008F7900 /* TimeControlViewController.swift in Sources */,
 				9FD74CE61E54DDED00FFC762 /* ChessPiece.swift in Sources */,
+				9FAC3AA31E7B3A38008F7900 /* SliderViewController.swift in Sources */,
 				9FEB946E1E74BE460042F0DE /* ChessNotification.swift in Sources */,
 				9F3575B61E6E853F008267B7 /* BlackChessPieceGraveYardViewController.swift in Sources */,
 				9FD74CEB1E551FCF00FFC762 /* Knight.swift in Sources */,
@@ -550,6 +578,8 @@
 				9FCB75A31E4EAB9A00275773 /* BoardSquareView.swift in Sources */,
 				9F952CFB1E77B30A00C90615 /* ChessTimerDelegate.swift in Sources */,
 				9FD74CED1E551FDD00FFC762 /* Bishop.swift in Sources */,
+				9FAC3AAD1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift in Sources */,
+				9FAC3AA71E7B47F1008F7900 /* IntegerSliderViewController.swift in Sources */,
 				9F82AD4F1E76714E00DBBF00 /* TimeFormatter.swift in Sources */,
 				9FD74CEF1E551FE700FFC762 /* Rook.swift in Sources */,
 				9F3575B01E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift in Sources */,
@@ -562,6 +592,7 @@
 				9FD74CE91E551FC000FFC762 /* Pawn.swift in Sources */,
 				9F3575B41E6E84E9008267B7 /* WhiteChessPieceGraveYardViewController.swift in Sources */,
 				9F82AD541E76767E00DBBF00 /* BlackTimerViewController.swift in Sources */,
+				9FAC3AB31E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift in Sources */,
 				9F3575AB1E6DF4A3008267B7 /* ChessPieceGraveYard.swift in Sources */,
 				9FCDBB2D1E7A2F7E00ED5B1A /* MenuViewController.swift in Sources */,
 				9F952CF91E77AE0F00C90615 /* ChessTimer.swift in Sources */,
@@ -571,6 +602,7 @@
 				9FB7E1621E6126D5007E9A6E /* PriseEnPassant.swift in Sources */,
 				9FB991EC1E525F6400BD83CE /* UIKitExtensions.swift in Sources */,
 				9F952CF71E77ACB000C90615 /* ChessClock.swift in Sources */,
+				9FAC3AA91E7B588A008F7900 /* MaxTakebackViewController.swift in Sources */,
 				9FD74CF31E551FFF00FFC762 /* King.swift in Sources */,
 				9F3575B21E6E53FB008267B7 /* ModelViewTranslation.swift in Sources */,
 				9FCB75911E4EAAC100275773 /* AppDelegate.swift in Sources */,

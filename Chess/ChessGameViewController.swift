@@ -265,6 +265,9 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        //alow navigation bar to shown on swipe
+        navigationController?.hidesBarsOnSwipe = true
+        
         //Set up delegation
         //promotion delegate of the chessgame
         chessGame.promotionDelegate = self

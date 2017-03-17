@@ -9,87 +9,74 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
-
+    
+    struct StoryBoard{
+        static let MaxTakebacksSegue = "MaxTakebacks"
+        static let TimeControlSegue = "TimeControl"
+    }
+    
+    
+    //MARK: - View Controller Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+   //MARK: - Actions
+    
+    @IBAction func chessNotificationsSwitchValueChanged(_ sender: UISwitch) {
     }
 
-    // MARK: - Table view data source
+    @IBAction func animationsSwitchValueChanged(_ sender: UISwitch) {
+    }
+    
+    @IBAction func chessClockSwitchValueChanged(_ sender: UISwitch) {
+        sender.isOn ? enable(cell: timeControlCell) : disable(cell: timeControlCell)
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    @IBAction func takeBacksSwitchValueChanged(_ sender: UISwitch) {
+        sender.isOn ? enable(cell: maxTakeBacksCell) : disable(cell: maxTakeBacksCell)
     }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+   
+    //MARK: - Outlets
 
-        // Configure the cell...
+    @IBOutlet weak var timeControlCell: UITableViewCell!
+    
+    @IBOutlet weak var maxTakeBacksCell: UITableViewCell!
 
-        return cell
+    
+
+    //MARK: - Enabling and Disabling Cell
+    
+    private func disable(cell:UITableViewCell){
+        cell.isUserInteractionEnabled = false
+        cell.textLabel!.isEnabled = false
+        cell.detailTextLabel!.isEnabled = false
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    private func enable(cell:UITableViewCell){
+        cell.isUserInteractionEnabled = true
+        cell.textLabel!.isEnabled = true
+        cell.detailTextLabel!.isEnabled = true
     }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
+    
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        guard let identifier = segue.identifier else {return}
+        if identifier == StoryBoard.MaxTakebacksSegue{
+            //tell it the initial slider value
+        }else if identifier == StoryBoard.TimeControlSegue{
+            //tell it the initial slider value
+        }
     }
-    */
+    
+    
+
 
 }

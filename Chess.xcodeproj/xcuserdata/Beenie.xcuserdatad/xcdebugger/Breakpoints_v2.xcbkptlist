@@ -330,7 +330,7 @@
                   moduleName = "Chess"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Beenie/Documents/Dev/Chess/PromotionChoicesViewController.swift"
-                  timestampString = "511311118.219087"
+                  timestampString = "511399431.390253"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "114"
@@ -345,7 +345,7 @@
                   moduleName = "Chess"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Beenie/Documents/Dev/Chess/PromotionChoicesViewController.swift"
-                  timestampString = "511311118.221886"
+                  timestampString = "511399431.393497"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "114"
@@ -369,6 +369,22 @@
             endingLineNumber = "53"
             landmarkName = "ChessGameViewController"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Chess/SliderViewController.swift"
+            timestampString = "511404328.001098"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
