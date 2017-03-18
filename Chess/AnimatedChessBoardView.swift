@@ -7,7 +7,7 @@
 //
 
 import UIKit
-@IBDesignable
+
 class AnimatedChessBoardView: ChessBoardView {
     //MARK: - Animation Constants
     struct Animation{

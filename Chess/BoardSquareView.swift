@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable
+
 class BoardSquareView: UIView {
     
     @IBInspectable var color: UIColor

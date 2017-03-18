@@ -230,6 +230,15 @@
 			name = SubViewControllers;
 			sourceTree = "<group>";
 		};
+		9F5543321E7B8427000D30F6 /* ChessBoardThemeController  */ = {
+			isa = PBXGroup;
+			children = (
+				9FAC3AAC1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift */,
+				9FAC3AB21E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift */,
+			);
+			name = "ChessBoardThemeController ";
+			sourceTree = "<group>";
+		};
 		9F677DBA1E692E95009B2EED /* Animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,8 +397,7 @@
 				9FCDBB2F1E7A337500ED5B1A /* Settings.storyboard */,
 				9FCDBB331E7A343800ED5B1A /* SettingsTableViewController.swift */,
 				9FAC3AAF1E7B738B008F7900 /* SliderViewControllers */,
-				9FAC3AAC1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift */,
-				9FAC3AB21E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift */,
+				9F5543321E7B8427000D30F6 /* ChessBoardThemeController  */,
 			);
 			name = SettingsScene;
 			sourceTree = "<group>";

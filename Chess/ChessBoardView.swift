@@ -7,7 +7,7 @@
 //
 
 import UIKit
-@IBDesignable
+
 class ChessBoardView: UIView {
     //MARK: - Constants
     

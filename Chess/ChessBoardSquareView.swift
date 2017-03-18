@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable
+
 class ChessBoardSquareView: BoardSquareView {
     
     struct Ratios{

@@ -13,6 +13,7 @@ class SettingsTableViewController: UITableViewController {
     struct StoryBoard{
         static let MaxTakebacksSegue = "MaxTakebacks"
         static let TimeControlSegue = "TimeControl"
+        static let ChessBoardThemeSegue = "ChessBoardTheme"
     }
     
     
@@ -73,6 +74,8 @@ class SettingsTableViewController: UITableViewController {
             //tell it the initial slider value
         }else if identifier == StoryBoard.TimeControlSegue{
             //tell it the initial slider value
+        }else if identifier == StoryBoard.ChessBoardThemeSegue{
+            
         }
     }
     
