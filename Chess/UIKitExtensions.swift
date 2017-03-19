@@ -46,6 +46,38 @@ extension UIView{
                        animations: {view?.alpha = alpha},
                        completion: completion)
         }
+    
+    
+    @IBInspectable var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
+        }
+    }
+    
+    @IBInspectable var borderColor: UIColor?{
+        get {
+            if let borderColor = layer.borderColor{
+                return UIColor(cgColor: borderColor)
+            }else{return nil}
+            
+        }
+        set {layer.borderColor = newValue?.cgColor ?? nil}
+    }
+    
+    @IBInspectable var borderWidth: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
+    }
+    
+    
 }
 
 extension UIViewController{

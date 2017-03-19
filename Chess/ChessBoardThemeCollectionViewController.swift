@@ -8,16 +8,29 @@
 
 import UIKit
 
-typealias ChessBoardTheme = (UIColor,UIColor)
+struct ChessBoardTheme{
+    let whiteSquareColor:UIColor
+    let blackSquareColor:UIColor
+}
 
 
-class ChessBoardThemeCollectionViewController: UICollectionViewController {
+class ChessBoardThemeCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout {
     private let reuseIdentifier:String = "ChessBoardTheme"
 
     struct ChessBoardThemes{
-        static let GreenWhite = (UIColor.green, UIColor.white)
-        static let GrayWhite = (UIColor.gray, UIColor.white)
-        static let BrownYellow = (UIColor.brown, UIColor.yellow)
+        static let GreenWhite = ChessBoardTheme(whiteSquareColor: UIColor.green, blackSquareColor: UIColor.white)
+        static let GrayWhite = ChessBoardTheme(whiteSquareColor: UIColor.gray, blackSquareColor: UIColor.white)
+        static let BrownYellow = ChessBoardTheme(whiteSquareColor: UIColor.brown, blackSquareColor: UIColor.yellow)
+    }
+    
+    struct Layout{
+        static let minimumSpacingForSections:CGFloat = 1.0
+        static let itemsPerRow:Int = 3
+    }
+    
+    struct Selection{
+        static let color:UIColor = UIColor.blue
+        static let borderWidth:CGFloat = 2.0
     }
     
     
@@ -26,11 +39,12 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController {
         [[ChessBoardThemes.GreenWhite,
          ChessBoardThemes.GrayWhite,
          ChessBoardThemes.BrownYellow]]
+    
+    var selectedTheme:ChessBoardTheme?=nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Register cell classes
-        self.collectionView!.register(ChessBoardThemeCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView?.allowsSelection = true
     }
     
     
@@ -53,7 +67,7 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         // Configure the cell
         if let chessBoardThemeCell = cell as? ChessBoardThemeCollectionViewCell{
-            chessBoardThemeCell.setSquareColors(with: chessBoardThemes[indexPath.section][indexPath.row])
+            chessBoardThemeCell.theme = chessBoardThemes[indexPath.section][indexPath.row]
             print("poo")
             return chessBoardThemeCell
         }
@@ -62,33 +76,38 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDelegate
 
-   
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
-
+   //Highlighting and Selecting Cells
     
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath){
+            select(cell: cell)
+        }
     }
-
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    
+    private func select(cell:UICollectionViewCell){ 
+        selectedTheme = (cell as? ChessBoardThemeCollectionViewCell)?.theme
     }
-    */
+    
+    
+    
+    
+    
+    //MARK: Flow Layout delegate conformance 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (collectionView.bounds.width / CGFloat(Layout.itemsPerRow)) - Layout.minimumSpacingForSections
+        return CGSize(width: width, height: width)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return Layout.minimumSpacingForSections
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return Layout.minimumSpacingForSections
+    }
+
+
 
 }

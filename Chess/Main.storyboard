@@ -35,9 +35,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBi-a4-Poi">
-                                        <rect key="frame" x="13" y="76" width="108" height="46"/>
+                                        <rect key="frame" x="17" y="76" width="100" height="46"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                        <state key="normal" title="Stettings">
+                                        <state key="normal" title="Settings">
                                             <color key="titleColor" red="0.28627450980000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>

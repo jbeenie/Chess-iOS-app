@@ -80,6 +80,7 @@
 		9FD74CF11E551FF200FFC762 /* Queen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CF01E551FF200FFC762 /* Queen.swift */; };
 		9FD74CF31E551FFF00FFC762 /* King.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CF21E551FFF00FFC762 /* King.swift */; };
 		9FEB946E1E74BE460042F0DE /* ChessNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEB946D1E74BE460042F0DE /* ChessNotification.swift */; };
+		9FFCC10B1E7DE54600BEAD8C /* ChessPieceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +171,7 @@
 		9FD74CF01E551FF200FFC762 /* Queen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queen.swift; sourceTree = "<group>"; };
 		9FD74CF21E551FFF00FFC762 /* King.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = King.swift; sourceTree = "<group>"; };
 		9FEB946D1E74BE460042F0DE /* ChessNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessNotification.swift; sourceTree = "<group>"; };
+		9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -422,6 +424,7 @@
 		9FDFC4851E5138F6007138F9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */,
 				9FCB75A91E4ED43900275773 /* ChessPieceView.swift */,
 				9FCB75A21E4EAB9A00275773 /* BoardSquareView.swift */,
 				9FCB75A41E4EB71900275773 /* ChessBoardSquareView.swift */,
@@ -579,6 +582,7 @@
 				9F3575B61E6E853F008267B7 /* BlackChessPieceGraveYardViewController.swift in Sources */,
 				9FD74CEB1E551FCF00FFC762 /* Knight.swift in Sources */,
 				9FD74CE21E54DDC700FFC762 /* ChessGame.swift in Sources */,
+				9FFCC10B1E7DE54600BEAD8C /* ChessPieceButton.swift in Sources */,
 				9FD74CF11E551FF200FFC762 /* Queen.swift in Sources */,
 				9FB7E1671E624EDF007E9A6E /* Castle.swift in Sources */,
 				9F82AD4D1E76710200DBBF00 /* TimerViewController.swift in Sources */,
