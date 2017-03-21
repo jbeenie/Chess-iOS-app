@@ -26,6 +26,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: - Properties
     
+    
+    
     let initialTimeOnClock:Int = 120 //seconds
     let animate = true
     

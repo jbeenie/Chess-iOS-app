@@ -9,7 +9,11 @@
 import UIKit
 
 class MenuViewController: UIViewController {
-
+    //MARK: - Model
+    
+    private var globalSettings = ChessSettings()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //hide the navigation bar

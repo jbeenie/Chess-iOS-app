@@ -36,3 +36,15 @@ extension Array {
         self = (0 ..< count).map { _ in elementCreator() }
     }
 }
+
+extension Array where Element : Collection,
+Element.Iterator.Element : Equatable, Element.Index == Int {
+    func index(of x: Element.Iterator.Element) -> (Int, Int)? {
+        for (i, row) in self.enumerated() {
+            if let j = row.index(of: x) {
+                return (i, j)
+            }
+        }
+        return nil
+    }
+}

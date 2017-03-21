@@ -89,4 +89,12 @@ extension UIViewController{
             return self
         }
     }
+    
+    var previousViewController:UIViewController?{
+        if let controllersOnNavStack = self.navigationController?.viewControllers, controllersOnNavStack.count >= 2 {
+            let n = controllersOnNavStack.count
+            return controllersOnNavStack[n - 2]
+        }
+        return nil
+    }
 }

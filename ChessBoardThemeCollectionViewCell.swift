@@ -19,9 +19,9 @@ class ChessBoardThemeCollectionViewCell: UICollectionViewCell{
     }
     
      var selectionBackgroundView:UIView{
-        let selectedBackgroundView = UIView()
-        selectedBackgroundView.backgroundColor = Selection.color
-        return selectedBackgroundView
+        let selectionBackgroundView = UIView()
+        selectionBackgroundView.backgroundColor = Selection.color
+        return selectionBackgroundView
     }
     
     

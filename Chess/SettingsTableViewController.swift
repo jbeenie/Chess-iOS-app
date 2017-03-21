@@ -12,9 +12,12 @@ class SettingsTableViewController: UITableViewController {
     
     struct StoryBoard{
         static let MaxTakebacksSegue = "MaxTakebacks"
-        static let TimeControlSegue = "TimeControl"
+        static let ClockTime = "ClockTime"
         static let ChessBoardThemeSegue = "ChessBoardTheme"
     }
+    
+    //MARK: - Model
+    var settings:ChessSettings = ChessSettings()
     
     
     //MARK: - View Controller Life cycle
@@ -27,9 +30,11 @@ class SettingsTableViewController: UITableViewController {
    //MARK: - Actions
     
     @IBAction func chessNotificationsSwitchValueChanged(_ sender: UISwitch) {
+        settings.notificationsEnabled = sender.isOn
     }
 
     @IBAction func animationsSwitchValueChanged(_ sender: UISwitch) {
+        settings.animationsEnable = sender.isOn
     }
     
     @IBAction func chessClockSwitchValueChanged(_ sender: UISwitch) {
@@ -71,12 +76,28 @@ class SettingsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let identifier = segue.identifier else {return}
         if identifier == StoryBoard.MaxTakebacksSegue{
-            //tell it the initial slider value
-        }else if identifier == StoryBoard.TimeControlSegue{
-            //tell it the initial slider value
+            prepare(maxTakebackVC:(segue.destination.contentViewController as! MaxTakebackViewController))
+        }else if identifier == StoryBoard.ClockTime{
+            prepare(clockTimeVC:(segue.destination.contentViewController as! ClockTimeViewController))
         }else if identifier == StoryBoard.ChessBoardThemeSegue{
-            
+            prepare(chessBoardThemeCollectionVC:(segue.destination.contentViewController as! ChessBoardThemeCollectionViewController))
         }
+    }
+    
+    private func prepare(maxTakebackVC:MaxTakebackViewController){
+        //tell it the initial slider value
+        
+    }
+
+    private func prepare(clockTimeVC:ClockTimeViewController){
+        //tell it the initial slider value
+
+    }
+    
+    private func prepare(chessBoardThemeCollectionVC:ChessBoardThemeCollectionViewController){
+        //select the appropriate chess theme to indicate
+        //the theme that was chosen last
+        chessBoardThemeCollectionVC.selectedTheme = settings.chessBoardTheme
     }
     
     

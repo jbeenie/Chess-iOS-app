@@ -8,12 +8,14 @@
 
 import UIKit
 
+enum TakeBackCount{
+    case Finite(Int)
+    case Infinite
+}
+
 class MaxTakebackViewController: IntegerSliderViewController {
     
-    enum TakeBackCount{
-        case Finite(Int)
-        case Infinite
-    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
