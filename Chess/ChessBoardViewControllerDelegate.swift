@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ChessBoardViewControllerDelegate{
-    var animate:Bool {get}
+    var shouldAnimate:Bool {get}
     
     func singleTapOccured(on tappedChessBoardSquare: ChessBoardSquareView)
     

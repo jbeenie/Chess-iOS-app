@@ -12,6 +12,7 @@ struct ChessBoardTheme:Equatable,Hashable{
     let whiteSquareColor:UIColor
     let blackSquareColor:UIColor
     
+    //MARK: - Equatable & Hashalble
     var hashValue: Int{
         return whiteSquareColor.hashValue ^ blackSquareColor.hashValue
     }
@@ -19,7 +20,17 @@ struct ChessBoardTheme:Equatable,Hashable{
     static func == (lhs:ChessBoardTheme,rhs:ChessBoardTheme)->Bool{
         return lhs.whiteSquareColor == rhs.whiteSquareColor && lhs.blackSquareColor == rhs.blackSquareColor
     }
+    
+    
+    //MARK: - Initializers
+    
+    init(whiteSquareColor: UIColor, blackSquareColor: UIColor){
+        self.whiteSquareColor = whiteSquareColor
+        self.blackSquareColor = blackSquareColor
+    }
 }
+
+
 
 //List of chessboard themes
 struct ChessBoardThemes{
@@ -43,30 +54,16 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController,UIColl
           ChessBoardThemes.GrayWhite,
           ChessBoardThemes.BrownYellow]]
     
-    var selectedTheme:ChessBoardTheme! = nil{
-        didSet{updateSettings()}
-    }
-    
+    var selectedTheme:ChessBoardTheme! = nil
     var selectedThemeIndex:IndexPath!{
         return indexPath(of: selectedTheme)
     }
     
     
-//    //func used to get chessboard theme at specifed index
-//    static func chessBoardTheme(at indexPath:IndexPath)->ChessBoardTheme?{
-//        let allowalbleSectionRange = 0..<(array.count)
-//        if allowalbleSectionRange.contains(indexPath.section){
-//            let allowalbleItemRange = 0..<(array[indexPath.section].count)
-//            if allowalbleItemRange.contains(indexPath.item){
-//                return array[indexPath.section][indexPath.item]
-//            }
-//        }
-//        return nil
-//    }
     
     // func used to determine the indexpath of the chessboard theme
     func indexPath(of chessBoardTheme:ChessBoardTheme)->IndexPath?{
-        if let (item,section) = chessBoardthemes.index(of: chessBoardTheme){
+        if let (section,item) = chessBoardthemes.index(of: chessBoardTheme){
             return IndexPath(item: item, section: section)
         }
         return nil
@@ -116,7 +113,12 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController,UIColl
         if let chessBoardThemeCell = cell as? ChessBoardThemeCollectionViewCell{
             chessBoardThemeCell.theme = chessBoardthemes[indexPath.section][indexPath.item]
             //select the the initially selected theme
-            if indexPath == selectedThemeIndex{chessBoardThemeCell.isSelected = true}
+            if indexPath == selectedThemeIndex{
+                //inform the cell its selected
+                chessBoardThemeCell.isSelected = (indexPath == selectedThemeIndex)
+                //inform the collectionview which cell is selected
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .top)
+            }
             return chessBoardThemeCell
         }
         return cell
@@ -125,11 +127,12 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController,UIColl
     // MARK: UICollectionViewDelegate
 
    //Highlighting and Selecting Cells
-    
-
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedTheme = chessBoardthemes[indexPath.section][indexPath.item]
     }
+    
+    
+    
     
     //MARK: Flow Layout delegate conformance 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -145,12 +148,41 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController,UIColl
         return Layout.minimumSpacingForSections
     }
     
-    //MARK: - Update parent Settings VC with ChessBoard Theme
+    //MARK: - Update parent Settings VC with selected ChessBoard Theme
     private func updateSettings(){
         guard let settingsVC = self.previousViewController as? SettingsTableViewController else{return}
-        settingsVC.settings.chessBoardTheme = selectedTheme
+        settingsVC.globalSettings[ChessSettings.Key.chessBoardTheme] = selectedTheme
     }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        updateSettings()
+    }
+}
 
 
-
+extension ChessBoardTheme: ChessSetting{
+    //MARK: - Conforming to ChessSetting
+    func propertyListRepresentation() -> NSDictionary {
+        let representation:[String:AnyObject] = [
+            "whiteSquareColor":whiteSquareColor,
+            "blackSquareColor":blackSquareColor]
+        return representation as NSDictionary
+    }
+    
+    init?(propertyListRepresentation:NSDictionary?) {
+        guard let values = propertyListRepresentation else {return nil}
+        if let whiteSquareColor = values["whiteSquareColor"] as? UIColor,
+            let blackSquareColor = values["blackSquareColor"] as? UIColor{
+            self.init(whiteSquareColor:whiteSquareColor,blackSquareColor:blackSquareColor)
+        } else {
+            return nil
+        }
+    }
+    
+    //MARK: - Debugging
+    
+    var description:String{
+        return "whiteSquareColor: "+whiteSquareColor.description + "," + "blackSquareColor: "+blackSquareColor.description+"\n"
+    }
 }

@@ -25,11 +25,9 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     }
     
     //MARK: - Properties
-    
-    
-    
-    let initialTimeOnClock:Int = 120 //seconds
-    let animate = true
+
+//    let initialTimeOnClock:Int = 120 //seconds
+//    let animate = true
     
     
     //MARK: SubViews
@@ -51,14 +49,26 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         return chessGame
     }()
     
+    //MARK: Game settings
+    var gameSettings:ChessGameSettings! = nil{
+        //Prevent original Game Settings from being over written
+        willSet{self.gameSettings = self.gameSettings ?? newValue}
+    }
+    
+    //MARK: TakeBacks remaining
+    lazy var takebacksRemainingForWhite: TakeBackCount = self.gameSettings.maxTakebacks
+    lazy var takebacksRemainingForBlack: TakeBackCount = self.gameSettings.maxTakebacks
+
+    
+    //MARK: Chess Clock
+    lazy var chessClock:ChessClock? = self.gameSettings.chessClock
+    
+    //Computed Properties
+
+    //MARK: Determining whether game is Ended
     private var gameEnded:Bool{
         return chessGame.ended || (chessClock?.timeIsUp ?? false)
     }
-    
-    //MARK: Chess Clock
-    lazy var chessClock:ChessClock? = ChessClock(with: self.initialTimeOnClock)
-    
-    
     
     //MARK: - SubViewControllers
     //MARK: GRAVEYARDS
@@ -218,6 +228,10 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         }
     }
     
+    var shouldAnimate: Bool{
+        return gameSettings.animationsEnabled
+    }
+    
     //MARK: - Performing and Undoing Move
     
     //MARK: Perform Move
@@ -241,7 +255,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         let moveCompletionHandler = { self.updateGameAfter(move: move, outCome: outcome) }
         
         //move the piece in the ChessBoardView
-        chessBoardViewController.perform(move: viewMove,animate:animate,moveCompletionHandler:moveCompletionHandler)
+        chessBoardViewController.perform(move: viewMove,animate:gameSettings.animationsEnabled,moveCompletionHandler:moveCompletionHandler)
         
         //return the appropriate information
         return (move,outcome)
@@ -249,17 +263,29 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: Undo Move
     private func undoLastMove()->Move?{
-        //otherwise undo the last move if any
+        //get take back count of appropriate player
+        var remainingTakebacks = (chessGame.colorWhoseTurnItIs.opposite() == .White) ? self.takebacksRemainingForWhite : takebacksRemainingForBlack
+        //undo move iff player has remaining takebacks
+        guard !remainingTakebacks.isZero else {
+            return nil
+        }
+        
+        //undo the last move if any
         if let lastMove = chessGame.undoLastMove(){
             //translate move to view move
             let lastViewMove = ModelViewTranslation.chessBoardViewMove(from: lastMove)
             //remove the current notification if necessary
             //then undo the last move on the chessBoardView
-            removeNotification {self.chessBoardViewController.undo(move: lastViewMove, animate:self.animate)}
+            removeNotification {self.chessBoardViewController.undo(move: lastViewMove, animate:self.gameSettings.animationsEnabled)}
+            
+            //Roll back the clock
             chessClock?.moveUndone()
+            
+            //decrement the takebackcount
+            remainingTakebacks.decrement()
             return lastMove
         }
-        //Roll back the clock
+        //Reset the clock completely
         chessClock?.reset()
         return nil
     }
@@ -316,8 +342,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         if let pieceCaptured =  move.pieceCaptured{
             _ = addChessPieceToGraveYard(chessPiece: pieceCaptured)
         }
-        
-        giveUserFeedBackBased(on: outCome)
+        if(gameSettings.notificationsEnabled){giveUserFeedBackBased(on: outCome)}
     }
     
     //MARK: - ChessGame Notifications

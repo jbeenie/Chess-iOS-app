@@ -1,33 +1,32 @@
 //
-//  ChessSettings.swift
+//  ChessSettings
 //  Chess
 //
-//  Created by Jeremie Benhamron on 2017-03-20.
+//  Created by Jeremie Benhamron on 2017-03-21.
 //  Copyright © 2017 beenie.inc. All rights reserved.
 //
 
 import Foundation
 
-class ChessSettings{
-    //MARK: - Properties
-    
-    struct Default{
-        static let chessBoardTheme = ChessBoardThemes.GreenWhite
-        static let notificationsEnabled = true
-        static let animationsEnable = true
+class ChessSettings: ImmutableChessSettings {
+    override subscript(key: Key) -> ChessSetting? {
+        get{return settings[key]}
+        set{settings[key] = newValue}
     }
     
-    var notificationsEnabled:Bool = Default.notificationsEnabled
-    var animationsEnable:Bool = Default.animationsEnable
-    var chessBoardTheme:ChessBoardTheme = Default.chessBoardTheme
+    var settings:[Key:ChessSetting]=ChessSettings.loadSettings(){
+        didSet{save()}
+    }
+
     
-    init(notificationsEnabled: Bool,animationsEnable:Bool,chessBoardTheme:ChessBoardTheme) {
-        self.notificationsEnabled = notificationsEnabled
-        self.animationsEnable = animationsEnable
-        self.chessBoardTheme = chessBoardTheme
+    //MARK: - Save and load settings from user defaults
+    private func save(){
+        let defaults = UserDefaults.standard
+        for (key,value) in settings{
+            let pListRepresentation = value.propertyListRepresentation()
+            let data = Archiver.archive(data: pListRepresentation)
+            defaults.set(data, forKey: key.rawValue)
+        }
     }
     
-    convenience init(){
-        self.init(notificationsEnabled: Default.notificationsEnabled,animationsEnable:Default.animationsEnable,chessBoardTheme:Default.chessBoardTheme)
-    }
 }

@@ -107,7 +107,7 @@ class ChessBoardViewController: UIViewController{
                 //resize and position animation copy
                 chessBoardView.resize(chessPieceView: chessPieceView.aninmationCopy, at: position)
                 //if animate = false hide the animation copies
-                if !delegate.animate{
+                if !delegate.shouldAnimate{
                     chessPieceView.aninmationCopy.isHidden = true
                 }
             }
@@ -129,7 +129,7 @@ class ChessBoardViewController: UIViewController{
         perform(move: move)
         
         //if animate is false your done
-        guard animate else {return}
+        guard animate else {moveCompletionHandler?();return}
         
         //Get a handle on the pieces moved
         let rookMoved = chessBoardView[move.rookEndPosition?.row,move.rookEndPosition?.col]?.chessPiece

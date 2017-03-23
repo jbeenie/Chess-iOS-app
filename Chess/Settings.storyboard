@@ -224,8 +224,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Game Settings" id="fdn-mY-Oxr"/>
                     <connections>
+                        <outlet property="animationSwitch" destination="4dn-5V-efH" id="sXm-2O-N9y"/>
+                        <outlet property="chessBoardThemeCurrentSelectionLabel" destination="3fA-pg-Abp" id="dg9-Qt-8PQ"/>
+                        <outlet property="clockTimeCell" destination="BAp-Fa-mii" id="QYK-cI-4rZ"/>
                         <outlet property="maxTakeBacksCell" destination="gdk-dW-PZ7" id="gnR-65-t5E"/>
-                        <outlet property="timeControlCell" destination="BAp-Fa-mii" id="mvd-Hq-3tX"/>
+                        <outlet property="notificationsSwitch" destination="JWJ-F6-8Ph" id="spk-kp-fDS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5J-Qu-d0h" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -318,7 +321,7 @@
         <scene sceneID="eAV-eV-L1x">
             <objects>
                 <collectionViewController title="Chess Board Theme" id="9JI-Ae-d2l" customClass="ChessBoardThemeCollectionViewController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="7Oj-g4-nzl">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="7Oj-g4-nzl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -429,7 +432,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gk4-H1-4z2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="56.799999999999997" y="21.139430284857571"/>
+            <point key="canvasLocation" x="151" y="23"/>
         </scene>
         <!--Max Takebacks-->
         <scene sceneID="MUr-UJ-qTp">

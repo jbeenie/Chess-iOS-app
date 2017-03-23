@@ -9,10 +9,7 @@
 import UIKit
 
 class MenuViewController: UIViewController {
-    //MARK: - Model
-    
-    private var globalSettings = ChessSettings()
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,15 +30,17 @@ class MenuViewController: UIViewController {
         
         //extract the desired destination view controller if it is inside of a navigation view controller
         //cast the destination view controller to the appropriate view controller subclass: Settings View Controller
-        if let settingsVC = segue.destination.contentViewController as? SettingsTableViewController{
-            //prepare settings VC with NSUserDefaults
-            print("******prepare for settings*********")
-            //TODO: Prepare Settings VC with NS User defaults
-            //Create a settings model object  that you load with the 
-            //NSUSER defaults data which updates the settings accordingly
-        }else if let chessGameVC = segue.destination.contentViewController as? ChessGameViewController{
-            //TODO: Prepare the Chess game VC with the NSUSER Defaults
-            print("*********prepare for chess game*********")
+        if let chessGameVC = segue.destination.contentViewController as? ChessGameViewController{
+            //TODO: Get the Chess Game settings via user feedback
+            
+            //For now just create a chessgame settings manually
+            let takebackCount = TakeBackCount.Finite(3)
+            let chessClock:ChessClock? = nil //ChessClock(with: 500)
+            let chessGameSettings = ChessGameSettings(maxTakebacks: takebackCount, chessClock: chessClock)
+            
+            //Give it the latest version of the global settings
+            chessGameSettings.globalSettings = ImmutableChessSettings()
+            chessGameVC.gameSettings = chessGameSettings
         }
     }
 

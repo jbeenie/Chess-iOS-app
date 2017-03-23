@@ -8,9 +8,23 @@
 
 import Foundation
 
-extension Bool{
+extension Bool:ChessSetting{
     func not()->Bool{
         return !self
+    }
+    
+    func propertyListRepresentation() -> NSDictionary{
+        let representation:[String:Any] = ["self":self as AnyObject]
+        return representation as NSDictionary
+    }
+    init?(propertyListRepresentation:NSDictionary?){
+        guard let plist = propertyListRepresentation else {return nil}
+        if let value = plist["self"] as? Bool{
+            self = value
+        } else {
+            return nil
+        }
+
     }
 }
 
@@ -37,6 +51,8 @@ extension Array {
     }
 }
 
+//returns the index of an element in a 2D array
+//return value (Int,Int) = (row, col) = (index in outter array, index in inner array)
 extension Array where Element : Collection,
 Element.Iterator.Element : Equatable, Element.Index == Int {
     func index(of x: Element.Iterator.Element) -> (Int, Int)? {

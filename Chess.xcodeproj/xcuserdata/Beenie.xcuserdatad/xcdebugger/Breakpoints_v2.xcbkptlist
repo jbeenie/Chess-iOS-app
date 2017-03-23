@@ -330,7 +330,7 @@
                   moduleName = "Chess"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Beenie/Documents/Dev/Chess/PromotionChoicesViewController.swift"
-                  timestampString = "511749752.979945"
+                  timestampString = "511917474.947777"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "110"
@@ -345,7 +345,7 @@
                   moduleName = "Chess"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Beenie/Documents/Dev/Chess/PromotionChoicesViewController.swift"
-                  timestampString = "511749752.982643"
+                  timestampString = "511917474.950153"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "110"
@@ -362,28 +362,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Chess/ChessGameViewController.swift"
-            timestampString = "511319532.429056"
+            timestampString = "511999491.780447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "ChessGameViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardThemeCollectionViewController.swift"
-            timestampString = "511749578.827918"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "387"
+            endingLineNumber = "387"
+            landmarkName = "addChessPieceToGraveYard(chessPiece:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -393,14 +377,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChessBoardThemeCollectionViewCell.swift"
-            timestampString = "511749594.661269"
+            filePath = "Chess/ChessGameViewController.swift"
+            timestampString = "511999491.780447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "awakeFromNib()"
+            startingLineNumber = "342"
+            endingLineNumber = "342"
+            landmarkName = "updateGameAfter(move:outCome:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chess.ChessGameViewController.(updateGameAfter in _02AB4E0E22266961AEF4459D0FC41D5F) (move : Chess.Move, outCome : Swift.Optional&lt;Chess.Outcome&gt;) -&gt; ()"
+                  moduleName = "Chess"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessGameViewController.swift"
+                  timestampString = "511917474.960217"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "325"
+                  endingLineNumber = "325"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chess.ChessGameViewController.(updateGameAfter in _02AB4E0E22266961AEF4459D0FC41D5F) (move : Chess.Move, outCome : Swift.Optional&lt;Chess.Outcome&gt;) -&gt; ()"
+                  moduleName = "Chess"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessGameViewController.swift"
+                  timestampString = "511917474.962739"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "325"
+                  endingLineNumber = "325"
+                  offsetFromSymbolStart = "73">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -409,13 +425,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardThemeCollectionViewController.swift"
-            timestampString = "511749613.433557"
+            filePath = "Chess/ChessGameViewController.swift"
+            timestampString = "511999273.657357"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "performMove(from:to:chessPieceTypeToPromoteTo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
