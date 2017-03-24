@@ -15,6 +15,7 @@ class ChessClock{
     var timerToUnPause: ChessTimer? = nil
     var history: [(TimeInterval,TimeInterval)]
     var delegate: ChessClockDelegate? = nil
+    let initialTime:Int//in seconds
     
     //returns whether or not one of the timers ran out of time
     var timeIsUp:Bool{
@@ -92,6 +93,7 @@ class ChessClock{
     
     //MARK: Initializers
     init(with seconds:Int){
+        self.initialTime = seconds
         self.whiteTimer = ChessTimer(with: seconds)
         self.blackTimer = ChessTimer(with: seconds)
         self.history = [(TimeInterval(seconds),TimeInterval(seconds))]

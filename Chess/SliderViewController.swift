@@ -25,6 +25,7 @@ class SliderViewController: UITableViewController
     var dataDisplayer:(Float)->String = {data in return String(data)}
 
     
+    
     //MARK: -Processing of Model
     private var displayString:String{
         return dataDisplayer(data)
@@ -42,6 +43,14 @@ class SliderViewController: UITableViewController
         slider?.minimumValue = minSliderValue
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        exitClosure?()
+    }
+    
+    //Set this closure to what ever function you want to execute
+    //when VC disappears
+    var exitClosure: (()->Void)? = nil
+    
     //MARK: - Outlets
     
     @IBOutlet weak var slider: UISlider!
@@ -56,8 +65,6 @@ class SliderViewController: UITableViewController
     private func updateUI(){
         dataLabel.text =  displayString
     }
-    
-
     
    
 }

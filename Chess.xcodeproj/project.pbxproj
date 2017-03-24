@@ -319,8 +319,10 @@
 		9F9C89431E84C31200E717C3 /* ChessGameSettingsScene */ = {
 			isa = PBXGroup;
 			children = (
-				9F9C89461E84C48500E717C3 /* ChessGameSettingsTableTableViewController.swift */,
 				9F9C89441E84C34200E717C3 /* ChessGameSettings.storyboard */,
+				9F9C89461E84C48500E717C3 /* ChessGameSettingsTableTableViewController.swift */,
+				9FE3990D1E806B3E00A81787 /* ChessGameSettings.swift */,
+				9FAC3AAF1E7B738B008F7900 /* SliderViewControllers */,
 			);
 			name = ChessGameSettingsScene;
 			sourceTree = "<group>";
@@ -432,7 +434,6 @@
 		9FCDBB281E7A2B5400ED5B1A /* ChessGameScene */ = {
 			isa = PBXGroup;
 			children = (
-				9FE3990D1E806B3E00A81787 /* ChessGameSettings.swift */,
 				9F952CF21E77772300C90615 /* ChessGameViewController.swift */,
 				9F3575B11E6E53FB008267B7 /* ModelViewTranslation.swift */,
 				9FCB75941E4EAAC100275773 /* ChessGame.storyboard */,
@@ -458,7 +459,6 @@
 				9FCDBB2F1E7A337500ED5B1A /* Settings.storyboard */,
 				9FCDBB331E7A343800ED5B1A /* SettingsTableViewController.swift */,
 				9F9C89371E8319AC00E717C3 /* Model */,
-				9FAC3AAF1E7B738B008F7900 /* SliderViewControllers */,
 				9F5543321E7B8427000D30F6 /* ChessBoardThemeController  */,
 			);
 			name = SettingsScene;

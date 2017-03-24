@@ -390,6 +390,10 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         }
     }
     
+    @IBAction func backToMainMenu(_ sender: UIBarButtonItem) {
+        _ = self.navigationController?.popToRootViewController(animated: true)
+    }
+    
     
     //MARK: - Adding and Removing Captured Pieces to GraveYardView
     

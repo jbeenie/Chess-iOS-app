@@ -54,13 +54,14 @@ enum TakebackCount{
 class MaxTakebackViewController: IntegerSliderViewController {
     
     
-    
+    //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        exitClosure = updateGameSettings
         // Do any additional setup after loading the view.
     }
-
+    
+    //MARK: - Customization of Integer Slider VC
     override var integerDataDisplayer:(Int)->String{
         get{
             return {data in return self.display(takeBacksData: data)}
@@ -84,6 +85,23 @@ class MaxTakebackViewController: IntegerSliderViewController {
         }
     }
     
+    //MARK: - Update VC returned to with final slider data
+    //Overide this method in subclasses
+    private func updateGameSettings(){
+        guard let gameSettingsVC = self.previousViewController as? ChessGameSettingsTableTableViewController else{return}
+        gameSettingsVC.maxTakebackCount = interpretedData
+    }
+}
 
-
+extension TakebackCount:Equatable{
+    static func == (lhs:TakebackCount, rhs:TakebackCount)->Bool{
+        switch (lhs,rhs) {
+        case (.Finite(let leftCount),.Finite(let rightCount)):
+            return leftCount == rightCount
+        case (.Infinite,.Infinite):
+            return true
+        default:
+            return false
+        }
+    }
 }

@@ -9,19 +9,18 @@
 import UIKit
 
 class ClockTimeViewController: IntegerSliderViewController {
-
+    
+    //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        exitClosure = updateGameSettings
         // Do any additional setup after loading the view.
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     
+    //MARK: - Customization of Integer Slider VC
+
     override var integerDataDisplayer:(Int)->String{
         get{
             return {data in return self.display(minutesData: data)}
@@ -35,7 +34,14 @@ class ClockTimeViewController: IntegerSliderViewController {
         return timeFormatter.hoursMinutesString
     }
     
-    private var interpretedData:TimeInterval{
-        return TimeInterval(integerData * 60)
+    private var interpretedData:Int{
+        return integerData * 60// convert minutes to seconds
+    }
+    
+    //MARK: - Update VC returned to with final slider data
+    //Overide this method in subclasses
+    private func updateGameSettings(){
+        guard let gameSettingsVC = self.previousViewController as? ChessGameSettingsTableTableViewController else{return}
+        gameSettingsVC.chessClock = ChessClock(with: interpretedData)
     }
 }
