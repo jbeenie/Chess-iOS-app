@@ -9,7 +9,7 @@
 import Foundation
 
 class ChessGameSettings{
-    let maxTakebacks:TakeBackCount
+    let maxTakebacks:TakebackCount
     let chessClock:ChessClock?
     
     var animationsEnabled:Bool{
@@ -25,7 +25,7 @@ class ChessGameSettings{
     //up to date global settings
     var globalSettings:ImmutableChessSettings = ImmutableChessSettings()
     
-    init(maxTakebacks:TakeBackCount,
+    init(maxTakebacks:TakebackCount,
          chessClock:ChessClock?){
         self.maxTakebacks = maxTakebacks
         self.chessClock = chessClock

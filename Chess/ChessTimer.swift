@@ -9,7 +9,6 @@
 import Foundation
 
 class ChessTimer {
-    //enum defining different modes of operation for the timer
     
     //MARK: - Stored Properties
     //closure to execute when timer ends

@@ -16,7 +16,10 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         static let WhiteChessPieceGraveYardViewController = "WhiteChessPieceGraveYardViewController"
         static let BlackTimerViewController = "BlackTimerViewController"
         static let WhiteTimerViewController = "WhiteTimerViewController"
+        static let WhiteTakebacksViewController = "WhiteTakebacksViewController"
+        static let BlackTakebacksViewController = "BlackTakebacksViewController"
         static let ChessBoardViewController = "ChessBoardViewController"
+        
     }
     
     struct Ratios{
@@ -55,11 +58,6 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         willSet{self.gameSettings = self.gameSettings ?? newValue}
     }
     
-    //MARK: TakeBacks remaining
-    lazy var takebacksRemainingForWhite: TakeBackCount = self.gameSettings.maxTakebacks
-    lazy var takebacksRemainingForBlack: TakeBackCount = self.gameSettings.maxTakebacks
-
-    
     //MARK: Chess Clock
     lazy var chessClock:ChessClock? = self.gameSettings.chessClock
     
@@ -77,6 +75,9 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     //MARK: TIMERS
     private var whiteTimerViewController:WhiteTimerViewController?
     private var blackTimerViewController:BlackTimerViewController?
+    //MARK: TakebackCounters
+    private var whiteTakebacksViewController: WhiteTakebacksViewController!
+    private var blackTakebacksViewController: BlackTakebacksViewController!
     //MARK: Chessboard
     private var chessBoardViewController:ChessBoardViewController!
     
@@ -263,10 +264,11 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: Undo Move
     private func undoLastMove()->Move?{
-        //get take back count of appropriate player
-        var remainingTakebacks = (chessGame.colorWhoseTurnItIs.opposite() == .White) ? self.takebacksRemainingForWhite : takebacksRemainingForBlack
+        //get take back count controller of player taking back move
+        var takebacksViewController = (chessGame.colorWhoseTurnItIs.opposite() == .White) ? whiteTakebacksViewController : blackTakebacksViewController
+        
         //undo move iff player has remaining takebacks
-        guard !remainingTakebacks.isZero else {
+        guard !takebacksViewController.takebackCount.isZero else {
             return nil
         }
         
@@ -282,7 +284,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             chessClock?.moveUndone()
             
             //decrement the takebackcount
-            remainingTakebacks.decrement()
+            takebacksViewController.takebackCount.decrement()
             return lastMove
         }
         //Reset the clock completely
@@ -303,6 +305,10 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         chessBoardViewController.delegate = self
         //delegate of chessClock
         chessClock?.delegate = self
+        
+        //set up takebackviewcontroller models
+        whiteTakebacksViewController.takebackCount = gameSettings.maxTakebacks
+        blackTakebacksViewController.takebackCount = gameSettings.maxTakebacks
         
         //place piece in initial positions
         placePiecesAtStartingPosition()
@@ -373,6 +379,10 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             blackTimerViewController = segue.destination as? BlackTimerViewController
         }else if (segue.identifier == StoryBoard.WhiteTimerViewController){
             whiteTimerViewController = segue.destination as? WhiteTimerViewController
+        }else if(segue.identifier == StoryBoard.WhiteTakebacksViewController){
+            whiteTakebacksViewController = segue.destination as? WhiteTakebacksViewController
+        }else if(segue.identifier == StoryBoard.BlackTakebacksViewController){
+            blackTakebacksViewController = segue.destination as? BlackTakebacksViewController
         }else if (segue.identifier == StoryBoard.ChessBoardViewController){
             chessBoardViewController = segue.destination as? ChessBoardViewController
         }

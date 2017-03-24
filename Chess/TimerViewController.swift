@@ -12,6 +12,7 @@ class TimerViewController: UIViewController,ChessTimerDelegate{
     //MARK: - Outlets
     @IBOutlet weak var timerLabel: UILabel!
     
+    
     //MARK: Model
     var timer: ChessTimer?{
         didSet{
@@ -31,6 +32,8 @@ class TimerViewController: UIViewController,ChessTimerDelegate{
         timeFormatter.totalSeconds = seconds
         timerLabel?.text = timeFormatter.hoursMinutesSecondsString
     }
+    
+    
     
     private func setUpTimerLabel(){
         //if the timer is not nil

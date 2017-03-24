@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum TakeBackCount{
+enum TakebackCount{
     case Finite(Int)
     case Infinite
     
@@ -25,19 +25,28 @@ enum TakeBackCount{
         switch self{
         case .Finite(let count):
             let newCount = count>0 ? count-1 : count
-            self = TakeBackCount.Finite(newCount)
+            self = TakebackCount.Finite(newCount)
         case .Infinite:
             break
         }
     }
     
-    mutating func incrementIfLess(than maxTakeBackCount:TakeBackCount){
+    mutating func incrementIfLess(than maxTakeBackCount:TakebackCount){
         switch (self,maxTakeBackCount){
         case (.Finite(let count),.Finite(let maxCount)):
             let newCount = maxCount>count ? count+1 : count
-            self = TakeBackCount.Finite(newCount)
+            self = TakebackCount.Finite(newCount)
         default:
             break
+        }
+    }
+    
+    var description:String{
+        switch self{
+        case .Finite(let count):
+            return String(count)
+        case .Infinite:
+            return "∞"
         }
     }
 }
@@ -67,11 +76,11 @@ class MaxTakebackViewController: IntegerSliderViewController {
         }
     }
     
-    private var interpretedData:TakeBackCount{
+    private var interpretedData:TakebackCount{
         if integerData == Int(maxSliderValue){
-            return TakeBackCount.Infinite
+            return TakebackCount.Infinite
         }else{
-            return TakeBackCount.Finite(integerData)
+            return TakebackCount.Finite(integerData)
         }
     }
     
