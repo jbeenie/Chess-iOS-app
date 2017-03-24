@@ -27,7 +27,6 @@ class ChessBoardView: UIView {
     
     //MARK: - Variables
     //MARK: Colors of board
-    
     var colorOfWhiteSquares: UIColor
     var colorOfBlackSquares: UIColor
     var colorOfSelectedBlackSquares: UIColor

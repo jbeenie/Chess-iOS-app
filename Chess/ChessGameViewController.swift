@@ -265,7 +265,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     //MARK: Undo Move
     private func undoLastMove()->Move?{
         //get take back count controller of player taking back move
-        var takebacksViewController = (chessGame.colorWhoseTurnItIs.opposite() == .White) ? whiteTakebacksViewController : blackTakebacksViewController
+        let takebacksViewController = (chessGame.colorWhoseTurnItIs.opposite() == .White) ? whiteTakebacksViewController : blackTakebacksViewController
         
         //undo move iff player has remaining takebacks
         guard !takebacksViewController.takebackCount.isZero else {
@@ -385,6 +385,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             blackTakebacksViewController = segue.destination as? BlackTakebacksViewController
         }else if (segue.identifier == StoryBoard.ChessBoardViewController){
             chessBoardViewController = segue.destination as? ChessBoardViewController
+            //Set the colors of the squares using the chessboard theme chosen
+            chessBoardViewController.chessBoardTheme = gameSettings?.chessBoardTheme
         }
     }
     

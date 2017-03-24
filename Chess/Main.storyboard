@@ -31,7 +31,7 @@
                                             <color key="titleColor" red="0.28627450980000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="jGv-DU-xpA" kind="show" id="Qyf-zp-G6v"/>
+                                            <segue destination="qHA-Bh-Xpy" kind="show" id="R6p-XC-GJd"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBi-a4-Poi">
@@ -59,13 +59,13 @@
             </objects>
             <point key="canvasLocation" x="436" y="-172.26386806596702"/>
         </scene>
-        <!--ChessGameViewController-->
-        <scene sceneID="Jle-Gd-JmC">
+        <!--ChessGameSettingsTableTableViewController-->
+        <scene sceneID="KHN-bw-YUi">
             <objects>
-                <viewControllerPlaceholder storyboardName="ChessGame" referencedIdentifier="ChessGameViewController" id="jGv-DU-xpA" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GXJ-ox-cSC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="ChessGameSettings" referencedIdentifier="ChessGameSettingsTableTableViewController" id="qHA-Bh-Xpy" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JfD-Xm-q4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1240.8" y="-292.80359820089956"/>
+            <point key="canvasLocation" x="1503" y="-421"/>
         </scene>
         <!--SettingsTableViewController-->
         <scene sceneID="19X-cj-nCo">
@@ -73,7 +73,7 @@
                 <viewControllerPlaceholder storyboardName="Settings" referencedIdentifier="SettingsTableViewController" id="Nhg-cC-Pyw" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LPa-xM-DzI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1264" y="39.130434782608695"/>
+            <point key="canvasLocation" x="1567" y="-22"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="n7I-kd-gg6">

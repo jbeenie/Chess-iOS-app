@@ -17,9 +17,15 @@ class ChessBoardViewController: UIViewController{
     //MARK: - View
     @IBOutlet weak var chessBoardView: AnimatedChessBoardView!{
         didSet{
+            //set up the chessBoard view before adding gesture recognizers
+            //or else chessboard theme color is not applied
+            setUpChessBoardView()
             setUpGestureRecognizers()
         }
     }
+    
+    //MARK: - Colors of the ChessBoardView
+    var chessBoardTheme: ChessBoardTheme? = nil
 
     var lastSelectedSquare: ChessBoardSquareView? = nil
     
@@ -87,12 +93,17 @@ class ChessBoardViewController: UIViewController{
     //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpChessBoardView()
+        //set the colors of the chessBoardview is a chessboard theme is specified
     }
     
     private func setUpChessBoardView(){
         //ChessBoardView Setup
         if let chessBoardView = chessBoardView{
+            //set the chess board colors
+            if let chessBoardTheme = chessBoardTheme{
+                chessBoardView.colorOfWhiteSquares = chessBoardTheme.whiteSquareColor
+                chessBoardView.colorOfBlackSquares = chessBoardTheme.blackSquareColor
+            }
             chessBoardView.setUpChessBoardView()
             //view.addSubview(chessBoardView)
         }

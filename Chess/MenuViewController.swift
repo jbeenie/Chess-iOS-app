@@ -34,7 +34,7 @@ class MenuViewController: UIViewController {
             //TODO: Get the Chess Game settings via user feedback
             
             //For now just create a chessgame settings manually
-            let takebackCount = TakebackCount.Infinite //Finite(1)
+            let takebackCount = TakebackCount.Finite(2)
             let chessClock:ChessClock? = ChessClock(with: 500)
             let chessGameSettings = ChessGameSettings(maxTakebacks: takebackCount, chessClock: chessClock)
             
