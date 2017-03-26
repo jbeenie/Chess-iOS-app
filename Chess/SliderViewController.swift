@@ -11,36 +11,36 @@ import UIKit
 class SliderViewController: UITableViewController
 {
     //MARK: - Configuration
-    @IBInspectable
     internal var minSliderValue:Float = 0
-    @IBInspectable
     internal var maxSliderValue:Float = 1
     
-    internal let initialSliderValue:Float = 0
     
     //MARK: - Model
     
-    var data:Float = 0
+    internal var data:Float = 0
     
-    var dataDisplayer:(Float)->String = {data in return String(data)}
+    internal func dataDisplayer()->String{
+        return String(self.data)
+    }
 
     
     
     //MARK: -Processing of Model
     private var displayString:String{
-        return dataDisplayer(data)
+        return dataDisplayer()
     }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        slider.value = initialSliderValue
-        dataLabel.text = dataDisplayer(initialSliderValue)
+        slider?.maximumValue = maxSliderValue
+        slider?.minimumValue = minSliderValue
+        slider.value = data
+        dataLabel.text = displayString
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        slider?.maximumValue = maxSliderValue
-        slider?.minimumValue = minSliderValue
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -49,7 +49,7 @@ class SliderViewController: UITableViewController
     
     //Set this closure to what ever function you want to execute
     //when VC disappears
-    var exitClosure: (()->Void)? = nil
+    internal var exitClosure: (()->Void)? = nil
     
     //MARK: - Outlets
     
@@ -62,8 +62,20 @@ class SliderViewController: UITableViewController
         updateUI()
     }
     
+    //MARK: Helper methods
     private func updateUI(){
         dataLabel.text =  displayString
+    }
+    
+    internal func  setInitialSliderValue(to value:Float)->Bool{
+        guard value <= maxSliderValue && value >= minSliderValue else {return true}
+        data = value
+        return true
+    }
+    
+    internal func setMinMaxSliderValues(min: Float,max:Float){
+        minSliderValue = min
+        maxSliderValue = max
     }
     
    

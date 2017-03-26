@@ -382,7 +382,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="187" height="57"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="40" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5VI-hD-mND">
-                                        <rect key="frame" x="13" y="0.0" width="162" height="57"/>
+                                        <rect key="frame" x="12.5" y="0.0" width="162" height="57"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>

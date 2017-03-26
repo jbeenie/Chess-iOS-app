@@ -52,7 +52,33 @@ enum TakebackCount{
 }
 
 class MaxTakebackViewController: IntegerSliderViewController {
+    //MARK: -  Conversion between Int and TakebackCount
+    private func intToTakeBacks(integer:Int)->TakebackCount{
+        if integer == maxIntegerSliderValue{
+            return TakebackCount.Infinite
+        }else {
+            return TakebackCount.Finite(integer)
+        }
+    }
     
+    private func takeBacksToInt(takebacks:TakebackCount)->Int{
+        switch takebacks {
+        case .Finite(let count):
+            return count
+        case .Infinite:
+            return maxIntegerSliderValue
+        }
+    }
+    
+    //MARK: - Model
+    internal var takebacks:TakebackCount{
+        get{
+            return intToTakeBacks(integer: integerData)
+        }
+        set{
+            integerData = takeBacksToInt(takebacks: takebacks)
+        }
+    }
     
     //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
@@ -62,34 +88,24 @@ class MaxTakebackViewController: IntegerSliderViewController {
     }
     
     //MARK: - Customization of Integer Slider VC
-    override var integerDataDisplayer:(Int)->String{
-        get{
-            return {data in return self.display(takeBacksData: data)}
-        }
-        set{}
+    override func dataDisplayer()->String{
+        return takebacks.description
     }
     
-    private func display(takeBacksData:Int)->String{
-        if takeBacksData == Int(maxSliderValue){
-            return "∞"
-        }else{
-            return String(takeBacksData)
-        }
-    }
-    
-    private var interpretedData:TakebackCount{
-        if integerData == Int(maxSliderValue){
-            return TakebackCount.Infinite
-        }else{
-            return TakebackCount.Finite(integerData)
-        }
-    }
     
     //MARK: - Update VC returned to with final slider data
     //Overide this method in subclasses
     private func updateGameSettings(){
         guard let gameSettingsVC = self.previousViewController as? ChessGameSettingsTableTableViewController else{return}
-        gameSettingsVC.maxTakebackCount = interpretedData
+        gameSettingsVC.maxTakebackCount = takebacks
+    }
+    
+    //MARK : - Setup
+    //MARK: Setting initial slider value
+    internal func  setInitialSliderValue(toTakebackCount count:TakebackCount)->Bool{
+        guard super.setInitialSliderValue(toIntegerValue: takeBacksToInt(takebacks: count)) else { return false}
+        takebacks = count
+        return true
     }
 }
 

@@ -24,6 +24,8 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     
     struct Constants{
         static let noTakebacks = TakebackCount.Finite(0)
+        static let maxTakeBacksSliderValue = 10
+        static let minTakeBacksSliderValue = 1
     }
     
     //MARK: - Model
@@ -157,6 +159,10 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     
     private func prepare(maxTakebackVC:MaxTakebackViewController){
         //tell it the initial slider value
+        maxTakebackVC.setMinMaxIntegerSliderValues(min: Constants.minTakeBacksSliderValue, max: Constants.maxTakeBacksSliderValue)
+        if !maxTakebackVC.setInitialSliderValue(toTakebackCount: maxTakebackCount) {
+            print("failed to set initial slider value")
+        }
         
     }
     

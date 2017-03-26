@@ -21,18 +21,12 @@ class ClockTimeViewController: IntegerSliderViewController {
     
     //MARK: - Customization of Integer Slider VC
 
-    override var integerDataDisplayer:(Int)->String{
-        get{
-            return {data in return self.display(minutesData: data)}
-        }
-        set{}
-    }
-    
-    private func display(minutesData:Int)->String{
+    override func dataDisplayer()->String{
         var timeFormatter = TimeFormatter()
         timeFormatter.totalSeconds = integerData * 60
         return timeFormatter.hoursMinutesString
     }
+
     
     private var interpretedData:Int{
         return integerData * 60// convert minutes to seconds
