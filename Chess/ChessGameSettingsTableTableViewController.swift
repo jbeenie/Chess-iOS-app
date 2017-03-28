@@ -18,7 +18,6 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     
     struct Default{
         static let takebackCount = TakebackCount.Infinite
-        static let chessClock: ChessClock? = nil
         static let clockTime: Int = 5 * 60 // 5 minutes
     }
     
@@ -34,17 +33,12 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     
     //MARK: - Model
     
-    var maxTakebackCount = Default.takebackCount
-    var chessClock = Default.chessClock
     
-    var chessGameSettings:ChessGameSettings{
-        let chessGameSettings = ChessGameSettings(maxTakebacks: maxTakebackCount, chessClock: chessClock)
-        return chessGameSettings
-    }
+    var gameSettings:ChessGameSettings = ChessGameSettings.loadGameSettings()
     
     private var clockTimeString:String{
         //make sure chess clock is not nil
-        guard let totalSeconds =  chessClock?.initialTime else {return "∞"}
+        guard let totalSeconds =  gameSettings.clockTime else {return "∞"}
         //if its not nil use its initial time property to create the clock time string
         var timeFormatter = TimeFormatter()
         timeFormatter.totalSeconds = totalSeconds
@@ -77,11 +71,11 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     //MARK: update state of the VC with the current game settings when it appears
     private func update(){
         //update clock related
-        clockSwitch.isOn = chessGameSettings.chessClock != nil
+        clockSwitch.isOn = gameSettings.clockTime != nil
         enableOrDisableClockTimeCellCell(if: clockSwitch.isOn)
         
         //set position of takebacks switch
-        takebacksSwitch.isOn = chessGameSettings.maxTakebacks != TakebackCount.Finite(0)
+        takebacksSwitch.isOn = gameSettings.maxTakebacks != TakebackCount.Finite(0)
         enableOrDisableMaxTakebacksCell(if:takebacksSwitch.isOn)
     }
     
@@ -104,26 +98,26 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     //MARK: Enabling and Disabling cells
     
     private func enableOrDisableMaxTakebacksCell(if bool:Bool){
-        switch (maxTakebackCount, bool) {
+        switch (gameSettings.maxTakebacks, bool) {
         case (.Finite(let count), true) where count == 0:
-            maxTakebackCount = Default.takebackCount
+            gameSettings.maxTakebacks = Default.takebackCount
         case (.Finite(let count),false) where count != 0:
-            maxTakebackCount = Constants.noTakebacks
+            gameSettings.maxTakebacks = Constants.noTakebacks
         case (.Infinite,false):
-            maxTakebackCount = Constants.noTakebacks
+            gameSettings.maxTakebacks = Constants.noTakebacks
         default:
             break
 
         }
         enableOrDisable(cell:maxTakeBacksCell, if:bool)
-        maxTakeBacksLabel?.text = maxTakebackCount.description
+        maxTakeBacksLabel?.text = gameSettings.maxTakebacks.description
     }
     
     private func enableOrDisableClockTimeCellCell(if bool:Bool){
-        if chessClock == nil && bool{
-            chessClock = ChessClock(with: Default.clockTime)
-        }else if chessClock != nil && !bool{
-            chessClock = nil
+        if gameSettings.clockTime == nil && bool{
+            gameSettings.clockTime =  Default.clockTime
+        }else if gameSettings.clockTime != nil && !bool{
+            gameSettings.clockTime = nil
         }
         enableOrDisable(cell:clockTimeCell, if:bool)
         clockTimeLabel?.text = clockTimeString
@@ -167,18 +161,21 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     
     private func prepare(maxTakebackVC:MaxTakebackViewController){
         //tell it the initial take back count to display
-        maxTakebackVC.takebacks = maxTakebackCount
+        maxTakebackVC.takebacks = gameSettings.maxTakebacks
     }
     
     private func prepare(clockTimeVC:ClockTimeViewController){
         //tell it the initial clock time value to display
-        clockTimeVC.clock = chessClock!
+        clockTimeVC.clockTime = gameSettings.clockTime!
     }
     
     private func prepare(chessGameVC: ChessGameViewController){
         //give chess game VC the game settings set by the user
-        chessGameVC.gameSettings = chessGameSettings
+        chessGameVC.gameSettings = gameSettings
+        //save the chosen game settings
+        gameSettings.save()
     }
+    
 }
 
 

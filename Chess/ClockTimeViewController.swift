@@ -9,8 +9,7 @@
 import UIKit
 
 class ClockTimeViewController: IntegerSliderViewController {
-    
-    struct Constants{
+  struct Constants{
         static let maxClockTime = 90 //90 mintues
         static let minClockTime = 1  //1 minute
     }
@@ -20,15 +19,15 @@ class ClockTimeViewController: IntegerSliderViewController {
     }
     
     //MARK: - Model
-    internal var clock:ChessClock = ChessClock(with: Default.clockTime)
+    internal var clockTime:Int = Default.clockTime
     
     //MARK: updating Model
     override func updateModel(givenCurrentInteger sliderValue: Int) {
-        clock = ChessClock(with: sliderValue * 60)
+        clockTime = sliderValue * 60
     }
     
     private var minutes: Int{
-        return clock.initialTime / 60
+        return clockTime / 60
     }
     
     //MARK: - View Controller Life Cycle
@@ -54,6 +53,6 @@ class ClockTimeViewController: IntegerSliderViewController {
     //Overide this method in subclasses
     private func updateGameSettings(){
         guard let gameSettingsVC = self.previousViewController as? ChessGameSettingsTableTableViewController else{return}
-        gameSettingsVC.chessClock = clock
+        gameSettingsVC.gameSettings.clockTime = clockTime
     }
 }

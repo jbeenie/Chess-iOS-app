@@ -19,7 +19,7 @@ final class Archiver{
         return archivedData as NSData
     }
     
-    static func unArchive(data: Any, with key: ChessSettings.Key)->NSDictionary?{
+    static func unArchive(data: Any)->NSDictionary?{
         guard let data = (data as? Data), let unarchivedData = NSKeyedUnarchiver.unarchiveObject(with: data) else {return nil}
         return unarchivedData as? NSDictionary
         

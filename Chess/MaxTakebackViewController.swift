@@ -105,7 +105,7 @@ class MaxTakebackViewController: IntegerSliderViewController {
     //MARK: - Update VC returned to with final takeback count
     private func updateGameSettings(){
         guard let gameSettingsVC = self.previousViewController as? ChessGameSettingsTableTableViewController else{return}
-        gameSettingsVC.maxTakebackCount = takebacks
+        gameSettingsVC.gameSettings.maxTakebacks = takebacks
     }
 }
 

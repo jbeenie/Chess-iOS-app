@@ -59,7 +59,10 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     }
     
     //MARK: Chess Clock
-    lazy var chessClock:ChessClock? = self.gameSettings.chessClock
+    lazy var chessClock:ChessClock? = {
+        guard let clockTime = self.gameSettings.clockTime else {return nil}
+        return ChessClock(with: clockTime)
+    }()
     
     //Computed Properties
 

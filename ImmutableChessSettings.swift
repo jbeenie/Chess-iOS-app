@@ -39,7 +39,7 @@ class ImmutableChessSettings{
         var settings = [Key:ChessSetting]()
         for (key,defaultValue) in defaultSettings{
             if let data = defaults.object(forKey: key.rawValue),
-                let pListRepresentation = Archiver.unArchive(data: data, with:key),
+                let pListRepresentation = Archiver.unArchive(data: data),
                 let value = unpack(propertyListRepresentation: pListRepresentation, with:key) {
                     settings[key] = value
             }else{
