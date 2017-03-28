@@ -24,8 +24,12 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     
     struct Constants{
         static let noTakebacks = TakebackCount.Finite(0)
-        static let maxTakeBacksSliderValue = 10
-        static let minTakeBacksSliderValue = 1
+        static let shouldHighlightRowAt:[IndexPath:Bool] = [
+            IndexPath(row: 0, section: 0):false,
+            IndexPath(row: 1, section: 0):true,
+            IndexPath(row: 0, section: 1):false,
+            IndexPath(row: 1, section: 1):true
+        ]
     }
     
     //MARK: - Model
@@ -97,9 +101,7 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     
     //MARK: -  Action Handlers
     
-    
-    
-    //MARK: - Enabling and Disabling cells
+    //MARK: Enabling and Disabling cells
     
     private func enableOrDisableMaxTakebacksCell(if bool:Bool){
         switch (maxTakebackCount, bool) {
@@ -144,6 +146,12 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
         cell.detailTextLabel!.isEnabled = true
     }
     
+    //MARK: - Specify which cells are selectable
+    
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return Constants.shouldHighlightRowAt[indexPath]!
+    }
+    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -158,17 +166,13 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     }
     
     private func prepare(maxTakebackVC:MaxTakebackViewController){
-        //tell it the initial slider value
-        maxTakebackVC.setMinMaxIntegerSliderValues(min: Constants.minTakeBacksSliderValue, max: Constants.maxTakeBacksSliderValue)
-        if !maxTakebackVC.setInitialSliderValue(toTakebackCount: maxTakebackCount) {
-            print("failed to set initial slider value")
-        }
-        
+        //tell it the initial take back count to display
+        maxTakebackVC.takebacks = maxTakebackCount
     }
     
     private func prepare(clockTimeVC:ClockTimeViewController){
-        //tell it the initial slider value
-        
+        //tell it the initial clock time value to display
+        clockTimeVC.clock = chessClock!
     }
     
     private func prepare(chessGameVC: ChessGameViewController){

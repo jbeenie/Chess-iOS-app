@@ -52,12 +52,22 @@ enum TakebackCount{
 }
 
 class MaxTakebackViewController: IntegerSliderViewController {
+    //MARK: - Constants
+    struct Constants{
+        static let maxFiniteTakeBacks = 10
+        static let minTakeBacks = 1
+    }
+    
+    struct Default{
+        static let takebackCount = 1
+    }
+    
     //MARK: -  Conversion between Int and TakebackCount
-    private func intToTakeBacks(integer:Int)->TakebackCount{
-        if integer == maxIntegerSliderValue{
+    private func intToTakeBacks(int:Int)->TakebackCount{
+        if int == maximumIntegerValue{
             return TakebackCount.Infinite
         }else {
-            return TakebackCount.Finite(integer)
+            return TakebackCount.Finite(int)
         }
     }
     
@@ -66,46 +76,36 @@ class MaxTakebackViewController: IntegerSliderViewController {
         case .Finite(let count):
             return count
         case .Infinite:
-            return maxIntegerSliderValue
+            return maximumIntegerValue
         }
     }
     
     //MARK: - Model
-    internal var takebacks:TakebackCount{
-        get{
-            return intToTakeBacks(integer: integerData)
-        }
-        set{
-            integerData = takeBacksToInt(takebacks: takebacks)
-        }
+    internal var takebacks:TakebackCount = TakebackCount.Finite(Default.takebackCount)
+    
+    //MARK: updating Model    
+    override func updateModel(givenCurrentInteger sliderValue: Int) {
+        takebacks = intToTakeBacks(int:sliderValue)
     }
     
     //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         exitClosure = updateGameSettings
+        _ = minMaxSliderValues(intMin: Constants.minTakeBacks, intMax: Constants.maxFiniteTakeBacks+1)
+        _ = initialSliderValue(intValue: takeBacksToInt(takebacks: takebacks))
         // Do any additional setup after loading the view.
     }
     
-    //MARK: - Customization of Integer Slider VC
-    override func dataDisplayer()->String{
-        return takebacks.description
+    //MARK: - Converting Integer Data to String
+    override internal func toString(intData: Int) -> String {
+        return intToTakeBacks(int: intData).description
     }
     
-    
-    //MARK: - Update VC returned to with final slider data
-    //Overide this method in subclasses
+    //MARK: - Update VC returned to with final takeback count
     private func updateGameSettings(){
         guard let gameSettingsVC = self.previousViewController as? ChessGameSettingsTableTableViewController else{return}
         gameSettingsVC.maxTakebackCount = takebacks
-    }
-    
-    //MARK : - Setup
-    //MARK: Setting initial slider value
-    internal func  setInitialSliderValue(toTakebackCount count:TakebackCount)->Bool{
-        guard super.setInitialSliderValue(toIntegerValue: takeBacksToInt(takebacks: count)) else { return false}
-        takebacks = count
-        return true
     }
 }
 

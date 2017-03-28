@@ -14,6 +14,15 @@ class SettingsTableViewController: UITableViewController {
         static let ChessBoardThemeSegue = "ChessBoardTheme"
     }
     
+    struct Constants{
+        static let shouldHighlightRowAt:[IndexPath:Bool] = [
+            IndexPath(row: 0, section: 0):false,
+            IndexPath(row: 0, section: 1):false,
+            IndexPath(row: 0, section: 2):true
+            
+        ]
+    }
+    
     private var chessBoardThemeTexts:[ChessBoardTheme:String]{
         return [ChessBoardThemes.GreenWhite:"Green/White",
             ChessBoardThemes.BrownYellow:"Brown/Yellow",
@@ -71,7 +80,9 @@ class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var chessBoardThemeCurrentSelectionLabel: UILabel!
     
-
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return Constants.shouldHighlightRowAt[indexPath]!
+    }
 
     
     // MARK: - Navigation

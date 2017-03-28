@@ -10,32 +10,50 @@ import UIKit
 
 class ClockTimeViewController: IntegerSliderViewController {
     
+    struct Constants{
+        static let maxClockTime = 90 //90 mintues
+        static let minClockTime = 1  //1 minute
+    }
+    
+    struct Default{
+        static let clockTime: Int = 5 * 60 // 5 minutes
+    }
+    
+    //MARK: - Model
+    internal var clock:ChessClock = ChessClock(with: Default.clockTime)
+    
+    //MARK: updating Model
+    override func updateModel(givenCurrentInteger sliderValue: Int) {
+        clock = ChessClock(with: sliderValue * 60)
+    }
+    
+    private var minutes: Int{
+        return clock.initialTime / 60
+    }
+    
     //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         exitClosure = updateGameSettings
-        // Do any additional setup after loading the view.
+        _ = minMaxSliderValues(intMin: Constants.minClockTime, intMax: Constants.maxClockTime)
+        _ = initialSliderValue(intValue: minutes)
     }
-    
-    
+
     
     //MARK: - Customization of Integer Slider VC
 
-    override func dataDisplayer()->String{
+    //MARK: - Converting Integer Data to String
+    override internal func toString(intData: Int) -> String {
         var timeFormatter = TimeFormatter()
-        timeFormatter.totalSeconds = integerData * 60
+        timeFormatter.totalSeconds = intData * 60
         return timeFormatter.hoursMinutesString
     }
-
     
-    private var interpretedData:Int{
-        return integerData * 60// convert minutes to seconds
-    }
     
     //MARK: - Update VC returned to with final slider data
     //Overide this method in subclasses
     private func updateGameSettings(){
         guard let gameSettingsVC = self.previousViewController as? ChessGameSettingsTableTableViewController else{return}
-        gameSettingsVC.chessClock = ChessClock(with: interpretedData)
+        gameSettingsVC.chessClock = clock
     }
 }

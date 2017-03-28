@@ -10,46 +10,29 @@ import UIKit
 
 class SliderViewController: UITableViewController
 {
-    //MARK: - Configuration
-    internal var minSliderValue:Float = 0
-    internal var maxSliderValue:Float = 1
-    
-    
-    //MARK: - Model
-    
-    internal var data:Float = 0
-    
-    internal func dataDisplayer()->String{
-        return String(self.data)
-    }
-
-    
-    
-    //MARK: -Processing of Model
+    //MARK: - Processing slider value in String
     private var displayString:String{
-        return dataDisplayer()
+        return dataToString(slider.value)
     }
+    
+    private lazy var dataToString: (Float)->String = {"\($0)"}
 
+    //MARK: View Controller Life Cycle
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        slider?.maximumValue = maxSliderValue
-        slider?.minimumValue = minSliderValue
-        slider.value = data
-        dataLabel.text = displayString
+        self.tableView.allowsSelection = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        updateUI()
     }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         exitClosure?()
     }
     
-    //Set this closure to what ever function you want to execute
-    //when VC disappears
-    internal var exitClosure: (()->Void)? = nil
+    
     
     //MARK: - Outlets
     
@@ -58,25 +41,41 @@ class SliderViewController: UITableViewController
    
     //MARK: - Actions
     @IBAction func sliderMoved(_ sender: UISlider) {
-        data = slider.value
         updateUI()
+        updateModel(givenCurrent: sender.value)
     }
     
     //MARK: Helper methods
     private func updateUI(){
-        dataLabel.text =  displayString
+        dataLabel?.text =  displayString
     }
     
-    internal func  setInitialSliderValue(to value:Float)->Bool{
-        guard value <= maxSliderValue && value >= minSliderValue else {return true}
-        data = value
+    internal func updateModel(givenCurrent sliderValue:Float){}
+    
+    
+    //MARK:Configuring Slider
+    
+    internal func  initialSliderValue(value:Float)->Bool{
+        guard value <= slider.maximumValue || value >= slider.minimumValue else {return false}
+        slider.value = value
         return true
     }
     
-    internal func setMinMaxSliderValues(min: Float,max:Float){
-        minSliderValue = min
-        maxSliderValue = max
+    internal func minMaxSliderValues(min: Float,max:Float)->Bool{
+        guard min < max else {return false}
+        slider.minimumValue = min
+        slider.maximumValue = max
+        return true
     }
+    
+    //Specify how each slider value in the range should be displayed
+    internal func mapDataToString(with map: @escaping (Float)->String){
+        dataToString = map
+    }
+    
+    //Set this closure to what ever function you want to execute
+    //when VC disappears
+    internal var exitClosure: (()->Void)? = nil
     
    
 }

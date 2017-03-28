@@ -11,49 +11,74 @@ import Foundation
 
 class IntegerSliderViewController: SliderViewController {
     
+    var maximumIntegerValue:Int{
+        return roundToInt(float: slider.maximumValue)
+    }
+    
+    var minimumIntegerValue:Int{
+        return roundToInt(float: slider.minimumValue)
+    }
+    
+    var integerValue:Int{
+        get{
+            return roundToInt(float: slider.value)
+        }
+        set{
+            slider.value = Float(integerValue)
+        }
+    }
+    
     //MARK: -  Conversion from Float to Int
     
-    private func floatToInt(float:Float)->Int{
+    private func roundToInt(float:Float)->Int{
         return Int(round(float))
     }
     
-    //MARK: - max slider value
-    internal var maxIntegerSliderValue:Int{
-        return floatToInt(float: maxSliderValue)
-    }
-    
-    //MARK: - Model
-    internal var integerData: Int{
-        get{
-            return floatToInt(float: data)
-        }
-        set{
-            data = Float(integerData)
-        }
-    }
-    
     //MARK: - View Controller Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-
-    
-    //MARK: - Displaying integer data
-    override func dataDisplayer()->String{
-        return String(integerData)
+        mapIntegerDataToString(with: toString(intData:))
     }
     
-    //MARK : - Setup
-    //MARK: Setting initial slider value
-    internal func  setInitialSliderValue(toIntegerValue integerValue:Int)->Bool{
-        guard super.setInitialSliderValue(to: Float(integerValue)) else { return false}
-        integerData = integerValue
+    override internal final func updateModel(givenCurrent sliderValue: Float) {
+        updateModel(givenCurrentInteger: roundToInt(float: sliderValue))
+    }
+    
+    internal func updateModel(givenCurrentInteger sliderValue: Int){
+        
+    }
+    
+    //MARK:Configuring Slider
+    
+    internal func  initialSliderValue(intValue:Int)->Bool{
+        let floatValue = Float(intValue)
+        guard floatValue <= slider.maximumValue || floatValue >= slider.minimumValue else {return false}
+        slider.value = floatValue
         return true
     }
-    //MARK: Setting max min slider values
-    internal func setMinMaxIntegerSliderValues(min: Int,max:Int){
-        super.setMinMaxSliderValues(min: Float(min), max: Float(max))
+    
+    internal func minMaxSliderValues(intMin: Int,intMax:Int)->Bool{
+        guard intMin < intMax else {return false}
+        slider.minimumValue = Float(intMin)
+        slider.maximumValue = Float(intMax)
+        return true
     }
+    
+    //Specify how each slider value in the range should be displayed
+    internal func mapIntegerDataToString(with integerMap: @escaping (Int)->String){
+        let map:(Float)->String = { data in
+            let integerData = self.roundToInt(float: data)
+            return integerMap(integerData)
+        }
+        super.mapDataToString(with: map)
+    }
+    
+    //MARK: - Converting Integer Data to String
+    internal func toString(intData: Int)->String{
+        return "\(intData)"
+    }
+    
     
 
 }
