@@ -28,6 +28,7 @@
 		9F952CF71E77ACB000C90615 /* ChessClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952CF61E77ACB000C90615 /* ChessClock.swift */; };
 		9F952CF91E77AE0F00C90615 /* ChessTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952CF81E77AE0F00C90615 /* ChessTimer.swift */; };
 		9F952CFB1E77B30A00C90615 /* ChessTimerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952CFA1E77B30A00C90615 /* ChessTimerDelegate.swift */; };
+		9F989BC61E8AFBAA00D000C0 /* ViewOrientationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F989BC51E8AFBAA00D000C0 /* ViewOrientationManager.swift */; };
 		9F9BEFDC1E6F78860069F917 /* PromotionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9BEFDB1E6F78860069F917 /* PromotionDelegate.swift */; };
 		9F9C89361E8258FE00E717C3 /* PropertyListCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9C89351E8258FE00E717C3 /* PropertyListCompatible.swift */; };
 		9F9C89391E848CC900E717C3 /* TakebacksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9C89381E848CC900E717C3 /* TakebacksViewController.swift */; };
@@ -129,6 +130,7 @@
 		9F952CF61E77ACB000C90615 /* ChessClock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessClock.swift; sourceTree = "<group>"; };
 		9F952CF81E77AE0F00C90615 /* ChessTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessTimer.swift; sourceTree = "<group>"; };
 		9F952CFA1E77B30A00C90615 /* ChessTimerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessTimerDelegate.swift; sourceTree = "<group>"; };
+		9F989BC51E8AFBAA00D000C0 /* ViewOrientationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewOrientationManager.swift; sourceTree = "<group>"; };
 		9F9BEFDB1E6F78860069F917 /* PromotionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionDelegate.swift; sourceTree = "<group>"; };
 		9F9C89351E8258FE00E717C3 /* PropertyListCompatible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyListCompatible.swift; sourceTree = "<group>"; };
 		9F9C89381E848CC900E717C3 /* TakebacksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakebacksViewController.swift; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 			isa = PBXGroup;
 			children = (
 				9F952CF21E77772300C90615 /* ChessGameViewController.swift */,
+				9F989BC51E8AFBAA00D000C0 /* ViewOrientationManager.swift */,
 				9F3575B11E6E53FB008267B7 /* ModelViewTranslation.swift */,
 				9FCB75941E4EAAC100275773 /* ChessGame.storyboard */,
 				9FD74CE71E54DDFB00FFC762 /* Model */,
@@ -664,6 +667,7 @@
 				9FD74CEF1E551FE700FFC762 /* Rook.swift in Sources */,
 				9F3575B01E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift in Sources */,
 				9F82AD521E76766100DBBF00 /* WhiteTimerViewController.swift in Sources */,
+				9F989BC61E8AFBAA00D000C0 /* ViewOrientationManager.swift in Sources */,
 				9FB7E15E1E612509007E9A6E /* Move.swift in Sources */,
 				9FCDBB271E78DA2A00ED5B1A /* ChessNotificationCreator.swift in Sources */,
 				9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */,

@@ -36,6 +36,10 @@ class PromotionChoicesViewController: UIViewController {
         return UIEdgeInsetsMake(imageInset,imageInset,imageInset,imageInset)
     }
     
+    var buttonStackVOM:ViewOrientationManager{
+        return ViewOrientationManager(rotationAngle: ChessGameViewController.Constants.blackPerspectiveRotationAngle, views: [buttonStack], animate: false)
+    }
+    
     //MARK: Computed View Dimensions
     
     var buttonSpacing: CGFloat{
@@ -87,6 +91,10 @@ class PromotionChoicesViewController: UIViewController {
                 button?.sizeToFit()
                 button?.imageView?.contentMode = UIViewContentMode.scaleAspectFit
                 button?.tag = tag
+            }
+            //rotate buttons if necessary
+            if colorOfPieces == .Black{
+                buttonStackVOM.rotateViews()
             }
         }
     }

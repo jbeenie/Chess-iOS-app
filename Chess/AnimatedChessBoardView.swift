@@ -28,6 +28,8 @@ class AnimatedChessBoardView: ChessBoardView {
         static let AlphaPostAppear: CGFloat = 1
     }
     
+    
+    
     var dissappearanceInProgress: Bool = false
     
     //MARK: - Methods

@@ -12,7 +12,7 @@ class ChessNotification: UIView {
     
     struct Animation{
         static let AppearDuration:TimeInterval = 0.3
-        static let AppearDelay:TimeInterval = 0
+        static let AppearDelay:TimeInterval = 0.3
         static let AppearOptions:UIViewAnimationOptions = [.curveLinear]
         
         static let DisAppearDuration:TimeInterval = 0.3

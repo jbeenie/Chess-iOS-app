@@ -27,11 +27,11 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         static let popOverWidthToPopOverHeight:CGFloat = 4
     }
     
-    //MARK: - Properties
-
-//    let initialTimeOnClock:Int = 120 //seconds
-//    let animate = true
+    struct Constants{
+        static let blackPerspectiveRotationAngle = CGFloat.pi
+    }
     
+    //MARK: - Properties
     
     //MARK: SubViews
     //MARK: Board
@@ -42,6 +42,14 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         return chessBoardViewController.lastSelectedSquare
     }
     private var currentNotification:ChessNotification? = nil
+    
+    private var blackPlayerViews:[UIView]{
+        var blackPlayerViews = [UIView]()
+        if let blackTimerView = blackTimerViewController?.view{
+            blackPlayerViews.append(blackTimerView)
+        }
+        return blackPlayerViews + [blackTakebacksViewController.view,blackChessPieceGraveYardViewController.view]
+    }
     
     
     //MARK: - Model
@@ -63,6 +71,13 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         guard let clockTime = self.gameSettings.clockTime else {return nil}
         return ChessClock(with: clockTime)
     }()
+    
+    //MARK: Orientation Managers
+    private lazy var chessPieceVOM:ViewOrientationManager = ViewOrientationManager(rotationAngle: Constants.blackPerspectiveRotationAngle, views: self.chessBoardViewController.pieces, animate: self.gameSettings.animationsEnabled)
+    
+    private lazy var blackPlayerVOM:ViewOrientationManager = ViewOrientationManager(rotationAngle: Constants.blackPerspectiveRotationAngle, views: self.blackPlayerViews, animate: false)
+    
+    private lazy var notificationsVOM:ViewOrientationManager = ViewOrientationManager(rotationAngle: Constants.blackPerspectiveRotationAngle, animate: false)
     
     //Computed Properties
 
@@ -250,7 +265,6 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         //Translate the model move into view move
         let viewMove = ModelViewTranslation.chessBoardViewMove(from: move)
         
-        
         //Toggle timers
         chessClock?.moveOccured()
         
@@ -258,8 +272,15 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         //if move is successful
         let moveCompletionHandler = { self.updateGameAfter(move: move, outCome: outcome) }
         
+//        if chessGame.colorWhoseTurnItIs == .Black{
+//            viewMove.pieceToPromoteTo?.transform = CGAffineTransform(rotationAngle: Constants.blackPerspectiveRotationAngle)
+//        }
+        
         //move the piece in the ChessBoardView
         chessBoardViewController.perform(move: viewMove,animate:gameSettings.animationsEnabled,moveCompletionHandler:moveCompletionHandler)
+        
+        //update list of views in the chess piece VOM's
+        chessPieceVOM.views = chessBoardView.pieces
         
         //return the appropriate information
         return (move,outcome)
@@ -279,15 +300,21 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         if let lastMove = chessGame.undoLastMove(){
             //translate move to view move
             let lastViewMove = ModelViewTranslation.chessBoardViewMove(from: lastMove)
+            
+            //toggle orientation of chess pieces after move is undone
+            let toggleOrientation = { self.chessPieceVOM.toggleOrientation() }
+            
             //remove the current notification if necessary
             //then undo the last move on the chessBoardView
-            removeNotification {self.chessBoardViewController.undo(move: lastViewMove, animate:self.gameSettings.animationsEnabled)}
+            removeNotification {self.chessBoardViewController.undo(move: lastViewMove, animate:self.gameSettings.animationsEnabled, completion: toggleOrientation)}
             
             //Roll back the clock
             chessClock?.moveUndone()
             
             //decrement the takebackcount
             takebacksViewController.takebackCount.decrement()
+            
+            
             return lastMove
         }
         //Reset the clock completely
@@ -319,6 +346,9 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         //Hookup the chessClock to the timer view controllers
         whiteTimerViewController?.timer = chessClock?.whiteTimer
         blackTimerViewController?.timer = chessClock?.blackTimer
+        
+        //Orient the appropriate views in blacks perspective 
+        blackPlayerVOM.rotateViews()
     }
 
 
@@ -351,16 +381,36 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         if let pieceCaptured =  move.pieceCaptured{
             _ = addChessPieceToGraveYard(chessPiece: pieceCaptured)
         }
-        if(gameSettings.notificationsEnabled){giveUserFeedBackBased(on: outCome)}
+        
+        //post notification after chess pieces are rotated
+        let postNotification = {
+            if(self.gameSettings.notificationsEnabled){
+                self.giveUserFeedBackBased(on: outCome)
+            }
+        }
+        
+        //toggle orientation of chess pieces
+        chessPieceVOM.toggleOrientation(completion: postNotification)
     }
     
     //MARK: - ChessGame Notifications
     
     private func post(notification:ChessNotification, temporarily:Bool=true){
+        //add the notifiation to the chess board view
         self.chessBoardView.addSubview(notification)
+        
+        //rotatate notification if necessary
+        notificationsVOM.views.append(notification)
+        notificationsVOM.rotationAngle = (chessGame.colorWhoseTurnItIs == .White) ? 0 : Constants.blackPerspectiveRotationAngle
+        notificationsVOM.rotateViews()
+        notificationsVOM.views.removeLast()
+        
+        //prepare notification for posting
         currentNotification = notification
         notification.frame = chessBoardView.bounds
         notification.centerAndResizeLabel()
+        
+        //animate the posting of the notification
         notification.animatePosting()
     }
     

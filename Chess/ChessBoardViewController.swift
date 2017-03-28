@@ -109,6 +109,11 @@ class ChessBoardViewController: UIViewController{
         }
     }
     
+    //MARK: Getting ChessPieceViews on Board
+    internal var pieces:[ChessPieceView]{
+        return chessBoardView.pieces
+    }
+    
     
     //MARK: Placing Several Pieces On Board
     func placePiecesAt(positions: [ChessBoardView.Position:ChessPieceView]){
@@ -203,14 +208,13 @@ class ChessBoardViewController: UIViewController{
         
     }
     
-    func undo(move: ChessBoardView.Move,animate:Bool) {
+    func undo(move: ChessBoardView.Move,animate:Bool, completion:(()->Void)?) {
         
         //Get the piece at the end position in case its a piece that is being demoted
         //(do this before calling undo)
         var pieceToDemote:ChessPieceView? = nil
         if move.pieceToDemoteTo != nil{
             pieceToDemote = chessBoardView[move.endPosition.row,move.endPosition.col]!.chessPiece!
-            
         }
         
         //undo the move
@@ -282,7 +286,9 @@ class ChessBoardViewController: UIViewController{
             pieceMovedBack.aninmationCopy.isHidden = false
             animateMovingOfPiece {finished in rookMovedBack?.isHidden = false
                 pieceMovedBack.isHidden = false
-                animateResurrectionOfPiece{finished in resurrectedPiece?.isHidden = false }
+                animateResurrectionOfPiece{finished in resurrectedPiece?.isHidden = false
+                completion?()
+                }
             }
         }
         

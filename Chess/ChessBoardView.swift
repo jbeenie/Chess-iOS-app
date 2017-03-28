@@ -47,6 +47,16 @@ class ChessBoardView: UIView {
     //MARK: ChessBoard square array
     lazy private var chessBoardSquares: [[ChessBoardSquareView]] = self.setUpChessBoardSquares()
     
+    internal var pieces:[ChessPieceView]{
+        var chessPieceviews = [ChessPieceView]()
+        for subview in self.subviews {
+            if let chessPieceView = subview as? ChessPieceView{
+                chessPieceviews.append(chessPieceView)
+            }
+        }
+        return chessPieceviews
+    }
+    
     //MARK: Helper method used to setup the chessboard square array
     private func setUpChessBoardSquares() -> [[ChessBoardSquareView]] {
         var chessBoardSquares = [[ChessBoardSquareView]]()
