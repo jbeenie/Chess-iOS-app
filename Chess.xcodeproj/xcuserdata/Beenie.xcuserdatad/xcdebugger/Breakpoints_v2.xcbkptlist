@@ -286,9 +286,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "animateTranstion(from:to:completion:)"
-            landmarkType = "7">
+            endingLineNumber = "107">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -302,9 +300,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "animateAppearanceOf(chessPieceView:completion:)"
-            landmarkType = "7">
+            endingLineNumber = "87">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -318,9 +314,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "animateAppearanceOf(chessPieceView:completion:)"
-            landmarkType = "7">
+            endingLineNumber = "89">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
