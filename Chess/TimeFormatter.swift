@@ -41,16 +41,21 @@ struct TimeFormatter{
         return totalSeconds % 60
     }
     
-    //simplified to what OP wanted
-    var hoursMinutesAndSeconds: (hours: Int, minutes: Int, seconds: Int) {
+    var hoursMinutesAndSeconds:(hours: Int, minutes: Int, seconds: Int) {
         return (hours, minutes, seconds)
     }
     
-    var simpleTimeString: String {
+    var hoursMinutesSecondsString: String {
         let hoursText = hours
         let minutesText = zeroPaddedTimeText(from: minutes)
         let secondsText = zeroPaddedTimeText(from: seconds)
         return "\(hoursText):\(minutesText):\(secondsText)"
+    }
+    
+    var hoursMinutesString:String{
+        let hoursText = hours
+        let minutesText = zeroPaddedTimeText(from: minutes)
+        return "\(hoursText):\(minutesText)"
     }
     
     private func zeroPaddedTimeText(from number: Int) -> String {

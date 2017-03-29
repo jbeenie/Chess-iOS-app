@@ -46,4 +46,88 @@ extension UIView{
                        animations: {view?.alpha = alpha},
                        completion: completion)
         }
+    
+    
+    @IBInspectable var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
+        }
+    }
+    
+    @IBInspectable var borderColor: UIColor?{
+        get {
+            if let borderColor = layer.borderColor{
+                return UIColor(cgColor: borderColor)
+            }else{return nil}
+            
+        }
+        set {layer.borderColor = newValue?.cgColor ?? nil}
+    }
+    
+    @IBInspectable var borderWidth: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
+    }
+    
+    
+}
+
+extension UIViewController{
+    var contentViewController: UIViewController{
+        if let navcon = self as? UINavigationController {
+            return  navcon.visibleViewController ?? self
+        }
+        else{
+            return self
+        }
+    }
+    
+    var previousViewController:UIViewController?{
+        if let controllersOnNavStack = self.navigationController?.viewControllers{
+            let n = controllersOnNavStack.count
+            //if self is still on Navigation stack
+            if controllersOnNavStack.last === self, n > 1{
+                return controllersOnNavStack[n - 2]
+            }else if n > 0{
+                return controllersOnNavStack[n - 1]
+            }
+        }
+        return nil
+    }
+}
+
+extension UIImage{
+    static func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width:size.width * heightRatio,height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width:size.width * widthRatio, height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(origin: CGPoint.zero, size: newSize)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
 }

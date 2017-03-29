@@ -7,12 +7,9 @@
 //
 
 import UIKit
-
+@IBDesignable
 class PromotionChoicesViewController: UIViewController {
     //MARK: - Constants
-    struct Constant{
-        static let buttonConrnerRadius:CGFloat = 3.0
-    }
     
     struct Default{
         static let pieceColor: ChessPieceView.ChessPieceColor = .Black
@@ -39,6 +36,10 @@ class PromotionChoicesViewController: UIViewController {
         return UIEdgeInsetsMake(imageInset,imageInset,imageInset,imageInset)
     }
     
+    var buttonStackVOM:ViewOrientationManager{
+        return ViewOrientationManager(rotationAngle: ChessGameViewController.Constants.blackPerspectiveRotationAngle, views: [buttonStack], animate: false)
+    }
+    
     //MARK: Computed View Dimensions
     
     var buttonSpacing: CGFloat{
@@ -62,10 +63,10 @@ class PromotionChoicesViewController: UIViewController {
     @IBOutlet weak var buttonStack: UIStackView!
     
     //MARK: UIButtons
-    @IBOutlet weak var knightUIButton: UIButton!
-    @IBOutlet weak var bishopUIButton: UIButton!
-    @IBOutlet weak var rookUIButton: UIButton!
-    @IBOutlet weak var queenUIButton: UIButton!
+    @IBOutlet weak var knightUIButton: ChessPieceButton!
+    @IBOutlet weak var bishopUIButton: ChessPieceButton!
+    @IBOutlet weak var rookUIButton: ChessPieceButton!
+    @IBOutlet weak var queenUIButton: ChessPieceButton!
     
 
     var buttons:[(ChessPieceView.ChessPieceIdentifier,UIButton?,Int)]{
@@ -84,13 +85,16 @@ class PromotionChoicesViewController: UIViewController {
     //Set up Button Appearance
     private func setupButtons(){
         for (iconID,button,tag) in buttons{
-            button?.layer.cornerRadius = Constant.buttonConrnerRadius
             if let buttonIcon = ChessPieceView.ChessPieceIcons[iconID]{
                 button?.setImage(buttonIcon, for: .normal)
                 button?.imageEdgeInsets = buttonImageInsets
                 button?.sizeToFit()
                 button?.imageView?.contentMode = UIViewContentMode.scaleAspectFit
                 button?.tag = tag
+            }
+            //rotate buttons if necessary
+            if colorOfPieces == .Black{
+                buttonStackVOM.rotateViews()
             }
         }
     }

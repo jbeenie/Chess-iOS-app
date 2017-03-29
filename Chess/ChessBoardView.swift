@@ -7,7 +7,7 @@
 //
 
 import UIKit
-@IBDesignable
+
 class ChessBoardView: UIView {
     //MARK: - Constants
     
@@ -27,7 +27,6 @@ class ChessBoardView: UIView {
     
     //MARK: - Variables
     //MARK: Colors of board
-    
     var colorOfWhiteSquares: UIColor
     var colorOfBlackSquares: UIColor
     var colorOfSelectedBlackSquares: UIColor
@@ -47,6 +46,16 @@ class ChessBoardView: UIView {
     //MARK: - Subviews
     //MARK: ChessBoard square array
     lazy private var chessBoardSquares: [[ChessBoardSquareView]] = self.setUpChessBoardSquares()
+    
+    internal var pieces:[ChessPieceView]{
+        var chessPieceviews = [ChessPieceView]()
+        for subview in self.subviews {
+            if let chessPieceView = subview as? ChessPieceView{
+                chessPieceviews.append(chessPieceView)
+            }
+        }
+        return chessPieceviews
+    }
     
     //MARK: Helper method used to setup the chessboard square array
     private func setUpChessBoardSquares() -> [[ChessBoardSquareView]] {
@@ -178,51 +187,11 @@ class ChessBoardView: UIView {
         }
     }
     
-    //Perfroms the move on the chessBoardView
-    // -Moves and removes appropriate peices
-    // -Moves rook if move is a castle
-    // -Promotes piece if necessary
-    func perform(move:Move){
-        
-        //remove the captured piece if any (must be done before moving piece)
-        _ = removePiece(from: move.positionOfPieceToCapture)
-        
-        //moev the piece to the new position
-        movePiece(from: move.startPosition, endPosition: move.endPosition)
-        
-        
-        //if a promotion occured promote the piece
-        if let pieceToPromoteTo = move.pieceToPromoteTo{
-            _ = set(piece: pieceToPromoteTo, at: move.endPosition)
-        }
-        
-        //move the rook if the move was a castle
-        movePiece(from: move.rookStartPosition, endPosition: move.rookEndPosition)
-
-        //debugging
-        print(move.description)
-        
-    }
     
-    func undo(move:Move){
-        //if a promotion occured demote the piece
-        if nil != move.pieceToDemoteTo{
-            _ = set(piece: move.pieceToDemoteTo, at: move.endPosition)
-        }
-        
-        //move the piece to the start position
-        movePiece(from: move.endPosition, endPosition: move.startPosition)
-        
-        //move the rook back if the move was a castle
-        movePiece(from: move.rookEndPosition, endPosition:move.rookStartPosition)
-        
-        //put back the captured piece if any (must be done after moving piece)
-        _ = set(piece: move.pieceCaptured, at: move.positionOfPieceToCapture)
-    }
     
     //MARK: - Moving Removing and setting SubViews AKA Pieces
     
-    private func movePiece(from startPosition:Position?, endPosition:Position?){
+    func movePiece(from startPosition:Position?, endPosition:Position?){
         guard let startPosition = startPosition, let endPosition = endPosition else {return}
         //remove the piece from the old position
         guard let pieceToMove = removePiece(from: startPosition) else {return}
@@ -232,7 +201,7 @@ class ChessBoardView: UIView {
     
     //Places a piece at the desired position on the board
     //returns the piece that previously occupied that position or nil if no piece was there
-    private func set(piece: ChessPieceView?, at position: ChessBoardView.Position?)->ChessPieceView?{
+    func set(piece: ChessPieceView?, at position: ChessBoardView.Position?)->ChessPieceView?{
         guard let position = position else {return nil}
         let replacedPiece = self[position.row,position.col]!.chessPiece
         self[position.row,position.col]!.chessPiece = piece
@@ -241,7 +210,7 @@ class ChessBoardView: UIView {
     
     //attempts to remove a piece from the specified location
     //returns the piece it removed or nil if no piece was located at that square
-    private func removePiece(from position: ChessBoardView.Position?)->ChessPieceView?{
+    func removePiece(from position: ChessBoardView.Position?)->ChessPieceView?{
         return set(piece: nil, at: position)
     }
     

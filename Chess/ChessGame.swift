@@ -59,13 +59,21 @@ class ChessGame{
         return false
     }
     var ended:Bool{
-        return outCome == nil ? false : true
+        if let outCome = outCome{
+            switch outCome {
+            case Outcome.Draw,Outcome.Win:
+                return true
+            default:
+                return false
+            }
+        }
+        return false
     }
     //returns the outcome of the game if it has ended or nil if the game is still in session
     var outCome:Outcome?{
         if noPieceCanMove(in: chessBoard.pieces(ofColor: colorWhoseTurnItIs)){
-            return (activeKingInCheck ? Outcome.Win(colorWhoseTurnItIs.opposite()) : Outcome.Draw)
-        }
+            return (activeKingInCheck ? Outcome.Win(colorWhoseTurnItIs.opposite(),.CheckMate) : Outcome.Draw)
+        }else if activeKingInCheck { return Outcome.Check }
         return nil
     }
 
@@ -110,13 +118,13 @@ class ChessGame{
     //attempts to move a piece from oldPosition to new position
     //returns:
     //1. Bool indicating whether move is successcul and executed
-    //2. Bool indicating whether move leaves opponents king in check
+    //2. Bool indicating whether move puts the opponents king in check
     //3. OutCome? indicating if game is ended and what the outcome is so
     //
     //move is successful if:
     //  1.The piece can move in that way
     //  2.The acting piece's king is not left in check as a result of the move
-    func movePiece(from oldPosition: Position, to newPosition: Position, typeOfPieceToPromoteTo:ChessPieceType?=nil)->(Move,Bool,Outcome?)? {
+    func movePiece(from oldPosition: Position, to newPosition: Position, typeOfPieceToPromoteTo:ChessPieceType?=nil)->(Move,Outcome?)? {
         
         //check if game is ended
         //guard !ended else{return nil}
@@ -191,7 +199,7 @@ class ChessGame{
         //indicate if move succeeded
         //if king whosTurnItIs is in check
         //if game is ended
-        return (successfulMove, activeKingInCheck, outCome)
+        return (successfulMove, outCome)
     }
     
     
@@ -247,9 +255,37 @@ class ChessGame{
 
 //MARK: - Supporting Type
 
-
-
 enum Outcome{
-    case Win(ChessPieceColor)
     case Draw
+    case Check
+    case Win(ChessPieceColor,Reason)
+    
+    enum Reason{
+        case CheckMate
+        case TimerUp
+    }
 }
+
+extension Outcome:Hashable, Equatable{
+    private func toInt() -> Int{
+        switch self {
+        case .Draw:
+            return 1
+        case .Check:
+            return 2
+        case .Win(let color,let reason):
+            return color.hashValue * 100 + reason.hashValue * 10
+        }
+    }
+    
+    var hashValue: Int{
+        return self.toInt()
+    }
+    
+    static func ==(lhs: Outcome, rhs: Outcome) -> Bool {
+        return lhs.toInt() == rhs.toInt()
+    }
+    
+}
+
+

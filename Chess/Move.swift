@@ -28,7 +28,7 @@ class Move{
     
     
     var description: String{
-        return "\(startPosition.description) -> \(pieceMoved.description) piece captured: \(pieceCaptured?.description), first Time piece moved: \(firstTimePieceMoved)"
+        return "\(startPosition.description) -> \(pieceMoved.description) piece captured: \(pieceCaptured?.description ?? "none" ), first Time piece moved: \(firstTimePieceMoved)"
     }
     
     init(startPosition:Position, endPosition:Position, pieceMoved:ChessPiece, pieceCaptured:ChessPiece?=nil, firstTimePieceMoved:Bool){

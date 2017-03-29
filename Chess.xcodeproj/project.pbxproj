@@ -23,16 +23,35 @@
 		9F82AD4F1E76714E00DBBF00 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82AD4E1E76714E00DBBF00 /* TimeFormatter.swift */; };
 		9F82AD521E76766100DBBF00 /* WhiteTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82AD511E76766100DBBF00 /* WhiteTimerViewController.swift */; };
 		9F82AD541E76767E00DBBF00 /* BlackTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82AD531E76767E00DBBF00 /* BlackTimerViewController.swift */; };
+		9F952CF31E77772300C90615 /* ChessGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952CF21E77772300C90615 /* ChessGameViewController.swift */; };
+		9F952CF51E777DB500C90615 /* ChessBoardViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952CF41E777DB500C90615 /* ChessBoardViewControllerDelegate.swift */; };
+		9F952CF71E77ACB000C90615 /* ChessClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952CF61E77ACB000C90615 /* ChessClock.swift */; };
+		9F952CF91E77AE0F00C90615 /* ChessTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952CF81E77AE0F00C90615 /* ChessTimer.swift */; };
+		9F952CFB1E77B30A00C90615 /* ChessTimerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F952CFA1E77B30A00C90615 /* ChessTimerDelegate.swift */; };
+		9F989BC61E8AFBAA00D000C0 /* ViewOrientationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F989BC51E8AFBAA00D000C0 /* ViewOrientationManager.swift */; };
 		9F9BEFDC1E6F78860069F917 /* PromotionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9BEFDB1E6F78860069F917 /* PromotionDelegate.swift */; };
+		9F9C89361E8258FE00E717C3 /* PropertyListCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9C89351E8258FE00E717C3 /* PropertyListCompatible.swift */; };
+		9F9C89391E848CC900E717C3 /* TakebacksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9C89381E848CC900E717C3 /* TakebacksViewController.swift */; };
+		9F9C893C1E848D0600E717C3 /* WhiteTakebacksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9C893B1E848D0600E717C3 /* WhiteTakebacksViewController.swift */; };
+		9F9C893E1E848D1800E717C3 /* BlackTakebacksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9C893D1E848D1800E717C3 /* BlackTakebacksViewController.swift */; };
+		9F9C89401E84A35000E717C3 /* takebackIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F9C893F1E84A35000E717C3 /* takebackIcon.png */; };
+		9F9C89451E84C34200E717C3 /* ChessGameSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F9C89441E84C34200E717C3 /* ChessGameSettings.storyboard */; };
+		9F9C89471E84C48500E717C3 /* ChessGameSettingsTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9C89461E84C48500E717C3 /* ChessGameSettingsTableTableViewController.swift */; };
+		9FAC3AA31E7B3A38008F7900 /* SliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC3AA21E7B3A38008F7900 /* SliderViewController.swift */; };
+		9FAC3AA71E7B47F1008F7900 /* IntegerSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC3AA61E7B47F1008F7900 /* IntegerSliderViewController.swift */; };
+		9FAC3AA91E7B588A008F7900 /* MaxTakebackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC3AA81E7B588A008F7900 /* MaxTakebackViewController.swift */; };
+		9FAC3AAD1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC3AAC1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift */; };
+		9FAC3AB31E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAC3AB21E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift */; };
 		9FB7E15A1E5E53AB007E9A6E /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E1591E5E53AB007E9A6E /* FoundationExtensions.swift */; };
 		9FB7E15C1E5EB360007E9A6E /* ChessPieceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E15B1E5EB360007E9A6E /* ChessPieceTests.swift */; };
 		9FB7E15E1E612509007E9A6E /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E15D1E612509007E9A6E /* Move.swift */; };
 		9FB7E1621E6126D5007E9A6E /* PriseEnPassant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E1611E6126D5007E9A6E /* PriseEnPassant.swift */; };
 		9FB7E1671E624EDF007E9A6E /* Castle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB7E1661E624EDF007E9A6E /* Castle.swift */; };
 		9FB991EC1E525F6400BD83CE /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB991EB1E525F6400BD83CE /* UIKitExtensions.swift */; };
+		9FC5DBAD1E81E0B500C9948A /* ImmutableChessSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC5DBAC1E81E0B500C9948A /* ImmutableChessSettings.swift */; };
 		9FCB75911E4EAAC100275773 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75901E4EAAC100275773 /* AppDelegate.swift */; };
 		9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75921E4EAAC100275773 /* ChessBoardViewController.swift */; };
-		9FCB75961E4EAAC100275773 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75941E4EAAC100275773 /* Main.storyboard */; };
+		9FCB75961E4EAAC100275773 /* ChessGame.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75941E4EAAC100275773 /* ChessGame.storyboard */; };
 		9FCB75981E4EAAC100275773 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75971E4EAAC100275773 /* Assets.xcassets */; };
 		9FCB759B1E4EAAC100275773 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75991E4EAAC100275773 /* LaunchScreen.storyboard */; };
 		9FCB75A31E4EAB9A00275773 /* BoardSquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75A21E4EAB9A00275773 /* BoardSquareView.swift */; };
@@ -53,6 +72,12 @@
 		9FCB75C91E4FB82700275773 /* whiteRightKnight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75C21E4FB82700275773 /* whiteRightKnight.png */; };
 		9FCB75CA1E4FB82700275773 /* whiteRook.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75C31E4FB82700275773 /* whiteRook.png */; };
 		9FCB75CC1E4FF1EB00275773 /* ChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75CB1E4FF1EB00275773 /* ChessBoardView.swift */; };
+		9FCDBB251E78CA9B00ED5B1A /* ChessClockDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCDBB241E78CA9B00ED5B1A /* ChessClockDelegate.swift */; };
+		9FCDBB271E78DA2A00ED5B1A /* ChessNotificationCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCDBB261E78DA2A00ED5B1A /* ChessNotificationCreator.swift */; };
+		9FCDBB2B1E7A2BFB00ED5B1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FCDBB2A1E7A2BFB00ED5B1A /* Main.storyboard */; };
+		9FCDBB2D1E7A2F7E00ED5B1A /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCDBB2C1E7A2F7E00ED5B1A /* MenuViewController.swift */; };
+		9FCDBB301E7A337500ED5B1A /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FCDBB2F1E7A337500ED5B1A /* Settings.storyboard */; };
+		9FCDBB341E7A343800ED5B1A /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCDBB331E7A343800ED5B1A /* SettingsTableViewController.swift */; };
 		9FD74CE21E54DDC700FFC762 /* ChessGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CE11E54DDC700FFC762 /* ChessGame.swift */; };
 		9FD74CE41E54DDD800FFC762 /* ChessBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CE31E54DDD800FFC762 /* ChessBoard.swift */; };
 		9FD74CE61E54DDED00FFC762 /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CE51E54DDED00FFC762 /* ChessPiece.swift */; };
@@ -62,7 +87,13 @@
 		9FD74CEF1E551FE700FFC762 /* Rook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CEE1E551FE700FFC762 /* Rook.swift */; };
 		9FD74CF11E551FF200FFC762 /* Queen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CF01E551FF200FFC762 /* Queen.swift */; };
 		9FD74CF31E551FFF00FFC762 /* King.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CF21E551FFF00FFC762 /* King.swift */; };
+		9FE3990A1E8067D700A81787 /* ClockTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE399091E8067D700A81787 /* ClockTimeViewController.swift */; };
+		9FE3990C1E8069FE00A81787 /* ChessSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3990B1E8069FE00A81787 /* ChessSettings.swift */; };
+		9FE3990E1E806B3E00A81787 /* ChessGameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3990D1E806B3E00A81787 /* ChessGameSettings.swift */; };
+		9FE399101E81AA5A00A81787 /* Archiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3990F1E81AA5A00A81787 /* Archiver.swift */; };
+		9FE399121E81BDB100A81787 /* ChessSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE399111E81BDB100A81787 /* ChessSetting.swift */; };
 		9FEB946E1E74BE460042F0DE /* ChessNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEB946D1E74BE460042F0DE /* ChessNotification.swift */; };
+		9FFCC10B1E7DE54600BEAD8C /* ChessPieceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,17 +125,36 @@
 		9F82AD4E1E76714E00DBBF00 /* TimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		9F82AD511E76766100DBBF00 /* WhiteTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteTimerViewController.swift; sourceTree = "<group>"; };
 		9F82AD531E76767E00DBBF00 /* BlackTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackTimerViewController.swift; sourceTree = "<group>"; };
+		9F952CF21E77772300C90615 /* ChessGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessGameViewController.swift; sourceTree = "<group>"; };
+		9F952CF41E777DB500C90615 /* ChessBoardViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardViewControllerDelegate.swift; sourceTree = "<group>"; };
+		9F952CF61E77ACB000C90615 /* ChessClock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessClock.swift; sourceTree = "<group>"; };
+		9F952CF81E77AE0F00C90615 /* ChessTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessTimer.swift; sourceTree = "<group>"; };
+		9F952CFA1E77B30A00C90615 /* ChessTimerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessTimerDelegate.swift; sourceTree = "<group>"; };
+		9F989BC51E8AFBAA00D000C0 /* ViewOrientationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewOrientationManager.swift; sourceTree = "<group>"; };
 		9F9BEFDB1E6F78860069F917 /* PromotionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromotionDelegate.swift; sourceTree = "<group>"; };
+		9F9C89351E8258FE00E717C3 /* PropertyListCompatible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyListCompatible.swift; sourceTree = "<group>"; };
+		9F9C89381E848CC900E717C3 /* TakebacksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TakebacksViewController.swift; sourceTree = "<group>"; };
+		9F9C893B1E848D0600E717C3 /* WhiteTakebacksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteTakebacksViewController.swift; sourceTree = "<group>"; };
+		9F9C893D1E848D1800E717C3 /* BlackTakebacksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackTakebacksViewController.swift; sourceTree = "<group>"; };
+		9F9C893F1E84A35000E717C3 /* takebackIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = takebackIcon.png; path = Icons/takebackIcon.png; sourceTree = "<group>"; };
+		9F9C89441E84C34200E717C3 /* ChessGameSettings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChessGameSettings.storyboard; sourceTree = "<group>"; };
+		9F9C89461E84C48500E717C3 /* ChessGameSettingsTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessGameSettingsTableTableViewController.swift; sourceTree = "<group>"; };
+		9FAC3AA21E7B3A38008F7900 /* SliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderViewController.swift; sourceTree = "<group>"; };
+		9FAC3AA61E7B47F1008F7900 /* IntegerSliderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntegerSliderViewController.swift; path = ../IntegerSliderViewController.swift; sourceTree = "<group>"; };
+		9FAC3AA81E7B588A008F7900 /* MaxTakebackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxTakebackViewController.swift; sourceTree = "<group>"; };
+		9FAC3AAC1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardThemeCollectionViewController.swift; sourceTree = "<group>"; };
+		9FAC3AB21E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardThemeCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		9FB7E1591E5E53AB007E9A6E /* FoundationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
 		9FB7E15B1E5EB360007E9A6E /* ChessPieceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceTests.swift; sourceTree = "<group>"; };
 		9FB7E15D1E612509007E9A6E /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		9FB7E1611E6126D5007E9A6E /* PriseEnPassant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriseEnPassant.swift; sourceTree = "<group>"; };
 		9FB7E1661E624EDF007E9A6E /* Castle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Castle.swift; sourceTree = "<group>"; };
 		9FB991EB1E525F6400BD83CE /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
+		9FC5DBAC1E81E0B500C9948A /* ImmutableChessSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImmutableChessSettings.swift; path = ../ImmutableChessSettings.swift; sourceTree = "<group>"; };
 		9FCB758D1E4EAAC100275773 /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCB75901E4EAAC100275773 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FCB75921E4EAAC100275773 /* ChessBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChessBoardViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		9FCB75951E4EAAC100275773 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9FCB75951E4EAAC100275773 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ChessGame.storyboard; sourceTree = "<group>"; };
 		9FCB75971E4EAAC100275773 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FCB759A1E4EAAC100275773 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FCB759C1E4EAAC100275773 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -126,6 +176,12 @@
 		9FCB75C21E4FB82700275773 /* whiteRightKnight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteRightKnight.png; path = PieceIcons/White/whiteRightKnight.png; sourceTree = "<group>"; };
 		9FCB75C31E4FB82700275773 /* whiteRook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteRook.png; path = PieceIcons/White/whiteRook.png; sourceTree = "<group>"; };
 		9FCB75CB1E4FF1EB00275773 /* ChessBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardView.swift; sourceTree = "<group>"; };
+		9FCDBB241E78CA9B00ED5B1A /* ChessClockDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessClockDelegate.swift; sourceTree = "<group>"; };
+		9FCDBB261E78DA2A00ED5B1A /* ChessNotificationCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessNotificationCreator.swift; sourceTree = "<group>"; };
+		9FCDBB2A1E7A2BFB00ED5B1A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		9FCDBB2C1E7A2F7E00ED5B1A /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		9FCDBB2F1E7A337500ED5B1A /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		9FCDBB331E7A343800ED5B1A /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		9FD74CE11E54DDC700FFC762 /* ChessGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessGame.swift; sourceTree = "<group>"; };
 		9FD74CE31E54DDD800FFC762 /* ChessBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoard.swift; sourceTree = "<group>"; };
 		9FD74CE51E54DDED00FFC762 /* ChessPiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
@@ -135,7 +191,13 @@
 		9FD74CEE1E551FE700FFC762 /* Rook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rook.swift; sourceTree = "<group>"; };
 		9FD74CF01E551FF200FFC762 /* Queen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queen.swift; sourceTree = "<group>"; };
 		9FD74CF21E551FFF00FFC762 /* King.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = King.swift; sourceTree = "<group>"; };
+		9FE399091E8067D700A81787 /* ClockTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockTimeViewController.swift; sourceTree = "<group>"; };
+		9FE3990B1E8069FE00A81787 /* ChessSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessSettings.swift; sourceTree = "<group>"; };
+		9FE3990D1E806B3E00A81787 /* ChessGameSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessGameSettings.swift; sourceTree = "<group>"; };
+		9FE3990F1E81AA5A00A81787 /* Archiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archiver.swift; sourceTree = "<group>"; };
+		9FE399111E81BDB100A81787 /* ChessSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessSetting.swift; sourceTree = "<group>"; };
 		9FEB946D1E74BE460042F0DE /* ChessNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessNotification.swift; sourceTree = "<group>"; };
+		9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,15 +245,27 @@
 			name = ChessPieces;
 			sourceTree = "<group>";
 		};
-		9F3575B91E6E9857008267B7 /* View Controllers */ = {
+		9F3575B91E6E9857008267B7 /* SubViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				9F09A3831E7267F200C0AA95 /* PromotionChoicesViewController.swift */,
 				9FCB75921E4EAAC100275773 /* ChessBoardViewController.swift */,
+				9F952CF41E777DB500C90615 /* ChessBoardViewControllerDelegate.swift */,
+				9FCDBB261E78DA2A00ED5B1A /* ChessNotificationCreator.swift */,
+				9F9C893A1E848CDA00E717C3 /* TakebacksViewControllers */,
 				9F82AD551E7676AB00DBBF00 /* TimerViewControllers */,
 				9F82AD501E76761C00DBBF00 /* ChessPieceGraveYardViewControllers */,
 			);
-			name = "View Controllers";
+			name = SubViewControllers;
+			sourceTree = "<group>";
+		};
+		9F5543321E7B8427000D30F6 /* ChessBoardThemeController  */ = {
+			isa = PBXGroup;
+			children = (
+				9FAC3AAC1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift */,
+				9FAC3AB21E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift */,
+			);
+			name = "ChessBoardThemeController ";
 			sourceTree = "<group>";
 		};
 		9F677DBA1E692E95009B2EED /* Animation */ = {
@@ -222,6 +296,39 @@
 			name = TimerViewControllers;
 			sourceTree = "<group>";
 		};
+		9F9C89371E8319AC00E717C3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9FE3990F1E81AA5A00A81787 /* Archiver.swift */,
+				9F9C89351E8258FE00E717C3 /* PropertyListCompatible.swift */,
+				9FE3990B1E8069FE00A81787 /* ChessSettings.swift */,
+				9FE399111E81BDB100A81787 /* ChessSetting.swift */,
+				9FC5DBAC1E81E0B500C9948A /* ImmutableChessSettings.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		9F9C893A1E848CDA00E717C3 /* TakebacksViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				9F9C89381E848CC900E717C3 /* TakebacksViewController.swift */,
+				9F9C893B1E848D0600E717C3 /* WhiteTakebacksViewController.swift */,
+				9F9C893D1E848D1800E717C3 /* BlackTakebacksViewController.swift */,
+			);
+			name = TakebacksViewControllers;
+			sourceTree = "<group>";
+		};
+		9F9C89431E84C31200E717C3 /* ChessGameSettingsScene */ = {
+			isa = PBXGroup;
+			children = (
+				9F9C89441E84C34200E717C3 /* ChessGameSettings.storyboard */,
+				9F9C89461E84C48500E717C3 /* ChessGameSettingsTableTableViewController.swift */,
+				9FE3990D1E806B3E00A81787 /* ChessGameSettings.swift */,
+				9FAC3AAF1E7B738B008F7900 /* SliderViewControllers */,
+			);
+			name = ChessGameSettingsScene;
+			sourceTree = "<group>";
+		};
 		9FA896811E64EC4A000B8F5E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +336,17 @@
 				9FB991EB1E525F6400BD83CE /* UIKitExtensions.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		9FAC3AAF1E7B738B008F7900 /* SliderViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				9FAC3AA61E7B47F1008F7900 /* IntegerSliderViewController.swift */,
+				9FAC3AA21E7B3A38008F7900 /* SliderViewController.swift */,
+				9FAC3AA81E7B588A008F7900 /* MaxTakebackViewController.swift */,
+				9FE399091E8067D700A81787 /* ClockTimeViewController.swift */,
+			);
+			name = SliderViewControllers;
 			sourceTree = "<group>";
 		};
 		9FB7E1631E6126FC007E9A6E /* Moves */ = {
@@ -263,12 +381,11 @@
 		9FCB758F1E4EAAC100275773 /* Chess */ = {
 			isa = PBXGroup;
 			children = (
-				9F3575B91E6E9857008267B7 /* View Controllers */,
-				9F3575B11E6E53FB008267B7 /* ModelViewTranslation.swift */,
+				9FCDBB291E7A2BCE00ED5B1A /* MainMenuScene */,
+				9F9C89431E84C31200E717C3 /* ChessGameSettingsScene */,
+				9FCDBB2E1E7A334A00ED5B1A /* SettingsScene */,
+				9FCDBB281E7A2B5400ED5B1A /* ChessGameScene */,
 				9FA896811E64EC4A000B8F5E /* Extensions */,
-				9FD74CE71E54DDFB00FFC762 /* Model */,
-				9FDFC4851E5138F6007138F9 /* View */,
-				9FCB75941E4EAAC100275773 /* Main.storyboard */,
 				9FCB75971E4EAAC100275773 /* Assets.xcassets */,
 				9FCB75A61E4EC28B00275773 /* Supporting Files */,
 				9FCB75BB1E4FB7FB00275773 /* Images */,
@@ -289,6 +406,7 @@
 		9FCB75BB1E4FB7FB00275773 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9F9C893F1E84A35000E717C3 /* takebackIcon.png */,
 				9FCB75BC1E4FB80F00275773 /* Pieces */,
 			);
 			name = Images;
@@ -315,9 +433,47 @@
 			name = Pieces;
 			sourceTree = "<group>";
 		};
+		9FCDBB281E7A2B5400ED5B1A /* ChessGameScene */ = {
+			isa = PBXGroup;
+			children = (
+				9F952CF21E77772300C90615 /* ChessGameViewController.swift */,
+				9F989BC51E8AFBAA00D000C0 /* ViewOrientationManager.swift */,
+				9F3575B11E6E53FB008267B7 /* ModelViewTranslation.swift */,
+				9FCB75941E4EAAC100275773 /* ChessGame.storyboard */,
+				9FD74CE71E54DDFB00FFC762 /* Model */,
+				9FDFC4851E5138F6007138F9 /* Views */,
+				9F3575B91E6E9857008267B7 /* SubViewControllers */,
+			);
+			name = ChessGameScene;
+			sourceTree = "<group>";
+		};
+		9FCDBB291E7A2BCE00ED5B1A /* MainMenuScene */ = {
+			isa = PBXGroup;
+			children = (
+				9FCDBB2A1E7A2BFB00ED5B1A /* Main.storyboard */,
+				9FCDBB2C1E7A2F7E00ED5B1A /* MenuViewController.swift */,
+			);
+			name = MainMenuScene;
+			sourceTree = "<group>";
+		};
+		9FCDBB2E1E7A334A00ED5B1A /* SettingsScene */ = {
+			isa = PBXGroup;
+			children = (
+				9FCDBB2F1E7A337500ED5B1A /* Settings.storyboard */,
+				9FCDBB331E7A343800ED5B1A /* SettingsTableViewController.swift */,
+				9F9C89371E8319AC00E717C3 /* Model */,
+				9F5543321E7B8427000D30F6 /* ChessBoardThemeController  */,
+			);
+			name = SettingsScene;
+			sourceTree = "<group>";
+		};
 		9FD74CE71E54DDFB00FFC762 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9F952CF61E77ACB000C90615 /* ChessClock.swift */,
+				9FCDBB241E78CA9B00ED5B1A /* ChessClockDelegate.swift */,
+				9F952CF81E77AE0F00C90615 /* ChessTimer.swift */,
+				9F952CFA1E77B30A00C90615 /* ChessTimerDelegate.swift */,
 				9F82AD4E1E76714E00DBBF00 /* TimeFormatter.swift */,
 				9FD74CE11E54DDC700FFC762 /* ChessGame.swift */,
 				9F3575AA1E6DF4A3008267B7 /* ChessPieceGraveYard.swift */,
@@ -328,9 +484,10 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		9FDFC4851E5138F6007138F9 /* View */ = {
+		9FDFC4851E5138F6007138F9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */,
 				9FCB75A91E4ED43900275773 /* ChessPieceView.swift */,
 				9FCB75A21E4EAB9A00275773 /* BoardSquareView.swift */,
 				9FCB75A41E4EB71900275773 /* ChessBoardSquareView.swift */,
@@ -339,7 +496,7 @@
 				9FEB946D1E74BE460042F0DE /* ChessNotification.swift */,
 				9F677DBA1E692E95009B2EED /* Animation */,
 			);
-			name = View;
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,8 +592,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FCB75B71E4FB7EF00275773 /* blackPawn.png in Resources */,
+				9FCDBB301E7A337500ED5B1A /* Settings.storyboard in Resources */,
+				9F9C89401E84A35000E717C3 /* takebackIcon.png in Resources */,
 				9FCB75B41E4FB7EF00275773 /* blackBishop.png in Resources */,
 				9FCB759B1E4EAAC100275773 /* LaunchScreen.storyboard in Resources */,
+				9F9C89451E84C34200E717C3 /* ChessGameSettings.storyboard in Resources */,
 				9FCB75C71E4FB82700275773 /* whitePawn.png in Resources */,
 				9FCB75C41E4FB82700275773 /* whiteBishop.png in Resources */,
 				9FCB75981E4EAAC100275773 /* Assets.xcassets in Resources */,
@@ -444,10 +604,11 @@
 				9FCB75C61E4FB82700275773 /* whiteLeftKnight.png in Resources */,
 				9FCB75B81E4FB7EF00275773 /* blackQueen.png in Resources */,
 				9FCB75C81E4FB82700275773 /* whiteQueen.png in Resources */,
-				9FCB75961E4EAAC100275773 /* Main.storyboard in Resources */,
+				9FCB75961E4EAAC100275773 /* ChessGame.storyboard in Resources */,
 				9FCB75CA1E4FB82700275773 /* whiteRook.png in Resources */,
 				9FCB75C91E4FB82700275773 /* whiteRightKnight.png in Resources */,
 				9FCB75B51E4FB7EF00275773 /* blackKing.png in Resources */,
+				9FCDBB2B1E7A2BFB00ED5B1A /* Main.storyboard in Resources */,
 				9FCB75BA1E4FB7EF00275773 /* blackRook.png in Resources */,
 				9FCB75C51E4FB82700275773 /* whiteKing.png in Resources */,
 				9FCB75B61E4FB7EF00275773 /* blackLeftKnight.png in Resources */,
@@ -474,35 +635,62 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F09A3841E7267F200C0AA95 /* PromotionChoicesViewController.swift in Sources */,
+				9F9C893E1E848D1800E717C3 /* BlackTakebacksViewController.swift in Sources */,
+				9FE399121E81BDB100A81787 /* ChessSetting.swift in Sources */,
 				9FCB75A51E4EB71900275773 /* ChessBoardSquareView.swift in Sources */,
 				9FD74CE41E54DDD800FFC762 /* ChessBoard.swift in Sources */,
 				9FCB75CC1E4FF1EB00275773 /* ChessBoardView.swift in Sources */,
+				9FE3990C1E8069FE00A81787 /* ChessSettings.swift in Sources */,
 				9F1489871E67B89B00177826 /* AnimatedChessBoardView.swift in Sources */,
 				9F9BEFDC1E6F78860069F917 /* PromotionDelegate.swift in Sources */,
 				9FD74CE61E54DDED00FFC762 /* ChessPiece.swift in Sources */,
+				9FC5DBAD1E81E0B500C9948A /* ImmutableChessSettings.swift in Sources */,
+				9FAC3AA31E7B3A38008F7900 /* SliderViewController.swift in Sources */,
 				9FEB946E1E74BE460042F0DE /* ChessNotification.swift in Sources */,
 				9F3575B61E6E853F008267B7 /* BlackChessPieceGraveYardViewController.swift in Sources */,
 				9FD74CEB1E551FCF00FFC762 /* Knight.swift in Sources */,
 				9FD74CE21E54DDC700FFC762 /* ChessGame.swift in Sources */,
+				9FFCC10B1E7DE54600BEAD8C /* ChessPieceButton.swift in Sources */,
 				9FD74CF11E551FF200FFC762 /* Queen.swift in Sources */,
 				9FB7E1671E624EDF007E9A6E /* Castle.swift in Sources */,
 				9F82AD4D1E76710200DBBF00 /* TimerViewController.swift in Sources */,
 				9F3575B81E6E9474008267B7 /* ChessPieceGraveYardRowView.swift in Sources */,
 				9FCB75A31E4EAB9A00275773 /* BoardSquareView.swift in Sources */,
+				9FE3990A1E8067D700A81787 /* ClockTimeViewController.swift in Sources */,
+				9F952CFB1E77B30A00C90615 /* ChessTimerDelegate.swift in Sources */,
 				9FD74CED1E551FDD00FFC762 /* Bishop.swift in Sources */,
+				9F9C89361E8258FE00E717C3 /* PropertyListCompatible.swift in Sources */,
+				9FAC3AAD1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift in Sources */,
+				9F9C893C1E848D0600E717C3 /* WhiteTakebacksViewController.swift in Sources */,
+				9FAC3AA71E7B47F1008F7900 /* IntegerSliderViewController.swift in Sources */,
 				9F82AD4F1E76714E00DBBF00 /* TimeFormatter.swift in Sources */,
 				9FD74CEF1E551FE700FFC762 /* Rook.swift in Sources */,
 				9F3575B01E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift in Sources */,
 				9F82AD521E76766100DBBF00 /* WhiteTimerViewController.swift in Sources */,
+				9F989BC61E8AFBAA00D000C0 /* ViewOrientationManager.swift in Sources */,
 				9FB7E15E1E612509007E9A6E /* Move.swift in Sources */,
+				9FCDBB271E78DA2A00ED5B1A /* ChessNotificationCreator.swift in Sources */,
 				9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */,
+				9FCDBB251E78CA9B00ED5B1A /* ChessClockDelegate.swift in Sources */,
 				9FCB75AA1E4ED43900275773 /* ChessPieceView.swift in Sources */,
 				9FD74CE91E551FC000FFC762 /* Pawn.swift in Sources */,
+				9FE399101E81AA5A00A81787 /* Archiver.swift in Sources */,
 				9F3575B41E6E84E9008267B7 /* WhiteChessPieceGraveYardViewController.swift in Sources */,
 				9F82AD541E76767E00DBBF00 /* BlackTimerViewController.swift in Sources */,
+				9FAC3AB31E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift in Sources */,
 				9F3575AB1E6DF4A3008267B7 /* ChessPieceGraveYard.swift in Sources */,
+				9FCDBB2D1E7A2F7E00ED5B1A /* MenuViewController.swift in Sources */,
+				9F9C89471E84C48500E717C3 /* ChessGameSettingsTableTableViewController.swift in Sources */,
+				9F952CF91E77AE0F00C90615 /* ChessTimer.swift in Sources */,
+				9F9C89391E848CC900E717C3 /* TakebacksViewController.swift in Sources */,
+				9F952CF31E77772300C90615 /* ChessGameViewController.swift in Sources */,
+				9FCDBB341E7A343800ED5B1A /* SettingsTableViewController.swift in Sources */,
+				9F952CF51E777DB500C90615 /* ChessBoardViewControllerDelegate.swift in Sources */,
 				9FB7E1621E6126D5007E9A6E /* PriseEnPassant.swift in Sources */,
 				9FB991EC1E525F6400BD83CE /* UIKitExtensions.swift in Sources */,
+				9F952CF71E77ACB000C90615 /* ChessClock.swift in Sources */,
+				9FAC3AA91E7B588A008F7900 /* MaxTakebackViewController.swift in Sources */,
+				9FE3990E1E806B3E00A81787 /* ChessGameSettings.swift in Sources */,
 				9FD74CF31E551FFF00FFC762 /* King.swift in Sources */,
 				9F3575B21E6E53FB008267B7 /* ModelViewTranslation.swift in Sources */,
 				9FCB75911E4EAAC100275773 /* AppDelegate.swift in Sources */,
@@ -521,12 +709,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9FCB75941E4EAAC100275773 /* Main.storyboard */ = {
+		9FCB75941E4EAAC100275773 /* ChessGame.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				9FCB75951E4EAAC100275773 /* Base */,
 			);
-			name = Main.storyboard;
+			name = ChessGame.storyboard;
 			sourceTree = "<group>";
 		};
 		9FCB75991E4EAAC100275773 /* LaunchScreen.storyboard */ = {

@@ -282,7 +282,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Chess/AnimatedChessBoardView.swift"
-            timestampString = "510744072.642828"
+            timestampString = "512429160.832921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "107"
@@ -324,71 +324,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PromotionChoicesViewController.swift"
-            timestampString = "510886400.828228"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "PromotionChoicesViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/ChessGame.swift"
-            timestampString = "510959087.527962"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
-            landmarkName = "movePiece(from:to:typeOfPieceToPromoteTo:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/ChessGame.swift"
-            timestampString = "510959792.289543"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "movePiece(from:to:typeOfPieceToPromoteTo:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/ChessPiece.swift"
-            timestampString = "510960454.904901"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "move(to:execute:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/ChessGame.swift"
-            timestampString = "510959792.289543"
+            timestampString = "512435684.312695"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "146"
@@ -455,9 +391,9 @@
             timestampString = "511082194.099169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
-            landmarkName = "promotionCompletionHandler(chessPieceTypeToPromoteTo:endPosition:)"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
+            landmarkName = "updateGameAfter(move:outCome:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -467,13 +403,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "511082194.099169"
+            filePath = "Chess/ChessGameViewController.swift"
+            timestampString = "512438184.975554"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "promotionCompletionHandler(chessPieceTypeToPromoteTo:endPosition:)"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
+            landmarkName = "performMove(from:to:chessPieceTypeToPromoteTo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -483,13 +419,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "511082758.797277"
+            filePath = "Chess/MaxTakebackViewController.swift"
+            timestampString = "512006782.187288"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
-            landmarkName = "setUpTimers()"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "decrement()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -499,61 +435,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Chess/TimerViewController.swift"
-            timestampString = "511082655.308951"
+            filePath = "Chess/ChessGameViewController.swift"
+            timestampString = "512442112.373675"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "setInitialTime(to:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "511082950.642551"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
-            landmarkName = "prepare(for:sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "511082983.180992"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
-            landmarkName = "prepare(for:sender:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "511083047.175205"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
-            landmarkName = "prepare(for:sender:)"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
+            landmarkName = "undoLastMove()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

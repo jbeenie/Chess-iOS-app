@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7aP-dd-xRe">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Menu View Controller-->
+        <scene sceneID="1oC-3a-BhP">
+            <objects>
+                <viewController storyboardIdentifier="MainMenu" id="F6C-Si-hpq" customClass="MenuViewController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="d2h-Hi-hO4"/>
+                        <viewControllerLayoutGuide type="bottom" id="zGL-Iw-zUc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SWl-wP-KWc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Hh1-CA-YMd">
+                                <rect key="frame" x="120" y="272" width="134" height="122"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nxF-RJ-4JF">
+                                        <rect key="frame" x="0.0" y="0.0" width="134" height="46"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <state key="normal" title="New Game">
+                                            <color key="titleColor" red="0.28627450980000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="qHA-Bh-Xpy" kind="show" id="R6p-XC-GJd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZBi-a4-Poi">
+                                        <rect key="frame" x="17" y="76" width="100" height="46"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <state key="normal" title="Settings">
+                                            <color key="titleColor" red="0.28627450980000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="Nhg-cC-Pyw" kind="show" id="gq8-oz-gki"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Hh1-CA-YMd" firstAttribute="centerY" secondItem="SWl-wP-KWc" secondAttribute="centerY" id="Yys-6l-KEJ"/>
+                            <constraint firstItem="Hh1-CA-YMd" firstAttribute="centerX" secondItem="SWl-wP-KWc" secondAttribute="centerX" id="vqy-hK-563"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="LLo-gP-n9O"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZxX-zM-t7r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="436" y="-172.26386806596702"/>
+        </scene>
+        <!--ChessGameSettingsTableTableViewController-->
+        <scene sceneID="KHN-bw-YUi">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChessGameSettings" referencedIdentifier="ChessGameSettingsTableTableViewController" id="qHA-Bh-Xpy" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JfD-Xm-q4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1503" y="-421"/>
+        </scene>
+        <!--SettingsTableViewController-->
+        <scene sceneID="19X-cj-nCo">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" referencedIdentifier="SettingsTableViewController" id="Nhg-cC-Pyw" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LPa-xM-DzI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1567" y="-22"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="n7I-kd-gg6">
+            <objects>
+                <navigationController storyboardIdentifier="NavigationController" automaticallyAdjustsScrollViewInsets="NO" id="7aP-dd-xRe" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8Od-wM-qZY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="F6C-Si-hpq" kind="relationship" relationship="rootViewController" id="vhj-Py-KQj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X5U-KY-rpu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-503.19999999999999" y="-172.26386806596702"/>
+        </scene>
+    </scenes>
+</document>

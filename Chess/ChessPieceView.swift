@@ -7,7 +7,7 @@
 //
 
 import UIKit
-@IBDesignable
+
 class ChessPieceView: UIImageView {
 
     //MARK: - Nested Types
