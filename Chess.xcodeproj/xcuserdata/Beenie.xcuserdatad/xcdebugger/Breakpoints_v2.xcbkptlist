@@ -401,6 +401,38 @@
             endingLineNumber = "146"
             landmarkName = "movePiece(from:to:typeOfPieceToPromoteTo:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chess.ChessGame.movePiece (from : Chess.Position, to : Chess.Position, typeOfPieceToPromoteTo : Swift.Optional&lt;Chess.ChessPieceType&gt;) -&gt; Swift.Optional&lt;(Chess.Move, Swift.Optional&lt;Chess.Outcome&gt;)&gt;"
+                  moduleName = "Chess"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessGame.swift"
+                  timestampString = "512519621.364959"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "146"
+                  endingLineNumber = "146"
+                  offsetFromSymbolStart = "651">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chess.ChessGame.movePiece (from : Chess.Position, to : Chess.Position, typeOfPieceToPromoteTo : Swift.Optional&lt;Chess.ChessPieceType&gt;) -&gt; Swift.Optional&lt;(Chess.Move, Swift.Optional&lt;Chess.Outcome&gt;)&gt;"
+                  moduleName = "Chess"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessGame.swift"
+                  timestampString = "512519621.368098"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "146"
+                  endingLineNumber = "146"
+                  offsetFromSymbolStart = "668">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -417,38 +449,6 @@
             endingLineNumber = "114"
             landmarkName = "chosePieceToPromoteTo(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Chess.PromotionChoicesViewController.chosePieceToPromoteTo (__ObjC.UIButton) -&gt; ()"
-                  moduleName = "Chess"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/PromotionChoicesViewController.swift"
-                  timestampString = "511083229.8957"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
-                  offsetFromSymbolStart = "499">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Chess.PromotionChoicesViewController.(chosePieceToPromoteTo (__ObjC.UIButton) -&gt; ()).(closure #1)"
-                  moduleName = "Chess"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/PromotionChoicesViewController.swift"
-                  timestampString = "511083229.898076"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
-                  offsetFromSymbolStart = "40">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -465,38 +465,6 @@
             endingLineNumber = "142"
             landmarkName = "promotionCompletionHandler(chessPieceTypeToPromoteTo:endPosition:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Chess.ChessBoardViewController.(promotionCompletionHandler in _BE76B3443BB7DAFB8672EB08167A572F) (chessPieceTypeToPromoteTo : Chess.ChessPieceType, endPosition : Chess.Position) -&gt; ()"
-                  moduleName = "Chess"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessBoardViewController.swift"
-                  timestampString = "511083229.902871"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "142"
-                  endingLineNumber = "142"
-                  offsetFromSymbolStart = "37">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Chess.ChessBoardViewController.(promotionCompletionHandler in _BE76B3443BB7DAFB8672EB08167A572F) (chessPieceTypeToPromoteTo : Chess.ChessPieceType, endPosition : Chess.Position) -&gt; ()"
-                  moduleName = "Chess"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessBoardViewController.swift"
-                  timestampString = "511083229.905508"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "142"
-                  endingLineNumber = "142"
-                  offsetFromSymbolStart = "611">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
