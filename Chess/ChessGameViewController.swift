@@ -279,9 +279,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         //move the piece in the ChessBoardView
         chessBoardViewController.perform(move: viewMove,animate:gameSettings.animationsEnabled,moveCompletionHandler:moveCompletionHandler)
         
-        //update list of views in the chess piece VOM's
-        chessPieceVOM.views = chessBoardView.pieces
-        
+
         //return the appropriate information
         return (move,outcome)
     }
@@ -376,6 +374,9 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     //MARK: - Post Move Execution
     
     private func updateGameAfter(move:Move,outCome:Outcome?){
+        
+        //update list of views in the chess piece VOM's
+        chessPieceVOM.views = chessBoardView.pieces
         
         //if a piece was captured update the graveyardView so players can keep track of what pieces were captured
         if let pieceCaptured =  move.pieceCaptured{
