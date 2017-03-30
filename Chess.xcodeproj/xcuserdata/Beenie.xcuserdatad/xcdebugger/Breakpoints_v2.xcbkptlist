@@ -285,36 +285,10 @@
             timestampString = "512429160.832921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/AnimatedChessBoardView.swift"
-            timestampString = "510744072.642828"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Chess/AnimatedChessBoardView.swift"
-            timestampString = "510744072.642828"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89">
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "animateTranstion(from:to:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -327,40 +301,40 @@
             timestampString = "512435684.312695"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "movePiece(from:to:typeOfPieceToPromoteTo:)"
-            landmarkType = "7">
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "buttons"
+            landmarkType = "24">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Chess.ChessGame.movePiece (from : Chess.Position, to : Chess.Position, typeOfPieceToPromoteTo : Swift.Optional&lt;Chess.ChessPieceType&gt;) -&gt; Swift.Optional&lt;(Chess.Move, Swift.Optional&lt;Chess.Outcome&gt;)&gt;"
+                  symbolName = "Chess.PromotionChoicesViewController.buttons.getter : Swift.Array&lt;(Chess.ChessPieceView.ChessPieceIdentifier, Swift.Optional&lt;__ObjC.UIButton&gt;, Swift.Int)&gt;"
                   moduleName = "Chess"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessGame.swift"
-                  timestampString = "512519621.364959"
+                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/PromotionChoicesViewController.swift"
+                  timestampString = "512608136.452626"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "146"
-                  endingLineNumber = "146"
-                  offsetFromSymbolStart = "651">
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "23">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Chess.ChessGame.movePiece (from : Chess.Position, to : Chess.Position, typeOfPieceToPromoteTo : Swift.Optional&lt;Chess.ChessPieceType&gt;) -&gt; Swift.Optional&lt;(Chess.Move, Swift.Optional&lt;Chess.Outcome&gt;)&gt;"
+                  symbolName = "Chess.PromotionChoicesViewController.(buttons.getter : Swift.Array&lt;(Chess.ChessPieceView.ChessPieceIdentifier, Swift.Optional&lt;__ObjC.UIButton&gt;, Swift.Int)&gt;).(implicit closure #1)"
                   moduleName = "Chess"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessGame.swift"
-                  timestampString = "512519621.368098"
+                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/PromotionChoicesViewController.swift"
+                  timestampString = "512608136.460784"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "146"
-                  endingLineNumber = "146"
-                  offsetFromSymbolStart = "668">
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -372,13 +346,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PromotionChoicesViewController.swift"
-            timestampString = "510960650.56228"
+            timestampString = "512435684.312695"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "chosePieceToPromoteTo(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chess.PromotionChoicesViewController.chosePieceToPromoteTo (__ObjC.UIButton) -&gt; ()"
+                  moduleName = "Chess"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/PromotionChoicesViewController.swift"
+                  timestampString = "512608136.479684"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "338">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chess.PromotionChoicesViewController.(chosePieceToPromoteTo (__ObjC.UIButton) -&gt; ()).(closure #1)"
+                  moduleName = "Chess"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/PromotionChoicesViewController.swift"
+                  timestampString = "512608136.483679"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -387,14 +393,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Chess/ChessBoardViewController.swift"
-            timestampString = "511082194.099169"
+            filePath = "Chess/ChessGameViewController.swift"
+            timestampString = "512442112.373675"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "382"
             endingLineNumber = "382"
             landmarkName = "updateGameAfter(move:outCome:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chess.ChessGameViewController.(updateGameAfter in _02AB4E0E22266961AEF4459D0FC41D5F) (move : Chess.Move, outCome : Swift.Optional&lt;Chess.Outcome&gt;) -&gt; ()"
+                  moduleName = "Chess"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessGameViewController.swift"
+                  timestampString = "512608136.493955"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "382"
+                  endingLineNumber = "382"
+                  offsetFromSymbolStart = "228">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Chess.ChessGameViewController.(updateGameAfter in _02AB4E0E22266961AEF4459D0FC41D5F) (move : Chess.Move, outCome : Swift.Optional&lt;Chess.Outcome&gt;) -&gt; ()"
+                  moduleName = "Chess"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Beenie/Documents/Dev/Chess/Chess/ChessGameViewController.swift"
+                  timestampString = "512608136.498196"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "382"
+                  endingLineNumber = "382"
+                  offsetFromSymbolStart = "285">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

@@ -151,7 +151,11 @@
                                 <action selector="backToMainMenu:" destination="BYZ-38-t0r" id="uMi-FM-sSF"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="9rN-hQ-moI"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="9rN-hQ-moI">
+                            <connections>
+                                <segue destination="bWh-i1-vUA" kind="show" id="YJK-dP-Dlc"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
@@ -405,6 +409,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bS5-K3-RLR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="324.80000000000001" y="668.36581709145435"/>
+        </scene>
+        <!--SaveGameTableViewController-->
+        <scene sceneID="E3X-Lx-ltN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SaveGame" referencedIdentifier="SaveGameTableViewController" id="bWh-i1-vUA" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0CU-NI-Zvf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="981" y="-263"/>
         </scene>
         <!--Chess Board View Controller-->
         <scene sceneID="7Dk-7n-MKr">

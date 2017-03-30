@@ -19,6 +19,8 @@
 		9F3575B61E6E853F008267B7 /* BlackChessPieceGraveYardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3575B51E6E853F008267B7 /* BlackChessPieceGraveYardViewController.swift */; };
 		9F3575B81E6E9474008267B7 /* ChessPieceGraveYardRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3575B71E6E9474008267B7 /* ChessPieceGraveYardRowView.swift */; };
 		9F61AB4B1E63DCCB008141B6 /* PawnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61AB4A1E63DCCB008141B6 /* PawnTests.swift */; };
+		9F72FB3B1E8DB0BA0094EDA7 /* SaveGame.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F72FB3A1E8DB0BA0094EDA7 /* SaveGame.storyboard */; };
+		9F72FB3D1E8DB1C50094EDA7 /* SaveGameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F72FB3C1E8DB1C50094EDA7 /* SaveGameTableViewController.swift */; };
 		9F82AD4D1E76710200DBBF00 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82AD4C1E76710200DBBF00 /* TimerViewController.swift */; };
 		9F82AD4F1E76714E00DBBF00 /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82AD4E1E76714E00DBBF00 /* TimeFormatter.swift */; };
 		9F82AD521E76766100DBBF00 /* WhiteTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F82AD511E76766100DBBF00 /* WhiteTimerViewController.swift */; };
@@ -121,6 +123,8 @@
 		9F3575B51E6E853F008267B7 /* BlackChessPieceGraveYardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlackChessPieceGraveYardViewController.swift; sourceTree = "<group>"; };
 		9F3575B71E6E9474008267B7 /* ChessPieceGraveYardRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceGraveYardRowView.swift; sourceTree = "<group>"; };
 		9F61AB4A1E63DCCB008141B6 /* PawnTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PawnTests.swift; sourceTree = "<group>"; };
+		9F72FB3A1E8DB0BA0094EDA7 /* SaveGame.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SaveGame.storyboard; sourceTree = "<group>"; };
+		9F72FB3C1E8DB1C50094EDA7 /* SaveGameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveGameTableViewController.swift; sourceTree = "<group>"; };
 		9F82AD4C1E76710200DBBF00 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		9F82AD4E1E76714E00DBBF00 /* TimeFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 		9F82AD511E76766100DBBF00 /* WhiteTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteTimerViewController.swift; sourceTree = "<group>"; };
@@ -276,6 +280,15 @@
 			name = Animation;
 			sourceTree = "<group>";
 		};
+		9F72FB391E8DAF650094EDA7 /* SaveGameScene */ = {
+			isa = PBXGroup;
+			children = (
+				9F72FB3A1E8DB0BA0094EDA7 /* SaveGame.storyboard */,
+				9F72FB3C1E8DB1C50094EDA7 /* SaveGameTableViewController.swift */,
+			);
+			name = SaveGameScene;
+			sourceTree = "<group>";
+		};
 		9F82AD501E76761C00DBBF00 /* ChessPieceGraveYardViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -381,6 +394,7 @@
 		9FCB758F1E4EAAC100275773 /* Chess */ = {
 			isa = PBXGroup;
 			children = (
+				9F72FB391E8DAF650094EDA7 /* SaveGameScene */,
 				9FCDBB291E7A2BCE00ED5B1A /* MainMenuScene */,
 				9F9C89431E84C31200E717C3 /* ChessGameSettingsScene */,
 				9FCDBB2E1E7A334A00ED5B1A /* SettingsScene */,
@@ -610,6 +624,7 @@
 				9FCB75B51E4FB7EF00275773 /* blackKing.png in Resources */,
 				9FCDBB2B1E7A2BFB00ED5B1A /* Main.storyboard in Resources */,
 				9FCB75BA1E4FB7EF00275773 /* blackRook.png in Resources */,
+				9F72FB3B1E8DB0BA0094EDA7 /* SaveGame.storyboard in Resources */,
 				9FCB75C51E4FB82700275773 /* whiteKing.png in Resources */,
 				9FCB75B61E4FB7EF00275773 /* blackLeftKnight.png in Resources */,
 			);
@@ -670,6 +685,7 @@
 				9F989BC61E8AFBAA00D000C0 /* ViewOrientationManager.swift in Sources */,
 				9FB7E15E1E612509007E9A6E /* Move.swift in Sources */,
 				9FCDBB271E78DA2A00ED5B1A /* ChessNotificationCreator.swift in Sources */,
+				9F72FB3D1E8DB1C50094EDA7 /* SaveGameTableViewController.swift in Sources */,
 				9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */,
 				9FCDBB251E78CA9B00ED5B1A /* ChessClockDelegate.swift in Sources */,
 				9FCB75AA1E4ED43900275773 /* ChessPieceView.swift in Sources */,
