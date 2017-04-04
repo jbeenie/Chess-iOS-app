@@ -81,12 +81,6 @@ class ChessGame{
         return _colorWhoseTurnItIs
     }
     
-    //MARK: - Stored Properties
-    
-    private var _colorWhoseTurnItIs: ChessPieceColor = ChessPieceColor.White
-    private var chessBoard = ChessBoard() //no pieces placed initially
-    private var moves:[Move] = [Move]()
-    
     //King Related
     private var whiteKing: King?{return chessBoard.whiteKing}
     private var blackKing: King?{return chessBoard.blackKing}
@@ -102,12 +96,18 @@ class ChessGame{
     private var nonActiveKingInCheck: Bool{
         return nonActiveKing?.isInCheck() ?? false
     }
+    
+    //MARK: - Stored Properties
+    
+    private var _colorWhoseTurnItIs: ChessPieceColor = ChessPieceColor.White
+    private var chessBoard = ChessBoard() //no pieces placed initially
+    private var moves:[Move] = [Move]()
+    
     //Prise EnPassant
     var pawnThatJustDoubleStepped:Pawn?
     
     //Promotion Delegate
     var promotionDelegate:PromotionDelegate! = nil
-
     
     //MARK: - Methods
     

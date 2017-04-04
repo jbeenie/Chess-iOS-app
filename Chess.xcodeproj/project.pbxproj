@@ -98,6 +98,13 @@
 		9FE399101E81AA5A00A81787 /* Archiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3990F1E81AA5A00A81787 /* Archiver.swift */; };
 		9FE399121E81BDB100A81787 /* ChessSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE399111E81BDB100A81787 /* ChessSetting.swift */; };
 		9FEB946E1E74BE460042F0DE /* ChessNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEB946D1E74BE460042F0DE /* ChessNotification.swift */; };
+		9FF0C9F01E9307BA006EC242 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C9EE1E9307BA006EC242 /* Model.xcdatamodeld */; };
+		9FF0C9F71E931006006EC242 /* PlayerMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C9F11E931006006EC242 /* PlayerMO+CoreDataClass.swift */; };
+		9FF0C9F81E931006006EC242 /* PlayerMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C9F21E931006006EC242 /* PlayerMO+CoreDataProperties.swift */; };
+		9FF0C9F91E931006006EC242 /* ChessGameSnapShotMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C9F31E931006006EC242 /* ChessGameSnapShotMO+CoreDataClass.swift */; };
+		9FF0C9FA1E931006006EC242 /* ChessGameSnapShotMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C9F41E931006006EC242 /* ChessGameSnapShotMO+CoreDataProperties.swift */; };
+		9FF0C9FB1E931006006EC242 /* ChessGameMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C9F51E931006006EC242 /* ChessGameMO+CoreDataClass.swift */; };
+		9FF0C9FC1E931006006EC242 /* ChessGameMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C9F61E931006006EC242 /* ChessGameMO+CoreDataProperties.swift */; };
 		9FFCC10B1E7DE54600BEAD8C /* ChessPieceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -207,6 +214,13 @@
 		9FE3990F1E81AA5A00A81787 /* Archiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archiver.swift; sourceTree = "<group>"; };
 		9FE399111E81BDB100A81787 /* ChessSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessSetting.swift; sourceTree = "<group>"; };
 		9FEB946D1E74BE460042F0DE /* ChessNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessNotification.swift; sourceTree = "<group>"; };
+		9FF0C9EF1E9307BA006EC242 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		9FF0C9F11E931006006EC242 /* PlayerMO+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlayerMO+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9FF0C9F21E931006006EC242 /* PlayerMO+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlayerMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9FF0C9F31E931006006EC242 /* ChessGameSnapShotMO+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChessGameSnapShotMO+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9FF0C9F41E931006006EC242 /* ChessGameSnapShotMO+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChessGameSnapShotMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9FF0C9F51E931006006EC242 /* ChessGameMO+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChessGameMO+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9FF0C9F61E931006006EC242 /* ChessGameMO+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChessGameMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -410,6 +424,7 @@
 		9FCB758F1E4EAAC100275773 /* Chess */ = {
 			isa = PBXGroup;
 			children = (
+				9FF0C9ED1E9307A3006EC242 /* Core Data */,
 				9F72FB3E1E8DC87D0094EDA7 /* SavedGamesScene */,
 				9F72FB391E8DAF650094EDA7 /* SaveGameScene */,
 				9FCDBB291E7A2BCE00ED5B1A /* MainMenuScene */,
@@ -528,6 +543,20 @@
 				9F677DBA1E692E95009B2EED /* Animation */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		9FF0C9ED1E9307A3006EC242 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				9FF0C9F11E931006006EC242 /* PlayerMO+CoreDataClass.swift */,
+				9FF0C9F21E931006006EC242 /* PlayerMO+CoreDataProperties.swift */,
+				9FF0C9F31E931006006EC242 /* ChessGameSnapShotMO+CoreDataClass.swift */,
+				9FF0C9F41E931006006EC242 /* ChessGameSnapShotMO+CoreDataProperties.swift */,
+				9FF0C9F51E931006006EC242 /* ChessGameMO+CoreDataClass.swift */,
+				9FF0C9F61E931006006EC242 /* ChessGameMO+CoreDataProperties.swift */,
+				9FF0C9EE1E9307BA006EC242 /* Model.xcdatamodeld */,
+			);
+			name = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -675,10 +704,12 @@
 				9FCB75CC1E4FF1EB00275773 /* ChessBoardView.swift in Sources */,
 				9FE3990C1E8069FE00A81787 /* ChessSettings.swift in Sources */,
 				9F1489871E67B89B00177826 /* AnimatedChessBoardView.swift in Sources */,
+				9FF0C9FB1E931006006EC242 /* ChessGameMO+CoreDataClass.swift in Sources */,
 				9F9BEFDC1E6F78860069F917 /* PromotionDelegate.swift in Sources */,
 				9FD74CE61E54DDED00FFC762 /* ChessPiece.swift in Sources */,
 				9FC5DBAD1E81E0B500C9948A /* ImmutableChessSettings.swift in Sources */,
 				9FAC3AA31E7B3A38008F7900 /* SliderViewController.swift in Sources */,
+				9FF0C9F71E931006006EC242 /* PlayerMO+CoreDataClass.swift in Sources */,
 				9FEB946E1E74BE460042F0DE /* ChessNotification.swift in Sources */,
 				9F3575B61E6E853F008267B7 /* BlackChessPieceGraveYardViewController.swift in Sources */,
 				9FD74CEB1E551FCF00FFC762 /* Knight.swift in Sources */,
@@ -688,6 +719,7 @@
 				9FB7E1671E624EDF007E9A6E /* Castle.swift in Sources */,
 				9F82AD4D1E76710200DBBF00 /* TimerViewController.swift in Sources */,
 				9F3575B81E6E9474008267B7 /* ChessPieceGraveYardRowView.swift in Sources */,
+				9FF0C9F91E931006006EC242 /* ChessGameSnapShotMO+CoreDataClass.swift in Sources */,
 				9FCB75A31E4EAB9A00275773 /* BoardSquareView.swift in Sources */,
 				9FE3990A1E8067D700A81787 /* ClockTimeViewController.swift in Sources */,
 				9F952CFB1E77B30A00C90615 /* ChessTimerDelegate.swift in Sources */,
@@ -704,8 +736,10 @@
 				9F989BC61E8AFBAA00D000C0 /* ViewOrientationManager.swift in Sources */,
 				9F72FB421E8DC8BC0094EDA7 /* SavedGamesTableViewController.swift in Sources */,
 				9FB7E15E1E612509007E9A6E /* Move.swift in Sources */,
+				9FF0C9F01E9307BA006EC242 /* Model.xcdatamodeld in Sources */,
 				9FCDBB271E78DA2A00ED5B1A /* ChessNotificationCreator.swift in Sources */,
 				9F72FB3D1E8DB1C50094EDA7 /* SaveGameTableViewController.swift in Sources */,
+				9FF0C9FA1E931006006EC242 /* ChessGameSnapShotMO+CoreDataProperties.swift in Sources */,
 				9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */,
 				9FCDBB251E78CA9B00ED5B1A /* ChessClockDelegate.swift in Sources */,
 				9FCB75AA1E4ED43900275773 /* ChessPieceView.swift in Sources */,
@@ -713,6 +747,7 @@
 				9FE399101E81AA5A00A81787 /* Archiver.swift in Sources */,
 				9F3575B41E6E84E9008267B7 /* WhiteChessPieceGraveYardViewController.swift in Sources */,
 				9F82AD541E76767E00DBBF00 /* BlackTimerViewController.swift in Sources */,
+				9FF0C9F81E931006006EC242 /* PlayerMO+CoreDataProperties.swift in Sources */,
 				9FAC3AB31E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift in Sources */,
 				9F3575AB1E6DF4A3008267B7 /* ChessPieceGraveYard.swift in Sources */,
 				9FCDBB2D1E7A2F7E00ED5B1A /* MenuViewController.swift in Sources */,
@@ -723,6 +758,7 @@
 				9FCDBB341E7A343800ED5B1A /* SettingsTableViewController.swift in Sources */,
 				9F952CF51E777DB500C90615 /* ChessBoardViewControllerDelegate.swift in Sources */,
 				9FB7E1621E6126D5007E9A6E /* PriseEnPassant.swift in Sources */,
+				9FF0C9FC1E931006006EC242 /* ChessGameMO+CoreDataProperties.swift in Sources */,
 				9FB991EC1E525F6400BD83CE /* UIKitExtensions.swift in Sources */,
 				9F952CF71E77ACB000C90615 /* ChessClock.swift in Sources */,
 				9FAC3AA91E7B588A008F7900 /* MaxTakebackViewController.swift in Sources */,
@@ -940,6 +976,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9FF0C9EE1E9307BA006EC242 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9FF0C9EF1E9307BA006EC242 /* Model.xcdatamodel */,
+			);
+			currentVersion = 9FF0C9EF1E9307BA006EC242 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9FCB75851E4EAAC000275773 /* Project object */;
 }

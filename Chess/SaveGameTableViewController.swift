@@ -7,12 +7,62 @@
 //
 
 import UIKit
+import CoreData
+
+
+public struct ChessGameInfo{
+    var chessGameID:NSManagedObjectID?
+    var blackPlayer:String?
+    var whitePlayer:String?
+    var chessGame:ChessGame
+    var chessClock:ChessClock?
+    var whiteTakebacksRemaining:TakebackCount?
+    var blackTakebacksRemaining:TakebackCount?
+}
 
 class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     
-
-    //MARK: -  Actions
+    //MARK: - Model
+    var chessGameInfo:ChessGameInfo! = nil
     
+    private var context: NSManagedObjectContext? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.newBackgroundContext()
+    
+    //MARK: - Saving Game to Core Data
+    
+    private var gamePreviouslySaved:Bool{
+        return chessGameInfo.chessGameID != nil
+    }
+    
+    private func saveGame(){
+        //ensure context is not nil
+        guard let context = context else{return}
+        //perform the saving block
+        context.perform {
+            guard let chessGameMO = ChessGameMO.chessGameWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context) else {return}
+            if self.gamePreviouslySaved{
+                //update the game previously saved on the DB
+                chessGameMO.updateWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context)
+            }
+            //Commit changes to NSManagedObjectContext
+            (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        }
+    }
+    
+    //MARK: - Recording User Input
+    
+    private func updateChessGameInfo(){
+        chessGameInfo.blackPlayer = blackPlayerTextField?.text
+        chessGameInfo.whitePlayer = whitePlayerTextField?.text
+    }
+    
+    //MARK: - Validate User Input
+    
+    private func validateChessGameInfo()->Bool{
+        //TODO: - Make sure player strings are not empty
+        return true
+    }
+    
+    //MARK: -  Actions
     
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -20,6 +70,12 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func done(_ sender: UIBarButtonItem) {
+        updateChessGameInfo()
+        guard validateChessGameInfo() else {
+            //TODO: - Tell the user he needs to do something different
+            return
+        }
+        saveGame()
         self.navigationController?.popViewController(animated: true)
     }
     //MARK: - Outlets
@@ -48,6 +104,7 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     
     //Hide keyboard when user presses return button on keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        updateChessGameInfo()
         textField.resignFirstResponder()
         return true
     }
@@ -64,3 +121,5 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     */
 
 }
+
+

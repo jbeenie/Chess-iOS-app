@@ -54,7 +54,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: - Model
     //MARK: Chess game
-    let chessGame: ChessGame = {
+    var chessGame: ChessGame = {
         let chessGame = ChessGame()
         chessGame.PlacePiecesInInitialPositions()
         return chessGame
@@ -347,6 +347,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         
         //Orient the appropriate views in blacks perspective 
         blackPlayerVOM.rotateViews()
+        
     }
 
 
