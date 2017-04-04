@@ -432,7 +432,6 @@
 				9FCDBB2E1E7A334A00ED5B1A /* SettingsScene */,
 				9FCDBB281E7A2B5400ED5B1A /* ChessGameScene */,
 				9FA896811E64EC4A000B8F5E /* Extensions */,
-				9FCB75971E4EAAC100275773 /* Assets.xcassets */,
 				9FCB75A61E4EC28B00275773 /* Supporting Files */,
 				9FCB75BB1E4FB7FB00275773 /* Images */,
 			);
@@ -442,6 +441,7 @@
 		9FCB75A61E4EC28B00275773 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9FCB75971E4EAAC100275773 /* Assets.xcassets */,
 				9FCB75901E4EAAC100275773 /* AppDelegate.swift */,
 				9FCB75991E4EAAC100275773 /* LaunchScreen.storyboard */,
 				9FCB759C1E4EAAC100275773 /* Info.plist */,

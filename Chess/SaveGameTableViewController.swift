@@ -12,8 +12,8 @@ import CoreData
 
 public struct ChessGameInfo{
     var chessGameID:NSManagedObjectID?
-    var blackPlayer:String?
-    var whitePlayer:String?
+    var blackPlayer:String
+    var whitePlayer:String
     var chessGame:ChessGame
     var chessClock:ChessClock?
     var whiteTakebacksRemaining:TakebackCount?
@@ -21,6 +21,12 @@ public struct ChessGameInfo{
 }
 
 class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
+    
+    private struct Constants{
+        static let maxPlayerStringLength = 15
+        static let minPlayerStringLength = 1
+
+    }
     
     //MARK: - Model
     var chessGameInfo:ChessGameInfo! = nil
@@ -51,15 +57,19 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     //MARK: - Recording User Input
     
     private func updateChessGameInfo(){
-        chessGameInfo.blackPlayer = blackPlayerTextField?.text
-        chessGameInfo.whitePlayer = whitePlayerTextField?.text
+        chessGameInfo.blackPlayer = blackPlayerTextField?.text ?? ""
+        chessGameInfo.whitePlayer = whitePlayerTextField?.text ?? ""
     }
     
     //MARK: - Validate User Input
     
     private func validateChessGameInfo()->Bool{
-        //TODO: - Make sure player strings are not empty
-        return true
+        //Make sure String length is within the allowable range"
+        let valid = chessGameInfo.blackPlayer.length >= Constants.minPlayerStringLength &&
+                    chessGameInfo.blackPlayer.length <= Constants.maxPlayerStringLength &&
+                    chessGameInfo.whitePlayer.length >= Constants.minPlayerStringLength &&
+                    chessGameInfo.whitePlayer.length <= Constants.maxPlayerStringLength
+        return valid
     }
     
     //MARK: -  Actions
@@ -73,6 +83,7 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
         updateChessGameInfo()
         guard validateChessGameInfo() else {
             //TODO: - Tell the user he needs to do something different
+            print("Invalid Input")
             return
         }
         saveGame()
