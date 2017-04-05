@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChessGame{
+class ChessGame:NSObject,NSCoding{
     //MARK: Constants
     var initialPiecePositions: [Position:ChessPiece]{
         return [
@@ -250,6 +250,40 @@ class ChessGame{
             if piece.canMove() {return false}
         }
         return true
+    }
+
+    //MARK: - NSCoding
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.colorWhoseTurnItIs.rawValue, forKey: "colorWhoseTurnItIs")
+        aCoder.encode(self.moves, forKey: "moves")
+        aCoder.encode(self.chessBoard, forKey: "chessBoard")
+        aCoder.encode(pawnThatJustDoubleStepped, forKey: "pawnThatJustDoubleStepped")
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        guard
+            let rawValue = aDecoder.decodeObject(forKey:"colorWhoseTurnItIs") as? String,
+            let colorWhoseTurnItIs = ChessPieceColor(rawValue: rawValue),
+            let moves = aDecoder.decodeObject(forKey:"moves") as? [Move],
+            let chessBoard = aDecoder.decodeObject(forKey:"chessBoard") as? ChessBoard
+            else { return nil }
+        
+        let pawnThatJustDoubleStepped = aDecoder.decodeObject(forKey:"pawnThatJustDoubleStepped") as? Pawn
+        
+        self.init(colorWhoseTurnItIs: colorWhoseTurnItIs,
+                  chessBoard: chessBoard,
+                  moves: moves,
+                  pawnThatJustDoubleStepped: pawnThatJustDoubleStepped)
+    }
+    
+    //MARK: -Initializers
+    
+    init(colorWhoseTurnItIs:ChessPieceColor, chessBoard:ChessBoard, moves: [Move],pawnThatJustDoubleStepped:Pawn?) {
+        self._colorWhoseTurnItIs = colorWhoseTurnItIs
+        self.chessBoard = chessBoard
+        self.moves = moves
+        self.pawnThatJustDoubleStepped = pawnThatJustDoubleStepped
+        super.init()
     }
 }
 

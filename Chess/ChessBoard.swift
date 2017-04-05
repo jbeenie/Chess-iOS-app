@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChessBoard{
+class ChessBoard:NSObject,NSCoding{
     //MARK: Dimensions of Board
     struct Dimensions{
         static let SquaresPerRow = 8
@@ -25,7 +25,7 @@ class ChessBoard{
         return emptyBoard
     }()
     
-    var description: String{
+    override var description: String{
         var description = ""
         for row in Position.validRowRange{
             for col in Position.validColRange{
@@ -43,8 +43,7 @@ class ChessBoard{
     private var _BlackKing: King? = nil
     
     //MARK: - Initializers
-    init() {
-    }
+    
     
     //creates a copy of a chessBoard
     convenience init(chessBoard:ChessBoard){

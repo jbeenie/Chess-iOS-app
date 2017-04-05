@@ -8,11 +8,11 @@
 
 import Foundation
 
-class ChessClock{
+class ChessClock:NSObject,NSCoding{
     let whiteTimer:ChessTimer
     let blackTimer:ChessTimer
-    var clockStarted = false
-    var timerToUnPause: ChessTimer? = nil
+    var clockStarted:Bool
+    var timerToUnPause: ChessTimer?
     var history: [(TimeInterval,TimeInterval)]
     var delegate: ChessClockDelegate? = nil
     let initialTime:Int//in seconds
@@ -91,15 +91,64 @@ class ChessClock{
         clockStarted = false
     }
     
-    //MARK: Initializers
-    init(with seconds:Int){
-        self.initialTime = seconds
-        self.whiteTimer = ChessTimer(with: seconds)
-        self.blackTimer = ChessTimer(with: seconds)
-        self.history = [(TimeInterval(seconds),TimeInterval(seconds))]
-        self.whiteTimer.timerCompletionHandler = {self.timerUp(for: .White)}
-        self.blackTimer.timerCompletionHandler = {self.timerUp(for: .Black)}
+    //MARK: NSCoding
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.whiteTimer, forKey: "whiteTimer")//ChessTimer
+        aCoder.encode(self.blackTimer, forKey: "blackTimer")//ChessTimer
+        aCoder.encode(self.clockStarted, forKey: "clockStarted")//Bool
+        aCoder.encode(self.timerToUnPause, forKey: "timerToUnPause")//ChessTimer?
+        aCoder.encode(self.initialTime, forKey: "initialTime")//Int
+        //convert history to array of 2 element arrays then encode it
+        aCoder.encode(self.history.map { [$0.0, $0.1] }, forKey: "history")
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        guard let whiteTimer = aDecoder.decodeObject(forKey:"whiteTimer") as? ChessTimer,
+            let blackTimer = aDecoder.decodeObject(forKey:"blackTimer") as? ChessTimer,
+            let history = aDecoder.decodeObject(forKey:"history") as? [[TimeInterval]]
+            else{ return nil }
+        
+        let timerToUnPause:ChessTimer? = aDecoder.decodeObject(forKey:"timerToUnPause") as? ChessTimer
+
+        
+        self.init(
+            with: aDecoder.decodeInteger(forKey:"initialTime"),
+            whiteTimer: whiteTimer,
+            blackTimer: blackTimer,
+            clockStarted: aDecoder.decodeBool(forKey:"clockStarted"),
+            history: history.map { ($0[0], $0[1]) },
+            timerToUnPause: timerToUnPause)
     }
     
     
+    
+    //MARK: Initializers
+    convenience init(with seconds:Int){
+        self.init(with: seconds,
+                  whiteTimer: ChessTimer(initialSeconds: seconds),
+                  blackTimer: ChessTimer(initialSeconds: seconds),
+                  clockStarted: false,
+                  history: [(TimeInterval(seconds),TimeInterval(seconds))])
+    }
+    
+    init(with seconds:Int,
+         whiteTimer:ChessTimer,
+         blackTimer:ChessTimer,
+         clockStarted:Bool,
+         history:[(TimeInterval,TimeInterval)],
+         timerToUnPause:ChessTimer?=nil){
+        //initialize your own properties
+        self.initialTime = seconds
+        self.whiteTimer = whiteTimer
+        self.blackTimer = blackTimer
+        self.clockStarted = clockStarted
+        self.history = history
+        self.timerToUnPause = timerToUnPause
+        //initialize superclass properties
+        super.init()
+        //customization
+        self.whiteTimer.timerCompletionHandler = {self.timerUp(for: .White)}
+        self.blackTimer.timerCompletionHandler = {self.timerUp(for: .Black)}
+    }
 }

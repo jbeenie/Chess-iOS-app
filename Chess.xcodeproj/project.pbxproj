@@ -292,6 +292,15 @@
 			name = "ChessBoardThemeController ";
 			sourceTree = "<group>";
 		};
+		9F56EEBA1E94397C00818078 /* Archiving */ = {
+			isa = PBXGroup;
+			children = (
+				9FE3990F1E81AA5A00A81787 /* Archiver.swift */,
+				9F9C89351E8258FE00E717C3 /* PropertyListCompatible.swift */,
+			);
+			name = Archiving;
+			sourceTree = "<group>";
+		};
 		9F677DBA1E692E95009B2EED /* Animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,8 +351,6 @@
 		9F9C89371E8319AC00E717C3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9FE3990F1E81AA5A00A81787 /* Archiver.swift */,
-				9F9C89351E8258FE00E717C3 /* PropertyListCompatible.swift */,
 				9FE3990B1E8069FE00A81787 /* ChessSettings.swift */,
 				9FE399111E81BDB100A81787 /* ChessSetting.swift */,
 				9FC5DBAC1E81E0B500C9948A /* ImmutableChessSettings.swift */,
@@ -424,6 +431,7 @@
 		9FCB758F1E4EAAC100275773 /* Chess */ = {
 			isa = PBXGroup;
 			children = (
+				9F56EEBA1E94397C00818078 /* Archiving */,
 				9FF0C9ED1E9307A3006EC242 /* Core Data */,
 				9F72FB3E1E8DC87D0094EDA7 /* SavedGamesScene */,
 				9F72FB391E8DAF650094EDA7 /* SaveGameScene */,

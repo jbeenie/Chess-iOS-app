@@ -178,7 +178,7 @@ extension ChessPiece{
 }
 
 //MARK: - Supporting Type
-enum ChessPieceColor: Character {
+enum ChessPieceColor: String {
     case White = "W", Black = "B"
     mutating func alternate() {
         switch self {
