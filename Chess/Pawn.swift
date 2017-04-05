@@ -10,21 +10,16 @@ import Foundation
 
 
 
-class Pawn: ChessPiece{
+class Pawn: CodeableChessPiece, ChessPiece{
     //MARK: - Type Properties
     static var typeId:ChessPieceType = .Pawn
     
     //MARK: - Properties
     //MARK: Constants
-    let color: ChessPieceColor
     let value = 1
     let canJumpOverOtherPieces = false
     let typeId: ChessPieceType = Pawn.typeId
-    //MARK: Variables
-    let initialPosition: Position
-    var position: Position
-    var hasMoved: Bool = false
-    let chessBoard: ChessBoard
+    //MARK: - Computed Properties
     var reachableSquares: Set<Position> {
         var reachableSquares = Set<Position>()
         var rowOffSet = (color == .White) ? -1 : 1
@@ -45,7 +40,6 @@ class Pawn: ChessPiece{
     
     //MARK: - Methods
     func move(to newPosition: Position, given pawnThatJustDoubleStepped:Pawn?, execute: Bool=true) -> Move? {
-        print("*************Pawn is Moving*****")
         //check if the pawn is attempting a prise en passant
         if attemptingToPriseEnPassant(at: newPosition){
             return priseEnPassant(to: newPosition, given: pawnThatJustDoubleStepped, execute: execute)
@@ -135,43 +129,4 @@ class Pawn: ChessPiece{
         }
         return  priseEnPassant
     }
-    
-//    private func undo(priseEnPassant: PriseEnPassant){
-//        //determine the outcome that results in undoing the castle
-//        let (pawnWasMovedBack,pieceUnexpectedlyEatenByPawn) = chessBoard.movePiece(from: priseEnPassant.endPosition, to: priseEnPassant.startPosition,execute:  false)
-//        let (rookWasMoved,pieceUnexpectedlyEatenByRook) = chessBoard.movePiece(from: priseEnPassant.finalRookPosition, to: priseEnPassant.initialRookPosition, execute:  false)
-//        //verify verify the outcome is as expected
-//        guard kingWasMoved && rookWasMoved,
-//            pieceUnexpectedlyEatenByKing == nil,
-//            pieceUnexpectedlyEatenByRook == nil else {
-//                print("Could not undo move: \(castle)")
-//                print("King was moved:\(kingWasMoved)")
-//                print("Rook was moved:\(rookWasMoved)")
-//                print("Piece unexpectedly capture by King: \(pieceUnexpectedlyEatenByKing)")
-//                print("Piece unexpectedly capture by Rook: \(pieceUnexpectedlyEatenByRook)")
-//                return false
-//        }
-//        //move pawn Back
-//        _ = chessBoard.movePiece(from: priseEnPassant.endPosition, to: priseEnPassant.startPosition)
-//        //put captured pawn back on board
-//        _ = chessBoard.set(piece: priseEnPassant.pieceEaten, at: priseEnPassant.)
-//        return true
-//    }
-    
-    
-    //MARK: - Initializers
-    required init(color: ChessPieceColor, position:Position, chessBoard:ChessBoard){
-        self.color = color
-        self.position = position
-        self.initialPosition = position
-        self.chessBoard = chessBoard
-    }
-    
-    required init(chessPiece: ChessPiece, chessBoard:ChessBoard?=nil){
-        self.color = chessPiece.color
-        self.position = chessPiece.position
-        self.initialPosition = chessPiece.initialPosition
-        self.chessBoard = chessBoard ?? chessPiece.chessBoard
-    }
-
 }

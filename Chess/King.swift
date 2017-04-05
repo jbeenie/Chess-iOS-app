@@ -8,22 +8,17 @@
 
 import Foundation
 
-class King: ChessPiece{
+class King:CodeableChessPiece, ChessPiece{
     //MARK: - Type Properties
     static var typeId:ChessPieceType = .King
     
     //MARK: - Properties
     //MARK: Constant Properties
-    let color: ChessPieceColor
     let value = 0
     let canJumpOverOtherPieces = false
     let typeId: ChessPieceType = King.typeId
     
-    //MARK: Variable Properties
-    let initialPosition: Position
-    var position: Position
-    var hasMoved: Bool = false
-    let chessBoard: ChessBoard
+    //MARK: - Computed Properties
     var reachableSquares: Set<Position> {
         var reachableSquares = Set<Position>()
         reachableSquares += position.adjacentSquares
@@ -100,21 +95,6 @@ class King: ChessPiece{
     }
     
     func undo(castle:Castle){
-//        //determine the outcome that results in undoing the castle
-//        let (kingWasMoved,pieceUnexpectedlyEatenByKing) = chessBoard.movePiece(from: castle.endPosition, to: castle.startPosition,execute:  false)
-//        let (rookWasMoved,pieceUnexpectedlyEatenByRook) = chessBoard.movePiece(from: castle.finalRookPosition, to: castle.initialRookPosition, execute:  false)
-//        //verify verify the outcome is as expected
-//        guard kingWasMoved && rookWasMoved,
-//            pieceUnexpectedlyEatenByKing == nil,
-//            pieceUnexpectedlyEatenByRook == nil else {
-//                print("Could not undo move: \(castle)")
-//                print("King was moved:\(kingWasMoved)")
-//                print("Rook was moved:\(rookWasMoved)")
-//                print("Piece unexpectedly captured by King: \(pieceUnexpectedlyEatenByKing)")
-//                print("Piece unexpectedly captured by Rook: \(pieceUnexpectedlyEatenByRook)")
-//                return false
-//        }
-        
         //move king Back
         _ = chessBoard.movePiece(from: castle.endPosition, to: castle.startPosition)
         //move the rook back
@@ -123,21 +103,5 @@ class King: ChessPiece{
         //because it was the first time that king and rook were moved
         castle.pieceMoved.hasMoved = false
         castle.rook.hasMoved = false
-    }
-    
-    
-    //MARK: - Initializers
-    required init(color: ChessPieceColor, position:Position, chessBoard:ChessBoard){
-        self.color = color
-        self.position = position
-        self.initialPosition = position
-        self.chessBoard = chessBoard
-    }
-    
-    required init(chessPiece: ChessPiece, chessBoard:ChessBoard?=nil){
-        self.color = chessPiece.color
-        self.position = chessPiece.position
-        self.initialPosition = chessPiece.initialPosition
-        self.chessBoard = chessBoard ?? chessPiece.chessBoard
     }
 }

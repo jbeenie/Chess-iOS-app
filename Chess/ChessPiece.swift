@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ChessPiece:class{
-    //MARK: -Properties
+    //MARK: - Properties
     var initialPosition: Position {get}
     var position: Position {get set}
     var color: ChessPieceColor {get}
@@ -22,20 +22,22 @@ protocol ChessPiece:class{
     
     
     
-    //MARK: Methods
+    //MARK: - Methods
     func isValidMove(to newPosition:Position)->Bool
     
     
     
     //MARK: - Initializers
-    init(color: ChessPieceColor, position: Position, chessBoard: ChessBoard)
+    init(color: ChessPieceColor, position: Position, chessBoard: ChessBoard, hasMoved:Bool)
     
+    //used to create new copies of chesspieces on New ChessBoards
     init(chessPiece:ChessPiece, chessBoard:ChessBoard?)
     
 }
+//MARK: -
 
 extension ChessPiece{
-    //MARK: - Debugging
+    //MARK:  Debugging
     var description: String{
         return "\(color.rawValue)\(typeId.rawValue)"
     }
@@ -46,12 +48,12 @@ extension ChessPiece{
     
     private static var chessPieceCreators:[ChessPieceType:(ChessPieceColor,Position,ChessBoard)->ChessPiece] {
         return [
-        .Pawn: {(color,pos,board) in return Pawn(color:color, position:pos, chessBoard:board)},
-        .Rook: {(color,pos,board) in return Rook(color:color, position:pos, chessBoard:board)},
-        .Knight: {(color,pos,board) in return Knight(color:color, position:pos, chessBoard:board)},
-        .Bishop: {(color,pos,board) in return Bishop(color:color, position:pos, chessBoard:board)},
-        .Queen: {(color,pos,board) in return Queen(color:color, position:pos, chessBoard:board)},
-        .King: {(color,pos,board) in return King(color:color, position:pos, chessBoard:board)}]
+        .Pawn: {(color,pos,board) in return Pawn(color:color, position:pos, chessBoard:board,hasMoved:true)},
+        .Rook: {(color,pos,board) in return Rook(color:color, position:pos, chessBoard:board,hasMoved:true)},
+        .Knight: {(color,pos,board) in return Knight(color:color, position:pos, chessBoard:board,hasMoved:true)},
+        .Bishop: {(color,pos,board) in return Bishop(color:color, position:pos, chessBoard:board,hasMoved:true)},
+        .Queen: {(color,pos,board) in return Queen(color:color, position:pos, chessBoard:board,hasMoved:true)},
+        .King: {(color,pos,board) in return King(color:color, position:pos, chessBoard:board,hasMoved:true)}]
     }
     
     static func createChessPiece(of type:ChessPieceType, color: ChessPieceColor, at position:Position, on chessBoard:ChessBoard)->ChessPiece{
@@ -177,6 +179,7 @@ extension ChessPiece{
     }
 }
 
+
 //MARK: - Supporting Type
 enum ChessPieceColor: String {
     case White = "W", Black = "B"
@@ -199,7 +202,7 @@ enum ChessPieceColor: String {
     }
 }
 
-enum ChessPieceType: Character{
+enum ChessPieceType: String{
     case    Pawn = "P",
             Knight = "H",
             Bishop = "B",
@@ -208,6 +211,6 @@ enum ChessPieceType: Character{
             King = "K"
 }
 
-enum Side:Character{
+enum Side:String{
     case King = "K", Queen = "Q"
 }

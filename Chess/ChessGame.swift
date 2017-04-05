@@ -254,7 +254,7 @@ class ChessGame:NSObject,NSCoding{
 
     //MARK: - NSCoding
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.colorWhoseTurnItIs.rawValue, forKey: "colorWhoseTurnItIs")
+        aCoder.encode(self._colorWhoseTurnItIs.rawValue, forKey: "_colorWhoseTurnItIs")
         aCoder.encode(self.moves, forKey: "moves")
         aCoder.encode(self.chessBoard, forKey: "chessBoard")
         aCoder.encode(pawnThatJustDoubleStepped, forKey: "pawnThatJustDoubleStepped")
@@ -262,7 +262,7 @@ class ChessGame:NSObject,NSCoding{
     
     required convenience init?(coder aDecoder: NSCoder) {
         guard
-            let rawValue = aDecoder.decodeObject(forKey:"colorWhoseTurnItIs") as? String,
+            let rawValue = aDecoder.decodeObject(forKey:"_colorWhoseTurnItIs") as? String,
             let colorWhoseTurnItIs = ChessPieceColor(rawValue: rawValue),
             let moves = aDecoder.decodeObject(forKey:"moves") as? [Move],
             let chessBoard = aDecoder.decodeObject(forKey:"chessBoard") as? ChessBoard

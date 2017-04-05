@@ -48,7 +48,7 @@ class Move:NSObject,NSCoding{
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.startPosition, forKey: "startPosition")
         aCoder.encode(self.endPosition, forKey: "endPosition")
-        aCoder.encode(self.pieceMoved, forKey: "chessBoard")
+        aCoder.encode(self.pieceMoved, forKey: "pieceMoved")
         aCoder.encode(self.firstTimePieceMoved, forKey: "firstTimePieceMoved")
         aCoder.encode(self.pieceToPromoteTo, forKey: "pieceToPromoteTo")
     }

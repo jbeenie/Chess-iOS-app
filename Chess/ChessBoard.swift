@@ -15,16 +15,21 @@ class ChessBoard:NSObject,NSCoding{
         static let SquaresPerColumn = 8
     }
     
-    //MARK: - Properties
+    //MARK: - Stored Properties
     private var chessBoardSquares: [[ChessPiece?]] = {
         //create empty board, i.e. with no pieces
-        var emptyBoard = [[ChessPiece?]](repeating: [ChessPiece?](), count: Dimensions.SquaresPerColumn)
+        var emptyChessBoardSquares = [[ChessPiece?]](repeating: [ChessPiece?](), count: Dimensions.SquaresPerColumn)
         for i in Position.validColRange{
-            emptyBoard[i] = [ChessPiece?](repeating: nil, count: Dimensions.SquaresPerRow)
+            emptyChessBoardSquares[i] = [ChessPiece?](repeating: nil, count: Dimensions.SquaresPerRow)
         }
-        return emptyBoard
+        return emptyChessBoardSquares
     }()
     
+    
+    private var _whiteKing: King? = nil
+    private var _blackKing: King? = nil
+    
+    //MARK: - Computed Properties
     override var description: String{
         var description = ""
         for row in Position.validRowRange{
@@ -38,9 +43,7 @@ class ChessBoard:NSObject,NSCoding{
     }
     //pointers to kings for easy access
     var whiteKing:King?{return _whiteKing}
-    var blackKing:King?{return _BlackKing}
-    private var _whiteKing: King? = nil
-    private var _BlackKing: King? = nil
+    var blackKing:King?{return _blackKing}
     
     //MARK: - Initializers
     
@@ -95,7 +98,7 @@ class ChessBoard:NSObject,NSCoding{
             //hook up the the pointers to kings
             if let king = pieceToPlace as? King{
                 if pieceToPlace.color == .White{_whiteKing = king}
-                else if pieceToPlace.color == .Black{_BlackKing = king}
+                else if pieceToPlace.color == .Black{_blackKing = king}
             }
         }
     }
@@ -303,234 +306,30 @@ class ChessBoard:NSObject,NSCoding{
         let attackingColor = chessPiece.color.opposite()
         return squareUnderAttack(at: chessPiece.position, from: attackingColor)
     }
-}
+    
+    //MARK: NSCoding
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(chessBoardSquares, forKey: "chessBoardSquares")
+        //FIXME: - Pack Position into NSDictionary
+        aCoder.encode(_whiteKing?.position, forKey: "whiteKing.position")
+        aCoder.encode(_blackKing?.position, forKey: "blackKing.position")
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        guard let chessBoardSquares = aDecoder.decodeObject(forKey: "chessBoardSquares") as? [[ChessPiece?]]
+            else{return nil}
+        //FIXME: - Unpack NSDictionary into Position
+        let whiteKingPosition = aDecoder.decodeObject(forKey: "whiteKing.position") as? Position
+        let blackKingPosition = aDecoder.decodeObject(forKey: "blackKing.position") as? Position
+        
+        self.init()
+        self.chessBoardSquares = chessBoardSquares
+        if whiteKingPosition != nil{
+            self._whiteKing = (self[whiteKingPosition!.row,whiteKingPosition!.col] as! King)
+        }
+        if blackKingPosition != nil{
+            self._blackKing = (self[blackKingPosition!.row,blackKingPosition!.col] as! King)
+        }
+    }
 
-//MARK: - Supporting Types
-//MARK: POSITION
-struct Position: Hashable, Equatable{
-    //MARK: Constants
-    static let validRowRange = (0..<ChessBoard.Dimensions.SquaresPerRow)
-    static let validColRange = (0..<ChessBoard.Dimensions.SquaresPerColumn)
-    static let columnLetters = [0:"A",1:"B",2:"C",3:"D",4:"E",5:"F",6:"G",7:"H"]
-    
-    //MARK: Static Methods
-    static func isValidRow(_ row: Int)->Bool{
-        return validRowRange.contains(row)
-    }
-    
-    static func isValidColumn(_ col: Int)->Bool{
-        return validColRange.contains(col)
-    }
-    
-    //MARK: Stored Varialbes
-    let (row,col): (Int, Int)
-    
-    //MARK: Computed Variables
-    var adjacentSquares: Set<Position> {
-        var adjacentSquares = Set<Position>()
-        for rowOffSet in -1...1{
-            for colOffSet in -1...1{
-                if let adjacentSquare = Position(row: self.row + rowOffSet, col: self.col + colOffSet){
-                    if adjacentSquare != self{
-                        adjacentSquares.insert(adjacentSquare)
-                    }
-                }
-            }
-        }
-        return adjacentSquares
-    }
-    
-    var squaresOnSameRow:Set<Position>{
-        var squaresOnSameRow = Set<Position>()
-        for col in Position.validColRange{
-            squaresOnSameRow.insert(Position(row: self.row, col: col)!)
-        }
-        return squaresOnSameRow
-    }
-    
-    var squaresOnSameColumn:Set<Position>{
-        var squaresOnSameColumn = Set<Position>()
-        for row in Position.validRowRange{
-            squaresOnSameColumn.insert(Position(row: row, col: self.col)!)
-        }
-        return squaresOnSameColumn
-    }
-    
-    var squaresOnSameDiagonal:Set<Position>{
-        var squaresOnSameDiagonal = Set<Position>()
-        for row in Position.validRowRange{
-            let col1 = self.col + abs(row-self.row)
-            let col2 = self.col - abs(row-self.row)
-            if let position1 = Position(row: row, col: col1){
-                squaresOnSameDiagonal.insert(position1)
-
-            }
-            if let position2 = Position(row: row, col: col2){
-                squaresOnSameDiagonal.insert(position2)
-            }
-        }
-        return squaresOnSameDiagonal
-    }
-    
-    var squareswithLRelativePosition:Set<Position>{
-        var squareswithLRelativePosition = Set<Position>()
-        for rowOffSet in [(-2)...(-1), 1...2].joined() {
-            let colOffSet = (abs(rowOffSet) == 2) ? 1: 2
-            if let position1 = Position(row: self.row + rowOffSet, col: self.col + colOffSet){
-                squareswithLRelativePosition.insert(position1)
-            }
-            if let position2 = Position(row: self.row + rowOffSet, col: self.col - colOffSet){
-                squareswithLRelativePosition.insert(position2)
-            }
-        }
-        return squareswithLRelativePosition
-    }
-    
-    //MARK: Conformance to Hashable Protocol
-    var hashValue: Int {
-        return row * 10 + col
-    }
-    
-    //MARK: Conformance to Equatable Protocol
-    static func == (lhs: Position, rhs: Position) -> Bool {
-        return lhs.row == rhs.row && lhs.col == rhs.col
-    }
-    
-    //MARK: Methods
-    
-    mutating func set(row:Int, col:Int)->Bool{
-        if let newPosition = Position(row: row, col: col){
-            self = newPosition
-            return true
-        }
-        return false
-    }
-    
-    //returns squares on same row as position 
-    //that are within the specified columns
-    func squaresOnSameRowWithin(col1:Int,col2:Int)->[Position]{
-        guard Position.validColRange.contains(col1), Position.validColRange.contains(col2) else {return []}
-        if col1 == col2 {return [Position(row: row,col: col1)!]}
-        let positionsOnSameRow = squaresOnSameRow
-        let columnRange = col1 < col2 ?  col1...col2 : col2...col1
-        return positionsOnSameRow.filter() {columnRange.contains($0.col)}
-    }
-    
-    //answers whether or not two positions are on the same row
-    //if they are it returns an int specifying how far away 
-    //the other position is along the row, returning 0 if they are the same square
-    //returns nil if they are not on the same row
-    func isOnSameRow(as position: Position)->Int?{
-        guard self.row == position.row else {return nil}
-        return abs(self.col - position.col)
-    }
-    
-    //same as isOnSameRow but for columns, 
-    //isOnSameColumn has the optional parameter 'signed' 
-    //which when set to true returns a signed integer
-    //which serves to indication which position is higher then the other
-    func isOnSameColumn(as position: Position, signed:Bool = false)->Int?{
-        guard self.col == position.col else {return nil}
-        return signed ? self.row - position.row : abs(self.row - position.row)
-    }
-    
-    //Similarly this method tells you if two positions lie along the same diagonal
-    //returns nil if it is not
-    //returns an unsigned int specifying how far apart the positions
-    //returns 0 if they are the same square
-    func isOnSameDiagonal(as position: Position,signed:Bool = false)->Int?{
-        let intersection = Position(row: self.row, col: position.col)!
-        let verticalSpacing = position.isOnSameColumn(as: intersection, signed: signed)!
-        let horizontalSpacing = self.isOnSameRow(as: intersection)!
-        guard abs(verticalSpacing) == horizontalSpacing else {return nil}
-        return signed ? -verticalSpacing : abs(verticalSpacing)
-    }
-    
-    //This method is used for knights movement. It figures out whether the two positions
-    //lie within a 3 X 2 rectangle  
-    func isLPositionedRelative(to position: Position)->Bool{
-        let intersection1 = Position(row: self.row, col: position.col)!
-        let intersection2 = Position(row: position.row, col: self.col)!
-        let verticalSpacing = self.isOnSameColumn(as: intersection2)
-        let horizontalSpacing  = self.isOnSameRow(as: intersection1)
-        if  (verticalSpacing == 1 && horizontalSpacing == 2) ||
-            (verticalSpacing == 2 && horizontalSpacing == 1){
-            return true
-        }
-        return false
-    }
-    
-    //MARK: Initializers
-    init?(row: Int, col: Int){
-        (self.row,self.col) = (row,col)
-        if !isValidPosition(){ return nil}
-    }
-    
-    //helper method used by initializer to determine success of initilization
-    private func isValidPosition()->Bool{
-        return  Position.isValidRow(self.row) &&
-            Position.isValidColumn(self.col)
-    }
-    
-    //MARK: Debugging
-    //description style like A3 or E5
-    var description: String{
-        return "(\(Position.columnLetters[col]!),\(8-row))"
-    }
-}
-//MARK: DIAGONAL
-struct Diagonal{
-    //MARK: Properties
-    let position: Position
-    let direction: Direction
-    
-    //MARK: NestedType
-    enum Direction {
-        case toTopRight
-        case toTopLeft
-    }
-    
-    //MARK: Static Methods
-    
-    //returns a position on the board on the specified diagonal and column
-    static func positionOn(_ diagonal: Diagonal, andColumn col: Int)->Position?{
-        //validate the col parameter
-        guard Position.validColRange.contains(col) else {return nil}
-        //calculate rowOffset
-        let rowOffSet = diagonal.position.col - col
-        //add or substract rowOffset depending on relative positioning
-        let row = diagonal.position.row + ((diagonal.direction == .toTopLeft) ? -rowOffSet : rowOffSet)
-        return Position(row: row, col: col)
-    }
-    
-    //MARK: Initializers
-    
-    init(position: Position, direction: Direction){
-        self.direction = direction
-        self.position = position
-    }
-    //convenience initializer that attempts to create a diagonal 
-    //passing through both positions
-    //the initializer fails if the positions do not share a common diagonal
-    //or if both positions are equal as the direction of the diagonal
-    //is ambiguous in this case
-    init?(position1: Position, position2: Position){
-        //make sure both positions are on same diagonal 
-        //and positions are not the same
-        //otherwise initializer fails
-        guard   position1 != position2 &&
-                position1.isOnSameDiagonal(as: position2) != nil else {return nil}
-        let direction: Direction
-        if position1.row > position2.row{
-            direction = position1.col > position2.col ? .toTopLeft : .toTopRight
-        }else{
-            direction = position1.col < position2.col ? .toTopLeft : .toTopRight
-        }
-        self.init(position: position1, direction: direction)
-    }
-    //MARK: Debugging
-    var description:String{
-        return "Diagonal with position: \(position) and direction: \(direction)"
-    }
-    
 }

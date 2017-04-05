@@ -8,21 +8,16 @@
 
 import Foundation
 
-class Knight: ChessPiece{
+class Knight:CodeableChessPiece, ChessPiece{
     //MARK: - Type Properties
     static var typeId:ChessPieceType = .Knight
     
     //MARK: - Properties
     //MARK: Constants
-    let color: ChessPieceColor
     let value = 3
     let canJumpOverOtherPieces = true
     let typeId: ChessPieceType = Knight.typeId
-    //MARK: Variables
-    let initialPosition: Position
-    var position: Position
-    var hasMoved: Bool = false
-    var chessBoard: ChessBoard
+    //MARK: - Computed Properties
     var reachableSquares: Set<Position> {
         var reachableSquares = Set<Position>()
         reachableSquares += position.squareswithLRelativePosition
@@ -36,20 +31,5 @@ class Knight: ChessPiece{
         //otherwiseMove is Legal
         return true
     }
-    
-    
-    //MARK: - Initializers
-    required init(color: ChessPieceColor, position:Position, chessBoard:ChessBoard){
-        self.color = color
-        self.position = position
-        self.initialPosition = position
-        self.chessBoard = chessBoard
-    }
-    
-    required init(chessPiece: ChessPiece, chessBoard:ChessBoard?=nil){
-        self.color = chessPiece.color
-        self.position = chessPiece.position
-        self.initialPosition = chessPiece.initialPosition
-        self.chessBoard = chessBoard ?? chessPiece.chessBoard
-    }
+
 }
