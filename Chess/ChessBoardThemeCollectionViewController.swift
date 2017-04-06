@@ -163,21 +163,20 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController,UIColl
 
 extension ChessBoardTheme: ChessSetting{
     //MARK: - Conforming to ChessSetting
-    func propertyListRepresentation() -> NSDictionary {
-        let representation:[String:AnyObject] = [
-            "whiteSquareColor":whiteSquareColor,
-            "blackSquareColor":blackSquareColor]
-        return representation as NSDictionary
+    func propertyListRepresentation() ->Any{
+        let representation:[String:Data] = [
+            "whiteSquareColor":Archiver.archive(object: whiteSquareColor),
+            "blackSquareColor":Archiver.archive(object: blackSquareColor)]
+        return representation
     }
     
-    init?(propertyListRepresentation:NSDictionary?) {
-        guard let values = propertyListRepresentation else {return nil}
-        if let whiteSquareColor = values["whiteSquareColor"] as? UIColor,
-            let blackSquareColor = values["blackSquareColor"] as? UIColor{
-            self.init(whiteSquareColor:whiteSquareColor,blackSquareColor:blackSquareColor)
-        } else {
-            return nil
-        }
+    init?(propertyListRepresentation:Any?) {
+        guard let dataDictionary = propertyListRepresentation as? [String:Data] else {return nil}
+        guard
+            let whiteSquareColor = Archiver.unArchive(data:dataDictionary["whiteSquareColor"]) as? UIColor,
+            let blackSquareColor = Archiver.unArchive(data:dataDictionary["blackSquareColor"]) as? UIColor
+        else {return nil}
+        self.init(whiteSquareColor:whiteSquareColor,blackSquareColor:blackSquareColor)
     }
     
     //MARK: - Debugging

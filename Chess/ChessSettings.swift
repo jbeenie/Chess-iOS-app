@@ -22,11 +22,12 @@ class ChessSettings: ImmutableChessSettings {
     //MARK: - Save and load settings from user defaults
     private func save(){
         let defaults = UserDefaults.standard
+        var pList: [String:Any] = [:]
         for (key,value) in settings{
-            let pListRepresentation = value.propertyListRepresentation()
-            let data = Archiver.archive(data: pListRepresentation)
-            defaults.set(data, forKey: key.rawValue)
+            pList[key.rawValue] = value.propertyListRepresentation() as Any
         }
+        defaults.setValuesForKeys(pList)
+
     }
     
 }

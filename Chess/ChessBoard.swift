@@ -56,7 +56,7 @@ class ChessBoard:NSObject,NSCoding{
         for row in Position.validRowRange{
             for col in Position.validColRange{
                 let position = Position(row: row, col: col)!
-                if let chessPiece = chessBoard.piece(at: position, placeOnBoard: self){//associated to old board
+                if let chessPiece = chessBoard.getPiece(at: position, placeOnBoard: self){//associated to old board
                     _ = self.set(piece: chessPiece, at: position)
                 }
             }
@@ -81,10 +81,15 @@ class ChessBoard:NSObject,NSCoding{
     //MARK: - Methods
     //MARK: Moving, Getting, Placing, Removing Pieces
     
-    //Get copy of piece at a position which is associated to the same board
-    func piece(at position:Position, placeOnBoard chessBoard:ChessBoard? = nil)->ChessPiece?{
+    //Get a copy of piece at position position which is which is associated to chessBoard
+    func getPiece(at position:Position, placeOnBoard chessBoard:ChessBoard? = nil)->ChessPiece?{
         if let  chessPiece = self[position.row,position.col]{
-            return type(of: chessPiece).init(chessPiece: chessPiece,chessBoard: (chessBoard ?? self))
+            return Pawn.createChessPiece(of: chessPiece.typeId,
+                                         color: chessPiece.color,
+                                         initialPosition: chessPiece.initialPosition,
+                                         at: chessPiece.position,
+                                         on: (chessBoard ?? self),
+                                         hasMoved: chessPiece.hasMoved)
         }
         return nil
     }

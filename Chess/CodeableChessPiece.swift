@@ -29,6 +29,7 @@ class CodeableChessPiece:NSObject,NSCoding{
         self.hasMoved = hasMoved
     }
     
+    //Used to create new chess pieces at the start of games
     convenience init(color: ChessPieceColor,
                      position:Position,
                      chessBoard:ChessBoard,
@@ -38,14 +39,6 @@ class CodeableChessPiece:NSObject,NSCoding{
                   position: position,
                   chessBoard:chessBoard,
                   hasMoved: hasMoved)
-    }
-    
-    convenience init(chessPiece: ChessPiece, chessBoard:ChessBoard?=nil){
-        self.init(color: chessPiece.color,
-                  initialPosition: chessPiece.initialPosition,
-                  position: chessPiece.position,
-                  chessBoard: chessBoard ?? chessPiece.chessBoard,
-                  hasMoved: chessPiece.hasMoved)
     }
     
     //MARK: - NSCoding

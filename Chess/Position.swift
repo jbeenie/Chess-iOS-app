@@ -180,3 +180,18 @@ struct Position: Hashable, Equatable{
         return "(\(Position.columnLetters[col]!),\(8-row))"
     }
 }
+
+extension Position:PropertyListCompatible{
+    func propertyListRepresentation() -> Any {
+        let plist:[String:Int] = ["row": row,"col":col]
+        return plist
+    }
+    
+    init?(propertyListRepresentation: Any?) {
+        guard let dataDictionary = propertyListRepresentation as? [String:Int] else {return nil}
+        guard let row = dataDictionary["row"], let col = dataDictionary["col"]
+            else {return nil}
+        self.init(row: row, col: col)
+    }
+    
+}

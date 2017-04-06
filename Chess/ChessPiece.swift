@@ -20,19 +20,8 @@ protocol ChessPiece:class{
     var chessBoard: ChessBoard {get}
     var reachableSquares:Set<Position> {get}
     
-    
-    
     //MARK: - Methods
     func isValidMove(to newPosition:Position)->Bool
-    
-    
-    
-    //MARK: - Initializers
-    init(color: ChessPieceColor, position: Position, chessBoard: ChessBoard, hasMoved:Bool)
-    
-    //used to create new copies of chesspieces on New ChessBoards
-    init(chessPiece:ChessPiece, chessBoard:ChessBoard?)
-    
 }
 //MARK: -
 
@@ -46,19 +35,49 @@ extension ChessPiece{
     
     //MARK: Creating ChessPiece from type ID
     
-    private static var chessPieceCreators:[ChessPieceType:(ChessPieceColor,Position,ChessBoard)->ChessPiece] {
+    private static var chessPieceCreators:[ChessPieceType:(ChessPieceColor,Position,Position,ChessBoard,Bool)->ChessPiece] {
         return [
-        .Pawn: {(color,pos,board) in return Pawn(color:color, position:pos, chessBoard:board,hasMoved:true)},
-        .Rook: {(color,pos,board) in return Rook(color:color, position:pos, chessBoard:board,hasMoved:true)},
-        .Knight: {(color,pos,board) in return Knight(color:color, position:pos, chessBoard:board,hasMoved:true)},
-        .Bishop: {(color,pos,board) in return Bishop(color:color, position:pos, chessBoard:board,hasMoved:true)},
-        .Queen: {(color,pos,board) in return Queen(color:color, position:pos, chessBoard:board,hasMoved:true)},
-        .King: {(color,pos,board) in return King(color:color, position:pos, chessBoard:board,hasMoved:true)}]
+            .Pawn: {(color,initialPos,pos,board,hasMoved) in
+                return Pawn(color:color,
+                            initialPosition:initialPos,
+                            position:pos,
+                            chessBoard:board,
+                            hasMoved:hasMoved)},
+        .Rook: {(color,initialPos,pos,board,hasMoved) in
+            return Rook(color:color,
+                        initialPosition:initialPos,
+                        position:pos,
+                        chessBoard:board,
+                        hasMoved:hasMoved)},
+        .Knight: {(color,initialPos,pos,board,hasMoved) in
+            return Knight(color:color,
+                          initialPosition:initialPos,
+                          position:pos,
+                          chessBoard:board,
+                          hasMoved:hasMoved)},
+        .Bishop: {(color,initialPos,pos,board,hasMoved) in
+            return Bishop(color:color,
+                          initialPosition:initialPos,
+                          position:pos,
+                          chessBoard:board,
+                          hasMoved:hasMoved)},
+        .Queen: {(color,initialPos,pos,board,hasMoved) in
+            return Queen(color:color,
+                         initialPosition:initialPos,
+                         position:pos,
+                         chessBoard:board,
+                         hasMoved:hasMoved)},
+        .King: {(color,initialPos,pos,board,hasMoved) in
+            return King(color:color,
+                        initialPosition:initialPos,
+                        position:pos,
+                        chessBoard:board,
+                        hasMoved:hasMoved)}]
     }
     
-    static func createChessPiece(of type:ChessPieceType, color: ChessPieceColor, at position:Position, on chessBoard:ChessBoard)->ChessPiece{
+    static func createChessPiece(of type:ChessPieceType, color: ChessPieceColor, initialPosition:Position, at position:Position, on chessBoard:ChessBoard, hasMoved:Bool)->ChessPiece{
         let chessPieceCreator = chessPieceCreators[type]!
-        return chessPieceCreator(color,position,chessBoard)
+        return chessPieceCreator(color,initialPosition,position,chessBoard,hasMoved)
     }
     
     

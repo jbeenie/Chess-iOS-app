@@ -112,7 +112,7 @@ class ChessGame:NSObject,NSCoding{
     //MARK: - Methods
     
     func piece(at position:Position)->ChessPiece?{
-        return chessBoard.piece(at: position)
+        return chessBoard.getPiece(at:position)
     }
     
     //attempts to move a piece from oldPosition to new position
@@ -157,7 +157,8 @@ class ChessGame:NSObject,NSCoding{
                     _ = pawn.move(to: newPosition, given:pawnThatJustDoubleStepped, execute: true)
                     
                     //promote the piece
-                    let pieceToPromoteTo = Pawn.createChessPiece(of: typeOfPieceToPromoteTo, color: pawn.color, at: pawn.position, on: pawn.chessBoard)
+                    //***Calling method from Pawn because ChessPiece.creaChessPiece is not allowed***
+                    let pieceToPromoteTo = Pawn.createChessPiece(of: typeOfPieceToPromoteTo, color: pawn.color, initialPosition: pawn.position, at: pawn.position, on: pawn.chessBoard, hasMoved: true)
                     _ = chessBoard.set(piece: pieceToPromoteTo, at: pieceToPromoteTo.position)
                     
                     //and record the piece to promote to

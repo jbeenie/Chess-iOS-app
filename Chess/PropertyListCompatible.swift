@@ -9,6 +9,6 @@
 import Foundation
 
 protocol PropertyListCompatible {
-    func propertyListRepresentation() -> NSDictionary
-    init?(propertyListRepresentation:NSDictionary?)
+    func propertyListRepresentation() -> Any
+    init?(propertyListRepresentation:Any?)
 }

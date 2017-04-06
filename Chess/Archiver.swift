@@ -14,14 +14,14 @@ final class Archiver{
     private init(){}
     
     //MARK: - Archiving and Unarchiving data
-    static func archive(data: NSDictionary) -> NSData {
-        let archivedData = NSKeyedArchiver.archivedData(withRootObject: data)
-        return archivedData as NSData
+    static func archive(object: Any) -> Data {
+        let archivedData = NSKeyedArchiver.archivedData(withRootObject: object)
+        return archivedData
     }
     
-    static func unArchive(data: Any)->NSDictionary?{
-        guard let data = (data as? Data), let unarchivedData = NSKeyedUnarchiver.unarchiveObject(with: data) else {return nil}
-        return unarchivedData as? NSDictionary
+    static func unArchive(data: Data?)->Any?{
+        guard let data = data, let unarchivedData = NSKeyedUnarchiver.unarchiveObject(with: data) else {return nil}
+        return unarchivedData
         
     }
     

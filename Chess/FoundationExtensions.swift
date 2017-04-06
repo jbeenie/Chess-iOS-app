@@ -19,18 +19,12 @@ extension Bool:ChessSetting{
         return !self
     }
     
-    func propertyListRepresentation() -> NSDictionary{
-        let representation:[String:Any] = ["self":self as AnyObject]
-        return representation as NSDictionary
+    func propertyListRepresentation() -> Any{
+        return self
     }
-    init?(propertyListRepresentation:NSDictionary?){
-        guard let plist = propertyListRepresentation else {return nil}
-        if let value = plist["self"] as? Bool{
+    init?(propertyListRepresentation:Any?){
+        guard let value = propertyListRepresentation as? Bool else { return nil}
             self = value
-        } else {
-            return nil
-        }
-
     }
 }
 

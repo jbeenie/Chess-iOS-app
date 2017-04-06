@@ -104,4 +104,7 @@ class King:CodeableChessPiece, ChessPiece{
         castle.pieceMoved.hasMoved = false
         castle.rook.hasMoved = false
     }
+    
+    //MARK: - NSCoding
+
 }

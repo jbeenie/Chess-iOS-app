@@ -38,9 +38,8 @@ class ImmutableChessSettings{
         let defaults = UserDefaults.standard
         var settings = [Key:ChessSetting]()
         for (key,defaultValue) in defaultSettings{
-            if let data = defaults.object(forKey: key.rawValue),
-                let pListRepresentation = Archiver.unArchive(data: data),
-                let value = unpack(propertyListRepresentation: pListRepresentation, with:key) {
+            if let any = defaults.object(forKey: key.rawValue),
+                let value = unpack(propertyList: any, forKey:key) {
                     settings[key] = value
             }else{
                 settings[key] = defaultValue
@@ -50,12 +49,12 @@ class ImmutableChessSettings{
     }
     
     //MARK: - Unpack PropertyListRepresentation into original object
-    private static func unpack(propertyListRepresentation: NSDictionary, with key:ChessSettings.Key)->ChessSetting?{
+    private static func unpack(propertyList: Any, forKey key:ChessSettings.Key)->ChessSetting?{
         switch key {
         case .animationsEnabled,.notificationsEnabled:
-            return Bool(propertyListRepresentation: propertyListRepresentation)
+            return Bool(propertyListRepresentation: propertyList)
         case .chessBoardTheme:
-            return ChessBoardTheme(propertyListRepresentation: propertyListRepresentation)
+            return ChessBoardTheme(propertyListRepresentation: propertyList)
         }
     }
     
@@ -68,3 +67,4 @@ class ImmutableChessSettings{
     
     
 }
+

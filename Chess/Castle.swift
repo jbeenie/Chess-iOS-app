@@ -58,4 +58,27 @@ class Castle: Move{
         self.rook = rook
         super.init(startPosition: startPosition, endPosition:endPosition, pieceMoved: pieceMoved, pieceCaptured: pieceEaten, firstTimePieceMoved: firstTimePieceMoved)
     }
+    
+    //MARK: - NSCoding
+    override func encode(with aCoder: NSCoder) {
+        super.encode(with: aCoder)
+        aCoder.encode(rook, forKey: "rook")
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        guard
+            let startPosition = aDecoder.decodeObject(forKey:"startPosition") as? Position,
+            let endPosition = aDecoder.decodeObject(forKey:"endPosition") as? Position,
+            let pieceMoved = aDecoder.decodeObject(forKey:"pieceMoved") as? ChessPiece,
+            let rook = aDecoder.decodeObject(forKey: "rook") as? Rook
+            else { return nil }
+        
+        let firstTimePieceMoved = aDecoder.decodeBool(forKey:"firstTimePieceMoved")
+        
+        self.init(startPosition: startPosition,
+                  endPosition: endPosition,
+                  pieceMoved: pieceMoved,
+                  firstTimePieceMoved: firstTimePieceMoved,
+                  rook:rook)
+    }
 }
