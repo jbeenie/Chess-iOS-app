@@ -56,7 +56,7 @@ class ChessBoard:NSObject,NSCoding{
         for row in Position.validRowRange{
             for col in Position.validColRange{
                 let position = Position(row: row, col: col)!
-                if let chessPiece = chessBoard.getPiece(at: position, placeOnBoard: self){//associated to old board
+                if let chessPiece = chessBoard.getCopyOfPiece(at: position, associatedWithBoard: self){//associated to old board
                     _ = self.set(piece: chessPiece, at: position)
                 }
             }
@@ -82,7 +82,7 @@ class ChessBoard:NSObject,NSCoding{
     //MARK: Moving, Getting, Placing, Removing Pieces
     
     //Get a copy of piece at position position which is which is associated to chessBoard
-    func getPiece(at position:Position, placeOnBoard chessBoard:ChessBoard? = nil)->ChessPiece?{
+    func getCopyOfPiece(at position:Position, associatedWithBoard chessBoard:ChessBoard? = nil)->ChessPiece?{
         if let  chessPiece = self[position.row,position.col]{
             return Pawn.createChessPiece(of: chessPiece.typeId,
                                          color: chessPiece.color,
@@ -315,19 +315,24 @@ class ChessBoard:NSObject,NSCoding{
     //MARK: NSCoding
     func encode(with aCoder: NSCoder) {
         aCoder.encode(chessBoardSquares, forKey: "chessBoardSquares")
-        //FIXME: - Pack Position into NSDictionary
-        aCoder.encode(_whiteKing?.position, forKey: "whiteKing.position")
-        aCoder.encode(_blackKing?.position, forKey: "blackKing.position")
+        aCoder.encode(_whiteKing?.position.propertyList(), forKey: "whiteKing.position")
+        aCoder.encode(_blackKing?.position.propertyList(), forKey: "blackKing.position")
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         guard let chessBoardSquares = aDecoder.decodeObject(forKey: "chessBoardSquares") as? [[ChessPiece?]]
             else{return nil}
-        //FIXME: - Unpack NSDictionary into Position
-        let whiteKingPosition = aDecoder.decodeObject(forKey: "whiteKing.position") as? Position
-        let blackKingPosition = aDecoder.decodeObject(forKey: "blackKing.position") as? Position
+        let whiteKingPosition = Position(propertyList:aDecoder.decodeObject(forKey: "whiteKing.position"))
+        let blackKingPosition = Position(propertyList:aDecoder.decodeObject(forKey: "blackKing.position"))
         
         self.init()
+        //Associated Pieces with the board
+        for row in chessBoardSquares{
+            for square in row{//if there is a chessPiece in the chessBoard square
+                if let chessPiece = square{chessPiece.chessBoard = self}
+            }
+        }
+        
         self.chessBoardSquares = chessBoardSquares
         if whiteKingPosition != nil{
             self._whiteKing = (self[whiteKingPosition!.row,whiteKingPosition!.col] as! King)
@@ -336,5 +341,7 @@ class ChessBoard:NSObject,NSCoding{
             self._blackKing = (self[blackKingPosition!.row,blackKingPosition!.col] as! King)
         }
     }
+
+    
 
 }

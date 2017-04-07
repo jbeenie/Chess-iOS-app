@@ -82,8 +82,7 @@ class ChessGame:NSObject,NSCoding{
     }
     
     //King Related
-    private var whiteKing: King?{return chessBoard.whiteKing}
-    private var blackKing: King?{return chessBoard.blackKing}
+    
     private var activeKing: King?{
         return colorWhoseTurnItIs == .White ? whiteKing : blackKing
     }
@@ -98,7 +97,8 @@ class ChessGame:NSObject,NSCoding{
     }
     
     //MARK: - Stored Properties
-    
+    private var whiteKing: King?{return chessBoard.whiteKing}
+    private var blackKing: King?{return chessBoard.blackKing}
     private var _colorWhoseTurnItIs: ChessPieceColor = ChessPieceColor.White
     private var chessBoard = ChessBoard() //no pieces placed initially
     private var moves:[Move] = [Move]()
@@ -112,7 +112,7 @@ class ChessGame:NSObject,NSCoding{
     //MARK: - Methods
     
     func piece(at position:Position)->ChessPiece?{
-        return chessBoard.getPiece(at:position)
+        return chessBoard.getCopyOfPiece(at:position)
     }
     
     //attempts to move a piece from oldPosition to new position
@@ -277,7 +277,7 @@ class ChessGame:NSObject,NSCoding{
                   pawnThatJustDoubleStepped: pawnThatJustDoubleStepped)
     }
     
-    //MARK: -Initializers
+    //MARK: - Initializers
     
     convenience init(colorWhoseTurnItIs:ChessPieceColor, chessBoard:ChessBoard, moves: [Move],pawnThatJustDoubleStepped:Pawn?) {
         self.init()
@@ -285,6 +285,16 @@ class ChessGame:NSObject,NSCoding{
         self.chessBoard = chessBoard
         self.moves = moves
         self.pawnThatJustDoubleStepped = pawnThatJustDoubleStepped
+    }
+    
+    //MARK: - Debugging
+    override var description: String{
+        return "chessBoard:\n\(chessBoard.description)\n"
+        + "whiteKing:\n\((whiteKing)?.longDescription ?? "none")\n"
+        + "blackKing:\n\((blackKing)?.longDescription ?? "none")\n"
+        + "colorWhoseTurnItIs:\(colorWhoseTurnItIs)\n"
+        + "moves:\n\(moves.description)\n"
+        + "pawnThatJustDoubleStepped:\n\((pawnThatJustDoubleStepped)?.longDescription ?? "none")\n"
     }
 }
 

@@ -17,7 +17,7 @@ class CodeableChessPiece:NSObject,NSCoding{
     let initialPosition: Position
     var position: Position
     var hasMoved: Bool
-    let chessBoard: ChessBoard
+    var chessBoard: ChessBoard
     
     //MARK: Initializers
     
@@ -43,25 +43,23 @@ class CodeableChessPiece:NSObject,NSCoding{
     
     //MARK: - NSCoding
     func encode(with aCoder: NSCoder) {
-        //FIXME: - Needs to be repointed to the right board
         aCoder.encode(color.rawValue, forKey: "color")
-        //FIXME: Structs need to be converted to NSDictionaries
-        aCoder.encode(initialPosition, forKey: "initialPosition")
-        aCoder.encode(position, forKey: "position")
+        aCoder.encode(initialPosition.propertyList(), forKey: "initialPosition")
+        aCoder.encode(position.propertyList(), forKey: "position")
         aCoder.encode(hasMoved, forKey: "hasMoved")
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         guard let rawValue = aDecoder.decodeObject(forKey: "color") as? String,
             let color = ChessPieceColor(rawValue: rawValue),
-            let initialPosition = aDecoder.decodeObject(forKey: "initialPosition") as? Position,
-            let position = aDecoder.decodeObject(forKey: "position") as? Position
+            let initialPosition = Position(propertyList: aDecoder.decodeObject(forKey: "initialPosition")),
+            let position = Position(propertyList:aDecoder.decodeObject(forKey: "position"))
             else {return nil}
             let hasMoved = aDecoder.decodeBool(forKey: "hasMoved")
         self.init(color: color,
                   initialPosition: initialPosition,
                   position: position,
-                  chessBoard: ChessBoard(),//FIXME: Need to give it the actual ChessBoard!!  
+                  chessBoard: ChessBoard(),  
                   hasMoved: hasMoved)
     }
 }

@@ -349,6 +349,19 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         blackPlayerVOM.rotateViews()
         
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        let archivedChessGame = Archiver.archive(object: chessGame)
+        if let unArchivedChessGame = Archiver.unArchive(data: archivedChessGame) as? ChessGame{
+            print(unArchivedChessGame.debugDescription)
+        }
+        if let nonNilChessClock = chessClock{
+            let archivedClock = Archiver.archive(object: nonNilChessClock)
+            if let unArchivedChessClock = Archiver.unArchive(data: archivedClock) as? ChessClock{
+                print(unArchivedChessClock.debugDescription)
+            }
+        }
+    }
 
 
     

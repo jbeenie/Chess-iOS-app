@@ -17,7 +17,7 @@ protocol ChessPiece:class{
     var canJumpOverOtherPieces: Bool {get}
     var hasMoved: Bool {get set}
     var typeId: ChessPieceType {get}
-    var chessBoard: ChessBoard {get}
+    var chessBoard: ChessBoard {get set}
     var reachableSquares:Set<Position> {get}
     
     //MARK: - Methods
@@ -29,6 +29,16 @@ extension ChessPiece{
     //MARK:  Debugging
     var description: String{
         return "\(color.rawValue)\(typeId.rawValue)"
+    }
+    
+    var longDescription: String{
+        return "color:\(color.rawValue)\n" +
+            "initialPosition:\(initialPosition.description)\n" +
+            "position:\(position.description)\n" +
+            "hasMoved:\(hasMoved)\n" +
+            "type:\(typeId.rawValue)\n" +
+            "chessBoard:\n\(chessBoard.description)\n"
+
     }
     
     //MARK: - Static Properties and Methods

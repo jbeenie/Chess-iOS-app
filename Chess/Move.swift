@@ -28,7 +28,10 @@ class Move:NSObject,NSCoding{
     
     
     override var description: String{
-        return "\(startPosition.description) -> \(pieceMoved.description) piece captured: \(pieceCaptured?.description ?? "none" ), first Time piece moved: \(firstTimePieceMoved)"
+        return "\(startPosition.description) -> \(endPosition.description)\n" +
+        "piece Moved: \(pieceMoved.description)\n" +
+        "piece captured: \(pieceCaptured?.description ?? "none" )\n" +
+        "first Time piece moved: \(firstTimePieceMoved)\n\n"
     }
     
     
@@ -46,8 +49,8 @@ class Move:NSObject,NSCoding{
     
     //MARK: - NSCoding
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.startPosition, forKey: "startPosition")
-        aCoder.encode(self.endPosition, forKey: "endPosition")
+        aCoder.encode(self.startPosition.propertyList(), forKey: "startPosition")
+        aCoder.encode(self.endPosition.propertyList(), forKey: "endPosition")
         aCoder.encode(self.pieceMoved, forKey: "pieceMoved")
         aCoder.encode(self.firstTimePieceMoved, forKey: "firstTimePieceMoved")
         aCoder.encode(self.pieceToPromoteTo, forKey: "pieceToPromoteTo")
@@ -55,8 +58,8 @@ class Move:NSObject,NSCoding{
     
     required convenience init?(coder aDecoder: NSCoder) {
         guard
-            let startPosition = aDecoder.decodeObject(forKey:"startPosition") as? Position,
-            let endPosition = aDecoder.decodeObject(forKey:"endPosition") as? Position,
+            let startPosition = Position(propertyList:aDecoder.decodeObject(forKey:"startPosition")),
+            let endPosition = Position(propertyList:aDecoder.decodeObject(forKey:"endPosition")),
             let pieceMoved = aDecoder.decodeObject(forKey:"pieceMoved") as? ChessPiece
             else { return nil }
         
