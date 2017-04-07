@@ -68,8 +68,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: Chess Clock
     lazy var chessClock:ChessClock? = {
-        guard let clockTime = self.gameSettings.clockTime else {return nil}
-        return ChessClock(with: clockTime)
+        guard self.gameSettings.clockEnabled else {return nil}
+        return ChessClock(with: self.gameSettings.clockTime)
     }()
     
     //MARK: Orientation Managers
@@ -335,8 +335,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         chessClock?.delegate = self
         
         //set up takebackviewcontroller models
-        whiteTakebacksViewController.takebackCount = gameSettings.maxTakebacks
-        blackTakebacksViewController.takebackCount = gameSettings.maxTakebacks
+        whiteTakebacksViewController.takebackCount =  gameSettings.effectiveMaxTakebacksCount
+        blackTakebacksViewController.takebackCount = gameSettings.effectiveMaxTakebacksCount
         
         //place piece in initial positions
         placePiecesAtStartingPosition()

@@ -181,14 +181,14 @@ struct Position: Hashable, Equatable{
     }
 }
 
-extension Position:PropertyListCompatible{
-    func propertyListRepresentation() -> Any {
+extension Position{
+    func propertyList() -> Any {
         let plist:[String:Int] = ["row": row,"col":col]
         return plist
     }
     
-    init?(propertyListRepresentation: Any?) {
-        guard let dataDictionary = propertyListRepresentation as? [String:Int] else {return nil}
+    init?(propertyList: Any?) {
+        guard let dataDictionary = propertyList as? [String:Int] else {return nil}
         guard let row = dataDictionary["row"], let col = dataDictionary["col"]
             else {return nil}
         self.init(row: row, col: col)

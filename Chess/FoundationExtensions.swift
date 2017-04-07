@@ -18,14 +18,6 @@ extension Bool:ChessSetting{
     func not()->Bool{
         return !self
     }
-    
-    func propertyListRepresentation() -> Any{
-        return self
-    }
-    init?(propertyListRepresentation:Any?){
-        guard let value = propertyListRepresentation as? Bool else { return nil}
-            self = value
-    }
 }
 
 extension Set{
@@ -62,5 +54,21 @@ Element.Iterator.Element : Equatable, Element.Index == Int {
             }
         }
         return nil
+    }
+}
+
+extension Dictionary where Value: Equatable {
+    func allKeys(forValue val: Value) -> [Key] {
+        return self.filter { $1 == val }.map { $0.0 }
+    }
+    
+    func someKeyFor(value: Value) -> Key? {
+        
+        guard let index = index(where: { $0.1 == value }) else {
+            return nil
+        }
+        
+        return self[index].0
+        
     }
 }

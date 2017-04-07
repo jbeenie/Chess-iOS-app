@@ -21,7 +21,7 @@ class ChessPieceView: UIImageView {
              King = "King"
     }
     
-    enum ChessPieceColor: Character {
+    enum ChessPieceColor: String {
         case White = "W", Black = "B"
     }
     

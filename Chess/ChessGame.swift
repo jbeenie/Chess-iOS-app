@@ -104,7 +104,7 @@ class ChessGame:NSObject,NSCoding{
     private var moves:[Move] = [Move]()
     
     //Prise EnPassant
-    var pawnThatJustDoubleStepped:Pawn?
+    var pawnThatJustDoubleStepped:Pawn? = nil
     
     //Promotion Delegate
     var promotionDelegate:PromotionDelegate! = nil
@@ -279,12 +279,12 @@ class ChessGame:NSObject,NSCoding{
     
     //MARK: -Initializers
     
-    init(colorWhoseTurnItIs:ChessPieceColor, chessBoard:ChessBoard, moves: [Move],pawnThatJustDoubleStepped:Pawn?) {
+    convenience init(colorWhoseTurnItIs:ChessPieceColor, chessBoard:ChessBoard, moves: [Move],pawnThatJustDoubleStepped:Pawn?) {
+        self.init()
         self._colorWhoseTurnItIs = colorWhoseTurnItIs
         self.chessBoard = chessBoard
         self.moves = moves
         self.pawnThatJustDoubleStepped = pawnThatJustDoubleStepped
-        super.init()
     }
 }
 

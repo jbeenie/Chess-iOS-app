@@ -34,9 +34,9 @@ struct ChessBoardTheme:Equatable,Hashable{
 
 //List of chessboard themes
 struct ChessBoardThemes{
-    static let GreenWhite = ChessBoardTheme(whiteSquareColor: UIColor.green, blackSquareColor: UIColor.white)
-    static let GrayWhite = ChessBoardTheme(whiteSquareColor: UIColor.gray, blackSquareColor: UIColor.white)
-    static let BrownYellow = ChessBoardTheme(whiteSquareColor: UIColor.brown, blackSquareColor: UIColor.yellow)
+    static let GreenWhite = ChessBoardTheme(whiteSquareColor:UIColor.white , blackSquareColor: UIColor.green)
+    static let GrayWhite = ChessBoardTheme(whiteSquareColor: UIColor.white, blackSquareColor: UIColor.gray)
+    static let BrownYellow = ChessBoardTheme(whiteSquareColor: UIColor.yellow, blackSquareColor:UIColor.brown )
 }
 
 
@@ -162,19 +162,28 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController,UIColl
 
 
 extension ChessBoardTheme: ChessSetting{
+    private static var colorMap:[String:UIColor]{
+        return ["white":UIColor.white,
+                "gray":UIColor.gray,
+                "green":UIColor.green,
+                "yellow":UIColor.yellow,
+                "brown":UIColor.brown
+        ]
+    }
+    
     //MARK: - Conforming to ChessSetting
-    func propertyListRepresentation() ->Any{
-        let representation:[String:Data] = [
-            "whiteSquareColor":Archiver.archive(object: whiteSquareColor),
-            "blackSquareColor":Archiver.archive(object: blackSquareColor)]
+    func propertyList() ->[String:String]{
+        let representation:[String:String] = [
+            "whiteSquareColor": ChessBoardTheme.colorMap.someKeyFor(value:whiteSquareColor)!,
+            "blackSquareColor": ChessBoardTheme.colorMap.someKeyFor(value:blackSquareColor)!]
         return representation
     }
     
-    init?(propertyListRepresentation:Any?) {
-        guard let dataDictionary = propertyListRepresentation as? [String:Data] else {return nil}
+    init?(propertyList:Any?) {
         guard
-            let whiteSquareColor = Archiver.unArchive(data:dataDictionary["whiteSquareColor"]) as? UIColor,
-            let blackSquareColor = Archiver.unArchive(data:dataDictionary["blackSquareColor"]) as? UIColor
+        let typedPropertyList = propertyList as? [String:String],
+            let whiteSquareColor = ChessBoardTheme.colorMap[typedPropertyList["whiteSquareColor"]!],
+            let blackSquareColor = ChessBoardTheme.colorMap[typedPropertyList["blackSquareColor"]!]
         else {return nil}
         self.init(whiteSquareColor:whiteSquareColor,blackSquareColor:blackSquareColor)
     }

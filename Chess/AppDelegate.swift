@@ -16,7 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        //Register global default settings
+        UserDefaults.standard.register(defaults: ChessSettings.pListRepresentation(ofSettings: ChessSettings.defaultSettings))
+        //Register game specific default settings
+        UserDefaults.standard.register(defaults: ChessGameSettings.defaultGameSettings.propertyList())
         return true
     }
 
