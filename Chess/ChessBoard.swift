@@ -45,6 +45,13 @@ class ChessBoard:NSObject,NSCoding{
     var whiteKing:King?{return _whiteKing}
     var blackKing:King?{return _blackKing}
     
+    var piecePositions:[Position:ChessPiece]{
+        let chessPiecePositionPairs = pieces().map { (chessPiece) -> (Position,ChessPiece) in
+            return (chessPiece.position,chessPiece)
+        }
+        return Dictionary(chessPiecePositionPairs)
+    }
+    
     //MARK: - Initializers
     
     
@@ -326,7 +333,7 @@ class ChessBoard:NSObject,NSCoding{
         let blackKingPosition = Position(propertyList:aDecoder.decodeObject(forKey: "blackKing.position"))
         
         self.init()
-        //Associated Pieces with the board
+        //Associate Pieces with the board
         for row in chessBoardSquares{
             for square in row{//if there is a chessPiece in the chessBoard square
                 if let chessPiece = square{chessPiece.chessBoard = self}

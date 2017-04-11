@@ -9,6 +9,7 @@
 import Foundation
 
 class ChessClock:NSObject,NSCoding{
+    //MARK: - Stored Properties
     let whiteTimer:ChessTimer
     let blackTimer:ChessTimer
     var clockStarted:Bool
@@ -17,11 +18,13 @@ class ChessClock:NSObject,NSCoding{
     var delegate: ChessClockDelegate? = nil
     let initialTime:Int//in seconds
     
+    //MARK: - Computed Properties
     //returns whether or not one of the timers ran out of time
     var timeIsUp:Bool{
         return blackTimer.timeIsUp || whiteTimer.timeIsUp
     }
     
+    //MARK: - Methods
     private func timerUp(for color:ChessPieceColor){
         self.pause()
         delegate?.timerUp(for: color)
@@ -53,8 +56,6 @@ class ChessClock:NSObject,NSCoding{
         print("black time remaining: \(timeFromatter.hoursMinutesAndSeconds)")
         toggleTimers()
     }
-    
-    //TODO: Make method that alows you to set the time of a timer 
     
     func moveUndone(){
         //can only roll back clock if atleast one move has already occured
@@ -91,16 +92,29 @@ class ChessClock:NSObject,NSCoding{
         clockStarted = false
     }
     
-    //MARK: NSCoding
+    //MARK: - Debugging
+    
+    override var description: String{
+        return "whiteTimer:\n \(whiteTimer)\n" +
+        "blackTimer:\n \(blackTimer)\n" +
+        "clockStarted: \(clockStarted)\n" +
+        "timerToUnPause:\n \(String(describing: timerToUnPause))\n" +
+        "history: \(history)\n" +
+        "delegate: \(String(describing: delegate))\n" +
+        "initialTime: \(initialTime)\n"
+    }
+    
+    //MARK: - NSCoding
     
     func encode(with aCoder: NSCoder) {
+        let timerToUnPauseString:String? = timerToUnPause === whiteTimer ? "W" : (timerToUnPause === blackTimer ? "B" : nil)
+        aCoder.encode(timerToUnPauseString, forKey: "timerToUnPause")//ChessTimer?
         aCoder.encode(self.whiteTimer, forKey: "whiteTimer")//ChessTimer
         aCoder.encode(self.blackTimer, forKey: "blackTimer")//ChessTimer
         aCoder.encode(self.clockStarted, forKey: "clockStarted")//Bool
-        aCoder.encode(self.timerToUnPause, forKey: "timerToUnPause")//ChessTimer?
         aCoder.encode(self.initialTime, forKey: "initialTime")//Int
         //convert history to array of 2 element arrays then encode it
-        aCoder.encode(self.history.map { [$0.0, $0.1] }, forKey: "history")
+        aCoder.encode(self.history.map { [$0.0, $0.1] }, forKey: "history")//[(TimeInterval,TimeInterval)]
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -109,7 +123,8 @@ class ChessClock:NSObject,NSCoding{
             let history = aDecoder.decodeObject(forKey:"history") as? [[TimeInterval]]
             else{ return nil }
         
-        let timerToUnPause:ChessTimer? = aDecoder.decodeObject(forKey:"timerToUnPause") as? ChessTimer
+        let timerToUnPauseString = aDecoder.decodeObject(forKey:"timerToUnPause") as? String
+        let timerToUnPause:ChessTimer? = (timerToUnPauseString == "W") ? whiteTimer : (timerToUnPauseString == "B" ? blackTimer : nil)
 
         
         self.init(

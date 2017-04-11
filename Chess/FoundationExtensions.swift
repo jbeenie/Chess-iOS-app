@@ -69,6 +69,26 @@ extension Dictionary where Value: Equatable {
         }
         
         return self[index].0
-        
+    }
+}
+
+extension Dictionary{
+    init(_ pairs: [Element]) {
+        self.init()
+        for (k, v) in pairs {
+            self[k] = v
+        }
+    }
+    //MARK: Dictionary Mappings
+    func mapValues<OutValue>( transform: (Value) throws -> OutValue) rethrows -> [Key: OutValue] {
+        return Dictionary<Key, OutValue>(try self.map { (k:Key, v:Value) in (k, try transform(v)) })
+    }
+    
+    func mapPairs<OutKey: Hashable, OutValue>(transform: (Element) throws -> (OutKey, OutValue)) rethrows -> [OutKey: OutValue] {
+        return Dictionary<OutKey, OutValue>(try self.map(transform))
+    }
+    
+    func filterPairs( includeElement: (Element) throws -> Bool) rethrows -> [Key: Value] {
+        return Dictionary(try filter(includeElement))
     }
 }

@@ -49,9 +49,34 @@ class ChessGame:NSObject,NSCoding{
         ]
     }
     
+    //MARK: - Stored Properties
+    private var whiteKing: King?{return chessBoard.whiteKing}
+    private var blackKing: King?{return chessBoard.blackKing}
+    private var _colorWhoseTurnItIs: ChessPieceColor = ChessPieceColor.White
+    private var chessBoard = ChessBoard() //no pieces placed initially
+    private var moves:[Move] = [Move]()
+    
+    //Prise EnPassant
+    var pawnThatJustDoubleStepped:Pawn? = nil
+    
+    //Promotion Delegate
+    var promotionDelegate:PromotionDelegate! = nil
+    
     
     //MARK: - Computed Properties
     //game is started if any piece has moved
+    var piecePositions:[Position:ChessPiece]{
+         return chessBoard.piecePositions
+    }
+    
+    var piecesCaptured:([ChessPiece],[ChessPiece]){
+        let capturedPieces: (whiteCapturedPieces:[ChessPiece],blackCapturedPieces:[ChessPiece])
+        let allCapturedPieces = moves.flatMap { $0.pieceCaptured }
+        capturedPieces.whiteCapturedPieces = allCapturedPieces.filter{ $0.color == .White }
+        capturedPieces.blackCapturedPieces = allCapturedPieces.filter{ $0.color == .Black }
+        return capturedPieces
+    }
+    
     var started:Bool{
         for piece in chessBoard.pieces(){
             if piece.hasMoved{return true}
@@ -95,19 +120,6 @@ class ChessGame:NSObject,NSCoding{
     private var nonActiveKingInCheck: Bool{
         return nonActiveKing?.isInCheck() ?? false
     }
-    
-    //MARK: - Stored Properties
-    private var whiteKing: King?{return chessBoard.whiteKing}
-    private var blackKing: King?{return chessBoard.blackKing}
-    private var _colorWhoseTurnItIs: ChessPieceColor = ChessPieceColor.White
-    private var chessBoard = ChessBoard() //no pieces placed initially
-    private var moves:[Move] = [Move]()
-    
-    //Prise EnPassant
-    var pawnThatJustDoubleStepped:Pawn? = nil
-    
-    //Promotion Delegate
-    var promotionDelegate:PromotionDelegate! = nil
     
     //MARK: - Methods
     
@@ -270,6 +282,13 @@ class ChessGame:NSObject,NSCoding{
             else { return nil }
         
         let pawnThatJustDoubleStepped = aDecoder.decodeObject(forKey:"pawnThatJustDoubleStepped") as? Pawn
+        
+        //Associate Pieces with the board
+        for move in moves{
+            move.pieceCaptured?.chessBoard = chessBoard
+            move.pieceMoved.chessBoard = chessBoard
+            move.pieceToPromoteTo?.chessBoard = chessBoard
+        }
         
         self.init(colorWhoseTurnItIs: colorWhoseTurnItIs,
                   chessBoard: chessBoard,

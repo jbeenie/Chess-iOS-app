@@ -41,6 +41,14 @@ class ChessPieceGraveYardViewController: UIViewController {
     
     //MARK: Updating Model
     
+    func add(chessPieces:[ChessPiece])->Bool{
+        for chessPiece in chessPieces{
+            guard chessPieceGraveYard.add(chessPiece) else{return false}
+        }
+        updateUI()
+        return true
+    }
+    
     func add(chessPiece:ChessPiece)->Bool{
         guard chessPieceGraveYard.add(chessPiece) else{return false}
         updateUI()

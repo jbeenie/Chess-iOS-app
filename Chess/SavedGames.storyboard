@@ -61,6 +61,7 @@
                                     <outlet property="gameNumberLabel" destination="ZtJ-um-cUN" id="NqD-vr-b6w"/>
                                     <outlet property="playersLabel" destination="rF6-oM-eoI" id="Rbw-SL-QPo"/>
                                     <outlet property="timeLabel" destination="4KN-WM-D0Q" id="9Pb-vM-c74"/>
+                                    <segue destination="adL-8r-9au" kind="show" identifier="ChessGameViewController" id="AGV-85-hSq"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -83,6 +84,14 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="-314.39999999999998" y="31.934032983508249"/>
+        </scene>
+        <!--ChessGameViewController-->
+        <scene sceneID="ePt-Uy-m4h">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChessGame" referencedIdentifier="ChessGameViewController" id="adL-8r-9au" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ESV-uz-xlI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="581" y="-108"/>
         </scene>
     </scenes>
 </document>

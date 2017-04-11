@@ -10,14 +10,21 @@ import UIKit
 import CoreData
 
 
+public struct ChessGameMetaData{
+    var chessGameID:NSManagedObjectID?
+    var blackPlayer:String
+    var whitePlayer:String
+}
+
+//FIXME: Change this data type once you start working on data base!
 public struct ChessGameInfo{
     var chessGameID:NSManagedObjectID?
     var blackPlayer:String
     var whitePlayer:String
     var chessGame:ChessGame
-    var chessClock:ChessClock?
-    var whiteTakebacksRemaining:TakebackCount?
-    var blackTakebacksRemaining:TakebackCount?
+    var chessClock:ChessClock
+    var whiteTakebacksRemaining:TakebackCount
+    var blackTakebacksRemaining:TakebackCount
 }
 
 class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
@@ -25,11 +32,12 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     private struct Constants{
         static let maxPlayerStringLength = 15
         static let minPlayerStringLength = 1
-
     }
     
     //MARK: - Model
-    var chessGameInfo:ChessGameInfo! = nil
+    var chessGameInfo:ChessGameMetaData! = nil
+    
+    var snapShot:ChessGameSnapShot! = nil
     
     private var context: NSManagedObjectContext? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.newBackgroundContext()
     
@@ -39,24 +47,28 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
         return chessGameInfo.chessGameID != nil
     }
     
-    private func saveGame(){
-        //ensure context is not nil
-        guard let context = context else{return}
-        //perform the saving block
-        context.perform {
-            guard let chessGameMO = ChessGameMO.chessGameWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context) else {return}
-            if self.gamePreviouslySaved{
-                //update the game previously saved on the DB
-                chessGameMO.updateWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context)
-            }
-            //Commit changes to NSManagedObjectContext
-            (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
-        }
-    }
+    
+    //FIXME: Fix this once you start working on database
+    
+//    private func saveGame(){
+//        //ensure context is not nil
+//        guard let context = context else{return}
+//        //perform the saving block
+//        context.perform {
+//            guard let chessGameMO = ChessGameMO.chessGameWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context) else {return}
+//            if self.gamePreviouslySaved{
+//                //update the game previously saved on the DB
+//                chessGameMO.updateWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context)
+//            }
+//            //Commit changes to NSManagedObjectContext
+//            (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+//        }
+//    }
     
     //MARK: - Recording User Input
     
     private func updateChessGameInfo(){
+        //FIXME: Crash When pressing return key on keyboard
         chessGameInfo.blackPlayer = blackPlayerTextField?.text ?? ""
         chessGameInfo.whitePlayer = whitePlayerTextField?.text ?? ""
     }
@@ -80,13 +92,30 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func done(_ sender: UIBarButtonItem) {
-        updateChessGameInfo()
-        guard validateChessGameInfo() else {
-            //TODO: - Tell the user he needs to do something different
-            print("Invalid Input")
-            return
+        //TODO: Delete this block after testing:
+        //**************************************
+        
+        let defaults = UserDefaults.standard
+        let archivedChessGame = Archiver.archive(object: snapShot.gameSnapShot)
+        defaults.setValue(archivedChessGame, forKey: "ChessGameTemp")
+        var archivedClock: Data? = nil
+        if let nonNilChessClock = snapShot.clockSnapShot{
+            archivedClock = Archiver.archive(object: nonNilChessClock)
         }
-        saveGame()
+        defaults.setValue(archivedClock, forKey: "ChessClockTemp")
+        defaults.set(snapShot.whiteTakebacksRemaining.toInt(), forKey: "WTBR")
+        defaults.set(snapShot.blackTakebacksRemaining.toInt(), forKey: "BTBR")
+        //*****************************************
+        
+        //FIXME: Uncomment this block when your done testing saving/loading games from user defaults
+        
+//        updateChessGameInfo()
+//        guard validateChessGameInfo() else {
+//            //TODO: - Tell the user he needs to do something different
+//            print("Invalid Input")
+//            return
+//        }
+//        saveGame()
         self.navigationController?.popViewController(animated: true)
     }
     //MARK: - Outlets

@@ -17,7 +17,6 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     }
     
     struct Constants{
-        static let noTakebacks = TakebackCount.Finite(0)
         static let shouldHighlightRowAt:[IndexPath:Bool] = [
             IndexPath(row: 0, section: 0):false,
             IndexPath(row: 1, section: 0):true,
@@ -70,7 +69,7 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
 
         
         //set position of takebacks switch
-        takebacksSwitch.isOn = gameSettings.maxTakebacks != TakebackCount.Finite(0)
+        takebacksSwitch.isOn = gameSettings.takeBacksEnabled
         enableOrDisableMaxTakebacksCell(if:takebacksSwitch.isOn)
         maxTakeBacksLabel?.text = gameSettings.maxTakebacks.description
 

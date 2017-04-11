@@ -19,6 +19,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         static let WhiteTakebacksViewController = "WhiteTakebacksViewController"
         static let BlackTakebacksViewController = "BlackTakebacksViewController"
         static let ChessBoardViewController = "ChessBoardViewController"
+        static let SaveGameTableViewController = "SaveGameTableViewController"
         
     }
     
@@ -33,6 +34,23 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: - Properties
     
+    //MARK: 2 Setup Modes
+    
+    //MARK: Mode 1 - New Game created - setup using game settings
+    var gameSettings:ChessGameSettings! = nil{
+        //Prevent original Game Settings from being over written
+        willSet{self.gameSettings = self.gameSettings ?? newValue}
+    }
+
+    
+    //MARK: Mode 2 - Game was Loaded - setup using game snapshot
+    var gameWasLoaded = false
+    lazy var snapShot:ChessGameSnapShot = ChessGameSnapShot(
+                                    gameSnapShot: self.chessGame,
+                                    clockSnapShot: self.chessClock,
+                                    whiteTakebacksRemaining: self.whiteTakebacksViewController.takebackCount,
+                                    blackTakebacksRemaining: self.blackTakebacksViewController.takebackCount)
+    
     //MARK: SubViews
     //MARK: Board
     private var chessBoardView:ChessBoardView!{
@@ -41,6 +59,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     private var lastSelectedSquare: ChessBoardSquareView?{
         return chessBoardViewController.lastSelectedSquare
     }
+    
     private var currentNotification:ChessNotification? = nil
     
     private var blackPlayerViews:[UIView]{
@@ -60,11 +79,6 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         return chessGame
     }()
     
-    //MARK: Game settings
-    var gameSettings:ChessGameSettings! = nil{
-        //Prevent original Game Settings from being over written
-        willSet{self.gameSettings = self.gameSettings ?? newValue}
-    }
     
     //MARK: Chess Clock
     lazy var chessClock:ChessClock? = {
@@ -85,6 +99,19 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     private var gameEnded:Bool{
         return chessGame.ended || (chessClock?.timeIsUp ?? false)
     }
+    
+    //MARK: Notifications
+    var resignActiveObserver: NSObjectProtocol? = nil
+    
+    private lazy var prepareForInactive:(Notification) -> Void = { (note) in
+        //pause the clock if the app becomes inactive
+        self.chessClock?.pause()
+    }
+    
+    private var notificationCenter:NotificationCenter{
+        return NotificationCenter.default
+    }
+
     
     //MARK: - SubViewControllers
     //MARK: GRAVEYARDS
@@ -323,43 +350,80 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        //setup delegate of chessBoardViewController
+        chessBoardViewController.delegate = self
+        
+        // New/Loaded Game dependent setup
+        if gameWasLoaded{
+            setupLoadedGame()
+        }else{
+            setupNewGame()
+        }
+        
         //alow navigation bar to shown on swipe
         navigationController?.hidesBarsOnSwipe = true
         
         //Set up delegation
         //promotion delegate of the chessgame
         chessGame.promotionDelegate = self
-        //delegate of chessBoardViewController
-        chessBoardViewController.delegate = self
+        
         //delegate of chessClock
         chessClock?.delegate = self
-        
-        //set up takebackviewcontroller models
-        whiteTakebacksViewController.takebackCount =  gameSettings.effectiveMaxTakebacksCount
-        blackTakebacksViewController.takebackCount = gameSettings.effectiveMaxTakebacksCount
-        
-        //place piece in initial positions
-        placePiecesAtStartingPosition()
         
         //Hookup the chessClock to the timer view controllers
         whiteTimerViewController?.timer = chessClock?.whiteTimer
         blackTimerViewController?.timer = chessClock?.blackTimer
         
-        //Orient the appropriate views in blacks perspective 
+        //Orient the appropriate views in blacks perspective
         blackPlayerVOM.rotateViews()
         
+        //Register observer with Notification Center to be informed when app becomes inactive
+        resignActiveObserver = notificationCenter.addObserver(
+            forName: NSNotification.Name.UIApplicationWillResignActive,
+            object: nil,
+            queue: OperationQueue.main,// queue to run block on
+            using: prepareForInactive)
     }
     
+    private func setupLoadedGame(){
+        //place pieces
+        chessGame = snapShot.gameSnapShot
+        chessClock = snapShot.clockSnapShot
+        let chessPieceViewPositions = ModelViewTranslation.viewChessPiecePositions(from: chessGame.piecePositions)
+        chessBoardViewController.placePiecesAt(positions: chessPieceViewPositions)
+        //set remaining takebacks
+        whiteTakebacksViewController.takebackCount =  snapShot.whiteTakebacksRemaining
+        blackTakebacksViewController.takebackCount = snapShot.blackTakebacksRemaining
+        //load graveYard
+        let (whitePiecesCaptured,blackPiecesCaptured) = chessGame.piecesCaptured
+        _ = whiteChessPieceGraveYardViewController.add(chessPieces: blackPiecesCaptured)
+        _ = blackChessPieceGraveYardViewController.add(chessPieces: whitePiecesCaptured)
+
+    }
+    
+    private func setupNewGame(){
+        //place pieces in initial positions
+        placePiecesAtStartingPosition()
+        
+        //set up takebackviewcontroller models
+        whiteTakebacksViewController.takebackCount =  gameSettings.effectiveMaxTakebacksCount
+        blackTakebacksViewController.takebackCount = gameSettings.effectiveMaxTakebacksCount
+    }
+    
+    
+    
     override func viewWillDisappear(_ animated: Bool) {
-        let archivedChessGame = Archiver.archive(object: chessGame)
-        if let unArchivedChessGame = Archiver.unArchive(data: archivedChessGame) as? ChessGame{
-            print(unArchivedChessGame.debugDescription)
-        }
-        if let nonNilChessClock = chessClock{
-            let archivedClock = Archiver.archive(object: nonNilChessClock)
-            if let unArchivedChessClock = Archiver.unArchive(data: archivedClock) as? ChessClock{
-                print(unArchivedChessClock.debugDescription)
-            }
+        //pause ChessClock
+        chessClock?.pause()
+    }
+    
+    //MARK: - DeInitializer
+    deinit {
+        if let resignActiveObserver = resignActiveObserver{
+        notificationCenter.removeObserver(
+            resignActiveObserver,
+            name: NSNotification.Name.UIApplicationWillResignActive,
+            object: nil)
         }
     }
 
@@ -455,6 +519,15 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             chessBoardViewController = segue.destination as? ChessBoardViewController
             //Set the colors of the squares using the chessboard theme chosen
             chessBoardViewController.chessBoardTheme = gameSettings?.chessBoardTheme
+        }else if (segue.identifier == StoryBoard.SaveGameTableViewController){
+            let saveGameTableViewController = segue.destination as? SaveGameTableViewController
+            //update snapsot of game
+            snapShot.update(gameSnapShot: chessGame,
+                            clockSnapShot: chessClock,
+                            whiteTakebacksRemaining: whiteTakebacksViewController.takebackCount,
+                            blackTakebacksRemaining: blackTakebacksViewController.takebackCount)
+            //Give the saveGameTableVC the snapshot of the game
+            saveGameTableViewController?.snapShot = self.snapShot
         }
     }
     
@@ -480,44 +553,45 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     //MARK: - Initial Placement of Pieces in Game
     
     private func placePiecesAtStartingPosition(){
-        chessBoardViewController.placePiecesAt(positions: initialChessPiecePositions)
+        let initialChessPieceViewPositions = ModelViewTranslation.viewChessPiecePositions(from: chessGame.initialPiecePositions)
+        chessBoardViewController.placePiecesAt(positions: initialChessPieceViewPositions)
     }
     
-    private let initialChessPiecePositions: [ChessBoardView.Position:ChessPieceView] = [
-        //Initial position of Black Pieces
-        ChessBoardView.Position(row: 0,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Rook),
-        ChessBoardView.Position(row: 0,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Knight_R),
-        ChessBoardView.Position(row: 0,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Bishop),
-        ChessBoardView.Position(row: 0,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Queen),
-        ChessBoardView.Position(row: 0,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.King),
-        ChessBoardView.Position(row: 0,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Bishop),
-        ChessBoardView.Position(row: 0,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Knight_R),
-        ChessBoardView.Position(row: 0,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Rook),
-        ChessBoardView.Position(row: 1,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        //Initial position of White Pieces
-        ChessBoardView.Position(row: 6,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 7,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Rook),
-        ChessBoardView.Position(row: 7,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Knight_R),
-        ChessBoardView.Position(row: 7,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Bishop),
-        ChessBoardView.Position(row: 7,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Queen),
-        ChessBoardView.Position(row: 7,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.King),
-        ChessBoardView.Position(row: 7,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Bishop),
-        ChessBoardView.Position(row: 7,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Knight_R),
-        ChessBoardView.Position(row: 7,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Rook)
-    ]
+//    private let initialChessPiecePositions: [ChessBoardView.Position:ChessPieceView] = [
+//        //Initial position of Black Pieces
+//        ChessBoardView.Position(row: 0,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Rook),
+//        ChessBoardView.Position(row: 0,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Knight_R),
+//        ChessBoardView.Position(row: 0,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Bishop),
+//        ChessBoardView.Position(row: 0,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Queen),
+//        ChessBoardView.Position(row: 0,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.King),
+//        ChessBoardView.Position(row: 0,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Bishop),
+//        ChessBoardView.Position(row: 0,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Knight_R),
+//        ChessBoardView.Position(row: 0,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Rook),
+//        ChessBoardView.Position(row: 1,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 1,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 1,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 1,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 1,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 1,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 1,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 1,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
+//        //Initial position of White Pieces
+//        ChessBoardView.Position(row: 6,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 6,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 6,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 6,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 6,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 6,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 6,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 6,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
+//        ChessBoardView.Position(row: 7,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Rook),
+//        ChessBoardView.Position(row: 7,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Knight_R),
+//        ChessBoardView.Position(row: 7,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Bishop),
+//        ChessBoardView.Position(row: 7,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Queen),
+//        ChessBoardView.Position(row: 7,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.King),
+//        ChessBoardView.Position(row: 7,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Bishop),
+//        ChessBoardView.Position(row: 7,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Knight_R),
+//        ChessBoardView.Position(row: 7,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Rook)
+//    ]
 
 }

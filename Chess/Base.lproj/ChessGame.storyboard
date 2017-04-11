@@ -153,7 +153,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="9rN-hQ-moI">
                             <connections>
-                                <segue destination="bWh-i1-vUA" kind="show" id="YJK-dP-Dlc"/>
+                                <segue destination="bWh-i1-vUA" kind="show" identifier="SaveGameTableViewController" id="YJK-dP-Dlc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

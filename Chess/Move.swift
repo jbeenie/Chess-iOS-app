@@ -53,6 +53,7 @@ class Move:NSObject,NSCoding{
         aCoder.encode(self.endPosition.propertyList(), forKey: "endPosition")
         aCoder.encode(self.pieceMoved, forKey: "pieceMoved")
         aCoder.encode(self.firstTimePieceMoved, forKey: "firstTimePieceMoved")
+        aCoder.encode(self.pieceCaptured, forKey: "pieceCaptured")
         aCoder.encode(self.pieceToPromoteTo, forKey: "pieceToPromoteTo")
     }
     
@@ -65,10 +66,11 @@ class Move:NSObject,NSCoding{
         
         let firstTimePieceMoved = aDecoder.decodeBool(forKey:"firstTimePieceMoved")
         let pieceToPromoteTo = aDecoder.decodeObject(forKey:"pieceToPromoteTo") as? ChessPiece
-        
+        let pieceCaptured = aDecoder.decodeObject(forKey:"pieceCaptured") as? ChessPiece
         self.init(startPosition: startPosition,
                   endPosition: endPosition,
                   pieceMoved: pieceMoved,
+                  pieceCaptured:pieceCaptured,
                   firstTimePieceMoved: firstTimePieceMoved,
                   pieceToPromoteTo:pieceToPromoteTo)
     }

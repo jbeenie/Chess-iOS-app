@@ -12,6 +12,7 @@
 		9F2B51CC1E56A8CA0046FAC9 /* ChessBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51CB1E56A8CA0046FAC9 /* ChessBoardTests.swift */; };
 		9F2B51DC1E56B01C0046FAC9 /* PositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DB1E56B01C0046FAC9 /* PositionTests.swift */; };
 		9F2B51DE1E56BEB60046FAC9 /* DiagonalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DD1E56BEB60046FAC9 /* DiagonalTests.swift */; };
+		9F34D9F41E99B039005E989E /* ChessGameSnapShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F34D9F31E99B039005E989E /* ChessGameSnapShot.swift */; };
 		9F3575AB1E6DF4A3008267B7 /* ChessPieceGraveYard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3575AA1E6DF4A3008267B7 /* ChessPieceGraveYard.swift */; };
 		9F3575B01E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3575AF1E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift */; };
 		9F3575B21E6E53FB008267B7 /* ModelViewTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3575B11E6E53FB008267B7 /* ModelViewTranslation.swift */; };
@@ -127,6 +128,7 @@
 		9F2B51CB1E56A8CA0046FAC9 /* ChessBoardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardTests.swift; sourceTree = "<group>"; };
 		9F2B51DB1E56B01C0046FAC9 /* PositionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionTests.swift; sourceTree = "<group>"; };
 		9F2B51DD1E56BEB60046FAC9 /* DiagonalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagonalTests.swift; sourceTree = "<group>"; };
+		9F34D9F31E99B039005E989E /* ChessGameSnapShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessGameSnapShot.swift; sourceTree = "<group>"; };
 		9F3575AA1E6DF4A3008267B7 /* ChessPieceGraveYard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceGraveYard.swift; sourceTree = "<group>"; };
 		9F3575AF1E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceGraveYardViewController.swift; sourceTree = SOURCE_ROOT; };
 		9F3575B11E6E53FB008267B7 /* ModelViewTranslation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelViewTranslation.swift; sourceTree = "<group>"; };
@@ -503,6 +505,7 @@
 		9FCDBB281E7A2B5400ED5B1A /* ChessGameScene */ = {
 			isa = PBXGroup;
 			children = (
+				9F34D9F31E99B039005E989E /* ChessGameSnapShot.swift */,
 				9F952CF21E77772300C90615 /* ChessGameViewController.swift */,
 				9F989BC51E8AFBAA00D000C0 /* ViewOrientationManager.swift */,
 				9F3575B11E6E53FB008267B7 /* ModelViewTranslation.swift */,
@@ -752,6 +755,7 @@
 				9F3575B01E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift in Sources */,
 				9F82AD521E76766100DBBF00 /* WhiteTimerViewController.swift in Sources */,
 				9F989BC61E8AFBAA00D000C0 /* ViewOrientationManager.swift in Sources */,
+				9F34D9F41E99B039005E989E /* ChessGameSnapShot.swift in Sources */,
 				9F72FB421E8DC8BC0094EDA7 /* SavedGamesTableViewController.swift in Sources */,
 				9FB7E15E1E612509007E9A6E /* Move.swift in Sources */,
 				9FF0C9F01E9307BA006EC242 /* Model.xcdatamodeld in Sources */,

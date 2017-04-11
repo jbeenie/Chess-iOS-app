@@ -96,9 +96,15 @@ class ChessTimer:NSObject,NSCoding {
         self.secondsRemaining = totalSeconds ?? TimeInterval(initialSeconds)
     }
     
-    //MARK: NSCoding
-
+    //MARK: - Debugging
+    override var description: String{
+        return "initialSeconds: \(initialSeconds)\n" +
+            "secondsRemaining: \(secondsRemaining)\n" +
+            "delegate: \(String(describing: delegate))\n" +
+            "timerCompletionHandler: \(String(describing: timerCompletionHandler))\n"
+    }
     
+    //MARK: NSCoding
     func encode(with aCoder: NSCoder) {
         aCoder.encode(initialSeconds, forKey: "initialSeconds")
         aCoder.encode(secondsRemaining, forKey: "secondsRemaining")
@@ -106,18 +112,18 @@ class ChessTimer:NSObject,NSCoding {
     
     required convenience init?(coder aDecoder: NSCoder) {
         self.init(
-            initialSeconds: aDecoder.decodeInteger(forKey:"initialTotalSeconds"),
-            secondsRemaining: aDecoder.decodeInteger(forKey:"secondsRemaining"))
+            initialSeconds: aDecoder.decodeInteger(forKey:"initialSeconds"),
+            secondsRemaining: aDecoder.decodeDouble(forKey:"secondsRemaining"))
     }
     
     //MARK: Initializers
     
     convenience init(initialSeconds:Int){
-        self.init(initialSeconds: initialSeconds, secondsRemaining: initialSeconds)
+        self.init(initialSeconds: initialSeconds, secondsRemaining: TimeInterval(initialSeconds))
     }
     
-    init(initialSeconds:Int, secondsRemaining:Int){
-        self.secondsRemaining = TimeInterval(secondsRemaining)
+    init(initialSeconds:Int, secondsRemaining:TimeInterval){
+        self.secondsRemaining = secondsRemaining
         self.initialSeconds = initialSeconds
         super.init()
     }

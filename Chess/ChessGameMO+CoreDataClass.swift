@@ -23,6 +23,7 @@ public class ChessGameMO: NSManagedObject {
             let now = NSDate()
             chessGameMO.created = now
             chessGameMO.modified = now
+            return nil
         }
         return nil
     }

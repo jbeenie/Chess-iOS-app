@@ -25,6 +25,13 @@ class ModelViewTranslation{
         return  chessPiece != nil ? viewPosition(from: chessPiece!.position) : nil
     }
     
+    //MARK: [Position:ChessPiece] Translation
+    
+    static func viewChessPiecePositions(from modelChessPiecePositions:[Position:ChessPiece])->[ChessBoardView.Position:ChessPieceView]{
+        return modelChessPiecePositions.mapPairs
+            {(modelPos,chessPiece) in (viewPosition(from: modelPos) , chessPieceView(from: chessPiece)!)}
+    }
+    
     //MARK: - ChessPiece -> ChessPieceView Translation
     static func chessPieceView(from chessPiece:ChessPiece?)->ChessPieceView?{
         guard let chessPiece = chessPiece else{return nil}
