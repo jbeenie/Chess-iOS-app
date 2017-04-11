@@ -12,8 +12,7 @@ class ChessClock:NSObject,NSCoding{
     //MARK: - Stored Properties
     let whiteTimer:ChessTimer
     let blackTimer:ChessTimer
-    var clockStarted:Bool
-    var timerToUnPause: ChessTimer?
+    private lazy var timerToUnPause: ChessTimer? = self.whiteTimer
     var history: [(TimeInterval,TimeInterval)]
     var delegate: ChessClockDelegate? = nil
     let initialTime:Int//in seconds
@@ -24,19 +23,21 @@ class ChessClock:NSObject,NSCoding{
         return blackTimer.timeIsUp || whiteTimer.timeIsUp
     }
     
+    var paused:Bool{
+        return timerToUnPause != nil
+    }
+    
     //MARK: - Methods
     private func timerUp(for color:ChessPieceColor){
         self.pause()
         delegate?.timerUp(for: color)
     }
     
-    //MARK: - Start the clock
-    func start(){
-        if !clockStarted{
-            whiteTimer.resume()
-            clockStarted = true
-        }
+    private func unPause(){
+        timerToUnPause?.resume()
+        timerToUnPause = nil
     }
+
     
     //Stops one timer and resumes the other
     private func toggleTimers(){
@@ -45,6 +46,8 @@ class ChessClock:NSObject,NSCoding{
         timerToPause.pause()
         timerToResume.resume()
     }
+    
+    //MARK: - Public API
     
     func moveOccured(){
         history.append((whiteTimer.timeRemaining,blackTimer.timeRemaining))
@@ -72,32 +75,37 @@ class ChessClock:NSObject,NSCoding{
         }
     }
     
+    func reset(){
+        whiteTimer.reset()
+        blackTimer.reset()
+        timerToUnPause = whiteTimer
+    }
+    
+    func pauseUnPause(){
+        if self.paused{
+            unPause()
+        }else{
+            pause()
+        }
+    }
+    
     func pause(){
         //make sure clock is started and clock is not paused already
-        guard clockStarted, timerToUnPause == nil else{return}
+        guard !paused else{return}
         //get the timer to pause and pause it
         let timerToPause = whiteTimer.isRunning ? whiteTimer : blackTimer
         timerToPause.pause()
         //set the timer to unPause
         timerToUnPause = timerToPause
     }
-    func unPause(){
-        timerToUnPause?.resume()
-    }
     
-    func reset(){
-        //first ensure the timers are enable
-        whiteTimer.reset()
-        blackTimer.reset()
-        clockStarted = false
-    }
+    
     
     //MARK: - Debugging
     
     override var description: String{
         return "whiteTimer:\n \(whiteTimer)\n" +
         "blackTimer:\n \(blackTimer)\n" +
-        "clockStarted: \(clockStarted)\n" +
         "timerToUnPause:\n \(String(describing: timerToUnPause))\n" +
         "history: \(history)\n" +
         "delegate: \(String(describing: delegate))\n" +
@@ -111,7 +119,6 @@ class ChessClock:NSObject,NSCoding{
         aCoder.encode(timerToUnPauseString, forKey: "timerToUnPause")//ChessTimer?
         aCoder.encode(self.whiteTimer, forKey: "whiteTimer")//ChessTimer
         aCoder.encode(self.blackTimer, forKey: "blackTimer")//ChessTimer
-        aCoder.encode(self.clockStarted, forKey: "clockStarted")//Bool
         aCoder.encode(self.initialTime, forKey: "initialTime")//Int
         //convert history to array of 2 element arrays then encode it
         aCoder.encode(self.history.map { [$0.0, $0.1] }, forKey: "history")//[(TimeInterval,TimeInterval)]
@@ -131,38 +138,34 @@ class ChessClock:NSObject,NSCoding{
             with: aDecoder.decodeInteger(forKey:"initialTime"),
             whiteTimer: whiteTimer,
             blackTimer: blackTimer,
-            clockStarted: aDecoder.decodeBool(forKey:"clockStarted"),
             history: history.map { ($0[0], $0[1]) },
             timerToUnPause: timerToUnPause)
     }
     
     
     
-    //MARK: Initializers
+    //MARK: - Initializers
     convenience init(with seconds:Int){
         self.init(with: seconds,
                   whiteTimer: ChessTimer(initialSeconds: seconds),
                   blackTimer: ChessTimer(initialSeconds: seconds),
-                  clockStarted: false,
                   history: [(TimeInterval(seconds),TimeInterval(seconds))])
     }
     
     init(with seconds:Int,
          whiteTimer:ChessTimer,
          blackTimer:ChessTimer,
-         clockStarted:Bool,
          history:[(TimeInterval,TimeInterval)],
          timerToUnPause:ChessTimer?=nil){
         //initialize your own properties
         self.initialTime = seconds
         self.whiteTimer = whiteTimer
         self.blackTimer = blackTimer
-        self.clockStarted = clockStarted
         self.history = history
-        self.timerToUnPause = timerToUnPause
         //initialize superclass properties
         super.init()
         //customization
+        if timerToUnPause != nil {self.timerToUnPause = timerToUnPause}
         self.whiteTimer.timerCompletionHandler = {self.timerUp(for: .White)}
         self.blackTimer.timerCompletionHandler = {self.timerUp(for: .Black)}
     }

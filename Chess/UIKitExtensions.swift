@@ -143,3 +143,11 @@ extension UIImage{
     }
 }
 
+extension UITapGestureRecognizer{
+    convenience init(touchCount:Int, tapCount:Int, target: Any?, action: Selector?){
+        self.init(target: target, action: action)
+        self.numberOfTouchesRequired = touchCount
+        self.numberOfTapsRequired = tapCount
+    }
+}
+

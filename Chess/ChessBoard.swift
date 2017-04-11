@@ -60,12 +60,10 @@ class ChessBoard:NSObject,NSCoding{
         //first initialize the chessBoard instance
         self.init()
         //place a new copy of each chess piece that was on chessBoard onto the new board
-        for row in Position.validRowRange{
-            for col in Position.validColRange{
-                let position = Position(row: row, col: col)!
-                if let chessPiece = chessBoard.getCopyOfPiece(at: position, associatedWithBoard: self){//associated to old board
-                    _ = self.set(piece: chessPiece, at: position)
-                }
+        for position in Position.positions{
+            if let chessPiece = chessBoard.getCopyOfPiece(at: position, associatedWithBoard: self){
+                //associated to old board
+                _ = self.set(piece: chessPiece, at: position)
             }
         }
     }
@@ -252,11 +250,9 @@ class ChessBoard:NSObject,NSCoding{
     //returns all the pieces of a given color on the board
     func pieces(ofColor color:ChessPieceColor)->[ChessPiece]{
         var pieces = [ChessPiece]()
-        for row in Position.validRowRange{
-            for col in Position.validColRange{
-                if let piece = self[row,col], piece.color == color{
-                    pieces.append(piece)
-                }
+        for position in Position.positions{
+            if let piece = self[position.row,position.col], piece.color == color{
+                pieces.append(piece)
             }
         }
         return pieces

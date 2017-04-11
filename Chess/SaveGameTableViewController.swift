@@ -16,17 +16,6 @@ public struct ChessGameMetaData{
     var whitePlayer:String
 }
 
-//FIXME: Change this data type once you start working on data base!
-public struct ChessGameInfo{
-    var chessGameID:NSManagedObjectID?
-    var blackPlayer:String
-    var whitePlayer:String
-    var chessGame:ChessGame
-    var chessClock:ChessClock
-    var whiteTakebacksRemaining:TakebackCount
-    var blackTakebacksRemaining:TakebackCount
-}
-
 class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     
     private struct Constants{
@@ -48,22 +37,21 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     
-    //FIXME: Fix this once you start working on database
     
-//    private func saveGame(){
-//        //ensure context is not nil
-//        guard let context = context else{return}
-//        //perform the saving block
-//        context.perform {
-//            guard let chessGameMO = ChessGameMO.chessGameWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context) else {return}
-//            if self.gamePreviouslySaved{
-//                //update the game previously saved on the DB
-//                chessGameMO.updateWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context)
-//            }
-//            //Commit changes to NSManagedObjectContext
-//            (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
-//        }
-//    }
+    private func saveGame(){
+        //ensure context is not nil
+        guard let context = context else{return}
+        //perform the saving block
+        context.perform {
+            guard let chessGameMO = ChessGameMO.chessGameWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context) else {return}
+            if self.gamePreviouslySaved{
+                //update the game previously saved on the DB
+                chessGameMO.updateWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context)
+            }
+            //Commit changes to NSManagedObjectContext
+            (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        }
+    }
     
     //MARK: - Recording User Input
     

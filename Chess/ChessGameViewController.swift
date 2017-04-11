@@ -95,10 +95,16 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //Computed Properties
 
-    //MARK: Determining whether game is Ended
+    //MARK: Game state
     private var gameEnded:Bool{
         return chessGame.ended || (chessClock?.timeIsUp ?? false)
     }
+    
+    private var gameIsPaused:Bool{
+        guard let chessClock = chessClock else {return false}
+        return chessClock.paused
+    }
+    
     
     //MARK: Notifications
     var resignActiveObserver: NSObjectProtocol? = nil
@@ -210,11 +216,10 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: ChessBoardViewControllerDelegate Conformance
     
-    func singleTapOccured(on tappedChessBoardSquare: ChessBoardSquareView){
-        //ensure timers are started before allowing players to perform moves if timers are enable
-        if let chessClock = chessClock{
-            guard chessClock.clockStarted else {return}
-        }
+    func tapOccured(on tappedChessBoardSquare: ChessBoardSquareView){
+        //ensure clock is running before allowing a player to perform a move
+        guard !gameIsPaused else {return}
+    
         
         //ensure game is not ended
         guard !gameEnded else {return}
@@ -257,12 +262,11 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         }
     }
     
-    func doubleTapOccured() {
-        if let chessClock = chessClock, !chessClock.clockStarted{
-            chessClock.start()//start whites timer
-            return
-        }
-        //if a square is selected deselect
+    func twoTouchTapOccured() {
+
+        //ensure clock is running before allowing a player to undo a move
+        guard !gameIsPaused else {return}
+        //if a square is selected deselect it
         if lastSelectedSquare != nil{
             chessBoardViewController.deselectSelectedSquare()
         }else {//otherwise undo the last move
@@ -272,6 +276,14 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
                 removeChessPieceFromGraveYard(chessPiece: pieceResurrected)
             }
         }
+    }
+    
+    func threeTouchTapOccured() {
+        //if the game is not timed three touch taps do nothing
+        guard let chessClock = chessClock else{return}
+        //if the clock is paused then unpause it
+        //if the clock is unpauses then pause it
+        chessClock.pauseUnPause()
     }
     
     var shouldAnimate: Bool{
@@ -556,42 +568,4 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         let initialChessPieceViewPositions = ModelViewTranslation.viewChessPiecePositions(from: chessGame.initialPiecePositions)
         chessBoardViewController.placePiecesAt(positions: initialChessPieceViewPositions)
     }
-    
-//    private let initialChessPiecePositions: [ChessBoardView.Position:ChessPieceView] = [
-//        //Initial position of Black Pieces
-//        ChessBoardView.Position(row: 0,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Rook),
-//        ChessBoardView.Position(row: 0,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Knight_R),
-//        ChessBoardView.Position(row: 0,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Bishop),
-//        ChessBoardView.Position(row: 0,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Queen),
-//        ChessBoardView.Position(row: 0,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.King),
-//        ChessBoardView.Position(row: 0,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Bishop),
-//        ChessBoardView.Position(row: 0,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Knight_R),
-//        ChessBoardView.Position(row: 0,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Rook),
-//        ChessBoardView.Position(row: 1,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 1,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 1,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 1,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 1,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 1,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 1,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 1,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-//        //Initial position of White Pieces
-//        ChessBoardView.Position(row: 6,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 6,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 6,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 6,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 6,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 6,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 6,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 6,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-//        ChessBoardView.Position(row: 7,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Rook),
-//        ChessBoardView.Position(row: 7,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Knight_R),
-//        ChessBoardView.Position(row: 7,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Bishop),
-//        ChessBoardView.Position(row: 7,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Queen),
-//        ChessBoardView.Position(row: 7,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.King),
-//        ChessBoardView.Position(row: 7,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Bishop),
-//        ChessBoardView.Position(row: 7,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Knight_R),
-//        ChessBoardView.Position(row: 7,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Rook)
-//    ]
-
 }

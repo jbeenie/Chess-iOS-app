@@ -14,6 +14,15 @@ struct Position: Hashable, Equatable{
     static let validRowRange = (0..<ChessBoard.Dimensions.SquaresPerRow)
     static let validColRange = (0..<ChessBoard.Dimensions.SquaresPerColumn)
     static let columnLetters = [0:"A",1:"B",2:"C",3:"D",4:"E",5:"F",6:"G",7:"H"]
+    static let positions: [Position] = {
+        var positions = [Position]()
+        for row in validRowRange{
+            for col in validColRange{
+                positions.append(Position(row: row, col: col)!)
+            }
+        }
+        return positions
+    }()
     
     //MARK: Static Methods
     static func isValidRow(_ row: Int)->Bool{
