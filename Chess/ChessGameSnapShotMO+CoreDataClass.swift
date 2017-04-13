@@ -11,30 +11,19 @@ import CoreData
 
 
 public class ChessGameSnapShotMO: NSManagedObject {
-    class func insertNewObjectWith(chessGame:ChessGame,chessClock:ChessClock?,whiteTakebacksRemaining:TakebackCount?, blackTakebacksRemaining:TakebackCount?, inManagedObjectContext context:NSManagedObjectContext)->ChessGameSnapShotMO{
+    class func insertNewObjectWith(chessGame:ChessGame,chessClock:ChessClock?,whiteTakebacksRemaining:TakebackCount, blackTakebacksRemaining:TakebackCount, inManagedObjectContext context:NSManagedObjectContext)->ChessGameSnapShotMO{
         let chessGameSnapShotMO = NSEntityDescription.insertNewObject(forEntityName: ChessGameSnapShotMO.entity().name!, into: context) as! ChessGameSnapShotMO
         
         //Set the take backs if necessary
-        if let whiteTakebacksRemaining = whiteTakebacksRemaining, let blackTakebacksRemaining = blackTakebacksRemaining{
-            chessGameSnapShotMO.whiteTakebacksRemaining = takeBackCountToInt32(takebackCount: whiteTakebacksRemaining)
-            chessGameSnapShotMO.blackTakebacksRemaining = takeBackCountToInt32(takebackCount: blackTakebacksRemaining)
-        }
+        chessGameSnapShotMO.whiteTakebacksRemaining = Int32(whiteTakebacksRemaining.toInt())
+        chessGameSnapShotMO.blackTakebacksRemaining = Int32(blackTakebacksRemaining.toInt())
+    
         //Set the clock if necessary
-        if chessClock != nil{
-            //TODO:convert to NSData
-            chessGameSnapShotMO.clockSnapShot = NSData()
+        if let chessClock = chessClock{
+            chessGameSnapShotMO.clockSnapShot = Archiver.archive(object: chessClock) as NSData
         }
         //convert to NSData
-        chessGameSnapShotMO.gameSnapShot = NSData()
+        chessGameSnapShotMO.gameSnapShot = Archiver.archive(object: chessGame) as NSData
         return chessGameSnapShotMO
-    }
-    
-    class func takeBackCountToInt32(takebackCount:TakebackCount)->Int32{
-        switch takebackCount {
-        case .Infinite:
-            return INT32_MAX
-        case .Finite(let count):
-            return Int32(count)
-        }
     }
 }

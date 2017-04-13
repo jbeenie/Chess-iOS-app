@@ -9,6 +9,11 @@
 import Foundation
 import CoreData
 
+struct ChessGameInfo{
+    var playerNames:PlayerNames
+    var snapShot:ChessGameSnapShot
+    var chessGameID:NSManagedObjectID?
+}
 
 public class ChessGameMO: NSManagedObject {
     class func chessGameWith(chessGameInfo:ChessGameInfo, inManagedObjectContext context:NSManagedObjectContext)->ChessGameMO?{
@@ -31,13 +36,13 @@ public class ChessGameMO: NSManagedObject {
     func updateWith(chessGameInfo:ChessGameInfo, inManagedObjectContext context:NSManagedObjectContext){
         let now = NSDate()
         self.modified = now
-        self.whitePlayer = PlayerMO.playerWith(name: chessGameInfo.whitePlayer, inManagedObjectContext: context)
-        self.blackPlayer = PlayerMO.playerWith(name: chessGameInfo.blackPlayer, inManagedObjectContext: context)
+        self.whitePlayer = PlayerMO.playerWith(name: chessGameInfo.playerNames.white, inManagedObjectContext: context)
+        self.blackPlayer = PlayerMO.playerWith(name: chessGameInfo.playerNames.black, inManagedObjectContext: context)
         self.snapShot = ChessGameSnapShotMO.insertNewObjectWith(
-            chessGame: chessGameInfo.chessGame,
-            chessClock: chessGameInfo.chessClock,
-            whiteTakebacksRemaining: chessGameInfo.whiteTakebacksRemaining,
-            blackTakebacksRemaining: chessGameInfo.blackTakebacksRemaining,
+            chessGame: chessGameInfo.snapShot.gameSnapShot,
+            chessClock: chessGameInfo.snapShot.clockSnapShot,
+            whiteTakebacksRemaining: chessGameInfo.snapShot.whiteTakebacksRemaining,
+            blackTakebacksRemaining: chessGameInfo.snapShot.blackTakebacksRemaining,
             inManagedObjectContext: context)
     }
 }

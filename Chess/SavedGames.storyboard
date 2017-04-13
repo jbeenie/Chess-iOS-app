@@ -74,14 +74,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eUF-we-2Fa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="J1k-Co-q7E">
-                    <connections>
-                        <outlet property="delegate" destination="CUW-yq-g2z" id="xB6-AP-7nd"/>
-                        <outlet property="searchContentsController" destination="CUW-yq-g2z" id="JyN-5Z-Zcs"/>
-                        <outlet property="searchResultsDataSource" destination="CUW-yq-g2z" id="lss-ds-juh"/>
-                        <outlet property="searchResultsDelegate" destination="CUW-yq-g2z" id="mzL-ua-KqY"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="-314.39999999999998" y="31.934032983508249"/>
         </scene>

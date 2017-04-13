@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPresentationControllerDelegate,ChessBoardViewControllerDelegate,ChessClockDelegate{
 
@@ -45,6 +46,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: Mode 2 - Game was Loaded - setup using game snapshot
     var gameWasLoaded = false
+    var chessGameID:NSManagedObjectID? = nil
     lazy var snapShot:ChessGameSnapShot = ChessGameSnapShot(
                                     gameSnapShot: self.chessGame,
                                     clockSnapShot: self.chessClock,
@@ -372,9 +374,6 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             setupNewGame()
         }
         
-        //alow navigation bar to shown on swipe
-        navigationController?.hidesBarsOnSwipe = true
-        
         //Set up delegation
         //promotion delegate of the chessgame
         chessGame.promotionDelegate = self
@@ -395,6 +394,24 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             object: nil,
             queue: OperationQueue.main,// queue to run block on
             using: prepareForInactive)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //alow navigation bar to shown on swipe and tap
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.hidesBarsOnTap = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        //pause ChessClock
+        chessClock?.pause()
+    }
+        
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     private func setupLoadedGame(){
@@ -422,12 +439,6 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         blackTakebacksViewController.takebackCount = gameSettings.effectiveMaxTakebacksCount
     }
     
-    
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        //pause ChessClock
-        chessClock?.pause()
-    }
     
     //MARK: - DeInitializer
     deinit {

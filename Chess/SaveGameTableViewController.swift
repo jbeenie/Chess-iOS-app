@@ -10,34 +10,29 @@ import UIKit
 import CoreData
 
 
-public struct ChessGameMetaData{
-    var chessGameID:NSManagedObjectID?
-    var blackPlayer:String
-    var whitePlayer:String
-}
-
 class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
-    
-    private struct Constants{
-        static let maxPlayerStringLength = 15
-        static let minPlayerStringLength = 1
-    }
-    
+
     //MARK: - Model
-    var chessGameInfo:ChessGameMetaData! = nil
-    
+    var playerNames:PlayerNames = PlayerNames(white:"",black:"")
+    var chessGameID:NSManagedObjectID?
     var snapShot:ChessGameSnapShot! = nil
     
     private var context: NSManagedObjectContext? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.newBackgroundContext()
     
-    //MARK: - Saving Game to Core Data
     
+    
+    //MARK: - Computed Properties
     private var gamePreviouslySaved:Bool{
-        return chessGameInfo.chessGameID != nil
+        return chessGameID != nil
     }
     
+    private var chessGameInfo:ChessGameInfo{
+        return ChessGameInfo(playerNames: playerNames,
+                             snapShot: snapShot,
+                             chessGameID: chessGameID)
+    }
     
-    
+    //MARK: - Saving Game to Core Data
     private func saveGame(){
         //ensure context is not nil
         guard let context = context else{return}
@@ -55,55 +50,25 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK: - Recording User Input
     
-    private func updateChessGameInfo(){
+    private func updatePlayerNames(){
         //FIXME: Crash When pressing return key on keyboard
-        chessGameInfo.blackPlayer = blackPlayerTextField?.text ?? ""
-        chessGameInfo.whitePlayer = whitePlayerTextField?.text ?? ""
-    }
-    
-    //MARK: - Validate User Input
-    
-    private func validateChessGameInfo()->Bool{
-        //Make sure String length is within the allowable range"
-        let valid = chessGameInfo.blackPlayer.length >= Constants.minPlayerStringLength &&
-                    chessGameInfo.blackPlayer.length <= Constants.maxPlayerStringLength &&
-                    chessGameInfo.whitePlayer.length >= Constants.minPlayerStringLength &&
-                    chessGameInfo.whitePlayer.length <= Constants.maxPlayerStringLength
-        return valid
+        playerNames = PlayerNames(white: whitePlayerTextField?.text ?? "",
+                                  black: blackPlayerTextField?.text ?? "")
     }
     
     //MARK: -  Actions
-    
-    
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func done(_ sender: UIBarButtonItem) {
-        //TODO: Delete this block after testing:
-        //**************************************
-        
-        let defaults = UserDefaults.standard
-        let archivedChessGame = Archiver.archive(object: snapShot.gameSnapShot)
-        defaults.setValue(archivedChessGame, forKey: "ChessGameTemp")
-        var archivedClock: Data? = nil
-        if let nonNilChessClock = snapShot.clockSnapShot{
-            archivedClock = Archiver.archive(object: nonNilChessClock)
+        updatePlayerNames()
+        guard playerNames.areValid else {
+            //TODO: - Tell the user he needs to do something different
+            print("Invalid Input. Do something different.")
+            return
         }
-        defaults.setValue(archivedClock, forKey: "ChessClockTemp")
-        defaults.set(snapShot.whiteTakebacksRemaining.toInt(), forKey: "WTBR")
-        defaults.set(snapShot.blackTakebacksRemaining.toInt(), forKey: "BTBR")
-        //*****************************************
-        
-        //FIXME: Uncomment this block when your done testing saving/loading games from user defaults
-        
-//        updateChessGameInfo()
-//        guard validateChessGameInfo() else {
-//            //TODO: - Tell the user he needs to do something different
-//            print("Invalid Input")
-//            return
-//        }
-//        saveGame()
+        saveGame()
         self.navigationController?.popViewController(animated: true)
     }
     //MARK: - Outlets
@@ -132,7 +97,7 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     
     //Hide keyboard when user presses return button on keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        updateChessGameInfo()
+        updatePlayerNames()
         textField.resignFirstResponder()
         return true
     }

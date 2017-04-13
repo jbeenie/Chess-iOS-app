@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		9F09A3841E7267F200C0AA95 /* PromotionChoicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F09A3831E7267F200C0AA95 /* PromotionChoicesViewController.swift */; };
+		9F110DBA1E9ECB4800832B30 /* FetchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F110DB91E9ECB4800832B30 /* FetchResultsTableViewController.swift */; };
 		9F1489871E67B89B00177826 /* AnimatedChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1489861E67B89B00177826 /* AnimatedChessBoardView.swift */; };
 		9F2B51CC1E56A8CA0046FAC9 /* ChessBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51CB1E56A8CA0046FAC9 /* ChessBoardTests.swift */; };
 		9F2B51DC1E56B01C0046FAC9 /* PositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DB1E56B01C0046FAC9 /* PositionTests.swift */; };
 		9F2B51DE1E56BEB60046FAC9 /* DiagonalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DD1E56BEB60046FAC9 /* DiagonalTests.swift */; };
 		9F34D9F41E99B039005E989E /* ChessGameSnapShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F34D9F31E99B039005E989E /* ChessGameSnapShot.swift */; };
+		9F34D9FA1E9DA4A6005E989E /* PlayerNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F34D9F91E9DA4A6005E989E /* PlayerNames.swift */; };
 		9F3575AB1E6DF4A3008267B7 /* ChessPieceGraveYard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3575AA1E6DF4A3008267B7 /* ChessPieceGraveYard.swift */; };
 		9F3575B01E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3575AF1E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift */; };
 		9F3575B21E6E53FB008267B7 /* ModelViewTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3575B11E6E53FB008267B7 /* ModelViewTranslation.swift */; };
@@ -122,6 +124,7 @@
 
 /* Begin PBXFileReference section */
 		9F09A3831E7267F200C0AA95 /* PromotionChoicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionChoicesViewController.swift; path = ../PromotionChoicesViewController.swift; sourceTree = "<group>"; };
+		9F110DB91E9ECB4800832B30 /* FetchResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchResultsTableViewController.swift; sourceTree = "<group>"; };
 		9F1489861E67B89B00177826 /* AnimatedChessBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedChessBoardView.swift; sourceTree = "<group>"; };
 		9F2B51C11E56A87B0046FAC9 /* ChessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F2B51C51E56A87B0046FAC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 		9F2B51DB1E56B01C0046FAC9 /* PositionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionTests.swift; sourceTree = "<group>"; };
 		9F2B51DD1E56BEB60046FAC9 /* DiagonalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagonalTests.swift; sourceTree = "<group>"; };
 		9F34D9F31E99B039005E989E /* ChessGameSnapShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessGameSnapShot.swift; sourceTree = "<group>"; };
+		9F34D9F91E9DA4A6005E989E /* PlayerNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerNames.swift; sourceTree = "<group>"; };
 		9F3575AA1E6DF4A3008267B7 /* ChessPieceGraveYard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceGraveYard.swift; sourceTree = "<group>"; };
 		9F3575AF1E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceGraveYardViewController.swift; sourceTree = SOURCE_ROOT; };
 		9F3575B11E6E53FB008267B7 /* ModelViewTranslation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelViewTranslation.swift; sourceTree = "<group>"; };
@@ -318,6 +322,7 @@
 			children = (
 				9F72FB3A1E8DB0BA0094EDA7 /* SaveGame.storyboard */,
 				9F72FB3C1E8DB1C50094EDA7 /* SaveGameTableViewController.swift */,
+				9F34D9F91E9DA4A6005E989E /* PlayerNames.swift */,
 			);
 			name = SaveGameScene;
 			sourceTree = "<group>";
@@ -328,6 +333,7 @@
 				9F72FB3F1E8DC8A70094EDA7 /* SavedGames.storyboard */,
 				9F72FB411E8DC8BC0094EDA7 /* SavedGamesTableViewController.swift */,
 				9F567F391E8DD498009B4D4E /* SavedGameCell.swift */,
+				9F110DB91E9ECB4800832B30 /* FetchResultsTableViewController.swift */,
 			);
 			name = SavedGamesScene;
 			sourceTree = "<group>";
@@ -757,6 +763,7 @@
 				9F989BC61E8AFBAA00D000C0 /* ViewOrientationManager.swift in Sources */,
 				9F34D9F41E99B039005E989E /* ChessGameSnapShot.swift in Sources */,
 				9F72FB421E8DC8BC0094EDA7 /* SavedGamesTableViewController.swift in Sources */,
+				9F34D9FA1E9DA4A6005E989E /* PlayerNames.swift in Sources */,
 				9FB7E15E1E612509007E9A6E /* Move.swift in Sources */,
 				9FF0C9F01E9307BA006EC242 /* Model.xcdatamodeld in Sources */,
 				9FCDBB271E78DA2A00ED5B1A /* ChessNotificationCreator.swift in Sources */,
@@ -791,6 +798,7 @@
 				9F3575B21E6E53FB008267B7 /* ModelViewTranslation.swift in Sources */,
 				9FCB75911E4EAAC100275773 /* AppDelegate.swift in Sources */,
 				9FB7E15A1E5E53AB007E9A6E /* FoundationExtensions.swift in Sources */,
+				9F110DBA1E9ECB4800832B30 /* FetchResultsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
