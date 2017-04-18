@@ -21,6 +21,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         static let BlackTakebacksViewController = "BlackTakebacksViewController"
         static let ChessBoardViewController = "ChessBoardViewController"
         static let SaveGameTableViewController = "SaveGameTableViewController"
+        static let BackFromSaveGameViewController = "BackFromSaveGameViewController"
         
     }
     
@@ -45,8 +46,9 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
 
     
     //MARK: Mode 2 - Game was Loaded - setup using game snapshot
-    var gameWasLoaded = false
+    var gameInDB = false
     var chessGameID:NSManagedObjectID? = nil
+    
     lazy var snapShot:ChessGameSnapShot = ChessGameSnapShot(
                                     gameSnapShot: self.chessGame,
                                     clockSnapShot: self.chessClock,
@@ -143,8 +145,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     //MARK: Conform To Promotion Delegate
     func getPieceToPromoteTo(ofColor color: ChessPieceColor, at position: Position){
         //Translate arguments from model to view counterparts
-        let viewColor = ModelViewTranslation.viewChessPieceColor(from: color)
-        let viewPosition = ModelViewTranslation.viewPosition(from: position)
+        let viewColor = ModelViewTranslation.chessPieceColorMap[ color]
+        let viewPosition = ModelViewTranslation.positionMap[position]
         
         //Create the promotion choices pop over VC to ask user what piece
         //to promote to
@@ -215,7 +217,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     private func promotionCompletionHandler(chessPieceTypeToPromoteTo: ChessPieceType,endPosition:Position)
     {
-        let startPosition = ModelViewTranslation.modelPosition(from:(lastSelectedSquare?.position)!)
+        let startPosition = ModelViewTranslation.positionMap[(lastSelectedSquare?.position)!]
         //reperform the the move but with the type of the chess piece to promote
         _ = performMove(from: startPosition, to: endPosition, chessPieceTypeToPromoteTo: chessPieceTypeToPromoteTo)
     }
@@ -239,8 +241,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         }else if let lastSelectedSquare = self.lastSelectedSquare{
             
             //prepare old and new position parameters to call movePiece
-            let oldPosition = ModelViewTranslation.modelPosition(from: lastSelectedSquare.position)
-            let newPosition = ModelViewTranslation.modelPosition(from: tappedChessBoardSquare.position)
+            let oldPosition = ModelViewTranslation.positionMap[lastSelectedSquare.position]
+            let newPosition = ModelViewTranslation.positionMap[tappedChessBoardSquare.position]
             
             //if that square is occupied by a piece of the same color
             //delect the previously selected square and
@@ -369,7 +371,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         chessBoardViewController.delegate = self
         
         // New/Loaded Game dependent setup
-        if gameWasLoaded{
+        if gameInDB{
             setupLoadedGame()
         }else{
             setupNewGame()
@@ -526,6 +528,13 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: - Navigation
     
+    @IBAction func backToGameViewController(sender: UIStoryboardSegue) {
+        if sender.identifier == StoryBoard.BackFromSaveGameViewController{
+            gameInDB = true
+            chessGameID = (sender.source as? SaveGameTableViewController)?.gameID
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //Embedded Segues
         if (segue.identifier == StoryBoard.BlackChessPieceGraveYardViewController){
@@ -560,8 +569,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
                         clockSnapShot: chessClock,
                         whiteTakebacksRemaining: whiteTakebacksViewController.takebackCount,
                         blackTakebacksRemaining: blackTakebacksViewController.takebackCount)
-        if  gameWasLoaded {
-            let alert = SaveGameAlert.createWith(save: saveGame,saveAs: saveAsNewGame)
+        if  gameInDB {
+            let alert = SaveGameAlert.createWith(save: save,saveAs: saveAsNewGame)
             alert.modalPresentationStyle = .popover
             let ppc = alert.popoverPresentationController
             ppc?.barButtonItem = sender
@@ -578,7 +587,13 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     }
     
     //Update the chess game in the database with the new game state
-    private func saveGame(action:UIAlertAction){
+    private func save(action:UIAlertAction){
+        guard let context = context, let chessGameID = chessGameID
+        else{
+            print("Error getting context or chessGameID")
+            print("context: \(String(describing: self.context)), chessGameID: \(String(describing: self.chessGameID))")
+            return
+        }
         let success = ChessGameMO.updateChessGameHaving(id: chessGameID, inManagedObjectContext: context, with: snapShot)
         print("Succeeded in updating chessGame:\(success)")
         

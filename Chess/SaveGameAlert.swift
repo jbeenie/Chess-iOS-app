@@ -16,20 +16,25 @@ class SaveGameAlert{
         static let cancel = "Cancel"
     }
     
-    private struct Alert{
-        static let title = "Save Game"
-        static let message = "Would you like to update the saved game with the current game state, or use the current game state to save a new game?"
-        static let style = UIAlertControllerStyle.actionSheet
+    private struct Content{
+        static let title:String? = nil //"Save Game"
+        static let message:String? = nil //"Would you like to update the saved game with the current game state, or use the current game state to save a new game?"
+    }
+    
+    private struct Style{
+        static let alert = UIAlertControllerStyle.actionSheet
+        static let saveAs = UIAlertActionStyle.default
+        static let save = UIAlertActionStyle.default
     }
     
     static func createWith(save saveAction:((UIAlertAction) -> Void)?, saveAs saveAsAction: ((UIAlertAction) -> Void)?)->UIAlertController {
         let alert = UIAlertController(
-                                    title: Alert.title,
-                                    message: Alert.message,
-                                    preferredStyle: Alert.style)
+                                    title: Content.title,
+                                    message: Content.message,
+                                    preferredStyle: Style.alert)
         
-        alert.addAction(UIAlertAction(title: Titles.saveAs, style: .default, handler: saveAsAction))
-        alert.addAction(UIAlertAction(title: Titles.save, style: .destructive, handler: saveAction))
+        alert.addAction(UIAlertAction(title: Titles.saveAs, style: Style.saveAs, handler: saveAsAction))
+        alert.addAction(UIAlertAction(title: Titles.save, style: Style.save, handler: saveAction))
         alert.addAction(UIAlertAction(title: Titles.cancel, style: .cancel))
         return alert
     }

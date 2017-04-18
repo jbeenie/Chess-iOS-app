@@ -11,7 +11,14 @@ import CoreData
 
 
 public class ChessGameSnapShotMO: NSManagedObject {
-    class func insertNewObjectWith(chessGame:ChessGame,chessClock:ChessClock?,whiteTakebacksRemaining:TakebackCount, blackTakebacksRemaining:TakebackCount, inManagedObjectContext context:NSManagedObjectContext)->ChessGameSnapShotMO{
+    
+    class func insertNewObjectWith(chessGame:ChessGame,
+                                   chessClock:ChessClock?,
+                                   whiteTakebacksRemaining:TakebackCount,
+                                   blackTakebacksRemaining:TakebackCount,
+                                   inManagedObjectContext context:NSManagedObjectContext
+        )->ChessGameSnapShotMO{
+        
         let chessGameSnapShotMO = NSEntityDescription.insertNewObject(forEntityName: ChessGameSnapShotMO.entity().name!, into: context) as! ChessGameSnapShotMO
         
         //Set the take backs if necessary

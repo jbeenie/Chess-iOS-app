@@ -92,9 +92,11 @@
                     <connections>
                         <outlet property="blackPlayerTextField" destination="cOf-Xz-jbt" id="K4G-xT-zKM"/>
                         <outlet property="whitePlayerTextField" destination="Uxa-At-xUH" id="vw8-TA-x7O"/>
+                        <segue destination="C5H-Wr-48m" kind="unwind" identifier="BackFromSaveGameViewController" unwindAction="backToGameViewControllerWithSender:" id="bmf-fR-GeI"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mSF-zN-hTi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="C5H-Wr-48m" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-11288.799999999999" y="-2509.2953523238384"/>
         </scene>

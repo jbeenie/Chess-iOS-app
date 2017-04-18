@@ -180,12 +180,14 @@ class SavedGamesTableViewController: FetchResultsTableViewController {
             }
             
             //prepare the chessGameVC with the data
+            chessGameViewController.chessGameID = chessGameMO.objectID
             chessGameViewController.snapShot = ChessGameSnapShot(
                 gameSnapShot: chessGame,
                 clockSnapShot: chessClock,
                 whiteTakebacksRemaining: whiteTakebacksRemaining,
                 blackTakebacksRemaining: blackTakebacksRemaining)
-            chessGameViewController.gameWasLoaded = true
+            chessGameViewController.gameInDB = true
+            //FIXME: (maybe) Store game settings in DATABase and then load them back into the database
             chessGameViewController.gameSettings = ChessGameSettings.loadGameSettings()
             
         }

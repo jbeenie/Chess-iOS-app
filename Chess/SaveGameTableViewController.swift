@@ -12,9 +12,14 @@ import CoreData
 
 class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
 
+    private struct StoryBoard{
+        static let BackFromSaveGameViewController = "BackFromSaveGameViewController"
+    }
+    
     //MARK: - Model
     var playerNames:PlayerNames = PlayerNames(white:"",black:"")
     var snapShot:ChessGameSnapShot! = nil
+    var gameID:NSManagedObjectID? = nil
     
     private lazy var context: NSManagedObjectContext? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.newBackgroundContext()
     
@@ -32,17 +37,19 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
         //ensure context is not nil
         guard let context = context else{return}
         //perform the saving block
-        context.perform{
+        context.performAndWait{
             //create new ChessGameMO in NSManagedObjectContext
-            guard let _ = ChessGameMO.chessGameWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context) else {return}
+            guard let chessGameMO = ChessGameMO.chessGameWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context) else {return}
             //Commit changes to NSManagedObjectContext
             do {
                 try self.context?.save()
             } catch let error {
                 print("Core Data Error: \(error)")
             }
+            //Register gameID
+            self.gameID = chessGameMO.objectID
         }
-        print("Context has changed:\(context.hasChanges)")
+        
     }
     
     //MARK: - Recording User Input
@@ -66,7 +73,7 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
             return
         }
         saveGame()
-        self.navigationController?.popViewController(animated: true)
+        performSegue(withIdentifier: StoryBoard.BackFromSaveGameViewController, sender: nil)
     }
     //MARK: - Outlets
     
@@ -98,17 +105,7 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 

@@ -27,10 +27,7 @@ public class ChessGameMO: NSManagedObject {
     
     //MARK: Updating
     //updating chessGameMO entires - update the their ChessGameSnapShotMO relationship
-    class func updateChessGameHaving(id: NSManagedObjectID?,inManagedObjectContext context:NSManagedObjectContext?, with snapShot: ChessGameSnapShot)->Bool{
-        
-        //Do nothing if ID or context are nil
-        guard let id = id, let context = context else {return false}
+    class func updateChessGameHaving(id: NSManagedObjectID,inManagedObjectContext context:NSManagedObjectContext, with snapShot: ChessGameSnapShot)->Bool{
         
         guard !id.isTemporaryID else {print("Temporary ID!");return false}
         guard let chessGameMO = context.object(with: id) as? ChessGameMO else{
@@ -50,7 +47,7 @@ public class ChessGameMO: NSManagedObject {
         let now = NSDate()
         chessGameMO.modified = now
         
-        return false
+        return true
     }
 
     //MARK: Helper method used to help set values of ChessGameMO when they are created
