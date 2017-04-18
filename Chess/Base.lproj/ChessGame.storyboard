@@ -148,18 +148,22 @@
                     <navigationItem key="navigationItem" id="vn4-cU-J1q">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="lbc-DI-u5v">
                             <connections>
-                                <action selector="backToMainMenu:" destination="BYZ-38-t0r" id="uMi-FM-sSF"/>
+                                <segue destination="5o3-WH-Vjv" kind="unwind" unwindAction="backToMainMenuWithSender:" id="1zj-XA-ytM"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="9rN-hQ-moI">
                             <connections>
-                                <segue destination="bWh-i1-vUA" kind="show" identifier="SaveGameTableViewController" id="YJK-dP-Dlc"/>
+                                <action selector="saveGame:" destination="BYZ-38-t0r" id="nbc-sA-mzK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <segue destination="bWh-i1-vUA" kind="show" identifier="SaveGameTableViewController" id="EPC-WQ-7ts"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="5o3-WH-Vjv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>

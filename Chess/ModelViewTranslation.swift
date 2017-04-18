@@ -7,12 +7,16 @@
 //
 
 import Foundation
+import AdvancedDataStructures
+
 
 class ModelViewTranslation{
     
     //MARK:   Translation between Model and View
     
     //MARK: - Position Translation
+    
+    
     static func modelPosition(from viewPosition: ChessBoardView.Position)->Position{
         return Position(row: viewPosition.row, col: viewPosition.col)!
     }
@@ -36,7 +40,7 @@ class ModelViewTranslation{
     static func chessPieceView(from chessPiece:ChessPiece?)->ChessPieceView?{
         guard let chessPiece = chessPiece else{return nil}
         let viewPieceColor = viewChessPieceColor(from: chessPiece.color)
-        let viewPieceType = chessPieceType(from: chessPiece.typeId)
+        guard let viewPieceType = chessPieceTypeInjection[chessPiece.typeId] else {return nil}
         return ChessPieceView(color: viewPieceColor, type: viewPieceType)
     }
     
@@ -54,44 +58,18 @@ class ModelViewTranslation{
     }
     
     //MARK: - ChessPiece Type
-    //MARK ChessPieceType -> ChessPieceView.ChessPieceType Translation
-    static func chessPieceType(from chessPieceTypeId:ChessPieceType)->ChessPieceView.ChessPieceType{
-        switch chessPieceTypeId {
-        case .Pawn:
-            return ChessPieceView.ChessPieceType.Pawn
-        case .Rook:
-            return ChessPieceView.ChessPieceType.Rook
-        case .Knight:
-            return ChessPieceView.ChessPieceType.Knight_R
-        case .Bishop:
-            return ChessPieceView.ChessPieceType.Bishop
-        case .Queen:
-            return ChessPieceView.ChessPieceType.Queen
-        case .King:
-            return ChessPieceView.ChessPieceType.King
-        }
-    }
     
-    //MARK ChessPieceView.ChessPieceType -> ChessPieceType Translation
-    static func chessPieceType(from chessPieceViewTypeId:ChessPieceView.ChessPieceType)->ChessPieceType{
-        switch chessPieceViewTypeId {
-        case .Pawn:
-            return ChessPieceType.Pawn
-        case .Rook:
-            return ChessPieceType.Rook
-        case .Knight_R:
-            return ChessPieceType.Knight
-        case .Knight_L:
-            return ChessPieceType.Knight
-        case .Bishop:
-            return ChessPieceType.Bishop
-        case .Queen:
-            return ChessPieceType.Queen
-        case .King:
-            return ChessPieceType.King
-        }
-    }
     
+    static var chessPieceTypeInjection:Injection<ChessPieceType,ChessPieceView.ChessPieceType>{
+        return Injection<ChessPieceType,ChessPieceView.ChessPieceType>(pairs:
+            [(.Pawn, ChessPieceView.ChessPieceType.Pawn),
+            (.Rook, ChessPieceView.ChessPieceType.Rook),
+            (.Knight, ChessPieceView.ChessPieceType.Knight_R),
+            (.Bishop,ChessPieceView.ChessPieceType.Bishop),
+            (.Queen,ChessPieceView.ChessPieceType.Queen),
+            (.King,ChessPieceView.ChessPieceType.King)]
+        )
+    }
     
     //MARK: - Move Translation
     

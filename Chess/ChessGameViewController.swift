@@ -74,6 +74,10 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     
     //MARK: - Model
+    
+    //MARK: ManagedObjectContext
+    private lazy var context: NSManagedObjectContext? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.newBackgroundContext()
+    
     //MARK: Chess game
     var chessGame: ChessGame = {
         let chessGame = ChessGame()
@@ -313,9 +317,6 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         //if move is successful
         let moveCompletionHandler = { self.updateGameAfter(move: move, outCome: outcome) }
         
-//        if chessGame.colorWhoseTurnItIs == .Black{
-//            viewMove.pieceToPromoteTo?.transform = CGAffineTransform(rotationAngle: Constants.blackPerspectiveRotationAngle)
-//        }
         
         //move the piece in the ChessBoardView
         chessBoardViewController.perform(move: viewMove,animate:gameSettings.animationsEnabled,moveCompletionHandler:moveCompletionHandler)
@@ -524,8 +525,9 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     
     //MARK: - Navigation
-    //MARK: Embed
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //Embedded Segues
         if (segue.identifier == StoryBoard.BlackChessPieceGraveYardViewController){
             blackChessPieceGraveYardViewController = segue.destination as! BlackChessPieceGraveYardViewController
         }else if (segue.identifier == StoryBoard.WhiteChessPieceGraveYardViewController){
@@ -542,22 +544,52 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             chessBoardViewController = segue.destination as? ChessBoardViewController
             //Set the colors of the squares using the chessboard theme chosen
             chessBoardViewController.chessBoardTheme = gameSettings?.chessBoardTheme
+            
+        //Actual Segues
         }else if (segue.identifier == StoryBoard.SaveGameTableViewController){
             let saveGameTableViewController = segue.destination as? SaveGameTableViewController
-            //update snapsot of game
-            snapShot.update(gameSnapShot: chessGame,
-                            clockSnapShot: chessClock,
-                            whiteTakebacksRemaining: whiteTakebacksViewController.takebackCount,
-                            blackTakebacksRemaining: blackTakebacksViewController.takebackCount)
             //Give the saveGameTableVC the snapshot of the game
             saveGameTableViewController?.snapShot = self.snapShot
         }
     }
     
-    @IBAction func backToMainMenu(_ sender: UIBarButtonItem) {
-        _ = self.navigationController?.popToRootViewController(animated: true)
+    
+    @IBAction func saveGame(_ sender: UIBarButtonItem) {
+        //update snapsot of game
+        snapShot.update(gameSnapShot: chessGame,
+                        clockSnapShot: chessClock,
+                        whiteTakebacksRemaining: whiteTakebacksViewController.takebackCount,
+                        blackTakebacksRemaining: blackTakebacksViewController.takebackCount)
+        if  gameWasLoaded {
+            let alert = SaveGameAlert.createWith(save: saveGame,saveAs: saveAsNewGame)
+            alert.modalPresentationStyle = .popover
+            let ppc = alert.popoverPresentationController
+            ppc?.barButtonItem = sender
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            saveAsNewGame()
+        }
     }
     
+    //MARK: - Saving Games
+    
+    private func saveAsNewGame(action: UIAlertAction?=nil){
+        performSegue(withIdentifier: StoryBoard.SaveGameTableViewController, sender: nil)
+    }
+    
+    //Update the chess game in the database with the new game state
+    private func saveGame(action:UIAlertAction){
+        let success = ChessGameMO.updateChessGameHaving(id: chessGameID, inManagedObjectContext: context, with: snapShot)
+        print("Succeeded in updating chessGame:\(success)")
+        
+        //Commit changes to NSManagedObjectContext
+        do {
+            try self.context?.save()
+        } catch let error {
+            print("Core Data Error: \(error)")
+        }
+        
+    }
     
     //MARK: - Adding and Removing Captured Pieces to GraveYardView
     

@@ -36,5 +36,9 @@ class MenuViewController: UIViewController {
         
     }
 
+    @IBAction func backToMainMenu(sender: UIStoryboardSegue) {
+        
+    }
+    
 
 }

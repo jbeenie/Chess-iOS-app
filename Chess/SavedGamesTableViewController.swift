@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class SavedGamesTableViewController: FetchResultsTableViewController<ChessGameMO> {
+class SavedGamesTableViewController: FetchResultsTableViewController {
     //MARK: - Constants
     private struct StoryBoard{
         static let cellID = "savedGame"
@@ -25,24 +25,28 @@ class SavedGamesTableViewController: FetchResultsTableViewController<ChessGameMO
                                               selector: #selector(NSDate.compare(_:)))
     }
     
+    //Array ordering sort descriptors
+    static let sortDescriptors = [SortDescriptors.whitePlayer,SortDescriptors.blackPlayer,SortDescriptors.created]
+    
         
     //MARK: - Stored Properties
     
     //MARK: Configuring NSFetchedResultsController
-    private var context: NSManagedObjectContext? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.newBackgroundContext()
+    private var context: NSManagedObjectContext? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
+    //Fetch all the games
     private var predicate = NSPredicate(value: true)
     
     
     private lazy var fetchRequest:NSFetchRequest<ChessGameMO> = {
         let fetchRequest:NSFetchRequest<ChessGameMO> = ChessGameMO.fetchRequest()
         fetchRequest.predicate = self.predicate
-        fetchRequest.sortDescriptors = [SortDescriptors.whitePlayer,SortDescriptors.blackPlayer,SortDescriptors.created]
+        fetchRequest.sortDescriptors = SavedGamesTableViewController.sortDescriptors
 
         return fetchRequest
     }()
-    
-    private var cacheName:String? = "gameCache"
+    //Dont use caching
+    private var cacheName:String? = nil
     private var sectionNameKeyPath:String? = nil
     
     //MARK: Formatting Date and Time
@@ -79,8 +83,8 @@ class SavedGamesTableViewController: FetchResultsTableViewController<ChessGameMO
 
         //set the fetchedresultsController
         guard let context = context else {print("context is nil!");return}
-        fetchedResultsController = NSFetchedResultsController<ChessGameMO>(
-            fetchRequest: fetchRequest,
+        self.fetchedResultsController = NSFetchedResultsController<NSFetchRequestResult>(
+            fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>,
             managedObjectContext: context,
             sectionNameKeyPath: sectionNameKeyPath,
             cacheName: cacheName)
@@ -94,8 +98,8 @@ class SavedGamesTableViewController: FetchResultsTableViewController<ChessGameMO
         guard let frc = fetchedResultsController else { return cell}
         guard let savedGameCell = cell as? SavedGameCell else {return cell}
         
-        let chessGameMO = frc.object(at: indexPath)
-        guard   let whitePlayer:String = chessGameMO.whitePlayer?.name,
+        guard   let chessGameMO = frc.object(at: indexPath) as? ChessGameMO,
+                let whitePlayer:String = chessGameMO.whitePlayer?.name,
                 let blackPlayer:String = chessGameMO.blackPlayer?.name,
                 let created:Date = chessGameMO.created as Date?
         else {return cell}
@@ -157,7 +161,8 @@ class SavedGamesTableViewController: FetchResultsTableViewController<ChessGameMO
                 return
             }
             //Get the ChessGameMO using the selected index path
-            guard let chessGameSnapShot = fetchedResultsController?.object(at: selectedIndexPath).snapShot else{
+            guard   let chessGameMO = fetchedResultsController?.object(at: selectedIndexPath) as? ChessGameMO,
+                    let chessGameSnapShot = chessGameMO.snapShot else{
                 print("chess Snap Shot is nil!")
                 return
             }

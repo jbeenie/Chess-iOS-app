@@ -14,22 +14,17 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
 
     //MARK: - Model
     var playerNames:PlayerNames = PlayerNames(white:"",black:"")
-    var chessGameID:NSManagedObjectID?
     var snapShot:ChessGameSnapShot! = nil
     
-    private var context: NSManagedObjectContext? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.newBackgroundContext()
+    private lazy var context: NSManagedObjectContext? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.newBackgroundContext()
     
     
     
     //MARK: - Computed Properties
-    private var gamePreviouslySaved:Bool{
-        return chessGameID != nil
-    }
     
     private var chessGameInfo:ChessGameInfo{
         return ChessGameInfo(playerNames: playerNames,
-                             snapShot: snapShot,
-                             chessGameID: chessGameID)
+                             snapShot: snapShot)
     }
     
     //MARK: - Saving Game to Core Data
@@ -37,15 +32,17 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
         //ensure context is not nil
         guard let context = context else{return}
         //perform the saving block
-        context.perform {
-            guard let chessGameMO = ChessGameMO.chessGameWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context) else {return}
-            if self.gamePreviouslySaved{
-                //update the game previously saved on the DB
-                chessGameMO.updateWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context)
-            }
+        context.perform{
+            //create new ChessGameMO in NSManagedObjectContext
+            guard let _ = ChessGameMO.chessGameWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context) else {return}
             //Commit changes to NSManagedObjectContext
-            (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+            do {
+                try self.context?.save()
+            } catch let error {
+                print("Core Data Error: \(error)")
+            }
         }
+        print("Context has changed:\(context.hasChanges)")
     }
     
     //MARK: - Recording User Input

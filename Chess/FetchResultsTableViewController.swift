@@ -11,18 +11,23 @@
 import UIKit
 import CoreData
 
-class FetchResultsTableViewController<T:NSFetchRequestResult>: UITableViewController, NSFetchedResultsControllerDelegate
+class FetchResultsTableViewController: UITableViewController, NSFetchedResultsControllerDelegate
 {
-    var fetchedResultsController: NSFetchedResultsController<T>? {
+    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>? {
         didSet {
-            do {
-                if let frc = fetchedResultsController {
-                    frc.delegate = self
-                    try frc.performFetch()
+            if let frc = fetchedResultsController {
+                frc.delegate = self
+                frc.managedObjectContext.perform {
+                    do {
+                        try frc.performFetch()
+                    }
+                    catch let error {
+                        print("NSFetchedResultsController.performFetch() failed: \(error)")
+                    }
+                    self.tableView.reloadData()
                 }
-                tableView.reloadData()
-            } catch let error {
-                print("NSFetchedResultsController.performFetch() failed: \(error)")
+                //Print the path to the sql store
+                print(NSPersistentContainer(name: "Model").persistentStoreDescriptions.first?.url ?? "Could not print presistent store location.")
             }
         }
     }
