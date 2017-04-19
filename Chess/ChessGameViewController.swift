@@ -594,8 +594,12 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             print("context: \(String(describing: self.context)), chessGameID: \(String(describing: self.chessGameID))")
             return
         }
-        let success = ChessGameMO.updateChessGameHaving(id: chessGameID, inManagedObjectContext: context, with: snapShot)
-        print("Succeeded in updating chessGame:\(success)")
+        ChessGameMO.updateChessGameHaving(id: chessGameID,
+                                          inManagedObjectContext: context,
+                                          with: snapShot)
+            {self.chessGameID = $0.objectID
+            print("Succeeded in updating chessGame")}
+        
         
         //Commit changes to NSManagedObjectContext
         do {

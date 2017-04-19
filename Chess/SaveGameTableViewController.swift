@@ -33,23 +33,13 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     //MARK: - Saving Game to Core Data
-    private func saveGame(){
+    private func saveNewGame(){
         //ensure context is not nil
         guard let context = context else{return}
-        //perform the saving block
-        context.performAndWait{
-            //create new ChessGameMO in NSManagedObjectContext
-            guard let chessGameMO = ChessGameMO.chessGameWith(chessGameInfo: self.chessGameInfo, inManagedObjectContext: context) else {return}
-            //Commit changes to NSManagedObjectContext
-            do {
-                try self.context?.save()
-            } catch let error {
-                print("Core Data Error: \(error)")
-            }
-            //Register gameID
-            self.gameID = chessGameMO.objectID
-        }
-        
+        //create new ChessGameMO in NSManagedObjectContext and save it
+        ChessGameMO.createChessGameWith(chessGameInfo: self.chessGameInfo,
+                                                      inManagedObjectContext: context,
+                                                      completion: {self.gameID = $0?.objectID})//Register gameID
     }
     
     //MARK: - Recording User Input
@@ -72,7 +62,7 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
             print("Invalid Input. Do something different.")
             return
         }
-        saveGame()
+        saveNewGame()
         performSegue(withIdentifier: StoryBoard.BackFromSaveGameViewController, sender: nil)
     }
     //MARK: - Outlets

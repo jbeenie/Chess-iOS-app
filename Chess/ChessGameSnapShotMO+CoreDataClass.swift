@@ -33,4 +33,15 @@ public class ChessGameSnapShotMO: NSManagedObject {
         chessGameSnapShotMO.gameSnapShot = Archiver.archive(object: chessGame) as NSData
         return chessGameSnapShotMO
     }
+    
+    //MARK: - Delete
+    
+    class func delete(chessGameSnapShotMO:ChessGameMO, inManagedObjectContext context:NSManagedObjectContext){
+        context.perform {
+            //delete the game
+            context.delete(chessGameSnapShotMO)
+            //save the changes
+            CoreDataUtilities.save(context:context)
+        }
+    }
 }
