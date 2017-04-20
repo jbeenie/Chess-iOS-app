@@ -36,8 +36,6 @@ public class ChessGameMO: NSManagedObject {
             
             //initialize chessGameMO values
             chessGameMO.initializeWith(chessGameInfo: chessGameInfo, inManagedObjectContext: context)
-            //Commit changes to NSManagedObjectContext
-            CoreDataUtilities.save(context:context)
             //execute completion handler
             completion(chessGameMO)
         }
@@ -48,10 +46,7 @@ public class ChessGameMO: NSManagedObject {
         self.whitePlayer = PlayerMO.playerWith(name: chessGameInfo.playerNames.white, inManagedObjectContext: context)
         self.blackPlayer = PlayerMO.playerWith(name: chessGameInfo.playerNames.black, inManagedObjectContext: context)
         self.snapShot = ChessGameSnapShotMO.insertNewObjectWith(
-            chessGame: chessGameInfo.snapShot.gameSnapShot,
-            chessClock: chessGameInfo.snapShot.clockSnapShot,
-            whiteTakebacksRemaining: chessGameInfo.snapShot.whiteTakebacksRemaining,
-            blackTakebacksRemaining: chessGameInfo.snapShot.blackTakebacksRemaining,
+            snapShot: chessGameInfo.snapShot,
             inManagedObjectContext: context)
         
         //ensure date created and modified are exactly the same when first created
@@ -66,7 +61,7 @@ public class ChessGameMO: NSManagedObject {
                                      inManagedObjectContext context:NSManagedObjectContext,
                                      with snapShot: ChessGameSnapShot,
                                      completion:@escaping (ChessGameMO)->()){
-        context.perform{
+        context.performAndWait{
             //Get the object to update using the provided ID
             guard !id.isTemporaryID else {print("Temporary ID!");return}
             guard let chessGameMO = context.object(with: id) as? ChessGameMO else{
@@ -75,20 +70,19 @@ public class ChessGameMO: NSManagedObject {
             }
             
             //delete old game state
-            CoreDataUtilities.delete(object: chessGameMO.snapShot, inManagedObjectContext: context)
-            
+            if let oldSnapShot = chessGameMO.snapShot{
+                context.delete(oldSnapShot)
+            }
+
             //create and link updated game state
             chessGameMO.snapShot = ChessGameSnapShotMO.insertNewObjectWith(
-                chessGame: snapShot.gameSnapShot,
-                chessClock: snapShot.clockSnapShot,
-                whiteTakebacksRemaining: snapShot.whiteTakebacksRemaining,
-                blackTakebacksRemaining: snapShot.blackTakebacksRemaining,
+                snapShot: snapShot,
                 inManagedObjectContext: context)
             
+
             //update the the modified field
             let now = NSDate()
             chessGameMO.modified = now
-            CoreDataUtilities.save(context: context)
             //execute completion handler
             completion(chessGameMO)
         }

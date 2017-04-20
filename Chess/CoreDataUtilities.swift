@@ -14,7 +14,7 @@ class CoreDataUtilities{
     class func delete(object:NSManagedObject?, inManagedObjectContext context:NSManagedObjectContext){
         guard let object = object else {return}
         context.perform {
-            //delete the game
+            //delete object
             context.delete(object)
             //save the changes
             save(context:context)
@@ -25,8 +25,9 @@ class CoreDataUtilities{
     {
         do {
             try context.save()
+            print("Succeeded commiting changes to DB")
         } catch let error as NSError {
-            print("Error saving context:\(error)")
+            print("Error saving context:\(error)\n\n")
         }
     }
     

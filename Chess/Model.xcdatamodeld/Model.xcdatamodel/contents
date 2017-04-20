@@ -20,8 +20,8 @@
         <relationship name="gamesAsWhite" toMany="YES" deletionRule="Cascade" destinationEntity="ChessGame" inverseName="whitePlayer" inverseEntity="ChessGame" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Player" positionX="4345" positionY="3240" width="128" height="88"/>
-        <element name="ChessGameSnapShot" positionX="4381" positionY="3015" width="128" height="118"/>
         <element name="ChessGame" positionX="4617" positionY="3213" width="128" height="118"/>
+        <element name="ChessGameSnapShot" positionX="4381" positionY="3015" width="128" height="118"/>
+        <element name="Player" positionX="4345" positionY="3240" width="128" height="88"/>
     </elements>
 </model>

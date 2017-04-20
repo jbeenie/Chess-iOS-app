@@ -38,8 +38,10 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
         guard let context = context else{return}
         //create new ChessGameMO in NSManagedObjectContext and save it
         ChessGameMO.createChessGameWith(chessGameInfo: self.chessGameInfo,
-                                                      inManagedObjectContext: context,
-                                                      completion: {self.gameID = $0?.objectID})//Register gameID
+                                        inManagedObjectContext: context,
+                                        completion: {
+                                            CoreDataUtilities.save(context: context)//save changes
+                                            self.gameID = $0?.objectID})//Register gameID
     }
     
     //MARK: - Recording User Input

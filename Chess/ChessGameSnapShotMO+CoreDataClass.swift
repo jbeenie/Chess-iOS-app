@@ -12,36 +12,22 @@ import CoreData
 
 public class ChessGameSnapShotMO: NSManagedObject {
     
-    class func insertNewObjectWith(chessGame:ChessGame,
-                                   chessClock:ChessClock?,
-                                   whiteTakebacksRemaining:TakebackCount,
-                                   blackTakebacksRemaining:TakebackCount,
+    class func insertNewObjectWith(snapShot:ChessGameSnapShot,
                                    inManagedObjectContext context:NSManagedObjectContext
         )->ChessGameSnapShotMO{
         
         let chessGameSnapShotMO = NSEntityDescription.insertNewObject(forEntityName: ChessGameSnapShotMO.entity().name!, into: context) as! ChessGameSnapShotMO
         
         //Set the take backs if necessary
-        chessGameSnapShotMO.whiteTakebacksRemaining = Int32(whiteTakebacksRemaining.toInt())
-        chessGameSnapShotMO.blackTakebacksRemaining = Int32(blackTakebacksRemaining.toInt())
+        chessGameSnapShotMO.whiteTakebacksRemaining = Int32(snapShot.whiteTakebacksRemaining.toInt())
+        chessGameSnapShotMO.blackTakebacksRemaining = Int32(snapShot.blackTakebacksRemaining.toInt())
     
         //Set the clock if necessary
-        if let chessClock = chessClock{
+        if let chessClock = snapShot.clockSnapShot{
             chessGameSnapShotMO.clockSnapShot = Archiver.archive(object: chessClock) as NSData
         }
         //convert to NSData
-        chessGameSnapShotMO.gameSnapShot = Archiver.archive(object: chessGame) as NSData
+        chessGameSnapShotMO.gameSnapShot = Archiver.archive(object: snapShot.gameSnapShot) as NSData
         return chessGameSnapShotMO
-    }
-    
-    //MARK: - Delete
-    
-    class func delete(chessGameSnapShotMO:ChessGameMO, inManagedObjectContext context:NSManagedObjectContext){
-        context.perform {
-            //delete the game
-            context.delete(chessGameSnapShotMO)
-            //save the changes
-            CoreDataUtilities.save(context:context)
-        }
     }
 }

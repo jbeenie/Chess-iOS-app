@@ -564,6 +564,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     
     @IBAction func saveGame(_ sender: UIBarButtonItem) {
+        //pause chess clock
+        chessClock?.pause()
         //update snapsot of game
         snapShot.update(gameSnapShot: chessGame,
                         clockSnapShot: chessClock,
@@ -596,9 +598,12 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         }
         ChessGameMO.updateChessGameHaving(id: chessGameID,
                                           inManagedObjectContext: context,
-                                          with: snapShot)
-            {self.chessGameID = $0.objectID
-            print("Succeeded in updating chessGame")}
+                                          with: snapShot) {
+            //completion closure
+            CoreDataUtilities.save(context: context)
+            self.chessGameID = $0.objectID
+            print("Succeeded in updating chessGame")
+        }
         
         
         //Commit changes to NSManagedObjectContext

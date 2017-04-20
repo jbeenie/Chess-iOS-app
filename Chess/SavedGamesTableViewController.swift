@@ -133,11 +133,7 @@ class SavedGamesTableViewController: FetchResultsTableViewController {
                 else {print("Error retrieving context, or object to delete");return}
             context.perform {
                 context.delete(chessGameMO)
-                do {
-                    try context.save()
-                } catch let error as NSError {
-                    print("Error saving context:\(error)")
-                }
+                CoreDataUtilities.save(context: context)
             }
         }
     }
