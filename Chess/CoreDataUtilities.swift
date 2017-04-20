@@ -11,15 +11,6 @@ import CoreData
 
 class CoreDataUtilities{
     
-    class func delete(object:NSManagedObject?, inManagedObjectContext context:NSManagedObjectContext){
-        guard let object = object else {return}
-        context.perform {
-            //delete object
-            context.delete(object)
-            //save the changes
-            save(context:context)
-        }
-    }
     
     class func save(context:NSManagedObjectContext)
     {
