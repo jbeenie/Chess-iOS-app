@@ -129,12 +129,18 @@ class SavedGamesTableViewController: FetchResultsTableViewController {
             // Delete the row from the data source
             guard
                 let context = fetchedResultsController?.managedObjectContext,
-                let chessGameMO = fetchedResultsController?.object(at: indexPath) as? ChessGameMO
+                let chessGameMO = fetchedResultsController?.object(at: indexPath) as? ChessGameMO,
+                let whitePlayer = chessGameMO.whitePlayer,
+                let blackPlayer = chessGameMO.blackPlayer
                 else {print("Error retrieving context, or object to delete");return}
             context.perform {
+                //deletes associated chessgameSnapShot
                 context.delete(chessGameMO)
+                //player only deleted if it is not involved in any games
+                whitePlayer.deleteIfNotInvolvedInAnyGames(inManagedObjectContext: context)
+                blackPlayer.deleteIfNotInvolvedInAnyGames(inManagedObjectContext: context)
                 CoreDataUtilities.save(context: context)
-            }
+            }   
         }
     }
     

@@ -11,7 +11,8 @@ import CoreData
 
 
 public class PlayerMO: NSManagedObject {
-    //For updating and creating Player Entires
+    //MARK: - Creating & Fetching
+
     class func playerWith(name:String, inManagedObjectContext context:NSManagedObjectContext)->PlayerMO?{
         //configure the fetch request
         let request: NSFetchRequest<PlayerMO> = PlayerMO.fetchRequest()
@@ -27,4 +28,14 @@ public class PlayerMO: NSManagedObject {
         }
         return nil
     }
+    
+    func deleteIfNotInvolvedInAnyGames(inManagedObjectContext context:NSManagedObjectContext){
+        guard let gamesAsBlack =  self.gamesAsBlack as? Set<ChessGameMO>,
+            let gamesAsWhite =  self.gamesAsWhite as? Set<ChessGameMO> else {return}
+        let gamesInvolvedIn = gamesAsWhite.union(gamesAsBlack).filter {!$0.isDeleted}
+        if gamesInvolvedIn.isEmpty {
+            context.delete(self)
+        }
+    }
+    
 }

@@ -16,8 +16,8 @@
     </entity>
     <entity name="Player" representedClassName=".PlayerMO" syncable="YES">
         <attribute name="name" attributeType="String" minValueString="1" maxValueString="20" syncable="YES"/>
-        <relationship name="gamesAsBlack" toMany="YES" deletionRule="Cascade" destinationEntity="ChessGame" inverseName="blackPlayer" inverseEntity="ChessGame" syncable="YES"/>
-        <relationship name="gamesAsWhite" toMany="YES" deletionRule="Cascade" destinationEntity="ChessGame" inverseName="whitePlayer" inverseEntity="ChessGame" syncable="YES"/>
+        <relationship name="gamesAsBlack" toMany="YES" deletionRule="Deny" destinationEntity="ChessGame" inverseName="blackPlayer" inverseEntity="ChessGame" syncable="YES"/>
+        <relationship name="gamesAsWhite" toMany="YES" deletionRule="Deny" destinationEntity="ChessGame" inverseName="whitePlayer" inverseEntity="ChessGame" syncable="YES"/>
     </entity>
     <elements>
         <element name="ChessGame" positionX="4617" positionY="3213" width="128" height="118"/>
