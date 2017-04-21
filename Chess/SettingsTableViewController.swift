@@ -58,6 +58,10 @@ class SettingsTableViewController: UITableViewController {
         let previouslySelectedChessBoardTheme = globalSettings[ChessSettings.Key.chessBoardTheme] as! ChessBoardTheme
         let chessBoardThemeText = chessBoardThemeTexts[previouslySelectedChessBoardTheme]
         chessBoardThemeCurrentSelectionLabel.text = chessBoardThemeText
+        
+        //Debug:
+        print(UserDefaults.standard.dictionaryRepresentation())
+        
     }
 
    //MARK: - Actions

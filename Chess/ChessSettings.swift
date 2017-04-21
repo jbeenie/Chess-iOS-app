@@ -14,7 +14,7 @@ class ChessSettings{
     enum Key:String{
         case chessBoardTheme = "chessBoardTheme"
         case notificationsEnabled = "notificationsEnabled"
-        case animationsEnabled = "animationsEnable"
+        case animationsEnabled = "animationsEnabled"
     }
     
     //MARK: - Subscripts
@@ -40,7 +40,7 @@ class ChessSettings{
     //MARK: returns PropertyList Representation of a dictionary of chessCettings
     static func pListRepresentation(ofSettings settings:[Key:ChessSetting])->[String:Any]{
         var pList: [String:Any] = [:]
-        for (key,value) in defaultSettings{
+        for (key,value) in settings{
             let encodableValue:Any
             switch key {
             case .animationsEnabled,.notificationsEnabled:
@@ -60,7 +60,9 @@ class ChessSettings{
     private func save(){
         let defaults = UserDefaults.standard
         defaults.setValuesForKeys(ChessSettings.pListRepresentation(ofSettings: settings))
-        
+        print(settings.description)
+        print(UserDefaults.standard.dictionaryRepresentation())
+
     }
     
     //MARK: Load

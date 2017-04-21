@@ -430,7 +430,10 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         let (whitePiecesCaptured,blackPiecesCaptured) = chessGame.piecesCaptured
         _ = whiteChessPieceGraveYardViewController.add(chessPieces: blackPiecesCaptured)
         _ = blackChessPieceGraveYardViewController.add(chessPieces: whitePiecesCaptured)
-
+        //Rotate pieces if necessary
+        if chessGame.colorWhoseTurnItIs == .Black {
+            chessPieceVOM.toggleOrientation()
+        }
     }
     
     private func setupNewGame(){

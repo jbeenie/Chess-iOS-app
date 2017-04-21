@@ -47,7 +47,7 @@ class SavedGamesTableViewController: FetchResultsTableViewController {
     }()
     //Dont use caching
     private var cacheName:String? = nil
-    private var sectionNameKeyPath:String? = nil
+    private var sectionNameKeyPath:String? = "sectionName"
     
     //MARK: Formatting Date and Time
     
@@ -99,16 +99,13 @@ class SavedGamesTableViewController: FetchResultsTableViewController {
         guard let savedGameCell = cell as? SavedGameCell else {return cell}
         
         guard   let chessGameMO = frc.object(at: indexPath) as? ChessGameMO,
-                let whitePlayer:String = chessGameMO.whitePlayer?.name,
-                let blackPlayer:String = chessGameMO.blackPlayer?.name,
-                let created:Date = chessGameMO.created as Date?
+                let modified:Date = chessGameMO.modified as Date?
         else {return cell}
         
         // Configure the cell with data from the ChessGame managed object.
-        savedGameCell.gameNumberLabel.text = "Game1"
-        savedGameCell.playersLabel.text = "\(whitePlayer) vs. \(blackPlayer)"
-        savedGameCell.dateLabel.text = dateFormatter.string(from: created)
-        savedGameCell.timeLabel.text = timeFormatter.string(from: created)
+        savedGameCell.gameNumberLabel.text = "Game\(indexPath.row + 1)"
+        savedGameCell.dateLabel.text = dateFormatter.string(from: modified)
+        savedGameCell.timeLabel.text = timeFormatter.string(from: modified)
         
         return savedGameCell;
     }

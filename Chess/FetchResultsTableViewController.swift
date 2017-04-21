@@ -55,7 +55,7 @@ class FetchResultsTableViewController: UITableViewController, NSFetchedResultsCo
     }
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return fetchedResultsController?.sectionIndexTitles
+        return nil//fetchedResultsController?.sectionIndexTitles
     }
     
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {

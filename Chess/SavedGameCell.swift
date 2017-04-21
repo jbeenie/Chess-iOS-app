@@ -11,7 +11,6 @@ import UIKit
 class SavedGameCell: UITableViewCell {
     //MARK: - Outlets
     @IBOutlet weak var gameNumberLabel: UILabel!
-    @IBOutlet weak var playersLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
