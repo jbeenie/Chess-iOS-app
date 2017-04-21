@@ -9,7 +9,7 @@
 import Foundation
 
 public struct PlayerNames{
-    private struct Constants{
+    internal struct Constants{
         static let maxPlayerStringLength = 15
         static let minPlayerStringLength = 1
     }
@@ -25,5 +25,9 @@ public struct PlayerNames{
     private func validate(playerName:String)->Bool{
         return playerName.length >= Constants.minPlayerStringLength
             && playerName.length <= Constants.maxPlayerStringLength
+            && playerName.containsOnlyLetters()
+        
     }
+    
+    
 }

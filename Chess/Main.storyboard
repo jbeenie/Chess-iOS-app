@@ -28,7 +28,7 @@
                                         <rect key="frame" x="22" y="0.0" width="134" height="46"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <state key="normal" title="New Game">
-                                            <color key="titleColor" red="0.28627450980000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.10196078431372549" green="0.85098039215686272" blue="0.40784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="qHA-Bh-Xpy" kind="show" id="R6p-XC-GJd"/>
@@ -38,7 +38,7 @@
                                         <rect key="frame" x="0.0" y="76" width="178" height="46"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <state key="normal" title="Resume Game">
-                                            <color key="titleColor" red="0.28627450980000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.1019607843" green="0.85098039219999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="w7f-uI-8XF" kind="show" id="HyF-WM-6FD"/>
@@ -48,7 +48,7 @@
                                         <rect key="frame" x="39" y="152" width="100" height="46"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <state key="normal" title="Settings">
-                                            <color key="titleColor" red="0.28627450980000002" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.1019607843" green="0.85098039219999999" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="Nhg-cC-Pyw" kind="show" id="gq8-oz-gki"/>
@@ -57,7 +57,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Hh1-CA-YMd" firstAttribute="centerY" secondItem="SWl-wP-KWc" secondAttribute="centerY" id="Yys-6l-KEJ"/>
                             <constraint firstItem="Hh1-CA-YMd" firstAttribute="centerX" secondItem="SWl-wP-KWc" secondAttribute="centerX" id="vqy-hK-563"/>

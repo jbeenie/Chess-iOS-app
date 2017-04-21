@@ -60,8 +60,12 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func done(_ sender: UIBarButtonItem) {
         updatePlayerNames()
         guard playerNames.areValid else {
-            //TODO: - Tell the user he needs to do something different
-            print("Invalid Input. Do something different.")
+            //display alert that tells user he inputed an invalid player name
+            let alert = InvalidPlayerNameAlert.create()
+            alert.modalPresentationStyle = .popover
+            let ppc = alert.popoverPresentationController
+            ppc?.barButtonItem = sender
+            self.present(alert, animated: true, completion: nil)
             return
         }
         saveNewGame()

@@ -12,6 +12,15 @@ extension String {
     var length: Int {
         return self.characters.count
     }
+    
+    func containsOnlyLetters() -> Bool {
+        for chr in self.characters {
+            if (!(chr >= "a" && chr <= "z") && !(chr >= "A" && chr <= "Z") ) {
+                return false
+            }
+        }
+        return true
+    }
 }
 
 extension Bool:ChessSetting{
