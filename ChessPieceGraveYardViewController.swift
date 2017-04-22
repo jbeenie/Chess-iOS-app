@@ -14,7 +14,7 @@ class ChessPieceGraveYardViewController: UIViewController {
     }
     
     struct Constants{
-        static let MaxPiecesInRow = 8
+        static let numberOfSlotPerRow:Int = 8
     }
     
     
@@ -32,9 +32,9 @@ class ChessPieceGraveYardViewController: UIViewController {
     
     private func nonPawn(firstRow:Bool)->[ChessPiece]{
         if firstRow{
-            return nonPawnsCaptured.enumerated().flatMap{ $0.offset < Constants.MaxPiecesInRow  ? $0.element : nil }
+            return nonPawnsCaptured.enumerated().flatMap{ $0.offset < Constants.numberOfSlotPerRow  ? $0.element : nil }
         }else{
-            return nonPawnsCaptured.enumerated().flatMap{ $0.offset >= Constants.MaxPiecesInRow  ? $0.element : nil }
+            return nonPawnsCaptured.enumerated().flatMap{ $0.offset >= Constants.numberOfSlotPerRow  ? $0.element : nil }
         }
     }
     
@@ -86,16 +86,20 @@ class ChessPieceGraveYardViewController: UIViewController {
         //setupView()
     }
     
-//    override func viewDidLayoutSubviews() {
-//        pawnGraveYardRowView.updateSlotFrames()
-//        nonPawnGraveYardRowView1.updateSlotFrames()
-//        nonPawnGraveYardRowView2.updateSlotFrames()
-//    }
+    override func viewDidLayoutSubviews() {
+        //store slot side lenght as constant so you don't risk recomputing 
+        //different slot side lengths
+        let slotSideLength = self.slotSideLength
+        pawnGraveYardRowView.updateSlotFrames(with: slotSideLength)
+        nonPawnGraveYardRowView1.updateSlotFrames(with: slotSideLength)
+        nonPawnGraveYardRowView2.updateSlotFrames(with: slotSideLength)
+    }
     
-//    private func setupView(){
-//        pawnGraveYardRowView.addSlotsAsSubviews()
-//        nonPawnGraveYardRowView1.addSlotsAsSubviews()
-//        nonPawnGraveYardRowView2.addSlotsAsSubviews()
-//    }
+    //MARK: - Computation of slot side length
+    private var slotSideLength:CGFloat{
+        return min(pawnGraveYardRowView.frame.width/CGFloat(Constants.numberOfSlotPerRow), pawnGraveYardRowView.frame.height)
+    }
+    
+
 
 }

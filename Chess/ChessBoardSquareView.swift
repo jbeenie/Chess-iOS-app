@@ -37,7 +37,23 @@ class ChessBoardSquareView: BoardSquareView {
         }
     }
     
+    //MAKR: - View Life Cycle Methods
+    
+    override func layoutSubviews() {
+        updateChessPieceFrame()
+    }
+    
     //MARK: - Methods
+    
+    func updateChessPieceFrame(){
+        if let chessPiece = chessPiece{
+            //resize chess pieceView and its animation copy
+            resize(chessPieceView: chessPiece)
+            //position chess pieceView
+            chessPiece.center = frame.mid
+            chessPiece.aninmationCopy.center = chessPiece.center
+        }
+    }
     
     func resize(chessPieceView:ChessPieceView){
         //resize the chessPieceView so it fits within the chessBoardSquare
@@ -46,6 +62,7 @@ class ChessBoardSquareView: BoardSquareView {
         let newChessPieceWidth = chessPieceView.aspectRatio * newChessPieceHeight
         let newChessPieceSize = CGSize(width: newChessPieceWidth, height: newChessPieceHeight)
         chessPieceView.frame =  CGRect(center: chessPieceView.center, size: newChessPieceSize)
+        chessPieceView.aninmationCopy.frame = chessPieceView.frame
     }
 }
 

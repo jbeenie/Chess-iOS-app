@@ -61,19 +61,16 @@ class ChessBoardView: UIView {
     private func setUpChessBoardSquares() -> [[ChessBoardSquareView]] {
         var chessBoardSquares = [[ChessBoardSquareView]]()
         var isBlack = false
+        
         for row in 0..<Dimensions.SquaresPerRow {
             chessBoardSquares.append(Array<ChessBoardSquareView>())
             for col in 0..<Dimensions.SquaresPerColumn {
                 //set up chess board square initialization parameters
                 let color = isBlack ? colorOfBlackSquares : colorOfWhiteSquares
                 let selectedColor = isBlack ? colorOfSelectedBlackSquares : colorOfSelectedWhiteSquares
-                let sideLength: CGFloat = min(bounds.height, bounds.width)/8
-                let size = CGSize(width: sideLength, height: sideLength)
-                let origin = CGPoint(x: sideLength*CGFloat(col), y: sideLength*CGFloat(row))
-                let frame = CGRect(origin: origin, size: size)
-                
+            
                 //initialize chessboard square
-                if let chessBoardSquare = ChessBoardSquareView(frame: frame, color: color, selectedColor: selectedColor){
+                if let chessBoardSquare = ChessBoardSquareView(frame: CGRect.zero, color: color, selectedColor: selectedColor){
                     //set position of chess board square
                     chessBoardSquare.position = Position(row: row, col: col)
                     chessBoardSquares[row].append(chessBoardSquare)
@@ -81,13 +78,31 @@ class ChessBoardView: UIView {
                     print("Selected Color: \(selectedColor) cannot be the same as (unselected) color \(color)")
                 }
                 
-                
                 isBlack = !isBlack
             }
             isBlack = !isBlack
         }
         return chessBoardSquares
     }
+    
+    //MARK: - method used to update the frame of the chessboardSquares upon bounds change
+    func updateChessBoardSquaresFrames(){
+        //precompute square side length and size once
+        //to avoid potential computing different values in for loop
+        let sideLength: CGFloat = min(bounds.height, bounds.width)/8
+        let size = CGSize(width: sideLength, height: sideLength)
+        
+        for row in 0..<Dimensions.SquaresPerRow {
+            for col in 0..<Dimensions.SquaresPerColumn {
+                //set up chess board square initialization parameters
+                let origin = CGPoint(x: sideLength*CGFloat(col), y: sideLength*CGFloat(row))
+                let frame = CGRect(origin: origin, size: size)
+                //set frame of chessboard square
+                chessBoardSquares[row][col].frame = frame
+            }
+        }
+    }
+    
     
     //method used to add chess square subviews to chessboard
     func setUpChessBoardView(){

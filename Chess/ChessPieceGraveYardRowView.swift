@@ -12,7 +12,7 @@ class ChessPieceGraveYardRowView: UIView {
     
     
     //MARK: - Constants
-    @IBInspectable let numberOfSlots:Int = 8
+    let numberOfSlots:Int = ChessPieceGraveYardViewController.Constants.numberOfSlotPerRow
     @IBInspectable let slotColor = UIColor.white
     @IBInspectable let slotSelectedColor = UIColor.gray
     
@@ -26,10 +26,8 @@ class ChessPieceGraveYardRowView: UIView {
     
     
     //MARK: - Computed Variables
-    private var slotSideLength:CGFloat{
-        print("slot side length: \(min(self.frame.width/CGFloat(numberOfSlots), self.frame.height)) ")
-        return min(self.frame.width/CGFloat(numberOfSlots), self.frame.height)
-    }
+    private var slotSideLength:CGFloat = 0.0
+    
     private var slotSize:CGSize{
         return CGSize(width: slotSideLength, height: slotSideLength)
     }
@@ -45,10 +43,6 @@ class ChessPieceGraveYardRowView: UIView {
     //MARK: - View Life Cycle
     override func willMove(toSuperview newSuperview: UIView?) {
         addSlotsAsSubviews()
-    }
-    
-    override func layoutSubviews() {
-        updateSlotFrames()
     }
     
     //MARK: - Methods
@@ -68,10 +62,9 @@ class ChessPieceGraveYardRowView: UIView {
     
     //MARK: Resizing Slots
     //should be called when bounds change
-    private func updateSlotFrames(){
-        //store computed value of slot Side length in constant
-        //so you do not get different values when recomputing
-        let slotSideLength = self.slotSideLength
+    func updateSlotFrames(with slotSideLength:CGFloat){
+        //record slot side length for computed properties
+        self.slotSideLength = slotSideLength
         //resize slots using new slot Side length
         for (i,slot) in slots.enumerated(){
             let x = xOriginOfFirstSlot + CGFloat(i)*slotSideLength

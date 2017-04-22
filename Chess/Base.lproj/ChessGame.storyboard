@@ -195,7 +195,6 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="gEJ-gi-vKt" secondAttribute="bottom" id="8sz-yJ-1TK"/>
                             <constraint firstAttribute="trailing" secondItem="gEJ-gi-vKt" secondAttribute="trailing" id="NUb-jW-1bb"/>
@@ -346,15 +345,12 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eXK-GV-lc2" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="188" height="38"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wme-DY-gaw" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="38" width="188" height="38"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o0y-fB-VIo" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="76" width="188" height="38"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                             </stackView>

@@ -105,7 +105,11 @@ class ChessBoardViewController: UIViewController{
     //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //set the colors of the chessBoardview is a chessboard theme is specified
+        //set the colors of the chessBoardview if a chessboard theme is specified
+    }
+    
+    override func viewDidLayoutSubviews() {
+        chessBoardView.updateChessBoardSquaresFrames()
     }
     
     private func setUpChessBoardView(){
