@@ -27,7 +27,8 @@ class ChessPieceGraveYardRowView: UIView {
     
     //MARK: - Computed Variables
     private var slotSideLength:CGFloat{
-        return min(self.bounds.width/CGFloat(numberOfSlots), self.bounds.height)
+        print("slot side length: \(min(self.frame.width/CGFloat(numberOfSlots), self.frame.height)) ")
+        return min(self.frame.width/CGFloat(numberOfSlots), self.frame.height)
     }
     private var slotSize:CGSize{
         return CGSize(width: slotSideLength, height: slotSideLength)
@@ -41,24 +42,43 @@ class ChessPieceGraveYardRowView: UIView {
         return (self.bounds.width - slotSideLength*CGFloat(numberOfSlots))/2
     }
     
+    //MARK: - View Life Cycle
+    override func willMove(toSuperview newSuperview: UIView?) {
+        addSlotsAsSubviews()
+    }
+    
+    override func layoutSubviews() {
+        updateSlotFrames()
+    }
     
     //MARK: - Methods
+    
     
     //Helper method used to Create slot subviews
     private func createSlot()->ChessBoardSquareView{
         return ChessBoardSquareView(frame: CGRect.zero, color: slotColor, selectedColor: slotSelectedColor)!
     }
     
-    //sets the frames of the slots and
-    //adds each slot as a subview
-    func setUpSlots(){
+    //MARK: Adding Slots to View Hierarchy
+
+    private func addSlotsAsSubviews(){
         //setup pawn slots
+        for slot in slots{addSubview(slot)}
+    }
+    
+    //MARK: Resizing Slots
+    //should be called when bounds change
+    private func updateSlotFrames(){
+        //store computed value of slot Side length in constant
+        //so you do not get different values when recomputing
+        let slotSideLength = self.slotSideLength
+        //resize slots using new slot Side length
         for (i,slot) in slots.enumerated(){
             let x = xOriginOfFirstSlot + CGFloat(i)*slotSideLength
             let origin = CGPoint(x: x, y: yOriginOfSlots)
             slot.frame = CGRect(origin: origin, size: slotSize)
-            addSubview(slot)
         }
+        print("\n\n")
     }
     
     //updates the contents of the slots
@@ -74,4 +94,6 @@ class ChessPieceGraveYardRowView: UIView {
             slot.chessPiece = nil
         }
     }
+    
+    
 }

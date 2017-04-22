@@ -141,6 +141,7 @@
                             <constraint firstItem="xNX-LZ-rkn" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="ZI2-bz-Zq4"/>
                             <constraint firstItem="YE3-k5-SWm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bgO-da-hHM"/>
                             <constraint firstItem="JMA-8x-LUG" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" priority="100" id="eWk-0W-yQd"/>
+                            <constraint firstItem="JMA-8x-LUG" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="hqu-DS-QrQ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="YE3-k5-SWm" secondAttribute="bottom" id="kQN-RU-oOk"/>
                             <constraint firstItem="YE3-k5-SWm" firstAttribute="height" secondItem="xNX-LZ-rkn" secondAttribute="height" id="rZT-UW-Ba7"/>
                         </constraints>
@@ -190,16 +191,16 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9G-7X-DZH" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="76" width="187" height="38"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="gEJ-gi-vKt" secondAttribute="bottom" id="8sz-yJ-1TK"/>
                             <constraint firstAttribute="trailing" secondItem="gEJ-gi-vKt" secondAttribute="trailing" id="NUb-jW-1bb"/>
                             <constraint firstItem="gEJ-gi-vKt" firstAttribute="leading" secondItem="qhc-NS-Lc6" secondAttribute="leading" id="Xmp-m5-6UG"/>
+                            <constraint firstItem="8aV-Pj-f9Z" firstAttribute="top" secondItem="gEJ-gi-vKt" secondAttribute="bottom" id="gbg-Mq-SrW"/>
                             <constraint firstItem="gEJ-gi-vKt" firstAttribute="top" secondItem="qhc-NS-Lc6" secondAttribute="top" id="qXT-75-5nL"/>
                         </constraints>
                     </view>
@@ -345,22 +346,25 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eXK-GV-lc2" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="188" height="38"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wme-DY-gaw" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="38" width="188" height="38"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o0y-fB-VIo" customClass="ChessPieceGraveYardRowView" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="76" width="188" height="38"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="bpb-43-f0V" secondAttribute="trailing" id="2Pp-vy-APQ"/>
+                            <constraint firstItem="bpb-43-f0V" firstAttribute="centerX" secondItem="8fs-H4-tkk" secondAttribute="centerX" id="2Xe-LN-vaF"/>
                             <constraint firstItem="bpb-43-f0V" firstAttribute="top" secondItem="pVC-Ij-P8U" secondAttribute="bottom" id="MOY-9T-EyY"/>
                             <constraint firstAttribute="bottom" secondItem="bpb-43-f0V" secondAttribute="bottom" id="Wcf-8A-8CB"/>
+                            <constraint firstItem="bpb-43-f0V" firstAttribute="centerY" secondItem="8fs-H4-tkk" secondAttribute="centerY" id="dmF-O2-zbN"/>
                             <constraint firstItem="bpb-43-f0V" firstAttribute="leading" secondItem="8fs-H4-tkk" secondAttribute="leading" id="kX8-hN-h1X"/>
                         </constraints>
                     </view>
@@ -436,7 +440,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rmd-Lu-JdY" customClass="AnimatedChessBoardView" customModule="Chess" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Rmd-Lu-JdY" secondAttribute="height" multiplier="1:1" id="aDW-G2-hkX"/>
                                 </constraints>

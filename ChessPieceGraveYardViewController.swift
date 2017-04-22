@@ -83,13 +83,19 @@ class ChessPieceGraveYardViewController: UIViewController {
     //MARK: - ViewController Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        //setupView()
     }
     
-    private func setupView(){
-        pawnGraveYardRowView.setUpSlots()
-        nonPawnGraveYardRowView1.setUpSlots()
-        nonPawnGraveYardRowView2.setUpSlots()
-    }
+//    override func viewDidLayoutSubviews() {
+//        pawnGraveYardRowView.updateSlotFrames()
+//        nonPawnGraveYardRowView1.updateSlotFrames()
+//        nonPawnGraveYardRowView2.updateSlotFrames()
+//    }
+    
+//    private func setupView(){
+//        pawnGraveYardRowView.addSlotsAsSubviews()
+//        nonPawnGraveYardRowView1.addSlotsAsSubviews()
+//        nonPawnGraveYardRowView2.addSlotsAsSubviews()
+//    }
 
 }
