@@ -1,0 +1,10 @@
+framework module AdvancedDataStructures {
+  umbrella header "AdvancedDataStructures.h"
+
+  export *
+  module * { export * }
+}
+
+module AdvancedDataStructures.Swift {
+    header "AdvancedDataStructures-Swift.h"
+}
