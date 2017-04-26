@@ -20,7 +20,11 @@ class ChessGameSettings{
         static let clockEnabled:Bool = true
     }
     
-    static let defaultGameSettings = ChessGameSettings(maxTakebacks: Default.maxTakebacks, takeBacksEnabled: Default.takeBacksEnabled, clockTime: Default.clockTime, clockEnabled: Default.clockEnabled)
+    static let defaultGameSettings = ChessGameSettings(
+        maxTakebacks: Default.maxTakebacks,
+        takeBacksEnabled: Default.takeBacksEnabled,
+        clockTime: Default.clockTime,
+        clockEnabled: Default.clockEnabled)
     
     //MARK: - Stored Properties
     var clockEnabled:Bool
@@ -87,11 +91,15 @@ class ChessGameSettings{
     
     required convenience init?(propertyList:Any?) {
         guard let pList = propertyList as? [String:Any],
-            let maxTakebacks = TakebackCount(integer:pList["maxTakebacks"] as! Int),
+            let intMaxTakebacks = pList["maxTakebacks"] as? Int,
+            let maxTakebacks = TakebackCount(integer: intMaxTakebacks),
             let takeBacksEnabled = pList["takeBacksEnabled"] as? Bool,
             let clockTime = pList["clockTime"] as? Int,
             let clockEnabled = pList["clockEnabled"] as? Bool
         else{return nil}
+        
+
+        
         self.init(maxTakebacks: maxTakebacks, takeBacksEnabled: takeBacksEnabled, clockTime: clockTime, clockEnabled: clockEnabled)
     }
     

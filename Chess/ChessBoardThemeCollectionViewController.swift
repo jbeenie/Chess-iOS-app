@@ -8,37 +8,6 @@
 
 import UIKit
 
-struct ChessBoardTheme:Equatable,Hashable{
-    let whiteSquareColor:UIColor
-    let blackSquareColor:UIColor
-    
-    //MARK: - Equatable & Hashalble
-    var hashValue: Int{
-        return whiteSquareColor.hashValue ^ blackSquareColor.hashValue
-    }
-    
-    static func == (lhs:ChessBoardTheme,rhs:ChessBoardTheme)->Bool{
-        return lhs.whiteSquareColor == rhs.whiteSquareColor && lhs.blackSquareColor == rhs.blackSquareColor
-    }
-    
-    
-    //MARK: - Initializers
-    
-    init(whiteSquareColor: UIColor, blackSquareColor: UIColor){
-        self.whiteSquareColor = whiteSquareColor
-        self.blackSquareColor = blackSquareColor
-    }
-}
-
-
-
-//List of chessboard themes
-struct ChessBoardThemes{
-    static let GreenWhite = ChessBoardTheme(whiteSquareColor:UIColor.white , blackSquareColor: UIColor.green)
-    static let GrayWhite = ChessBoardTheme(whiteSquareColor: UIColor.white, blackSquareColor: UIColor.gray)
-    static let BrownYellow = ChessBoardTheme(whiteSquareColor: UIColor.yellow, blackSquareColor:UIColor.brown )
-}
-
 
 class ChessBoardThemeCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout {
     
@@ -50,9 +19,7 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController,UIColl
     
     //data structure storing chess board themes
     private let chessBoardthemes: [[ChessBoardTheme]] =
-        [[ChessBoardThemes.GreenWhite,
-          ChessBoardThemes.GrayWhite,
-          ChessBoardThemes.BrownYellow]]
+        [ChessBoardThemes.list]
     
     var selectedTheme:ChessBoardTheme! = nil
     var selectedThemeIndex:IndexPath!{
@@ -157,40 +124,5 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController,UIColl
     
     override func viewWillDisappear(_ animated: Bool) {
         updateSettings()
-    }
-}
-
-
-extension ChessBoardTheme: ChessSetting{
-    private static var colorMap:[String:UIColor]{
-        return ["white":UIColor.white,
-                "gray":UIColor.gray,
-                "green":UIColor.green,
-                "yellow":UIColor.yellow,
-                "brown":UIColor.brown
-        ]
-    }
-    
-    //MARK: - Conforming to ChessSetting
-    func propertyList() ->[String:String]{
-        let representation:[String:String] = [
-            "whiteSquareColor": ChessBoardTheme.colorMap.someKeyFor(value:whiteSquareColor)!,
-            "blackSquareColor": ChessBoardTheme.colorMap.someKeyFor(value:blackSquareColor)!]
-        return representation
-    }
-    
-    init?(propertyList:Any?) {
-        guard
-        let typedPropertyList = propertyList as? [String:String],
-            let whiteSquareColor = ChessBoardTheme.colorMap[typedPropertyList["whiteSquareColor"]!],
-            let blackSquareColor = ChessBoardTheme.colorMap[typedPropertyList["blackSquareColor"]!]
-        else {return nil}
-        self.init(whiteSquareColor:whiteSquareColor,blackSquareColor:blackSquareColor)
-    }
-    
-    //MARK: - Debugging
-    
-    var description:String{
-        return "whiteSquareColor: "+whiteSquareColor.description + "," + "blackSquareColor: "+blackSquareColor.description+"\n"
     }
 }

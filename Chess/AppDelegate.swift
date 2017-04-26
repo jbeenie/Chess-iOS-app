@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         //Register global default settings
         UserDefaults.standard.register(defaults: ChessSettings.pListRepresentation(ofSettings: ChessSettings.defaultSettings))
-        //Register game specific default settings
-        UserDefaults.standard.register(defaults: ChessGameSettings.defaultGameSettings.propertyList())
+//        //Register game specific default settings
+//        UserDefaults.standard.register(defaults: ChessGameSettings.defaultGameSettings.propertyList())
         return true
     }
 

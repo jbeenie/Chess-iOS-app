@@ -93,6 +93,8 @@
 		9FCDBB341E7A343800ED5B1A /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCDBB331E7A343800ED5B1A /* SettingsTableViewController.swift */; };
 		9FD095441EAEEC7D00A1E8F8 /* AdvancedDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD095431EAEEC7D00A1E8F8 /* AdvancedDataStructures.framework */; };
 		9FD095451EAEEC7D00A1E8F8 /* AdvancedDataStructures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD095431EAEEC7D00A1E8F8 /* AdvancedDataStructures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9FD095471EAFE1C400A1E8F8 /* ChessBoardTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD095461EAFE1C400A1E8F8 /* ChessBoardTheme.swift */; };
+		9FD095491EAFED5B00A1E8F8 /* NamedUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD095481EAFED5B00A1E8F8 /* NamedUIColor.swift */; };
 		9FD74CE21E54DDC700FFC762 /* ChessGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CE11E54DDC700FFC762 /* ChessGame.swift */; };
 		9FD74CE41E54DDD800FFC762 /* ChessBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CE31E54DDD800FFC762 /* ChessBoard.swift */; };
 		9FD74CE61E54DDED00FFC762 /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD74CE51E54DDED00FFC762 /* ChessPiece.swift */; };
@@ -233,6 +235,8 @@
 		9FCDBB2F1E7A337500ED5B1A /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		9FCDBB331E7A343800ED5B1A /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		9FD095431EAEEC7D00A1E8F8 /* AdvancedDataStructures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdvancedDataStructures.framework; path = "Frameworks/AdvancedDataStructures/Debug-iphoneos/AdvancedDataStructures.framework"; sourceTree = "<group>"; };
+		9FD095461EAFE1C400A1E8F8 /* ChessBoardTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardTheme.swift; sourceTree = "<group>"; };
+		9FD095481EAFED5B00A1E8F8 /* NamedUIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NamedUIColor.swift; sourceTree = "<group>"; };
 		9FD74CE11E54DDC700FFC762 /* ChessGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessGame.swift; sourceTree = "<group>"; };
 		9FD74CE31E54DDD800FFC762 /* ChessBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoard.swift; sourceTree = "<group>"; };
 		9FD74CE51E54DDED00FFC762 /* ChessPiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
@@ -326,6 +330,7 @@
 			children = (
 				9FAC3AAC1E7B6E40008F7900 /* ChessBoardThemeCollectionViewController.swift */,
 				9FAC3AB21E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift */,
+				9FD095461EAFE1C400A1E8F8 /* ChessBoardTheme.swift */,
 			);
 			name = "ChessBoardThemeController ";
 			sourceTree = "<group>";
@@ -465,6 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				9FBD891D1EA9CAC6006B6046 /* AppColors.swift */,
+				9FD095481EAFED5B00A1E8F8 /* NamedUIColor.swift */,
 			);
 			name = Colors;
 			sourceTree = "<group>";
@@ -769,9 +775,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F09A3841E7267F200C0AA95 /* PromotionChoicesViewController.swift in Sources */,
+				9FD095471EAFE1C400A1E8F8 /* ChessBoardTheme.swift in Sources */,
 				9F9C893E1E848D1800E717C3 /* BlackTakebacksViewController.swift in Sources */,
 				9FE399121E81BDB100A81787 /* ChessSetting.swift in Sources */,
 				9FBD891E1EA9CAC6006B6046 /* AppColors.swift in Sources */,
+				9FD095491EAFED5B00A1E8F8 /* NamedUIColor.swift in Sources */,
 				9FCB75A51E4EB71900275773 /* ChessBoardSquareView.swift in Sources */,
 				9FD74CE41E54DDD800FFC762 /* ChessBoard.swift in Sources */,
 				9FCB75CC1E4FF1EB00275773 /* ChessBoardView.swift in Sources */,

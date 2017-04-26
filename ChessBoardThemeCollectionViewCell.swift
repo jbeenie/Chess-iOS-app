@@ -11,7 +11,7 @@ import UIKit
 class ChessBoardThemeCollectionViewCell: UICollectionViewCell{
     //MARK: - Default values
     struct Default{
-        static let theme:ChessBoardTheme = ChessBoardTheme(whiteSquareColor: UIColor.white,blackSquareColor: UIColor.gray)
+        static let theme:ChessBoardTheme = ChessBoardThemes.GrayWhite
     }
     
     struct Selection{
