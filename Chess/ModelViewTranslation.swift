@@ -38,7 +38,7 @@ class ModelViewTranslation{
              (.Bishop,ChessPieceView.ChessPieceType.Bishop),
              (.Queen,ChessPieceView.ChessPieceType.Queen),
              (.King,ChessPieceView.ChessPieceType.King)]
-        )
+        )!
     }
     
     //MARK: ChessPiece -> viewPosition
