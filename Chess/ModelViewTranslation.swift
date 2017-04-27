@@ -31,7 +31,8 @@ class ModelViewTranslation{
     //MARK: - ChessPiece Type
     
     static var chessPieceTypeInjection:Injection<ChessPieceType,ChessPieceView.ChessPieceType>{
-        return Injection<ChessPieceType,ChessPieceView.ChessPieceType>(pairs:
+        return
+            Injection<ChessPieceType,ChessPieceView.ChessPieceType>(pairs:
             [(.Pawn, ChessPieceView.ChessPieceType.Pawn),
              (.Rook, ChessPieceView.ChessPieceType.Rook),
              (.Knight, ChessPieceView.ChessPieceType.Knight_R),
