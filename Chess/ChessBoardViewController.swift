@@ -177,6 +177,12 @@ class ChessBoardViewController: UIViewController{
         //unhide the appropriate animation copies
         pieceToMove.aninmationCopy.isHidden = false
         rookMoved?.aninmationCopy.isHidden = false
+
+        //Debug
+        print(pieceToMove.aninmationCopy.frame)
+        print(pieceToMove.aninmationCopy.superview ?? "none")
+        print(pieceToMove.superview ?? "none")
+        print(pieceToMove.frame)
         
         
         

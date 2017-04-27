@@ -45,6 +45,7 @@ class ChessPieceView: UIImageView {
     }
     
     //MARK: - Properties
+    let isAnimationCopy: Bool
     var aspectRatio: CGFloat! = nil
     var chessPieceIdentifier: ChessPieceIdentifier
     override var description: String{
@@ -52,30 +53,40 @@ class ChessPieceView: UIImageView {
     }
     lazy var aninmationCopy:ChessPieceView = {
         //create the animation copy
-        let animationCopy = ChessPieceView(chessPieceView:self)
+        let animationCopy = ChessPieceView(chessPieceView:self,isAnimationCopy:true)
         //hide it
         //animationCopy.isHidden = true
-        //add it as a subview of the animated chess board view
-        (self.superview as? AnimatedChessBoardView)?.addSubview(animationCopy)
+        
         animationCopy.frame = self.frame
 
         return animationCopy
         }()
     
+    //MARK: - Adding Animation Copy to common superview as self
+    override func didMoveToSuperview() {
+        if !isAnimationCopy{
+            (self.superview as? AnimatedChessBoardView)?.addSubview(aninmationCopy)
+            if self.superview != nil{
+                aninmationCopy.isHidden = true
+            }
+        }
+    }
+    
     
     //MARK:  - Initializers
 
     
-    convenience init(chessPieceView:ChessPieceView){
-        self.init(frame: chessPieceView.frame, color: chessPieceView.chessPieceIdentifier.color, type: chessPieceView.chessPieceIdentifier.type)
+    convenience init(chessPieceView:ChessPieceView,isAnimationCopy:Bool=false){
+        self.init(frame: chessPieceView.frame, color: chessPieceView.chessPieceIdentifier.color, type: chessPieceView.chessPieceIdentifier.type, isAnimationCopy: isAnimationCopy)
     }
     
-    convenience init(color: ChessPieceColor, type: ChessPieceType) {
-        self.init(frame: CGRect.zero, color: color, type: type)
+    convenience init(color: ChessPieceColor, type: ChessPieceType,isAnimationCopy:Bool=false) {
+        self.init(frame: CGRect.zero, color: color, type: type, isAnimationCopy: isAnimationCopy)
     }
     
-    init(frame: CGRect, color: ChessPieceColor, type: ChessPieceType) {
+    init(frame: CGRect, color: ChessPieceColor, type: ChessPieceType,isAnimationCopy:Bool=false) {
         self.chessPieceIdentifier = ChessPieceIdentifier(color: color, type: type)
+        self.isAnimationCopy = isAnimationCopy
         super.init(frame: frame)
         self.image = ChessPieceView.ChessPieceIcons[self.chessPieceIdentifier]
         self.sizeToFit()

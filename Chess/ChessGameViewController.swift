@@ -57,7 +57,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: SubViews
     //MARK: Board
-    private var chessBoardView:ChessBoardView!{
+    private var chessBoardView:AnimatedChessBoardView!{
         return chessBoardViewController.chessBoardView
     }
     private var lastSelectedSquare: ChessBoardSquareView?{
@@ -310,7 +310,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         chessBoardViewController.deselectSelectedSquare()
         
         //Translate the model move into view move
-        let viewMove = ModelViewTranslation.chessBoardViewMove(from: move)
+        let viewMove = ModelViewTranslation.chessBoardViewMove(from: move, for: chessBoardView)
         
         //Toggle timers
         chessClock?.moveOccured()
@@ -341,7 +341,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         //undo the last move if any
         if let lastMove = chessGame.undoLastMove(){
             //translate move to view move
-            let lastViewMove = ModelViewTranslation.chessBoardViewMove(from: lastMove)
+            let lastViewMove = ModelViewTranslation.chessBoardViewMove(from: lastMove, for: chessBoardView)
             
             //toggle orientation of chess pieces after move is undone
             let toggleOrientation = { self.chessPieceVOM.toggleOrientation() }
