@@ -38,6 +38,9 @@ class TimerViewController: UIViewController,ChessTimerDelegate{
     private func setUpTimerLabel(){
         //if the timer is not nil
         if let timer = self.timer{
+            //Set font Label
+            timerLabel?.font = UIFont(name: "DBLCDTempBlack", size: timerLabel!.font.pointSize)
+
             //set the label to the initial time on the timer
             updateTimerDisplay(with:Int(timer.timeRemaining))
         }else{

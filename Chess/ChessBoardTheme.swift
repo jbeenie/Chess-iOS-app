@@ -37,43 +37,35 @@ struct ChessBoardTheme:Equatable,Hashable{
 struct ChessBoardThemes{
     
     //Green White options
-    static let GreenWhite = ChessBoardTheme(whiteSquareColor:UIColor.white , blackSquareColor: UIColor.green, name:"GreenWhite")
-    static let GreenWhite1 = ChessBoardTheme(whiteSquareColor:AppColors.forestGreen1 , blackSquareColor: AppColors.offWhite1, name:"GreenWhite1")
+    static let GreenWhite = ChessBoardTheme(whiteSquareColor:UIColor.white , blackSquareColor: UIColor.green, name:"Green/White")
+    static let GreenWhite1 = ChessBoardTheme(whiteSquareColor:AppColor.forestGreen1 , blackSquareColor: AppColor.offWhite1, name:"Green/White1")
     
-    static let GreenWhite2 = ChessBoardTheme(whiteSquareColor:AppColors.forestGreen2 , blackSquareColor: AppColors.offWhite2, name:"GreenWhite2")
+    static let GreenWhite2 = ChessBoardTheme(whiteSquareColor:AppColor.forestGreen2 , blackSquareColor: AppColor.offWhite2, name:"Green/White2")
     
-    static let GreenWhite3 = ChessBoardTheme(whiteSquareColor:AppColors.forestGreen3 , blackSquareColor: AppColors.offWhite3, name:"GreenWhite3")
+    static let GreenWhite3 = ChessBoardTheme(whiteSquareColor:AppColor.forestGreen3 , blackSquareColor: AppColor.offWhite3, name:"Green/White3")
     
-    static let GreenWhite4 = ChessBoardTheme(whiteSquareColor:AppColors.forestGreen4 , blackSquareColor: AppColors.offWhite4, name:"GreenWhite4")
+    static let GreenWhite4 = ChessBoardTheme(whiteSquareColor:AppColor.forestGreen4 , blackSquareColor: AppColor.offWhite4, name:"Green/White4")
     
     
     
     //Gray White
-    static let GrayWhite = ChessBoardTheme(whiteSquareColor: UIColor.white, blackSquareColor: UIColor.gray, name:"GrayWhite")
+    static let GrayWhite = ChessBoardTheme(whiteSquareColor: UIColor.white, blackSquareColor: UIColor.gray, name:"Gray/White")
     
     
     //Brown Yellow
-    static let BrownYellow = ChessBoardTheme(whiteSquareColor: UIColor.yellow, blackSquareColor:UIColor.brown, name:"BrownYellow" )
+    static let BrownYellow = ChessBoardTheme(whiteSquareColor: UIColor.yellow, blackSquareColor:UIColor.brown, name:"Brown/Yellow" )
     
     static let list = [GreenWhite,GreenWhite1,GreenWhite2,GreenWhite3,GreenWhite4,GrayWhite,BrownYellow]
 }
 
 extension ChessBoardTheme: ChessSetting{
-    //TODO: Change to bijection
-    private static var colorMap:[String:UIColor]{
-        return ["white":UIColor.white,
-                "gray":UIColor.gray,
-                "green":UIColor.green,
-                "yellow":UIColor.yellow,
-                "brown":UIColor.brown
-        ]
-    }
+    
     
     //MARK: - Conforming to ChessSetting
     func propertyList() ->[String:String]{
         let representation:[String:String] = [
-            "whiteSquareColor": ChessBoardTheme.colorMap.someKeyFor(value:whiteSquareColor)!,
-            "blackSquareColor": ChessBoardTheme.colorMap.someKeyFor(value:blackSquareColor)!,
+            "whiteSquareColor": AppColor.injection[whiteSquareColor]!,
+            "blackSquareColor": AppColor.injection[blackSquareColor]!,
             "name": name]
         return representation
     }
@@ -81,8 +73,8 @@ extension ChessBoardTheme: ChessSetting{
     init?(propertyList:Any?) {
         guard
             let typedPropertyList = propertyList as? [String:String],
-            let whiteSquareColor = ChessBoardTheme.colorMap[typedPropertyList["whiteSquareColor"]!],
-            let blackSquareColor = ChessBoardTheme.colorMap[typedPropertyList["blackSquareColor"]!],
+            let whiteSquareColor = AppColor.injection[typedPropertyList["whiteSquareColor"]!],
+            let blackSquareColor = AppColor.injection[typedPropertyList["blackSquareColor"]!],
             let name = typedPropertyList["name"]
             else {return nil}
         self.init(whiteSquareColor:whiteSquareColor,blackSquareColor:blackSquareColor, name: name)

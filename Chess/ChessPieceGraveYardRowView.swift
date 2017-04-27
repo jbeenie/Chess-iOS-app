@@ -13,7 +13,7 @@ class ChessPieceGraveYardRowView: UIView {
     
     //MARK: - Constants
     let numberOfSlots:Int = ChessPieceGraveYardViewController.Constants.numberOfSlotPerRow
-    @IBInspectable let slotColor = UIColor.white
+    @IBInspectable let slotColor = UIColor.clear
     @IBInspectable let slotSelectedColor = UIColor.gray
     
     

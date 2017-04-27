@@ -26,6 +26,11 @@ class MenuViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
+    //MARK: - Status Bar
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     
     

@@ -528,6 +528,11 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         }else{completionHandler?()}
     }
     
+    //MARK: - Status Bar
+    
+    override var prefersStatusBarHidden: Bool{
+        return true
+    }
     
     //MARK: - Navigation
     
