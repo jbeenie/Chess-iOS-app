@@ -287,8 +287,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     }
     
     func threeTouchTapOccured() {
-        //if the game is not timed three touch taps do nothing
-        guard let chessClock = chessClock else{return}
+        //if the game is over or it is not timed three touch taps do nothing
+        guard !chessGame.ended,  let chessClock = chessClock else{return}
         //if the clock is paused then unpause it
         //if the clock is unpauses then pause it
         chessClock.pauseUnPause()
@@ -343,12 +343,18 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             //translate move to view move
             let lastViewMove = ModelViewTranslation.chessBoardViewMove(from: lastMove, for: chessBoardView)
             
-            //toggle orientation of chess pieces after move is undone
+            //closure used to toggle orientation of chess pieces 
+            //after move is undone
             let toggleOrientation = { self.chessPieceVOM.toggleOrientation() }
+            
             
             //remove the current notification if necessary
             //then undo the last move on the chessBoardView
-            removeNotification {self.chessBoardViewController.undo(move: lastViewMove, animate:self.gameSettings.animationsEnabled, completion: toggleOrientation)}
+            removeNotification {
+                self.chessBoardViewController.undo(move: lastViewMove,
+                                                   animate:self.gameSettings.animationsEnabled,
+                                                   completion: toggleOrientation)
+            }
             
             //Roll back the clock
             chessClock?.moveUndone()
@@ -356,6 +362,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             //decrement the takebackcount
             takebacksViewController.takebackCount.decrement()
             
+            //update list of views in the chess piece VOM's
+            chessPieceVOM.views = chessBoardView.pieces
             
             return lastMove
         }
@@ -499,6 +507,16 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         
         //toggle orientation of chess pieces
         chessPieceVOM.toggleOrientation(completion: postNotification)
+        
+        //pause clock if game is over
+        if let chessClock = chessClock, let  outCome = outCome{
+            switch outCome {
+            case .Draw, .Win:
+                chessClock.pause()
+            default:
+                break
+            }
+        }
     }
     
     //MARK: - ChessGame Notifications

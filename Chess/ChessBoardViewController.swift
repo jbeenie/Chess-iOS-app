@@ -179,10 +179,10 @@ class ChessBoardViewController: UIViewController{
         rookMoved?.aninmationCopy.isHidden = false
 
         //Debug
-        print(pieceToMove.aninmationCopy.frame)
-        print(pieceToMove.aninmationCopy.superview ?? "none")
-        print(pieceToMove.superview ?? "none")
-        print(pieceToMove.frame)
+//        print(pieceToMove.aninmationCopy.frame)
+//        print(pieceToMove.aninmationCopy.superview ?? "none")
+//        print(pieceToMove.superview ?? "none")
+//        print(pieceToMove.frame)
         
         
         
