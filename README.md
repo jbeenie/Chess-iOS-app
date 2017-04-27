@@ -38,5 +38,5 @@ Actual Games saved using Core data, serialized using NSCoding
 
 ## Graphic Design
 
-App Logo designed with the help of Stas Pakhomov 
+App Logo designed with the help of Stas Pakhomov(stas@miarez.com)
 
