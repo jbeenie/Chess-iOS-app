@@ -11,6 +11,7 @@ In a nut shell it allows two individuals to play chess in person on an iPad or i
 * A chess clock can be enabled to play timed games
 * Players can save games to come back to later
 
+![Chess App Game Play](https://github.com/jbeenie/Gifs/blob/master/ChessApp/game_play.gif)
 
 ## Controls
 Move pieces: tap on piece then tap on destination position
