@@ -16,13 +16,7 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
         static let ChessGame = "ChessGame"
     }
     
-    struct Default{
-        static let takebackCount = TakebackCount.Infinite
-        static let clockTime: Int = 5 * 60 // 5 minutes
-    }
-    
     struct Constants{
-        static let noTakebacks = TakebackCount.Finite(0)
         static let shouldHighlightRowAt:[IndexPath:Bool] = [
             IndexPath(row: 0, section: 0):false,
             IndexPath(row: 1, section: 0):true,
@@ -37,11 +31,9 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     var gameSettings:ChessGameSettings = ChessGameSettings.loadGameSettings()
     
     private var clockTimeString:String{
-        //make sure chess clock is not nil
-        guard let totalSeconds =  gameSettings.clockTime else {return "∞"}
-        //if its not nil use its initial time property to create the clock time string
+        //format clock time string
         var timeFormatter = TimeFormatter()
-        timeFormatter.totalSeconds = totalSeconds
+        timeFormatter.totalSeconds = gameSettings.clockTime
         return timeFormatter.hoursMinutesString
     }
     
@@ -71,12 +63,16 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     //MARK: update state of the VC with the current game settings when it appears
     private func update(){
         //update clock related
-        clockSwitch.isOn = gameSettings.clockTime != nil
+        clockSwitch.isOn = gameSettings.clockEnabled
         enableOrDisableClockTimeCellCell(if: clockSwitch.isOn)
+        clockTimeLabel?.text = clockTimeString
+
         
         //set position of takebacks switch
-        takebacksSwitch.isOn = gameSettings.maxTakebacks != TakebackCount.Finite(0)
+        takebacksSwitch.isOn = gameSettings.takeBacksEnabled
         enableOrDisableMaxTakebacksCell(if:takebacksSwitch.isOn)
+        maxTakeBacksLabel?.text = gameSettings.maxTakebacks.description
+
     }
     
     //MARK: - Actions
@@ -98,29 +94,13 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     //MARK: Enabling and Disabling cells
     
     private func enableOrDisableMaxTakebacksCell(if bool:Bool){
-        switch (gameSettings.maxTakebacks, bool) {
-        case (.Finite(let count), true) where count == 0:
-            gameSettings.maxTakebacks = Default.takebackCount
-        case (.Finite(let count),false) where count != 0:
-            gameSettings.maxTakebacks = Constants.noTakebacks
-        case (.Infinite,false):
-            gameSettings.maxTakebacks = Constants.noTakebacks
-        default:
-            break
-
-        }
+        gameSettings.takeBacksEnabled = bool
         enableOrDisable(cell:maxTakeBacksCell, if:bool)
-        maxTakeBacksLabel?.text = gameSettings.maxTakebacks.description
     }
     
     private func enableOrDisableClockTimeCellCell(if bool:Bool){
-        if gameSettings.clockTime == nil && bool{
-            gameSettings.clockTime =  Default.clockTime
-        }else if gameSettings.clockTime != nil && !bool{
-            gameSettings.clockTime = nil
-        }
+        gameSettings.clockEnabled = bool
         enableOrDisable(cell:clockTimeCell, if:bool)
-        clockTimeLabel?.text = clockTimeString
     }
 
     
@@ -166,7 +146,7 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     
     private func prepare(clockTimeVC:ClockTimeViewController){
         //tell it the initial clock time value to display
-        clockTimeVC.clockTime = gameSettings.clockTime!
+        clockTimeVC.clockTime = gameSettings.clockTime
     }
     
     private func prepare(chessGameVC: ChessGameViewController){

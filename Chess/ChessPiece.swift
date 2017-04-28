@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ChessPiece:class{
-    //MARK: -Properties
+    //MARK: - Properties
     var initialPosition: Position {get}
     var position: Position {get set}
     var color: ChessPieceColor {get}
@@ -17,46 +17,77 @@ protocol ChessPiece:class{
     var canJumpOverOtherPieces: Bool {get}
     var hasMoved: Bool {get set}
     var typeId: ChessPieceType {get}
-    var chessBoard: ChessBoard {get}
+    var chessBoard: ChessBoard {get set}
     var reachableSquares:Set<Position> {get}
     
-    
-    
-    //MARK: Methods
+    //MARK: - Methods
     func isValidMove(to newPosition:Position)->Bool
-    
-    
-    
-    //MARK: - Initializers
-    init(color: ChessPieceColor, position: Position, chessBoard: ChessBoard)
-    
-    init(chessPiece:ChessPiece, chessBoard:ChessBoard?)
-    
 }
+//MARK: -
 
 extension ChessPiece{
-    //MARK: - Debugging
+    //MARK:  Debugging
     var description: String{
         return "\(color.rawValue)\(typeId.rawValue)"
+    }
+    
+    var longDescription: String{
+        return "color:\(color.rawValue)\n" +
+            "initialPosition:\(initialPosition.description)\n" +
+            "position:\(position.description)\n" +
+            "hasMoved:\(hasMoved)\n" +
+            "type:\(typeId.rawValue)\n" +
+            "chessBoard:\n\(chessBoard.description)\n"
+
     }
     
     //MARK: - Static Properties and Methods
     
     //MARK: Creating ChessPiece from type ID
     
-    private static var chessPieceCreators:[ChessPieceType:(ChessPieceColor,Position,ChessBoard)->ChessPiece] {
+    private static var chessPieceCreators:[ChessPieceType:(ChessPieceColor,Position,Position,ChessBoard,Bool)->ChessPiece] {
         return [
-        .Pawn: {(color,pos,board) in return Pawn(color:color, position:pos, chessBoard:board)},
-        .Rook: {(color,pos,board) in return Rook(color:color, position:pos, chessBoard:board)},
-        .Knight: {(color,pos,board) in return Knight(color:color, position:pos, chessBoard:board)},
-        .Bishop: {(color,pos,board) in return Bishop(color:color, position:pos, chessBoard:board)},
-        .Queen: {(color,pos,board) in return Queen(color:color, position:pos, chessBoard:board)},
-        .King: {(color,pos,board) in return King(color:color, position:pos, chessBoard:board)}]
+            .Pawn: {(color,initialPos,pos,board,hasMoved) in
+                return Pawn(color:color,
+                            initialPosition:initialPos,
+                            position:pos,
+                            chessBoard:board,
+                            hasMoved:hasMoved)},
+        .Rook: {(color,initialPos,pos,board,hasMoved) in
+            return Rook(color:color,
+                        initialPosition:initialPos,
+                        position:pos,
+                        chessBoard:board,
+                        hasMoved:hasMoved)},
+        .Knight: {(color,initialPos,pos,board,hasMoved) in
+            return Knight(color:color,
+                          initialPosition:initialPos,
+                          position:pos,
+                          chessBoard:board,
+                          hasMoved:hasMoved)},
+        .Bishop: {(color,initialPos,pos,board,hasMoved) in
+            return Bishop(color:color,
+                          initialPosition:initialPos,
+                          position:pos,
+                          chessBoard:board,
+                          hasMoved:hasMoved)},
+        .Queen: {(color,initialPos,pos,board,hasMoved) in
+            return Queen(color:color,
+                         initialPosition:initialPos,
+                         position:pos,
+                         chessBoard:board,
+                         hasMoved:hasMoved)},
+        .King: {(color,initialPos,pos,board,hasMoved) in
+            return King(color:color,
+                        initialPosition:initialPos,
+                        position:pos,
+                        chessBoard:board,
+                        hasMoved:hasMoved)}]
     }
     
-    static func createChessPiece(of type:ChessPieceType, color: ChessPieceColor, at position:Position, on chessBoard:ChessBoard)->ChessPiece{
+    static func createChessPiece(of type:ChessPieceType, color: ChessPieceColor, initialPosition:Position, at position:Position, on chessBoard:ChessBoard, hasMoved:Bool)->ChessPiece{
         let chessPieceCreator = chessPieceCreators[type]!
-        return chessPieceCreator(color,position,chessBoard)
+        return chessPieceCreator(color,initialPosition,position,chessBoard,hasMoved)
     }
     
     
@@ -177,8 +208,9 @@ extension ChessPiece{
     }
 }
 
+
 //MARK: - Supporting Type
-enum ChessPieceColor: Character {
+enum ChessPieceColor: String {
     case White = "W", Black = "B"
     mutating func alternate() {
         switch self {
@@ -199,7 +231,7 @@ enum ChessPieceColor: Character {
     }
 }
 
-enum ChessPieceType: Character{
+enum ChessPieceType: String{
     case    Pawn = "P",
             Knight = "H",
             Bishop = "B",
@@ -208,6 +240,6 @@ enum ChessPieceType: Character{
             King = "K"
 }
 
-enum Side:Character{
+enum Side:String{
     case King = "K", Queen = "Q"
 }

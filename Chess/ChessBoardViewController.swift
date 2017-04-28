@@ -38,40 +38,52 @@ class ChessBoardViewController: UIViewController{
                     chessBoardView[row,col]!.addGestureRecognizer(chessBoardSquareTapRecognizer)
                 }
             }
-            //add double tap gesture recognizer to the overall ChessBoard to enable deselection of squares
-            chessBoardView.addGestureRecognizer(chessBoardDoubleTapRecognizer)
+            //add two touch tap gesture recognizer to the overall ChessBoard
+            chessBoardView.addGestureRecognizer(twoTouchTapRecognizer)
+            //add double two touch tap gesture recognizer to the overall ChessBoard
+            chessBoardView.addGestureRecognizer(threeTouchTapRecognizer)
         }
     }
     
-    private lazy var chessBoardDoubleTapRecognizer: UITapGestureRecognizer = { [unowned self] in
-        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChessBoardViewController.handleDoubleTap(recognizer:)))
-        doubleTapRecognizer.numberOfTapsRequired = 1
-        doubleTapRecognizer.numberOfTouchesRequired = 2
-        return doubleTapRecognizer
+    private lazy var twoTouchTapRecognizer: UITapGestureRecognizer = { [unowned self] in
+        let twoTouchTapRecognizer = UITapGestureRecognizer(touchCount: 2, tapCount: 1, target: self, action: #selector(ChessBoardViewController.handleTwoTouchTap(recognizer:)))
+        twoTouchTapRecognizer.require(toFail: self.threeTouchTapRecognizer)
+        return twoTouchTapRecognizer
     }()
+    
+    private lazy var threeTouchTapRecognizer: UITapGestureRecognizer = { [unowned self] in
+        return UITapGestureRecognizer(touchCount: 2, tapCount: 2, target: self, action: #selector(ChessBoardViewController.handleThreeTouchTap(recognizer:)))
+        }()
+
         
     private var chessBoardSquareTapRecognizer: UITapGestureRecognizer{
-        let singleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(ChessBoardViewController.handleSingleTap(recognizer:)))
-        singleTapRecognizer.numberOfTapsRequired = 1
-        singleTapRecognizer.numberOfTouchesRequired = 1
-        singleTapRecognizer.require(toFail: chessBoardDoubleTapRecognizer)
-        return singleTapRecognizer
+        let singleTouchTapRecognizer = UITapGestureRecognizer(touchCount: 1, tapCount: 1, target: self, action: #selector(ChessBoardViewController.handleSingleTouchTap(recognizer:)))
+        singleTouchTapRecognizer.require(toFail: twoTouchTapRecognizer)
+        return singleTouchTapRecognizer
     }
     
     //MARK: - Gesture Handlers
     
-    @objc private func handleSingleTap(recognizer: UITapGestureRecognizer){
+    @objc private func handleSingleTouchTap(recognizer: UITapGestureRecognizer){
         if recognizer.state == .ended {
             if let chessBoardSquare = recognizer.view as? ChessBoardSquareView{
-                delegate.singleTapOccured(on: chessBoardSquare)
+                delegate.tapOccured(on: chessBoardSquare)
             }
         }
     }
     
-    @objc private func handleDoubleTap(recognizer: UITapGestureRecognizer){
+    @objc private func handleTwoTouchTap(recognizer: UITapGestureRecognizer){
         if recognizer.state == .ended {
             if let _ = recognizer.view as? ChessBoardView{
-                delegate.doubleTapOccured()
+                delegate.twoTouchTapOccured()
+            }
+        }
+    }
+    
+    @objc private func handleThreeTouchTap(recognizer: UITapGestureRecognizer){
+        if recognizer.state == .ended {
+            if let _ = recognizer.view as? ChessBoardView{
+                delegate.threeTouchTapOccured()
             }
         }
     }
@@ -93,7 +105,11 @@ class ChessBoardViewController: UIViewController{
     //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //set the colors of the chessBoardview is a chessboard theme is specified
+        //set the colors of the chessBoardview if a chessboard theme is specified
+    }
+    
+    override func viewDidLayoutSubviews() {
+        chessBoardView.updateChessBoardSquaresFrames()
     }
     
     private func setUpChessBoardView(){
@@ -161,6 +177,12 @@ class ChessBoardViewController: UIViewController{
         //unhide the appropriate animation copies
         pieceToMove.aninmationCopy.isHidden = false
         rookMoved?.aninmationCopy.isHidden = false
+
+        //Debug
+//        print(pieceToMove.aninmationCopy.frame)
+//        print(pieceToMove.aninmationCopy.superview ?? "none")
+//        print(pieceToMove.superview ?? "none")
+//        print(pieceToMove.frame)
         
         
         

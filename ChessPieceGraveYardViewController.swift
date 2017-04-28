@@ -14,7 +14,7 @@ class ChessPieceGraveYardViewController: UIViewController {
     }
     
     struct Constants{
-        static let MaxPiecesInRow = 8
+        static let numberOfSlotPerRow:Int = 8
     }
     
     
@@ -32,14 +32,22 @@ class ChessPieceGraveYardViewController: UIViewController {
     
     private func nonPawn(firstRow:Bool)->[ChessPiece]{
         if firstRow{
-            return nonPawnsCaptured.enumerated().flatMap{ $0.offset < Constants.MaxPiecesInRow  ? $0.element : nil }
+            return nonPawnsCaptured.enumerated().flatMap{ $0.offset < Constants.numberOfSlotPerRow  ? $0.element : nil }
         }else{
-            return nonPawnsCaptured.enumerated().flatMap{ $0.offset >= Constants.MaxPiecesInRow  ? $0.element : nil }
+            return nonPawnsCaptured.enumerated().flatMap{ $0.offset >= Constants.numberOfSlotPerRow  ? $0.element : nil }
         }
     }
     
     
     //MARK: Updating Model
+    
+    func add(chessPieces:[ChessPiece])->Bool{
+        for chessPiece in chessPieces{
+            guard chessPieceGraveYard.add(chessPiece) else{return false}
+        }
+        updateUI()
+        return true
+    }
     
     func add(chessPiece:ChessPiece)->Bool{
         guard chessPieceGraveYard.add(chessPiece) else{return false}
@@ -75,13 +83,23 @@ class ChessPieceGraveYardViewController: UIViewController {
     //MARK: - ViewController Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        //setupView()
     }
     
-    private func setupView(){
-        pawnGraveYardRowView.setUpSlots()
-        nonPawnGraveYardRowView1.setUpSlots()
-        nonPawnGraveYardRowView2.setUpSlots()
+    override func viewDidLayoutSubviews() {
+        //store slot side lenght as constant so you don't risk recomputing 
+        //different slot side lengths
+        let slotSideLength = self.slotSideLength
+        pawnGraveYardRowView.updateSlotFrames(with: slotSideLength)
+        nonPawnGraveYardRowView1.updateSlotFrames(with: slotSideLength)
+        nonPawnGraveYardRowView2.updateSlotFrames(with: slotSideLength)
     }
+    
+    //MARK: - Computation of slot side length
+    private var slotSideLength:CGFloat{
+        return min(pawnGraveYardRowView.frame.width/CGFloat(Constants.numberOfSlotPerRow), pawnGraveYardRowView.frame.height)
+    }
+    
+
 
 }

@@ -11,8 +11,10 @@ import Foundation
 protocol ChessBoardViewControllerDelegate{
     var shouldAnimate:Bool {get}
     
-    func singleTapOccured(on tappedChessBoardSquare: ChessBoardSquareView)
+    func tapOccured(on tappedChessBoardSquare: ChessBoardSquareView)
     
-    func doubleTapOccured()
+    func twoTouchTapOccured()
+    
+    func threeTouchTapOccured()
     
 }

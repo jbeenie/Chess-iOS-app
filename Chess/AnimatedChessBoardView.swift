@@ -112,7 +112,9 @@ class AnimatedChessBoardView: ChessBoardView {
     
     //MARK: Exposed Methods
     
-    func resize(chessPieceView:ChessPieceView, at position:Position){
+    func resize(chessPieceView:ChessPieceView?, at position:Position?){
+        //verify arguments are not nil before proceding 
+        guard let chessPieceView = chessPieceView, let position = position else {return}
         //first resize the chessPieceView
         self[position.row,position.col]!.resize(chessPieceView: chessPieceView)
         //then position it

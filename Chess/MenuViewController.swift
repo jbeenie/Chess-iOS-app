@@ -18,8 +18,19 @@ class MenuViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.hidesBarsOnSwipe = false
+        navigationController?.hidesBarsOnTap = false
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
+    //MARK: - Status Bar
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     
     
@@ -30,5 +41,9 @@ class MenuViewController: UIViewController {
         
     }
 
+    @IBAction func backToMainMenu(sender: UIStoryboardSegue) {
+        
+    }
+    
 
 }

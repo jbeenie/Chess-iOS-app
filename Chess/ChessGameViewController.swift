@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPresentationControllerDelegate,ChessBoardViewControllerDelegate,ChessClockDelegate{
 
@@ -19,6 +20,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         static let WhiteTakebacksViewController = "WhiteTakebacksViewController"
         static let BlackTakebacksViewController = "BlackTakebacksViewController"
         static let ChessBoardViewController = "ChessBoardViewController"
+        static let SaveGameTableViewController = "SaveGameTableViewController"
+        static let BackFromSaveGameViewController = "BackFromSaveGameViewController"
         
     }
     
@@ -33,14 +36,34 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //MARK: - Properties
     
+    //MARK: 2 Setup Modes
+    
+    //MARK: Mode 1 - New Game created - setup using game settings
+    var gameSettings:ChessGameSettings! = nil{
+        //Prevent original Game Settings from being over written
+        willSet{self.gameSettings = self.gameSettings ?? newValue}
+    }
+
+    
+    //MARK: Mode 2 - Game was Loaded - setup using game snapshot
+    var gameInDB = false
+    var chessGameID:NSManagedObjectID? = nil
+    
+    lazy var snapShot:ChessGameSnapShot = ChessGameSnapShot(
+                                    gameSnapShot: self.chessGame,
+                                    clockSnapShot: self.chessClock,
+                                    whiteTakebacksRemaining: self.whiteTakebacksViewController.takebackCount,
+                                    blackTakebacksRemaining: self.blackTakebacksViewController.takebackCount)
+    
     //MARK: SubViews
     //MARK: Board
-    private var chessBoardView:ChessBoardView!{
+    private var chessBoardView:AnimatedChessBoardView!{
         return chessBoardViewController.chessBoardView
     }
     private var lastSelectedSquare: ChessBoardSquareView?{
         return chessBoardViewController.lastSelectedSquare
     }
+    
     private var currentNotification:ChessNotification? = nil
     
     private var blackPlayerViews:[UIView]{
@@ -53,6 +76,10 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     
     //MARK: - Model
+    
+    //MARK: ManagedObjectContext
+    private lazy var context: NSManagedObjectContext? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.newBackgroundContext()
+    
     //MARK: Chess game
     var chessGame: ChessGame = {
         let chessGame = ChessGame()
@@ -60,16 +87,11 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         return chessGame
     }()
     
-    //MARK: Game settings
-    var gameSettings:ChessGameSettings! = nil{
-        //Prevent original Game Settings from being over written
-        willSet{self.gameSettings = self.gameSettings ?? newValue}
-    }
     
     //MARK: Chess Clock
     lazy var chessClock:ChessClock? = {
-        guard let clockTime = self.gameSettings.clockTime else {return nil}
-        return ChessClock(with: clockTime)
+        guard self.gameSettings.clockEnabled else {return nil}
+        return ChessClock(with: self.gameSettings.clockTime)
     }()
     
     //MARK: Orientation Managers
@@ -81,10 +103,29 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     //Computed Properties
 
-    //MARK: Determining whether game is Ended
+    //MARK: Game state
     private var gameEnded:Bool{
         return chessGame.ended || (chessClock?.timeIsUp ?? false)
     }
+    
+    private var gameIsPaused:Bool{
+        guard let chessClock = chessClock else {return false}
+        return chessClock.paused
+    }
+    
+    
+    //MARK: Notifications
+    var resignActiveObserver: NSObjectProtocol? = nil
+    
+    private lazy var prepareForInactive:(Notification) -> Void = { (note) in
+        //pause the clock if the app becomes inactive
+        self.chessClock?.pause()
+    }
+    
+    private var notificationCenter:NotificationCenter{
+        return NotificationCenter.default
+    }
+
     
     //MARK: - SubViewControllers
     //MARK: GRAVEYARDS
@@ -104,8 +145,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     //MARK: Conform To Promotion Delegate
     func getPieceToPromoteTo(ofColor color: ChessPieceColor, at position: Position){
         //Translate arguments from model to view counterparts
-        let viewColor = ModelViewTranslation.viewChessPieceColor(from: color)
-        let viewPosition = ModelViewTranslation.viewPosition(from: position)
+        let viewColor = ModelViewTranslation.chessPieceColorMap[ color]
+        let viewPosition = ModelViewTranslation.positionMap[position]
         
         //Create the promotion choices pop over VC to ask user what piece
         //to promote to
@@ -176,18 +217,17 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     
     private func promotionCompletionHandler(chessPieceTypeToPromoteTo: ChessPieceType,endPosition:Position)
     {
-        let startPosition = ModelViewTranslation.modelPosition(from:(lastSelectedSquare?.position)!)
+        let startPosition = ModelViewTranslation.positionMap[(lastSelectedSquare?.position)!]
         //reperform the the move but with the type of the chess piece to promote
         _ = performMove(from: startPosition, to: endPosition, chessPieceTypeToPromoteTo: chessPieceTypeToPromoteTo)
     }
     
     //MARK: ChessBoardViewControllerDelegate Conformance
     
-    func singleTapOccured(on tappedChessBoardSquare: ChessBoardSquareView){
-        //ensure timers are started before allowing players to perform moves if timers are enable
-        if let chessClock = chessClock{
-            guard chessClock.clockStarted else {return}
-        }
+    func tapOccured(on tappedChessBoardSquare: ChessBoardSquareView){
+        //ensure clock is running before allowing a player to perform a move
+        guard !gameIsPaused else {return}
+    
         
         //ensure game is not ended
         guard !gameEnded else {return}
@@ -201,8 +241,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         }else if let lastSelectedSquare = self.lastSelectedSquare{
             
             //prepare old and new position parameters to call movePiece
-            let oldPosition = ModelViewTranslation.modelPosition(from: lastSelectedSquare.position)
-            let newPosition = ModelViewTranslation.modelPosition(from: tappedChessBoardSquare.position)
+            let oldPosition = ModelViewTranslation.positionMap[lastSelectedSquare.position]
+            let newPosition = ModelViewTranslation.positionMap[tappedChessBoardSquare.position]
             
             //if that square is occupied by a piece of the same color
             //delect the previously selected square and
@@ -230,12 +270,11 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         }
     }
     
-    func doubleTapOccured() {
-        if let chessClock = chessClock, !chessClock.clockStarted{
-            chessClock.start()//start whites timer
-            return
-        }
-        //if a square is selected deselect
+    func twoTouchTapOccured() {
+
+        //ensure clock is running before allowing a player to undo a move
+        guard !gameIsPaused else {return}
+        //if a square is selected deselect it
         if lastSelectedSquare != nil{
             chessBoardViewController.deselectSelectedSquare()
         }else {//otherwise undo the last move
@@ -245,6 +284,14 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
                 removeChessPieceFromGraveYard(chessPiece: pieceResurrected)
             }
         }
+    }
+    
+    func threeTouchTapOccured() {
+        //if the game is over or it is not timed three touch taps do nothing
+        guard !chessGame.ended,  let chessClock = chessClock else{return}
+        //if the clock is paused then unpause it
+        //if the clock is unpauses then pause it
+        chessClock.pauseUnPause()
     }
     
     var shouldAnimate: Bool{
@@ -263,7 +310,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         chessBoardViewController.deselectSelectedSquare()
         
         //Translate the model move into view move
-        let viewMove = ModelViewTranslation.chessBoardViewMove(from: move)
+        let viewMove = ModelViewTranslation.chessBoardViewMove(from: move, for: chessBoardView)
         
         //Toggle timers
         chessClock?.moveOccured()
@@ -272,9 +319,6 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         //if move is successful
         let moveCompletionHandler = { self.updateGameAfter(move: move, outCome: outcome) }
         
-//        if chessGame.colorWhoseTurnItIs == .Black{
-//            viewMove.pieceToPromoteTo?.transform = CGAffineTransform(rotationAngle: Constants.blackPerspectiveRotationAngle)
-//        }
         
         //move the piece in the ChessBoardView
         chessBoardViewController.perform(move: viewMove,animate:gameSettings.animationsEnabled,moveCompletionHandler:moveCompletionHandler)
@@ -297,14 +341,20 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         //undo the last move if any
         if let lastMove = chessGame.undoLastMove(){
             //translate move to view move
-            let lastViewMove = ModelViewTranslation.chessBoardViewMove(from: lastMove)
+            let lastViewMove = ModelViewTranslation.chessBoardViewMove(from: lastMove, for: chessBoardView)
             
-            //toggle orientation of chess pieces after move is undone
+            //closure used to toggle orientation of chess pieces 
+            //after move is undone
             let toggleOrientation = { self.chessPieceVOM.toggleOrientation() }
+            
             
             //remove the current notification if necessary
             //then undo the last move on the chessBoardView
-            removeNotification {self.chessBoardViewController.undo(move: lastViewMove, animate:self.gameSettings.animationsEnabled, completion: toggleOrientation)}
+            removeNotification {
+                self.chessBoardViewController.undo(move: lastViewMove,
+                                                   animate:self.gameSettings.animationsEnabled,
+                                                   completion: toggleOrientation)
+            }
             
             //Roll back the clock
             chessClock?.moveUndone()
@@ -312,6 +362,8 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             //decrement the takebackcount
             takebacksViewController.takebackCount.decrement()
             
+            //update list of views in the chess piece VOM's
+            chessPieceVOM.views = chessBoardView.pieces
             
             return lastMove
         }
@@ -323,31 +375,93 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     //MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //alow navigation bar to shown on swipe
-        navigationController?.hidesBarsOnSwipe = true
+        //setup delegate of chessBoardViewController
+        chessBoardViewController.delegate = self
+        
+        // New/Loaded Game dependent setup
+        if gameInDB{
+            setupLoadedGame()
+        }else{
+            setupNewGame()
+        }
         
         //Set up delegation
         //promotion delegate of the chessgame
         chessGame.promotionDelegate = self
-        //delegate of chessBoardViewController
-        chessBoardViewController.delegate = self
+        
         //delegate of chessClock
         chessClock?.delegate = self
-        
-        //set up takebackviewcontroller models
-        whiteTakebacksViewController.takebackCount = gameSettings.maxTakebacks
-        blackTakebacksViewController.takebackCount = gameSettings.maxTakebacks
-        
-        //place piece in initial positions
-        placePiecesAtStartingPosition()
         
         //Hookup the chessClock to the timer view controllers
         whiteTimerViewController?.timer = chessClock?.whiteTimer
         blackTimerViewController?.timer = chessClock?.blackTimer
         
-        //Orient the appropriate views in blacks perspective 
+        //Orient the appropriate views in blacks perspective
         blackPlayerVOM.rotateViews()
         
+        //Register observer with Notification Center to be informed when app becomes inactive
+        resignActiveObserver = notificationCenter.addObserver(
+            forName: NSNotification.Name.UIApplicationWillResignActive,
+            object: nil,
+            queue: OperationQueue.main,// queue to run block on
+            using: prepareForInactive)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //alow navigation bar to shown on swipe and tap
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.hidesBarsOnTap = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        //pause ChessClock
+        chessClock?.pause()
+    }
+        
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    private func setupLoadedGame(){
+        //place pieces
+        chessGame = snapShot.gameSnapShot
+        chessClock = snapShot.clockSnapShot
+        let chessPieceViewPositions = ModelViewTranslation.viewChessPiecePositions(from: chessGame.piecePositions)
+        chessBoardViewController.placePiecesAt(positions: chessPieceViewPositions)
+        //set remaining takebacks
+        whiteTakebacksViewController.takebackCount =  snapShot.whiteTakebacksRemaining
+        blackTakebacksViewController.takebackCount = snapShot.blackTakebacksRemaining
+        //load graveYard
+        let (whitePiecesCaptured,blackPiecesCaptured) = chessGame.piecesCaptured
+        _ = whiteChessPieceGraveYardViewController.add(chessPieces: blackPiecesCaptured)
+        _ = blackChessPieceGraveYardViewController.add(chessPieces: whitePiecesCaptured)
+        //Rotate pieces if necessary
+        if chessGame.colorWhoseTurnItIs == .Black {
+            chessPieceVOM.toggleOrientation()
+        }
+    }
+    
+    private func setupNewGame(){
+        //place pieces in initial positions
+        placePiecesAtStartingPosition()
+        
+        //set up takebackviewcontroller models
+        whiteTakebacksViewController.takebackCount =  gameSettings.effectiveMaxTakebacksCount
+        blackTakebacksViewController.takebackCount = gameSettings.effectiveMaxTakebacksCount
+    }
+    
+    
+    //MARK: - DeInitializer
+    deinit {
+        if let resignActiveObserver = resignActiveObserver{
+        notificationCenter.removeObserver(
+            resignActiveObserver,
+            name: NSNotification.Name.UIApplicationWillResignActive,
+            object: nil)
+        }
     }
 
 
@@ -393,6 +507,16 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         
         //toggle orientation of chess pieces
         chessPieceVOM.toggleOrientation(completion: postNotification)
+        
+        //pause clock if game is over
+        if let chessClock = chessClock, let  outCome = outCome{
+            switch outCome {
+            case .Draw, .Win:
+                chessClock.pause()
+            default:
+                break
+            }
+        }
     }
     
     //MARK: - ChessGame Notifications
@@ -422,10 +546,23 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         }else{completionHandler?()}
     }
     
+    //MARK: - Status Bar
+    
+    override var prefersStatusBarHidden: Bool{
+        return true
+    }
     
     //MARK: - Navigation
-    //MARK: Embed
+    
+    @IBAction func backToGameViewController(sender: UIStoryboardSegue) {
+        if sender.identifier == StoryBoard.BackFromSaveGameViewController{
+            gameInDB = true
+            chessGameID = (sender.source as? SaveGameTableViewController)?.gameID
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //Embedded Segues
         if (segue.identifier == StoryBoard.BlackChessPieceGraveYardViewController){
             blackChessPieceGraveYardViewController = segue.destination as! BlackChessPieceGraveYardViewController
         }else if (segue.identifier == StoryBoard.WhiteChessPieceGraveYardViewController){
@@ -442,13 +579,67 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
             chessBoardViewController = segue.destination as? ChessBoardViewController
             //Set the colors of the squares using the chessboard theme chosen
             chessBoardViewController.chessBoardTheme = gameSettings?.chessBoardTheme
+            
+        //Actual Segues
+        }else if (segue.identifier == StoryBoard.SaveGameTableViewController){
+            let saveGameTableViewController = segue.destination as? SaveGameTableViewController
+            //Give the saveGameTableVC the snapshot of the game
+            saveGameTableViewController?.snapShot = self.snapShot
         }
     }
     
-    @IBAction func backToMainMenu(_ sender: UIBarButtonItem) {
-        _ = self.navigationController?.popToRootViewController(animated: true)
+    
+    @IBAction func saveGame(_ sender: UIBarButtonItem) {
+        //pause chess clock
+        chessClock?.pause()
+        //update snapsot of game
+        snapShot.update(gameSnapShot: chessGame,
+                        clockSnapShot: chessClock,
+                        whiteTakebacksRemaining: whiteTakebacksViewController.takebackCount,
+                        blackTakebacksRemaining: blackTakebacksViewController.takebackCount)
+        if  gameInDB {
+            let alert = SaveGameAlert.createWith(save: save,saveAs: saveAsNewGame)
+            alert.modalPresentationStyle = .popover
+            let ppc = alert.popoverPresentationController
+            ppc?.barButtonItem = sender
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            saveAsNewGame()
+        }
     }
     
+    //MARK: - Saving Games
+    
+    private func saveAsNewGame(action: UIAlertAction?=nil){
+        performSegue(withIdentifier: StoryBoard.SaveGameTableViewController, sender: nil)
+    }
+    
+    //Update the chess game in the database with the new game state
+    private func save(action:UIAlertAction){
+        guard let context = context, let chessGameID = chessGameID
+        else{
+            print("Error getting context or chessGameID")
+            print("context: \(String(describing: self.context)), chessGameID: \(String(describing: self.chessGameID))")
+            return
+        }
+        ChessGameMO.updateChessGameHaving(id: chessGameID,
+                                          inManagedObjectContext: context,
+                                          with: snapShot) {
+            //completion closure
+            CoreDataUtilities.save(context: context)
+            self.chessGameID = $0.objectID
+            print("Succeeded in updating chessGame")
+        }
+        
+        
+        //Commit changes to NSManagedObjectContext
+        do {
+            try self.context?.save()
+        } catch let error {
+            print("Core Data Error: \(error)")
+        }
+        
+    }
     
     //MARK: - Adding and Removing Captured Pieces to GraveYardView
     
@@ -467,44 +658,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
     //MARK: - Initial Placement of Pieces in Game
     
     private func placePiecesAtStartingPosition(){
-        chessBoardViewController.placePiecesAt(positions: initialChessPiecePositions)
+        let initialChessPieceViewPositions = ModelViewTranslation.viewChessPiecePositions(from: chessGame.initialPiecePositions)
+        chessBoardViewController.placePiecesAt(positions: initialChessPieceViewPositions)
     }
-    
-    private let initialChessPiecePositions: [ChessBoardView.Position:ChessPieceView] = [
-        //Initial position of Black Pieces
-        ChessBoardView.Position(row: 0,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Rook),
-        ChessBoardView.Position(row: 0,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Knight_R),
-        ChessBoardView.Position(row: 0,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Bishop),
-        ChessBoardView.Position(row: 0,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Queen),
-        ChessBoardView.Position(row: 0,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.King),
-        ChessBoardView.Position(row: 0,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Bishop),
-        ChessBoardView.Position(row: 0,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Knight_R),
-        ChessBoardView.Position(row: 0,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Rook),
-        ChessBoardView.Position(row: 1,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 1,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.Black, type: ChessPieceView.ChessPieceType.Pawn),
-        //Initial position of White Pieces
-        ChessBoardView.Position(row: 6,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 6,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Pawn),
-        ChessBoardView.Position(row: 7,col: 0)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Rook),
-        ChessBoardView.Position(row: 7,col: 1)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Knight_R),
-        ChessBoardView.Position(row: 7,col: 2)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Bishop),
-        ChessBoardView.Position(row: 7,col: 3)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Queen),
-        ChessBoardView.Position(row: 7,col: 4)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.King),
-        ChessBoardView.Position(row: 7,col: 5)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Bishop),
-        ChessBoardView.Position(row: 7,col: 6)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Knight_R),
-        ChessBoardView.Position(row: 7,col: 7)!: ChessPieceView(color: ChessPieceView.ChessPieceColor.White, type: ChessPieceView.ChessPieceType.Rook)
-    ]
-
 }

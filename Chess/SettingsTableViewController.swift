@@ -24,9 +24,11 @@ class SettingsTableViewController: UITableViewController {
     }
     
     private var chessBoardThemeTexts:[ChessBoardTheme:String]{
-        return [ChessBoardThemes.GreenWhite:"Green/White",
-            ChessBoardThemes.BrownYellow:"Brown/Yellow",
-            ChessBoardThemes.GrayWhite:"Gray/White"]
+        var chessBoardThemeTexts = [ChessBoardTheme:String]()
+        for chessBoardTheme in ChessBoardThemes.list{
+            chessBoardThemeTexts[chessBoardTheme] = chessBoardTheme.name
+        }
+        return chessBoardThemeTexts
     }
     
     
@@ -50,6 +52,9 @@ class SettingsTableViewController: UITableViewController {
     
     //MARK: setup the initial state of the VC with the current settings
     private func update(){
+        //Debug:
+        print(UserDefaults.standard.dictionaryRepresentation())
+        
         //set position of animation switch
         animationSwitch.isOn = globalSettings[ChessSettings.Key.animationsEnabled] as! Bool
         //set position of notificaiton switch
@@ -58,6 +63,8 @@ class SettingsTableViewController: UITableViewController {
         let previouslySelectedChessBoardTheme = globalSettings[ChessSettings.Key.chessBoardTheme] as! ChessBoardTheme
         let chessBoardThemeText = chessBoardThemeTexts[previouslySelectedChessBoardTheme]
         chessBoardThemeCurrentSelectionLabel.text = chessBoardThemeText
+        
+        
     }
 
    //MARK: - Actions

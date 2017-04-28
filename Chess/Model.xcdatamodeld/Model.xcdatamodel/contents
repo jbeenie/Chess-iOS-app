@@ -3,6 +3,7 @@
     <entity name="ChessGame" representedClassName=".ChessGameMO" syncable="YES">
         <attribute name="created" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="modified" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="sectionName" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <relationship name="blackPlayer" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="gamesAsBlack" inverseEntity="Player" syncable="YES"/>
         <relationship name="snapShot" maxCount="1" deletionRule="Cascade" destinationEntity="ChessGameSnapShot" inverseName="chessGame" inverseEntity="ChessGameSnapShot" syncable="YES"/>
         <relationship name="whitePlayer" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="gamesAsWhite" inverseEntity="Player" syncable="YES"/>
@@ -16,12 +17,12 @@
     </entity>
     <entity name="Player" representedClassName=".PlayerMO" syncable="YES">
         <attribute name="name" attributeType="String" minValueString="1" maxValueString="20" syncable="YES"/>
-        <relationship name="gamesAsBlack" toMany="YES" deletionRule="Cascade" destinationEntity="ChessGame" inverseName="blackPlayer" inverseEntity="ChessGame" syncable="YES"/>
-        <relationship name="gamesAsWhite" toMany="YES" deletionRule="Cascade" destinationEntity="ChessGame" inverseName="whitePlayer" inverseEntity="ChessGame" syncable="YES"/>
+        <relationship name="gamesAsBlack" toMany="YES" deletionRule="Deny" destinationEntity="ChessGame" inverseName="blackPlayer" inverseEntity="ChessGame" syncable="YES"/>
+        <relationship name="gamesAsWhite" toMany="YES" deletionRule="Deny" destinationEntity="ChessGame" inverseName="whitePlayer" inverseEntity="ChessGame" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Player" positionX="4345" positionY="3240" width="128" height="88"/>
+        <element name="ChessGame" positionX="4617" positionY="3213" width="128" height="133"/>
         <element name="ChessGameSnapShot" positionX="4381" positionY="3015" width="128" height="118"/>
-        <element name="ChessGame" positionX="4617" positionY="3213" width="128" height="118"/>
+        <element name="Player" positionX="4345" positionY="3240" width="128" height="88"/>
     </elements>
 </model>

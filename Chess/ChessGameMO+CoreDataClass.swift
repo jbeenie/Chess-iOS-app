@@ -9,35 +9,84 @@
 import Foundation
 import CoreData
 
+struct ChessGameInfo{
+    var playerNames:PlayerNames
+    var snapShot:ChessGameSnapShot
+}
 
 public class ChessGameMO: NSManagedObject {
-    class func chessGameWith(chessGameInfo:ChessGameInfo, inManagedObjectContext context:NSManagedObjectContext)->ChessGameMO?{
-        //if an Object ID is provided return the existing object
-        if let id = chessGameInfo.chessGameID{
-           return context.object(with: id) as? ChessGameMO
+    //MARK: - Creating
+    //Creating new chessGameMO entires
+    class func createChessGameWith( chessGameInfo:ChessGameInfo,
+                                    inManagedObjectContext context:NSManagedObjectContext,
+                                    completion:@escaping (ChessGameMO?)->()
+        ){
         
-        //otherwise add the object to the database
-        }else if let chessGameMO = NSEntityDescription.insertNewObject(forEntityName: self.entity().name!, into: context) as? ChessGameMO{
-            chessGameMO.updateWith(chessGameInfo: chessGameInfo, inManagedObjectContext: context)
-            //ensure date created and modified are exactly the same when first created
-            let now = NSDate()
-            chessGameMO.created = now
-            chessGameMO.modified = now
+        //perfrom on contexts q for thread safety
+        context.performAndWait{
+            
+            //create new empty ChessGameMO in NSManagedObjectContext
+            guard let chessGameMO = NSEntityDescription.insertNewObject(forEntityName: self.entity().name!, into: context) as? ChessGameMO
+            else
+            {
+                completion(nil)
+                print("Could not create new ChessGameMO in DB")
+                return
+            }
+            
+            //initialize chessGameMO values
+            chessGameMO.initializeWith(chessGameInfo: chessGameInfo, inManagedObjectContext: context)
+            //execute completion handler
+            completion(chessGameMO)
         }
-        return nil
     }
     
-    func updateWith(chessGameInfo:ChessGameInfo, inManagedObjectContext context:NSManagedObjectContext){
-        let now = NSDate()
-        self.modified = now
-        self.whitePlayer = PlayerMO.playerWith(name: chessGameInfo.whitePlayer, inManagedObjectContext: context)
-        self.blackPlayer = PlayerMO.playerWith(name: chessGameInfo.blackPlayer, inManagedObjectContext: context)
+    //MARK: Helper method used to help set values of ChessGameMO when they are created
+    private func initializeWith(chessGameInfo:ChessGameInfo, inManagedObjectContext context:NSManagedObjectContext){
+        self.whitePlayer = PlayerMO.playerWith(name: chessGameInfo.playerNames.white, inManagedObjectContext: context)
+        self.blackPlayer = PlayerMO.playerWith(name: chessGameInfo.playerNames.black, inManagedObjectContext: context)
         self.snapShot = ChessGameSnapShotMO.insertNewObjectWith(
-            chessGame: chessGameInfo.chessGame,
-            chessClock: chessGameInfo.chessClock,
-            whiteTakebacksRemaining: chessGameInfo.whiteTakebacksRemaining,
-            blackTakebacksRemaining: chessGameInfo.blackTakebacksRemaining,
+            snapShot: chessGameInfo.snapShot,
             inManagedObjectContext: context)
+        
+        //ensure date created and modified are exactly the same when first created
+        let now = NSDate()
+        self.created = now
+        self.modified = now
+    }
+    
+    //MARK: - Updating
+    //updating chessGameMO entires - update the their ChessGameSnapShotMO relationship
+    class func updateChessGameHaving(id: NSManagedObjectID,
+                                     inManagedObjectContext context:NSManagedObjectContext,
+                                     with snapShot: ChessGameSnapShot,
+                                     completion:@escaping (ChessGameMO)->()){
+        context.performAndWait{
+            //Get the object to update using the provided ID
+            guard !id.isTemporaryID else {print("Temporary ID!");return}
+            guard let chessGameMO = context.object(with: id) as? ChessGameMO else{
+                print("Error casting!");
+                return
+            }
+            
+            //delete old game state
+            if let oldSnapShot = chessGameMO.snapShot{
+                context.delete(oldSnapShot)
+            }
+
+            //create and link updated game state
+            chessGameMO.snapShot = ChessGameSnapShotMO.insertNewObjectWith(
+                snapShot: snapShot,
+                inManagedObjectContext: context)
+            
+
+            //update the the modified field
+            let now = NSDate()
+            chessGameMO.modified = now
+            //execute completion handler
+            completion(chessGameMO)
+        }
+        
     }
 }
 

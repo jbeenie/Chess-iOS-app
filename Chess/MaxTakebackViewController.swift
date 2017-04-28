@@ -9,8 +9,32 @@
 import UIKit
 
 enum TakebackCount{
+    //MARK: - Cases
     case Finite(Int)
     case Infinite
+
+    //MARK: - Initializer
+    init?(integer i:Int) {
+        switch i {
+        case let i where i > -1:
+            self = TakebackCount.Finite(i)
+        case let i where i == -1:
+            self = TakebackCount.Infinite
+        default:
+            return nil
+        }
+        
+    }
+    
+    //MARK: - Computer Properties
+    var description:String{
+        switch self{
+        case .Finite(let count):
+            return String(count)
+        case .Infinite:
+            return "∞"
+        }
+    }
     
     var isZero:Bool{
         switch self{
@@ -21,6 +45,7 @@ enum TakebackCount{
         }
     }
     
+    //MARK: - Mutating Methods
     mutating func decrement(){
         switch self{
         case .Finite(let count):
@@ -40,13 +65,14 @@ enum TakebackCount{
             break
         }
     }
-    
-    var description:String{
-        switch self{
+    //MARK: - Non Mutating Methods
+
+    func toInt()->Int{
+        switch self {
         case .Finite(let count):
-            return String(count)
+            return count
         case .Infinite:
-            return "∞"
+            return -1
         }
     }
 }

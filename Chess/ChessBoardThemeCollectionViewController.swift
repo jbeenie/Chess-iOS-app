@@ -8,37 +8,6 @@
 
 import UIKit
 
-struct ChessBoardTheme:Equatable,Hashable{
-    let whiteSquareColor:UIColor
-    let blackSquareColor:UIColor
-    
-    //MARK: - Equatable & Hashalble
-    var hashValue: Int{
-        return whiteSquareColor.hashValue ^ blackSquareColor.hashValue
-    }
-    
-    static func == (lhs:ChessBoardTheme,rhs:ChessBoardTheme)->Bool{
-        return lhs.whiteSquareColor == rhs.whiteSquareColor && lhs.blackSquareColor == rhs.blackSquareColor
-    }
-    
-    
-    //MARK: - Initializers
-    
-    init(whiteSquareColor: UIColor, blackSquareColor: UIColor){
-        self.whiteSquareColor = whiteSquareColor
-        self.blackSquareColor = blackSquareColor
-    }
-}
-
-
-
-//List of chessboard themes
-struct ChessBoardThemes{
-    static let GreenWhite = ChessBoardTheme(whiteSquareColor: UIColor.green, blackSquareColor: UIColor.white)
-    static let GrayWhite = ChessBoardTheme(whiteSquareColor: UIColor.gray, blackSquareColor: UIColor.white)
-    static let BrownYellow = ChessBoardTheme(whiteSquareColor: UIColor.brown, blackSquareColor: UIColor.yellow)
-}
-
 
 class ChessBoardThemeCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout {
     
@@ -50,9 +19,7 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController,UIColl
     
     //data structure storing chess board themes
     private let chessBoardthemes: [[ChessBoardTheme]] =
-        [[ChessBoardThemes.GreenWhite,
-          ChessBoardThemes.GrayWhite,
-          ChessBoardThemes.BrownYellow]]
+        [ChessBoardThemes.list]
     
     var selectedTheme:ChessBoardTheme! = nil
     var selectedThemeIndex:IndexPath!{
@@ -157,32 +124,5 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController,UIColl
     
     override func viewWillDisappear(_ animated: Bool) {
         updateSettings()
-    }
-}
-
-
-extension ChessBoardTheme: ChessSetting{
-    //MARK: - Conforming to ChessSetting
-    func propertyListRepresentation() -> NSDictionary {
-        let representation:[String:AnyObject] = [
-            "whiteSquareColor":whiteSquareColor,
-            "blackSquareColor":blackSquareColor]
-        return representation as NSDictionary
-    }
-    
-    init?(propertyListRepresentation:NSDictionary?) {
-        guard let values = propertyListRepresentation else {return nil}
-        if let whiteSquareColor = values["whiteSquareColor"] as? UIColor,
-            let blackSquareColor = values["blackSquareColor"] as? UIColor{
-            self.init(whiteSquareColor:whiteSquareColor,blackSquareColor:blackSquareColor)
-        } else {
-            return nil
-        }
-    }
-    
-    //MARK: - Debugging
-    
-    var description:String{
-        return "whiteSquareColor: "+whiteSquareColor.description + "," + "blackSquareColor: "+blackSquareColor.description+"\n"
     }
 }

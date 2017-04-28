@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol ChessSetting:PropertyListCompatible{
+protocol ChessSetting{
     var description:String {get}
 }

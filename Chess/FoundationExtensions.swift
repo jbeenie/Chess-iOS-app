@@ -12,25 +12,20 @@ extension String {
     var length: Int {
         return self.characters.count
     }
+    
+    func containsOnlyLetters() -> Bool {
+        for chr in self.characters {
+            if (!(chr >= "a" && chr <= "z") && !(chr >= "A" && chr <= "Z") ) {
+                return false
+            }
+        }
+        return true
+    }
 }
 
 extension Bool:ChessSetting{
     func not()->Bool{
         return !self
-    }
-    
-    func propertyListRepresentation() -> NSDictionary{
-        let representation:[String:Any] = ["self":self as AnyObject]
-        return representation as NSDictionary
-    }
-    init?(propertyListRepresentation:NSDictionary?){
-        guard let plist = propertyListRepresentation else {return nil}
-        if let value = plist["self"] as? Bool{
-            self = value
-        } else {
-            return nil
-        }
-
     }
 }
 
@@ -68,5 +63,41 @@ Element.Iterator.Element : Equatable, Element.Index == Int {
             }
         }
         return nil
+    }
+}
+
+extension Dictionary where Value: Equatable {
+    func allKeys(forValue val: Value) -> [Key] {
+        return self.filter { $1 == val }.map { $0.0 }
+    }
+    
+    func someKeyFor(value: Value) -> Key? {
+        
+        guard let index = index(where: { $0.1 == value }) else {
+            return nil
+        }
+        
+        return self[index].0
+    }
+}
+
+extension Dictionary{
+    init(_ pairs: [Element]) {
+        self.init()
+        for (k, v) in pairs {
+            self[k] = v
+        }
+    }
+    //MARK: Dictionary Mappings
+    func mapValues<OutValue>( transform: (Value) throws -> OutValue) rethrows -> [Key: OutValue] {
+        return Dictionary<Key, OutValue>(try self.map { (k:Key, v:Value) in (k, try transform(v)) })
+    }
+    
+    func mapPairs<OutKey: Hashable, OutValue>(transform: (Element) throws -> (OutKey, OutValue)) rethrows -> [OutKey: OutValue] {
+        return Dictionary<OutKey, OutValue>(try self.map(transform))
+    }
+    
+    func filterPairs( includeElement: (Element) throws -> Bool) rethrows -> [Key: Value] {
+        return Dictionary(try filter(includeElement))
     }
 }

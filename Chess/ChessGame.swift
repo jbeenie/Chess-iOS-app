@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ChessGame{
+class ChessGame:NSObject,NSCoding{
     //MARK: Constants
     var initialPiecePositions: [Position:ChessPiece]{
         return [
@@ -49,9 +49,34 @@ class ChessGame{
         ]
     }
     
+    //MARK: - Stored Properties
+    private var whiteKing: King?{return chessBoard.whiteKing}
+    private var blackKing: King?{return chessBoard.blackKing}
+    private var _colorWhoseTurnItIs: ChessPieceColor = ChessPieceColor.White
+    private var chessBoard = ChessBoard() //no pieces placed initially
+    private var moves:[Move] = [Move]()
+    
+    //Prise EnPassant
+    var pawnThatJustDoubleStepped:Pawn? = nil
+    
+    //Promotion Delegate
+    var promotionDelegate:PromotionDelegate! = nil
+    
     
     //MARK: - Computed Properties
     //game is started if any piece has moved
+    var piecePositions:[Position:ChessPiece]{
+         return chessBoard.piecePositions
+    }
+    
+    var piecesCaptured:([ChessPiece],[ChessPiece]){
+        let capturedPieces: (whiteCapturedPieces:[ChessPiece],blackCapturedPieces:[ChessPiece])
+        let allCapturedPieces = moves.flatMap { $0.pieceCaptured }
+        capturedPieces.whiteCapturedPieces = allCapturedPieces.filter{ $0.color == .White }
+        capturedPieces.blackCapturedPieces = allCapturedPieces.filter{ $0.color == .Black }
+        return capturedPieces
+    }
+    
     var started:Bool{
         for piece in chessBoard.pieces(){
             if piece.hasMoved{return true}
@@ -82,8 +107,7 @@ class ChessGame{
     }
     
     //King Related
-    private var whiteKing: King?{return chessBoard.whiteKing}
-    private var blackKing: King?{return chessBoard.blackKing}
+    
     private var activeKing: King?{
         return colorWhoseTurnItIs == .White ? whiteKing : blackKing
     }
@@ -97,22 +121,10 @@ class ChessGame{
         return nonActiveKing?.isInCheck() ?? false
     }
     
-    //MARK: - Stored Properties
-    
-    private var _colorWhoseTurnItIs: ChessPieceColor = ChessPieceColor.White
-    private var chessBoard = ChessBoard() //no pieces placed initially
-    private var moves:[Move] = [Move]()
-    
-    //Prise EnPassant
-    var pawnThatJustDoubleStepped:Pawn?
-    
-    //Promotion Delegate
-    var promotionDelegate:PromotionDelegate! = nil
-    
     //MARK: - Methods
     
     func piece(at position:Position)->ChessPiece?{
-        return chessBoard.piece(at: position)
+        return chessBoard.getCopyOfPiece(at:position)
     }
     
     //attempts to move a piece from oldPosition to new position
@@ -157,7 +169,8 @@ class ChessGame{
                     _ = pawn.move(to: newPosition, given:pawnThatJustDoubleStepped, execute: true)
                     
                     //promote the piece
-                    let pieceToPromoteTo = Pawn.createChessPiece(of: typeOfPieceToPromoteTo, color: pawn.color, at: pawn.position, on: pawn.chessBoard)
+                    //***Calling method from Pawn because ChessPiece.creaChessPiece is not allowed***
+                    let pieceToPromoteTo = Pawn.createChessPiece(of: typeOfPieceToPromoteTo, color: pawn.color, initialPosition: pawn.position, at: pawn.position, on: pawn.chessBoard, hasMoved: true)
                     _ = chessBoard.set(piece: pieceToPromoteTo, at: pieceToPromoteTo.position)
                     
                     //and record the piece to promote to
@@ -250,6 +263,57 @@ class ChessGame{
             if piece.canMove() {return false}
         }
         return true
+    }
+
+    //MARK: - NSCoding
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self._colorWhoseTurnItIs.rawValue, forKey: "_colorWhoseTurnItIs")
+        aCoder.encode(self.moves, forKey: "moves")
+        aCoder.encode(self.chessBoard, forKey: "chessBoard")
+        aCoder.encode(pawnThatJustDoubleStepped, forKey: "pawnThatJustDoubleStepped")
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        guard
+            let rawValue = aDecoder.decodeObject(forKey:"_colorWhoseTurnItIs") as? String,
+            let colorWhoseTurnItIs = ChessPieceColor(rawValue: rawValue),
+            let moves = aDecoder.decodeObject(forKey:"moves") as? [Move],
+            let chessBoard = aDecoder.decodeObject(forKey:"chessBoard") as? ChessBoard
+            else { return nil }
+        
+        let pawnThatJustDoubleStepped = aDecoder.decodeObject(forKey:"pawnThatJustDoubleStepped") as? Pawn
+        
+        //Associate Pieces with the board
+        for move in moves{
+            move.pieceCaptured?.chessBoard = chessBoard
+            move.pieceMoved.chessBoard = chessBoard
+            move.pieceToPromoteTo?.chessBoard = chessBoard
+        }
+        
+        self.init(colorWhoseTurnItIs: colorWhoseTurnItIs,
+                  chessBoard: chessBoard,
+                  moves: moves,
+                  pawnThatJustDoubleStepped: pawnThatJustDoubleStepped)
+    }
+    
+    //MARK: - Initializers
+    
+    convenience init(colorWhoseTurnItIs:ChessPieceColor, chessBoard:ChessBoard, moves: [Move],pawnThatJustDoubleStepped:Pawn?) {
+        self.init()
+        self._colorWhoseTurnItIs = colorWhoseTurnItIs
+        self.chessBoard = chessBoard
+        self.moves = moves
+        self.pawnThatJustDoubleStepped = pawnThatJustDoubleStepped
+    }
+    
+    //MARK: - Debugging
+    override var description: String{
+        return "chessBoard:\n\(chessBoard.description)\n"
+        + "whiteKing:\n\((whiteKing)?.longDescription ?? "none")\n"
+        + "blackKing:\n\((blackKing)?.longDescription ?? "none")\n"
+        + "colorWhoseTurnItIs:\(colorWhoseTurnItIs)\n"
+        + "moves:\n\(moves.description)\n"
+        + "pawnThatJustDoubleStepped:\n\((pawnThatJustDoubleStepped)?.longDescription ?? "none")\n"
     }
 }
 
