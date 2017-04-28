@@ -3,6 +3,10 @@
 This project is a chess app made for the iPad and iPhone. It is the first app I plan on publishing to the app store.
 In a nut shell it allows two individuals to play chess in person on an iPad or iPhone.
 
+
+![Chess App Game Play](https://gifs.com/gif/chess-app-grame-play-r0rJEk)
+
+
 ## Functionality
 
 * Players are prevented from making ilegal moves
