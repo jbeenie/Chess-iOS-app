@@ -11,7 +11,7 @@ In a nut shell it allows two individuals to play chess in person on an iPad or i
 * Players can take back moves i.e. rewind the game
 * A chess clock can be enabled to play timed games
 * Players can save games to come back to later
-* PLayers can pause the game if it is timed
+* Players can pause the game if it is timed
 
 
 ### Game Play DEMO
@@ -28,9 +28,9 @@ Here's a quick demo illustrating a timed game with a maximum of 3 take backs for
 
 
 ## Controls
-Move pieces: tap on piece then tap on destination position
-Pause/Unpause Game: Double 2-finger-tap board (only applicable when chess clock is enabled)
-Takeback move: Single 2-finger-tap board (only applicable if takebacks are enabled and player has 1 or more takebacks remaining)
+**Move pieces**: tap on piece then tap on destination position  
+**Pause/Unpause Game**: Double 2-finger-tap board (only applicable when chess clock is enabled)  
+**Takeback move**: Single 2-finger-tap board (only applicable if takebacks are enabled and player has 1 or more takebacks remaining)  
 
 
 ## Configurable settings
@@ -53,8 +53,8 @@ Takeback move: Single 2-finger-tap board (only applicable if takebacks are enabl
 
 ## Implementation
 
-Game settings persisted using NSUserDefaults
-Actual Games saved using Core data (SQLLite), serialized using NSCoding
+Game settings persisted using **NSUserDefaults**.  
+Actual Games saved using **Core Data** (SQLLite), serialized using **NSCoding**.
 
 ### Saving Games DEMO
 
