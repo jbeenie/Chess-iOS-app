@@ -29,7 +29,7 @@ class ChessBoardViewController: UIViewController{
 
     var lastSelectedSquare: ChessBoardSquareView? = nil
     
-    //MARK: - Gesture Recognizers
+    //MARK: - Gesture Recognizer Setup
     private func setUpGestureRecognizers(){
         if let chessBoardView = chessBoardView{
             //add single tap gesture recognizer to each ChessBoard square to enable selection
@@ -40,19 +40,34 @@ class ChessBoardViewController: UIViewController{
             }
             //add two touch tap gesture recognizer to the overall ChessBoard
             chessBoardView.addGestureRecognizer(twoTouchTapRecognizer)
-            //add double two touch tap gesture recognizer to the overall ChessBoard
-            chessBoardView.addGestureRecognizer(threeTouchTapRecognizer)
+            //add third gesture recognizer to the overall ChessBoard
+            chessBoardView.addGestureRecognizer(thirdGestureRecognizer)
         }
     }
     
+    //MARK: - Gesture Recognizers
     private lazy var twoTouchTapRecognizer: UITapGestureRecognizer = { [unowned self] in
         let twoTouchTapRecognizer = UITapGestureRecognizer(touchCount: 2, tapCount: 1, target: self, action: #selector(ChessBoardViewController.handleTwoTouchTap(recognizer:)))
-        twoTouchTapRecognizer.require(toFail: self.threeTouchTapRecognizer)
+        twoTouchTapRecognizer.require(toFail: self.doubleTwoTouchTapRecognizer)
         return twoTouchTapRecognizer
     }()
     
+    private var thirdGestureRecognizer: UITapGestureRecognizer{
+        #if arch(arm) || arch(arm64) //running on device
+            return threeTouchTapRecognizer
+        #elseif arch(i386) || arch(x86_64) // running on simulator
+            return doubleTwoTouchTapRecognizer
+        #endif
+    }
+    
+    private lazy var doubleTwoTouchTapRecognizer: UITapGestureRecognizer = { [unowned self] in
+        return UITapGestureRecognizer(touchCount: 2, tapCount: 2, target: self, action: #selector(ChessBoardViewController.handleThird(recognizer:)))
+        }()
+    
     private lazy var threeTouchTapRecognizer: UITapGestureRecognizer = { [unowned self] in
-        return UITapGestureRecognizer(touchCount: 2, tapCount: 2, target: self, action: #selector(ChessBoardViewController.handleThreeTouchTap(recognizer:)))
+        let threeTouchTapRecognizer = UITapGestureRecognizer(touchCount: 3, tapCount: 1, target: self, action: #selector(ChessBoardViewController.handleThird(recognizer:)))
+        threeTouchTapRecognizer.require(toFail: self.twoTouchTapRecognizer)
+        return threeTouchTapRecognizer
         }()
 
         
@@ -80,10 +95,10 @@ class ChessBoardViewController: UIViewController{
         }
     }
     
-    @objc private func handleThreeTouchTap(recognizer: UITapGestureRecognizer){
+    @objc private func handleThird(recognizer: UITapGestureRecognizer){
         if recognizer.state == .ended {
             if let _ = recognizer.view as? ChessBoardView{
-                delegate.threeTouchTapOccured()
+                delegate.thirdGestureOccured()
             }
         }
     }

@@ -286,7 +286,7 @@ class ChessGameViewController: UIViewController,PromotionDelegate,UIPopoverPrese
         }
     }
     
-    func threeTouchTapOccured() {
+    func thirdGestureOccured() {
         //if the game is over or it is not timed three touch taps do nothing
         guard !chessGame.ended,  let chessClock = chessClock else{return}
         //if the clock is paused then unpause it

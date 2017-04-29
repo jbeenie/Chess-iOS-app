@@ -15,6 +15,6 @@ protocol ChessBoardViewControllerDelegate{
     
     func twoTouchTapOccured()
     
-    func threeTouchTapOccured()
+    func thirdGestureOccured()
     
 }

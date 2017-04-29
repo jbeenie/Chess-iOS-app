@@ -11,11 +11,15 @@
 		9F09A3841E7267F200C0AA95 /* PromotionChoicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F09A3831E7267F200C0AA95 /* PromotionChoicesViewController.swift */; };
 		9F110DBA1E9ECB4800832B30 /* FetchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F110DB91E9ECB4800832B30 /* FetchResultsTableViewController.swift */; };
 		9F1489871E67B89B00177826 /* AnimatedChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1489861E67B89B00177826 /* AnimatedChessBoardView.swift */; };
-		9F26CF831EB172860080CA8A /* AdvancedDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F26CF811EB172860080CA8A /* AdvancedDataStructures.framework */; };
+		9F26CF831EB172860080CA8A /* AdvancedDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F26CF811EB172860080CA8A /* AdvancedDataStructures.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9F26CF841EB172860080CA8A /* AdvancedDataStructures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F26CF811EB172860080CA8A /* AdvancedDataStructures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9F26CF851EB172860080CA8A /* OrderedSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F26CF821EB172860080CA8A /* OrderedSet.framework */; };
+		9F26CF851EB172860080CA8A /* OrderedSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F26CF821EB172860080CA8A /* OrderedSet.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9F26CF861EB172860080CA8A /* OrderedSet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F26CF821EB172860080CA8A /* OrderedSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F26CF881EB17D1A0080CA8A /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F26CF871EB17D190080CA8A /* AppColor.swift */; };
+		9F2B3FCD1EB53899002B1E06 /* AdvancedDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2B3FCB1EB53899002B1E06 /* AdvancedDataStructures.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		9F2B3FCE1EB53899002B1E06 /* AdvancedDataStructures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2B3FCB1EB53899002B1E06 /* AdvancedDataStructures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9F2B3FCF1EB53899002B1E06 /* OrderedSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2B3FCC1EB53899002B1E06 /* OrderedSet.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		9F2B3FD01EB53899002B1E06 /* OrderedSet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2B3FCC1EB53899002B1E06 /* OrderedSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F2B51CC1E56A8CA0046FAC9 /* ChessBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51CB1E56A8CA0046FAC9 /* ChessBoardTests.swift */; };
 		9F2B51DC1E56B01C0046FAC9 /* PositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DB1E56B01C0046FAC9 /* PositionTests.swift */; };
 		9F2B51DE1E56BEB60046FAC9 /* DiagonalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DD1E56BEB60046FAC9 /* DiagonalTests.swift */; };
@@ -142,7 +146,9 @@
 			dstSubfolderSpec = 10;
 			files = (
 				9F26CF841EB172860080CA8A /* AdvancedDataStructures.framework in Embed Frameworks */,
+				9F2B3FD01EB53899002B1E06 /* OrderedSet.framework in Embed Frameworks */,
 				9F26CF861EB172860080CA8A /* OrderedSet.framework in Embed Frameworks */,
+				9F2B3FCE1EB53899002B1E06 /* AdvancedDataStructures.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -157,6 +163,8 @@
 		9F26CF811EB172860080CA8A /* AdvancedDataStructures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdvancedDataStructures.framework; path = "Frameworks/Debug-iphonesimulator/AdvancedDataStructures.framework"; sourceTree = "<group>"; };
 		9F26CF821EB172860080CA8A /* OrderedSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OrderedSet.framework; path = "Frameworks/Debug-iphonesimulator/OrderedSet.framework"; sourceTree = "<group>"; };
 		9F26CF871EB17D190080CA8A /* AppColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
+		9F2B3FCB1EB53899002B1E06 /* AdvancedDataStructures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdvancedDataStructures.framework; path = "Frameworks/Debug-iphoneos/AdvancedDataStructures.framework"; sourceTree = "<group>"; };
+		9F2B3FCC1EB53899002B1E06 /* OrderedSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OrderedSet.framework; path = "Frameworks/Debug-iphoneos/OrderedSet.framework"; sourceTree = "<group>"; };
 		9F2B51C11E56A87B0046FAC9 /* ChessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F2B51C51E56A87B0046FAC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F2B51CB1E56A8CA0046FAC9 /* ChessBoardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardTests.swift; sourceTree = "<group>"; };
@@ -282,7 +290,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F26CF831EB172860080CA8A /* AdvancedDataStructures.framework in Frameworks */,
+				9F2B3FCF1EB53899002B1E06 /* OrderedSet.framework in Frameworks */,
 				9F26CF851EB172860080CA8A /* OrderedSet.framework in Frameworks */,
+				9F2B3FCD1EB53899002B1E06 /* AdvancedDataStructures.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +495,8 @@
 		9FCB75841E4EAAC000275773 = {
 			isa = PBXGroup;
 			children = (
+				9F2B3FCB1EB53899002B1E06 /* AdvancedDataStructures.framework */,
+				9F2B3FCC1EB53899002B1E06 /* OrderedSet.framework */,
 				9F26CF811EB172860080CA8A /* AdvancedDataStructures.framework */,
 				9F26CF821EB172860080CA8A /* OrderedSet.framework */,
 				9FCB758F1E4EAAC100275773 /* Chess */,
@@ -1025,6 +1037,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/Debug-iphonesimulator",
+					"$(PROJECT_DIR)/Frameworks/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = Chess/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -1044,6 +1057,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks/Debug-iphonesimulator",
+					"$(PROJECT_DIR)/Frameworks/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = Chess/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
