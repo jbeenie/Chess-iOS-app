@@ -12,6 +12,10 @@
 		9F110DBA1E9ECB4800832B30 /* FetchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F110DB91E9ECB4800832B30 /* FetchResultsTableViewController.swift */; };
 		9F1489871E67B89B00177826 /* AnimatedChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1489861E67B89B00177826 /* AnimatedChessBoardView.swift */; };
 		9F26CF881EB17D1A0080CA8A /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F26CF871EB17D190080CA8A /* AppColor.swift */; };
+		9F2A63D11EB9439F001B9904 /* AdvancedDataStructures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2A63CE1EB9439F001B9904 /* AdvancedDataStructures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9F2A63D31EB9439F001B9904 /* OrderedSet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2A63CF1EB9439F001B9904 /* OrderedSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9F2A63D41EB945F2001B9904 /* AdvancedDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2A63CE1EB9439F001B9904 /* AdvancedDataStructures.framework */; };
+		9F2A63D51EB945F2001B9904 /* OrderedSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2A63CF1EB9439F001B9904 /* OrderedSet.framework */; };
 		9F2B51CC1E56A8CA0046FAC9 /* ChessBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51CB1E56A8CA0046FAC9 /* ChessBoardTests.swift */; };
 		9F2B51DC1E56B01C0046FAC9 /* PositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DB1E56B01C0046FAC9 /* PositionTests.swift */; };
 		9F2B51DE1E56BEB60046FAC9 /* DiagonalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DD1E56BEB60046FAC9 /* DiagonalTests.swift */; };
@@ -62,10 +66,6 @@
 		9FB991EC1E525F6400BD83CE /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB991EB1E525F6400BD83CE /* UIKitExtensions.swift */; };
 		9FBD89201EA9D729006B6046 /* InvalidPlayerNameAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD891F1EA9D729006B6046 /* InvalidPlayerNameAlert.swift */; };
 		9FBD89221EA9DFE5006B6046 /* chess logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FBD89211EA9DFE5006B6046 /* chess logo.png */; };
-		9FCB336D1EB583DA00A26D62 /* AdvancedDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCB336B1EB583DA00A26D62 /* AdvancedDataStructures.framework */; };
-		9FCB336E1EB583DA00A26D62 /* AdvancedDataStructures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCB336B1EB583DA00A26D62 /* AdvancedDataStructures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9FCB336F1EB583DA00A26D62 /* OrderedSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCB336C1EB583DA00A26D62 /* OrderedSet.framework */; };
-		9FCB33701EB583DA00A26D62 /* OrderedSet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCB336C1EB583DA00A26D62 /* OrderedSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9FCB75911E4EAAC100275773 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75901E4EAAC100275773 /* AppDelegate.swift */; };
 		9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCB75921E4EAAC100275773 /* ChessBoardViewController.swift */; };
 		9FCB75961E4EAAC100275773 /* ChessGame.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FCB75941E4EAAC100275773 /* ChessGame.storyboard */; };
@@ -135,14 +135,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9F054C1E1EA6AF8300E87DFE /* Embed Frameworks */ = {
+		9F6DBE021EB92B950089BE28 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9FCB336E1EB583DA00A26D62 /* AdvancedDataStructures.framework in Embed Frameworks */,
-				9FCB33701EB583DA00A26D62 /* OrderedSet.framework in Embed Frameworks */,
+				9F2A63D11EB9439F001B9904 /* AdvancedDataStructures.framework in Embed Frameworks */,
+				9F2A63D31EB9439F001B9904 /* OrderedSet.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -155,6 +155,8 @@
 		9F110DB91E9ECB4800832B30 /* FetchResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchResultsTableViewController.swift; sourceTree = "<group>"; };
 		9F1489861E67B89B00177826 /* AnimatedChessBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedChessBoardView.swift; sourceTree = "<group>"; };
 		9F26CF871EB17D190080CA8A /* AppColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
+		9F2A63CE1EB9439F001B9904 /* AdvancedDataStructures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdvancedDataStructures.framework; path = "Frameworks/Debug-universal/AdvancedDataStructures.framework"; sourceTree = "<group>"; };
+		9F2A63CF1EB9439F001B9904 /* OrderedSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OrderedSet.framework; path = "Frameworks/Debug-universal/OrderedSet.framework"; sourceTree = "<group>"; };
 		9F2B51C11E56A87B0046FAC9 /* ChessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F2B51C51E56A87B0046FAC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F2B51CB1E56A8CA0046FAC9 /* ChessBoardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardTests.swift; sourceTree = "<group>"; };
@@ -207,8 +209,6 @@
 		9FB991EB1E525F6400BD83CE /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		9FBD891F1EA9D729006B6046 /* InvalidPlayerNameAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvalidPlayerNameAlert.swift; sourceTree = "<group>"; };
 		9FBD89211EA9DFE5006B6046 /* chess logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chess logo.png"; path = "Icons/chess logo.png"; sourceTree = "<group>"; };
-		9FCB336B1EB583DA00A26D62 /* AdvancedDataStructures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdvancedDataStructures.framework; path = "Frameworks/Debug-iphonesimulator/AdvancedDataStructures.framework"; sourceTree = "<group>"; };
-		9FCB336C1EB583DA00A26D62 /* OrderedSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OrderedSet.framework; path = "Frameworks/Debug-iphonesimulator/OrderedSet.framework"; sourceTree = "<group>"; };
 		9FCB758D1E4EAAC100275773 /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FCB75901E4EAAC100275773 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FCB75921E4EAAC100275773 /* ChessBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChessBoardViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -281,8 +281,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FCB336D1EB583DA00A26D62 /* AdvancedDataStructures.framework in Frameworks */,
-				9FCB336F1EB583DA00A26D62 /* OrderedSet.framework in Frameworks */,
+				9F2A63D41EB945F2001B9904 /* AdvancedDataStructures.framework in Frameworks */,
+				9F2A63D51EB945F2001B9904 /* OrderedSet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,8 +485,8 @@
 		9FCB75841E4EAAC000275773 = {
 			isa = PBXGroup;
 			children = (
-				9FCB336B1EB583DA00A26D62 /* AdvancedDataStructures.framework */,
-				9FCB336C1EB583DA00A26D62 /* OrderedSet.framework */,
+				9F2A63CE1EB9439F001B9904 /* AdvancedDataStructures.framework */,
+				9F2A63CF1EB9439F001B9904 /* OrderedSet.framework */,
 				9FCB758F1E4EAAC100275773 /* Chess */,
 				9F2B51C21E56A87B0046FAC9 /* ChessTests */,
 				9FCB758E1E4EAAC100275773 /* Products */,
@@ -672,8 +672,7 @@
 				9FCB75891E4EAAC000275773 /* Sources */,
 				9FCB758A1E4EAAC000275773 /* Frameworks */,
 				9FCB758B1E4EAAC000275773 /* Resources */,
-				9F054C1E1EA6AF8300E87DFE /* Embed Frameworks */,
-				9FCB33731EB5854F00A26D62 /* ShellScript */,
+				9F6DBE021EB92B950089BE28 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -767,22 +766,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9FCB33731EB5854F00A26D62 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9F2B51BD1E56A87B0046FAC9 /* Sources */ = {
@@ -1041,7 +1024,7 @@
 				DEVELOPMENT_TEAM = 884AY45F52;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks/Debug-iphonesimulator",
+					"$(PROJECT_DIR)/Frameworks/Debug-universal",
 				);
 				INFOPLIST_FILE = Chess/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -1060,7 +1043,7 @@
 				DEVELOPMENT_TEAM = 884AY45F52;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks/Debug-iphonesimulator",
+					"$(PROJECT_DIR)/Frameworks/Debug-universal",
 				);
 				INFOPLIST_FILE = Chess/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
