@@ -52,22 +52,20 @@ class ChessBoardViewController: UIViewController{
         return twoTouchTapRecognizer
     }()
     
-    private var thirdGestureRecognizer: UITapGestureRecognizer{
+    private lazy var thirdGestureRecognizer: UITapGestureRecognizer = {
         #if arch(arm) || arch(arm64) //running on device
-            return threeTouchTapRecognizer
+            return self.threeTouchTapRecognizer
         #elseif arch(i386) || arch(x86_64) // running on simulator
-            return doubleTwoTouchTapRecognizer
+            return self.doubleTwoTouchTapRecognizer
         #endif
-    }
+    }()
     
     private lazy var doubleTwoTouchTapRecognizer: UITapGestureRecognizer = { [unowned self] in
         return UITapGestureRecognizer(touchCount: 2, tapCount: 2, target: self, action: #selector(ChessBoardViewController.handleThird(recognizer:)))
         }()
     
     private lazy var threeTouchTapRecognizer: UITapGestureRecognizer = { [unowned self] in
-        let threeTouchTapRecognizer = UITapGestureRecognizer(touchCount: 3, tapCount: 1, target: self, action: #selector(ChessBoardViewController.handleThird(recognizer:)))
-        threeTouchTapRecognizer.require(toFail: self.twoTouchTapRecognizer)
-        return threeTouchTapRecognizer
+        return UITapGestureRecognizer(touchCount: 3, tapCount: 1, target: self, action: #selector(ChessBoardViewController.handleThird(recognizer:)))
         }()
 
         
