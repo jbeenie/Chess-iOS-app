@@ -12,10 +12,10 @@
 		9F110DBA1E9ECB4800832B30 /* FetchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F110DB91E9ECB4800832B30 /* FetchResultsTableViewController.swift */; };
 		9F1489871E67B89B00177826 /* AnimatedChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1489861E67B89B00177826 /* AnimatedChessBoardView.swift */; };
 		9F26CF881EB17D1A0080CA8A /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F26CF871EB17D190080CA8A /* AppColor.swift */; };
-		9F2A63D11EB9439F001B9904 /* AdvancedDataStructures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2A63CE1EB9439F001B9904 /* AdvancedDataStructures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9F2A63D31EB9439F001B9904 /* OrderedSet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2A63CF1EB9439F001B9904 /* OrderedSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9F2A63D41EB945F2001B9904 /* AdvancedDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2A63CE1EB9439F001B9904 /* AdvancedDataStructures.framework */; };
-		9F2A63D51EB945F2001B9904 /* OrderedSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2A63CF1EB9439F001B9904 /* OrderedSet.framework */; };
+		9F2A63DE1EBA9726001B9904 /* AdvancedDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2A63DC1EBA9726001B9904 /* AdvancedDataStructures.framework */; };
+		9F2A63DF1EBA9726001B9904 /* AdvancedDataStructures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2A63DC1EBA9726001B9904 /* AdvancedDataStructures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9F2A63E01EBA9726001B9904 /* OrderedSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2A63DD1EBA9726001B9904 /* OrderedSet.framework */; };
+		9F2A63E11EBA9726001B9904 /* OrderedSet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2A63DD1EBA9726001B9904 /* OrderedSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F2B51CC1E56A8CA0046FAC9 /* ChessBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51CB1E56A8CA0046FAC9 /* ChessBoardTests.swift */; };
 		9F2B51DC1E56B01C0046FAC9 /* PositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DB1E56B01C0046FAC9 /* PositionTests.swift */; };
 		9F2B51DE1E56BEB60046FAC9 /* DiagonalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2B51DD1E56BEB60046FAC9 /* DiagonalTests.swift */; };
@@ -141,8 +141,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9F2A63D11EB9439F001B9904 /* AdvancedDataStructures.framework in Embed Frameworks */,
-				9F2A63D31EB9439F001B9904 /* OrderedSet.framework in Embed Frameworks */,
+				9F2A63DF1EBA9726001B9904 /* AdvancedDataStructures.framework in Embed Frameworks */,
+				9F2A63E11EBA9726001B9904 /* OrderedSet.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -155,8 +155,8 @@
 		9F110DB91E9ECB4800832B30 /* FetchResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchResultsTableViewController.swift; sourceTree = "<group>"; };
 		9F1489861E67B89B00177826 /* AnimatedChessBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedChessBoardView.swift; sourceTree = "<group>"; };
 		9F26CF871EB17D190080CA8A /* AppColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
-		9F2A63CE1EB9439F001B9904 /* AdvancedDataStructures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdvancedDataStructures.framework; path = "Frameworks/Debug-universal/AdvancedDataStructures.framework"; sourceTree = "<group>"; };
-		9F2A63CF1EB9439F001B9904 /* OrderedSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OrderedSet.framework; path = "Frameworks/Debug-universal/OrderedSet.framework"; sourceTree = "<group>"; };
+		9F2A63DC1EBA9726001B9904 /* AdvancedDataStructures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdvancedDataStructures.framework; path = "Frameworks/Debug-universal/AdvancedDataStructures.framework"; sourceTree = "<group>"; };
+		9F2A63DD1EBA9726001B9904 /* OrderedSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OrderedSet.framework; path = "Frameworks/Debug-universal/OrderedSet.framework"; sourceTree = "<group>"; };
 		9F2B51C11E56A87B0046FAC9 /* ChessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F2B51C51E56A87B0046FAC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F2B51CB1E56A8CA0046FAC9 /* ChessBoardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessBoardTests.swift; sourceTree = "<group>"; };
@@ -281,8 +281,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F2A63D41EB945F2001B9904 /* AdvancedDataStructures.framework in Frameworks */,
-				9F2A63D51EB945F2001B9904 /* OrderedSet.framework in Frameworks */,
+				9F2A63DE1EBA9726001B9904 /* AdvancedDataStructures.framework in Frameworks */,
+				9F2A63E01EBA9726001B9904 /* OrderedSet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,8 +485,8 @@
 		9FCB75841E4EAAC000275773 = {
 			isa = PBXGroup;
 			children = (
-				9F2A63CE1EB9439F001B9904 /* AdvancedDataStructures.framework */,
-				9F2A63CF1EB9439F001B9904 /* OrderedSet.framework */,
+				9F2A63DC1EBA9726001B9904 /* AdvancedDataStructures.framework */,
+				9F2A63DD1EBA9726001B9904 /* OrderedSet.framework */,
 				9FCB758F1E4EAAC100275773 /* Chess */,
 				9F2B51C21E56A87B0046FAC9 /* ChessTests */,
 				9FCB758E1E4EAAC100275773 /* Products */,
@@ -1031,6 +1031,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JeremieBenhamronBeen.Chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1050,6 +1051,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JeremieBenhamronBeen.Chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
