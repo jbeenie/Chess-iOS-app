@@ -25,6 +25,10 @@
 		9F3575B81E6E9474008267B7 /* ChessPieceGraveYardRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3575B71E6E9474008267B7 /* ChessPieceGraveYardRowView.swift */; };
 		9F567F3A1E8DD498009B4D4E /* SavedGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F567F391E8DD498009B4D4E /* SavedGameCell.swift */; };
 		9F61AB4B1E63DCCB008141B6 /* PawnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61AB4A1E63DCCB008141B6 /* PawnTests.swift */; };
+		9F6BB0FD1EBA9E1C0010FD31 /* AdvancedDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6BB0FB1EBA9E1C0010FD31 /* AdvancedDataStructures.framework */; };
+		9F6BB0FE1EBA9E1C0010FD31 /* AdvancedDataStructures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6BB0FB1EBA9E1C0010FD31 /* AdvancedDataStructures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9F6BB0FF1EBA9E1C0010FD31 /* OrderedSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6BB0FC1EBA9E1C0010FD31 /* OrderedSet.framework */; };
+		9F6BB1001EBA9E1C0010FD31 /* OrderedSet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6BB0FC1EBA9E1C0010FD31 /* OrderedSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F72FB3B1E8DB0BA0094EDA7 /* SaveGame.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F72FB3A1E8DB0BA0094EDA7 /* SaveGame.storyboard */; };
 		9F72FB3D1E8DB1C50094EDA7 /* SaveGameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F72FB3C1E8DB1C50094EDA7 /* SaveGameTableViewController.swift */; };
 		9F72FB401E8DC8A70094EDA7 /* SavedGames.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F72FB3F1E8DC8A70094EDA7 /* SavedGames.storyboard */; };
@@ -131,12 +135,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9F054C1E1EA6AF8300E87DFE /* Embed Frameworks */ = {
+		9F6DBE021EB92B950089BE28 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				9F6BB0FE1EBA9E1C0010FD31 /* AdvancedDataStructures.framework in Embed Frameworks */,
+				9F6BB1001EBA9E1C0010FD31 /* OrderedSet.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -164,6 +170,8 @@
 		9F3575B71E6E9474008267B7 /* ChessPieceGraveYardRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceGraveYardRowView.swift; sourceTree = "<group>"; };
 		9F567F391E8DD498009B4D4E /* SavedGameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedGameCell.swift; sourceTree = "<group>"; };
 		9F61AB4A1E63DCCB008141B6 /* PawnTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PawnTests.swift; sourceTree = "<group>"; };
+		9F6BB0FB1EBA9E1C0010FD31 /* AdvancedDataStructures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdvancedDataStructures.framework; path = "Frameworks/Debug-universal/AdvancedDataStructures.framework"; sourceTree = "<group>"; };
+		9F6BB0FC1EBA9E1C0010FD31 /* OrderedSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OrderedSet.framework; path = "Frameworks/Debug-universal/OrderedSet.framework"; sourceTree = "<group>"; };
 		9F72FB3A1E8DB0BA0094EDA7 /* SaveGame.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SaveGame.storyboard; sourceTree = "<group>"; };
 		9F72FB3C1E8DB1C50094EDA7 /* SaveGameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveGameTableViewController.swift; sourceTree = "<group>"; };
 		9F72FB3F1E8DC8A70094EDA7 /* SavedGames.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SavedGames.storyboard; sourceTree = "<group>"; };
@@ -273,6 +281,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F6BB0FD1EBA9E1C0010FD31 /* AdvancedDataStructures.framework in Frameworks */,
+				9F6BB0FF1EBA9E1C0010FD31 /* OrderedSet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +485,8 @@
 		9FCB75841E4EAAC000275773 = {
 			isa = PBXGroup;
 			children = (
+				9F6BB0FB1EBA9E1C0010FD31 /* AdvancedDataStructures.framework */,
+				9F6BB0FC1EBA9E1C0010FD31 /* OrderedSet.framework */,
 				9FCB758F1E4EAAC100275773 /* Chess */,
 				9F2B51C21E56A87B0046FAC9 /* ChessTests */,
 				9FCB758E1E4EAAC100275773 /* Products */,
@@ -660,7 +672,7 @@
 				9FCB75891E4EAAC000275773 /* Sources */,
 				9FCB758A1E4EAAC000275773 /* Frameworks */,
 				9FCB758B1E4EAAC000275773 /* Resources */,
-				9F054C1E1EA6AF8300E87DFE /* Embed Frameworks */,
+				9F6DBE021EB92B950089BE28 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1012,14 +1024,14 @@
 				DEVELOPMENT_TEAM = 884AY45F52;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks/Debug-iphonesimulator",
-					"$(PROJECT_DIR)/Frameworks/Debug-iphoneos",
+					"$(PROJECT_DIR)/Frameworks/Debug-universal",
 				);
 				INFOPLIST_FILE = Chess/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JeremieBenhamronBeen.Chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1032,14 +1044,14 @@
 				DEVELOPMENT_TEAM = 884AY45F52;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks/Debug-iphonesimulator",
-					"$(PROJECT_DIR)/Frameworks/Debug-iphoneos",
+					"$(PROJECT_DIR)/Frameworks/Debug-universal",
 				);
 				INFOPLIST_FILE = Chess/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JeremieBenhamronBeen.Chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

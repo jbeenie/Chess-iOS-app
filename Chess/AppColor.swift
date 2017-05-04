@@ -28,7 +28,7 @@ internal struct AppColor{
     static let offWhite4 = UIColor(red: 241, green: 242, blue: 245)
     
     //TODO: Change to injection
-    static var injection:Injection<String,UIColor>{
+    static var injection: Injection<String,UIColor>{
         let injection = Injection<String,UIColor>(
             pairs: [("white",UIColor.white),
                     ("gray",UIColor.gray),
