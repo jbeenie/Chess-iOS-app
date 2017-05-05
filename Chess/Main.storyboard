@@ -93,10 +93,10 @@
             </objects>
             <point key="canvasLocation" x="1567" y="-22"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Themeable Navigation Controller-->
         <scene sceneID="n7I-kd-gg6">
             <objects>
-                <navigationController storyboardIdentifier="NavigationController" automaticallyAdjustsScrollViewInsets="NO" id="7aP-dd-xRe" customClass="NavigationController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationController" automaticallyAdjustsScrollViewInsets="NO" id="7aP-dd-xRe" customClass="ThemeableNavigationController" customModule="Chess" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8Od-wM-qZY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

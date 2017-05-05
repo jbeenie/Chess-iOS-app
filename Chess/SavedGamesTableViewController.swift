@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import Themeable
 
-class SavedGamesTableViewController: FetchResultsTableViewController {
+class SavedGamesTableViewController: ThemeableFetchResultsTableViewController{
     //MARK: - Constants
     private struct StoryBoard{
         static let cellID = "savedGame"

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SavedGameCell: ThemedTableViewCell {
+class SavedGameCell: ThemeableTableViewCell {
     //MARK: - Outlets
     @IBOutlet weak var gameNumberLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!

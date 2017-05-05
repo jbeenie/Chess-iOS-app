@@ -9,7 +9,7 @@
 import UIKit
 import Themeable
 
-class ChessGameSettingsTableTableViewController: UITableViewController{
+class ChessGameSettingsTableTableViewController: ThemeableTableViewController{
     //MARK: - Constants
     struct StoryBoard{
         static let MaxTakebacksSegue = "MaxTakebacks"
@@ -56,10 +56,6 @@ class ChessGameSettingsTableTableViewController: UITableViewController{
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: true)
         self.clearsSelectionOnViewWillAppear = true
-        // register the themeable items once all the view and subviews
-        // have been loaded
-        AppTheme.manager.register(themeable: self)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -163,11 +159,6 @@ class ChessGameSettingsTableTableViewController: UITableViewController{
         gameSettings.save()
     }
     
-    
-    
-}
-
-extension ChessGameSettingsTableTableViewController{
     //MARK: - Cusotmizing Themeable Conformance
     override func apply(theme: AppTheme) {
         super.apply(theme: theme)
@@ -177,6 +168,7 @@ extension ChessGameSettingsTableTableViewController{
         self.maxTakeBacksLabel.textColor = theme.tableViewCellTextColor
         
     }
+    
 }
 
 

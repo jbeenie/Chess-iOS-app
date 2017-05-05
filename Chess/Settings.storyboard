@@ -22,7 +22,7 @@
                         <sections>
                             <tableViewSection headerTitle="" footerTitle="Disable  notifications that pop during game play." id="wQL-4D-tFg">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="NWB-wE-1fx" customClass="TableViewCell" customModule="Chess" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="NWB-wE-1fx" customClass="ThemeableTableViewCell" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="NWB-wE-1fx" id="zYD-Pu-h9Z">
@@ -54,7 +54,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="" footerTitle="Disable animations that occur when a chess piece is moved." id="btH-b2-cMt">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Kjd-hN-gm1" customClass="TableViewCell" customModule="Chess" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Kjd-hN-gm1" customClass="ThemeableTableViewCell" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="127" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="Kjd-hN-gm1" id="xxT-Fr-JPN">
@@ -86,7 +86,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="" id="yMj-f7-VBF">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="pKG-9k-jIs" detailTextLabel="3fA-pg-Abp" style="IBUITableViewCellStyleValue1" id="byD-K9-W44" customClass="TableViewCell" customModule="Chess" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="pKG-9k-jIs" detailTextLabel="3fA-pg-Abp" style="IBUITableViewCellStyleValue1" id="byD-K9-W44" customClass="ThemeableTableViewCell" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="235" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="byD-K9-W44" id="5VF-yT-vIs">

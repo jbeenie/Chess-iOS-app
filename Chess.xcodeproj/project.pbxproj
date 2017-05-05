@@ -121,9 +121,11 @@
 		9FF0C9FB1E931006006EC242 /* ChessGameMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C9F51E931006006EC242 /* ChessGameMO+CoreDataClass.swift */; };
 		9FF0C9FC1E931006006EC242 /* ChessGameMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C9F61E931006006EC242 /* ChessGameMO+CoreDataProperties.swift */; };
 		9FF4F3F01EBBDF8B003F73FB /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F3EF1EBBDF8B003F73FB /* AppTheme.swift */; };
-		9FF4F3F21EBBE23D003F73FB /* ThemeableConformanceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F3F11EBBE23D003F73FB /* ThemeableConformanceExtensions.swift */; };
-		9FF4F3F41EBBF0A7003F73FB /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F3F31EBBF0A7003F73FB /* NavigationController.swift */; };
-		9FF4F3FB1EBBFEF9003F73FB /* ThemedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F3FA1EBBFEF9003F73FB /* ThemedTableViewCell.swift */; };
+		9FF4F3FD1EBD0239003F73FB /* ThemeableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F3FC1EBD0239003F73FB /* ThemeableTableViewCell.swift */; };
+		9FF4F3FF1EBD0266003F73FB /* ThemeableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F3FE1EBD0266003F73FB /* ThemeableTableViewController.swift */; };
+		9FF4F4021EBD03CA003F73FB /* ThemeableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F4011EBD03CA003F73FB /* ThemeableNavigationController.swift */; };
+		9FF4F4041EBD04D9003F73FB /* ThemeableCollectionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F4031EBD04D9003F73FB /* ThemeableCollectionCollectionViewController.swift */; };
+		9FF4F4061EBD09C5003F73FB /* ThemeableFetchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F4051EBD09C5003F73FB /* ThemeableFetchResultsTableViewController.swift */; };
 		9FFA37471EA1840500BDF1D7 /* SaveGameAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA37461EA1840500BDF1D7 /* SaveGameAlert.swift */; };
 		9FFCC10B1E7DE54600BEAD8C /* ChessPieceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */; };
 		A1D666FAB31CA46B78C363DD /* Pods_ChessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E813D5890DAE35A0BFF50C /* Pods_ChessTests.framework */; };
@@ -277,9 +279,11 @@
 		9FF0C9F51E931006006EC242 /* ChessGameMO+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChessGameMO+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9FF0C9F61E931006006EC242 /* ChessGameMO+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChessGameMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9FF4F3EF1EBBDF8B003F73FB /* AppTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
-		9FF4F3F11EBBE23D003F73FB /* ThemeableConformanceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableConformanceExtensions.swift; sourceTree = "<group>"; };
-		9FF4F3F31EBBF0A7003F73FB /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		9FF4F3FA1EBBFEF9003F73FB /* ThemedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemedTableViewCell.swift; sourceTree = "<group>"; };
+		9FF4F3FC1EBD0239003F73FB /* ThemeableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableTableViewCell.swift; sourceTree = "<group>"; };
+		9FF4F3FE1EBD0266003F73FB /* ThemeableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableTableViewController.swift; sourceTree = "<group>"; };
+		9FF4F4011EBD03CA003F73FB /* ThemeableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableNavigationController.swift; sourceTree = "<group>"; };
+		9FF4F4031EBD04D9003F73FB /* ThemeableCollectionCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableCollectionCollectionViewController.swift; sourceTree = "<group>"; };
+		9FF4F4051EBD09C5003F73FB /* ThemeableFetchResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableFetchResultsTableViewController.swift; sourceTree = "<group>"; };
 		9FFA37461EA1840500BDF1D7 /* SaveGameAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveGameAlert.swift; sourceTree = "<group>"; };
 		9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceButton.swift; sourceTree = "<group>"; };
 		B6F1415889BF762F1E0B2994 /* Pods-ChessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChessTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChessTests/Pods-ChessTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -625,7 +629,6 @@
 			children = (
 				9FCDBB2A1E7A2BFB00ED5B1A /* Main.storyboard */,
 				9FCDBB2C1E7A2F7E00ED5B1A /* MenuViewController.swift */,
-				9FF4F3F31EBBF0A7003F73FB /* NavigationController.swift */,
 			);
 			name = MainMenuScene;
 			sourceTree = "<group>";
@@ -690,10 +693,21 @@
 			isa = PBXGroup;
 			children = (
 				9FF4F3EF1EBBDF8B003F73FB /* AppTheme.swift */,
-				9FF4F3F11EBBE23D003F73FB /* ThemeableConformanceExtensions.swift */,
-				9FF4F3FA1EBBFEF9003F73FB /* ThemedTableViewCell.swift */,
+				9FF4F4001EBD0302003F73FB /* ThemeableViews */,
 			);
 			name = Theme;
+			sourceTree = "<group>";
+		};
+		9FF4F4001EBD0302003F73FB /* ThemeableViews */ = {
+			isa = PBXGroup;
+			children = (
+				9FF4F3FC1EBD0239003F73FB /* ThemeableTableViewCell.swift */,
+				9FF4F3FE1EBD0266003F73FB /* ThemeableTableViewController.swift */,
+				9FF4F4051EBD09C5003F73FB /* ThemeableFetchResultsTableViewController.swift */,
+				9FF4F4011EBD03CA003F73FB /* ThemeableNavigationController.swift */,
+				9FF4F4031EBD04D9003F73FB /* ThemeableCollectionCollectionViewController.swift */,
+			);
+			name = ThemeableViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -938,6 +952,7 @@
 				9F09A3841E7267F200C0AA95 /* PromotionChoicesViewController.swift in Sources */,
 				9FD095471EAFE1C400A1E8F8 /* ChessBoardTheme.swift in Sources */,
 				9F9C893E1E848D1800E717C3 /* BlackTakebacksViewController.swift in Sources */,
+				9FF4F4061EBD09C5003F73FB /* ThemeableFetchResultsTableViewController.swift in Sources */,
 				9FE399121E81BDB100A81787 /* ChessSetting.swift in Sources */,
 				9FD095491EAFED5B00A1E8F8 /* NamedUIColor.swift in Sources */,
 				9FCB75A51E4EB71900275773 /* ChessBoardSquareView.swift in Sources */,
@@ -956,7 +971,6 @@
 				9F3575B61E6E853F008267B7 /* BlackChessPieceGraveYardViewController.swift in Sources */,
 				9FD74CEB1E551FCF00FFC762 /* Knight.swift in Sources */,
 				9FD74CE21E54DDC700FFC762 /* ChessGame.swift in Sources */,
-				9FF4F3FB1EBBFEF9003F73FB /* ThemedTableViewCell.swift in Sources */,
 				9FFCC10B1E7DE54600BEAD8C /* ChessPieceButton.swift in Sources */,
 				9FD74CF11E551FF200FFC762 /* Queen.swift in Sources */,
 				9FB7E1671E624EDF007E9A6E /* Castle.swift in Sources */,
@@ -972,6 +986,7 @@
 				9F9C893C1E848D0600E717C3 /* WhiteTakebacksViewController.swift in Sources */,
 				9FAC3AA71E7B47F1008F7900 /* IntegerSliderViewController.swift in Sources */,
 				9F82AD4F1E76714E00DBBF00 /* TimeFormatter.swift in Sources */,
+				9FF4F3FF1EBD0266003F73FB /* ThemeableTableViewController.swift in Sources */,
 				9FD74CEF1E551FE700FFC762 /* Rook.swift in Sources */,
 				9F3575B01E6E3DA9008267B7 /* ChessPieceGraveYardViewController.swift in Sources */,
 				9F82AD521E76766100DBBF00 /* WhiteTimerViewController.swift in Sources */,
@@ -982,13 +997,14 @@
 				9FB7E15E1E612509007E9A6E /* Move.swift in Sources */,
 				9FF0C9F01E9307BA006EC242 /* Model.xcdatamodeld in Sources */,
 				9FCDBB271E78DA2A00ED5B1A /* ChessNotificationCreator.swift in Sources */,
+				9FF4F3FD1EBD0239003F73FB /* ThemeableTableViewCell.swift in Sources */,
 				9F26CF881EB17D1A0080CA8A /* AppColor.swift in Sources */,
 				9F72FB3D1E8DB1C50094EDA7 /* SaveGameTableViewController.swift in Sources */,
 				9FF0C9FA1E931006006EC242 /* ChessGameSnapShotMO+CoreDataProperties.swift in Sources */,
 				9FF4F3F01EBBDF8B003F73FB /* AppTheme.swift in Sources */,
+				9FF4F4041EBD04D9003F73FB /* ThemeableCollectionCollectionViewController.swift in Sources */,
 				9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */,
 				9FCDBB251E78CA9B00ED5B1A /* ChessClockDelegate.swift in Sources */,
-				9FF4F3F21EBBE23D003F73FB /* ThemeableConformanceExtensions.swift in Sources */,
 				9FCB75AA1E4ED43900275773 /* ChessPieceView.swift in Sources */,
 				9FBD89201EA9D729006B6046 /* InvalidPlayerNameAlert.swift in Sources */,
 				9FD74CE91E551FC000FFC762 /* Pawn.swift in Sources */,
@@ -997,7 +1013,6 @@
 				9FFA37471EA1840500BDF1D7 /* SaveGameAlert.swift in Sources */,
 				9F82AD541E76767E00DBBF00 /* BlackTimerViewController.swift in Sources */,
 				9FF0C9F81E931006006EC242 /* PlayerMO+CoreDataProperties.swift in Sources */,
-				9FF4F3F41EBBF0A7003F73FB /* NavigationController.swift in Sources */,
 				9FAC3AB31E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift in Sources */,
 				9F3575AB1E6DF4A3008267B7 /* ChessPieceGraveYard.swift in Sources */,
 				9FCDBB2D1E7A2F7E00ED5B1A /* MenuViewController.swift in Sources */,
@@ -1015,6 +1030,7 @@
 				9F952CF71E77ACB000C90615 /* ChessClock.swift in Sources */,
 				9FAC3AA91E7B588A008F7900 /* MaxTakebackViewController.swift in Sources */,
 				9FE3990E1E806B3E00A81787 /* ChessGameSettings.swift in Sources */,
+				9FF4F4021EBD03CA003F73FB /* ThemeableNavigationController.swift in Sources */,
 				9FD74CF31E551FFF00FFC762 /* King.swift in Sources */,
 				9F3575B21E6E53FB008267B7 /* ModelViewTranslation.swift in Sources */,
 				9FCB75911E4EAAC100275773 /* AppDelegate.swift in Sources */,
