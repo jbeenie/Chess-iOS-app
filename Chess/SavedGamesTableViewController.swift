@@ -88,6 +88,9 @@ class SavedGamesTableViewController: FetchResultsTableViewController {
             managedObjectContext: context,
             sectionNameKeyPath: sectionNameKeyPath,
             cacheName: cacheName)
+        // register the themeable items once all the view and subviews
+        // have been loaded
+        AppTheme.manager.register(themeable: self)
     }
 
     // MARK: - Table view data source

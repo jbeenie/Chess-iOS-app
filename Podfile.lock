@@ -1,0 +1,12 @@
+PODS:
+  - Themeable (0.6.0)
+
+DEPENDENCIES:
+  - Themeable
+
+SPEC CHECKSUMS:
+  Themeable: d8e938f3a2c9322ef2f7bd1b3a2fa846949a9f82
+
+PODFILE CHECKSUM: adbe1b9272eb780fff85fb53f697f484bee93b43
+
+COCOAPODS: 1.2.1

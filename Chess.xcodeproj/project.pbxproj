@@ -120,8 +120,14 @@
 		9FF0C9FA1E931006006EC242 /* ChessGameSnapShotMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C9F41E931006006EC242 /* ChessGameSnapShotMO+CoreDataProperties.swift */; };
 		9FF0C9FB1E931006006EC242 /* ChessGameMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C9F51E931006006EC242 /* ChessGameMO+CoreDataClass.swift */; };
 		9FF0C9FC1E931006006EC242 /* ChessGameMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF0C9F61E931006006EC242 /* ChessGameMO+CoreDataProperties.swift */; };
+		9FF4F3F01EBBDF8B003F73FB /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F3EF1EBBDF8B003F73FB /* AppTheme.swift */; };
+		9FF4F3F21EBBE23D003F73FB /* ThemeableConformanceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F3F11EBBE23D003F73FB /* ThemeableConformanceExtensions.swift */; };
+		9FF4F3F41EBBF0A7003F73FB /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F3F31EBBF0A7003F73FB /* NavigationController.swift */; };
+		9FF4F3FB1EBBFEF9003F73FB /* ThemedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F3FA1EBBFEF9003F73FB /* ThemedTableViewCell.swift */; };
 		9FFA37471EA1840500BDF1D7 /* SaveGameAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA37461EA1840500BDF1D7 /* SaveGameAlert.swift */; };
 		9FFCC10B1E7DE54600BEAD8C /* ChessPieceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */; };
+		A1D666FAB31CA46B78C363DD /* Pods_ChessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E813D5890DAE35A0BFF50C /* Pods_ChessTests.framework */; };
+		BC3D56D5D413AE307C55E9D9 /* Pods_Chess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76916D23B66DB8ACF1E59178 /* Pods_Chess.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +156,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		16A183F6C440B16742D159D4 /* Pods-ChessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChessTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChessTests/Pods-ChessTests.release.xcconfig"; sourceTree = "<group>"; };
+		17E813D5890DAE35A0BFF50C /* Pods_ChessTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChessTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F53E415BF6955DD46DB378C /* Pods-Chess.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chess.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chess/Pods-Chess.debug.xcconfig"; sourceTree = "<group>"; };
+		76916D23B66DB8ACF1E59178 /* Pods_Chess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AE5EF191B29A658CD748357 /* Pods-Chess.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chess.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chess/Pods-Chess.release.xcconfig"; sourceTree = "<group>"; };
 		9F054C1F1EA6FBE800E87DFE /* CoreDataUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataUtilities.swift; sourceTree = "<group>"; };
 		9F09A3831E7267F200C0AA95 /* PromotionChoicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PromotionChoicesViewController.swift; path = ../PromotionChoicesViewController.swift; sourceTree = "<group>"; };
 		9F110DB91E9ECB4800832B30 /* FetchResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchResultsTableViewController.swift; sourceTree = "<group>"; };
@@ -265,8 +276,13 @@
 		9FF0C9F41E931006006EC242 /* ChessGameSnapShotMO+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChessGameSnapShotMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9FF0C9F51E931006006EC242 /* ChessGameMO+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChessGameMO+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9FF0C9F61E931006006EC242 /* ChessGameMO+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChessGameMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9FF4F3EF1EBBDF8B003F73FB /* AppTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		9FF4F3F11EBBE23D003F73FB /* ThemeableConformanceExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableConformanceExtensions.swift; sourceTree = "<group>"; };
+		9FF4F3F31EBBF0A7003F73FB /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		9FF4F3FA1EBBFEF9003F73FB /* ThemedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemedTableViewCell.swift; sourceTree = "<group>"; };
 		9FFA37461EA1840500BDF1D7 /* SaveGameAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveGameAlert.swift; sourceTree = "<group>"; };
 		9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceButton.swift; sourceTree = "<group>"; };
+		B6F1415889BF762F1E0B2994 /* Pods-ChessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChessTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChessTests/Pods-ChessTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +290,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1D666FAB31CA46B78C363DD /* Pods_ChessTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,12 +300,33 @@
 			files = (
 				9F6BB0FD1EBA9E1C0010FD31 /* AdvancedDataStructures.framework in Frameworks */,
 				9F6BB0FF1EBA9E1C0010FD31 /* OrderedSet.framework in Frameworks */,
+				BC3D56D5D413AE307C55E9D9 /* Pods_Chess.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		67F215920863D36BF781BD59 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5F53E415BF6955DD46DB378C /* Pods-Chess.debug.xcconfig */,
+				9AE5EF191B29A658CD748357 /* Pods-Chess.release.xcconfig */,
+				B6F1415889BF762F1E0B2994 /* Pods-ChessTests.debug.xcconfig */,
+				16A183F6C440B16742D159D4 /* Pods-ChessTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		973FD33222494407D55A5AB7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				76916D23B66DB8ACF1E59178 /* Pods_Chess.framework */,
+				17E813D5890DAE35A0BFF50C /* Pods_ChessTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9F2B51C21E56A87B0046FAC9 /* ChessTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -490,6 +528,8 @@
 				9FCB758F1E4EAAC100275773 /* Chess */,
 				9F2B51C21E56A87B0046FAC9 /* ChessTests */,
 				9FCB758E1E4EAAC100275773 /* Products */,
+				67F215920863D36BF781BD59 /* Pods */,
+				973FD33222494407D55A5AB7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -505,6 +545,7 @@
 		9FCB758F1E4EAAC100275773 /* Chess */ = {
 			isa = PBXGroup;
 			children = (
+				9FF4F3EE1EBBDF4A003F73FB /* Theme */,
 				9FBD891C1EA9CA98006B6046 /* Colors */,
 				9F56EEBA1E94397C00818078 /* Archiving */,
 				9FF0C9ED1E9307A3006EC242 /* Core Data */,
@@ -584,6 +625,7 @@
 			children = (
 				9FCDBB2A1E7A2BFB00ED5B1A /* Main.storyboard */,
 				9FCDBB2C1E7A2F7E00ED5B1A /* MenuViewController.swift */,
+				9FF4F3F31EBBF0A7003F73FB /* NavigationController.swift */,
 			);
 			name = MainMenuScene;
 			sourceTree = "<group>";
@@ -644,6 +686,16 @@
 			name = "Core Data";
 			sourceTree = "<group>";
 		};
+		9FF4F3EE1EBBDF4A003F73FB /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				9FF4F3EF1EBBDF8B003F73FB /* AppTheme.swift */,
+				9FF4F3F11EBBE23D003F73FB /* ThemeableConformanceExtensions.swift */,
+				9FF4F3FA1EBBFEF9003F73FB /* ThemedTableViewCell.swift */,
+			);
+			name = Theme;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -651,9 +703,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9F2B51CA1E56A87B0046FAC9 /* Build configuration list for PBXNativeTarget "ChessTests" */;
 			buildPhases = (
+				1F7F5A63EE9A23919C49E8E1 /* [CP] Check Pods Manifest.lock */,
 				9F2B51BD1E56A87B0046FAC9 /* Sources */,
 				9F2B51BE1E56A87B0046FAC9 /* Frameworks */,
 				9F2B51BF1E56A87B0046FAC9 /* Resources */,
+				95059C142626B51CD77E45B9 /* [CP] Embed Pods Frameworks */,
+				12870B900AC761C57483CAA9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -669,10 +724,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9FCB759F1E4EAAC100275773 /* Build configuration list for PBXNativeTarget "Chess" */;
 			buildPhases = (
+				D2BF8B4549F87DFC5AC0C76E /* [CP] Check Pods Manifest.lock */,
 				9FCB75891E4EAAC000275773 /* Sources */,
 				9FCB758A1E4EAAC000275773 /* Frameworks */,
 				9FCB758B1E4EAAC000275773 /* Resources */,
 				9F6DBE021EB92B950089BE28 /* Embed Frameworks */,
+				3105F54024C949DC4CADFF6A /* [CP] Embed Pods Frameworks */,
+				012AFEF14D9F12F9C1DC31F1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -767,6 +825,99 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		012AFEF14D9F12F9C1DC31F1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chess/Pods-Chess-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		12870B900AC761C57483CAA9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChessTests/Pods-ChessTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1F7F5A63EE9A23919C49E8E1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3105F54024C949DC4CADFF6A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chess/Pods-Chess-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		95059C142626B51CD77E45B9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChessTests/Pods-ChessTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2BF8B4549F87DFC5AC0C76E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9F2B51BD1E56A87B0046FAC9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -805,6 +956,7 @@
 				9F3575B61E6E853F008267B7 /* BlackChessPieceGraveYardViewController.swift in Sources */,
 				9FD74CEB1E551FCF00FFC762 /* Knight.swift in Sources */,
 				9FD74CE21E54DDC700FFC762 /* ChessGame.swift in Sources */,
+				9FF4F3FB1EBBFEF9003F73FB /* ThemedTableViewCell.swift in Sources */,
 				9FFCC10B1E7DE54600BEAD8C /* ChessPieceButton.swift in Sources */,
 				9FD74CF11E551FF200FFC762 /* Queen.swift in Sources */,
 				9FB7E1671E624EDF007E9A6E /* Castle.swift in Sources */,
@@ -833,8 +985,10 @@
 				9F26CF881EB17D1A0080CA8A /* AppColor.swift in Sources */,
 				9F72FB3D1E8DB1C50094EDA7 /* SaveGameTableViewController.swift in Sources */,
 				9FF0C9FA1E931006006EC242 /* ChessGameSnapShotMO+CoreDataProperties.swift in Sources */,
+				9FF4F3F01EBBDF8B003F73FB /* AppTheme.swift in Sources */,
 				9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */,
 				9FCDBB251E78CA9B00ED5B1A /* ChessClockDelegate.swift in Sources */,
+				9FF4F3F21EBBE23D003F73FB /* ThemeableConformanceExtensions.swift in Sources */,
 				9FCB75AA1E4ED43900275773 /* ChessPieceView.swift in Sources */,
 				9FBD89201EA9D729006B6046 /* InvalidPlayerNameAlert.swift in Sources */,
 				9FD74CE91E551FC000FFC762 /* Pawn.swift in Sources */,
@@ -843,6 +997,7 @@
 				9FFA37471EA1840500BDF1D7 /* SaveGameAlert.swift in Sources */,
 				9F82AD541E76767E00DBBF00 /* BlackTimerViewController.swift in Sources */,
 				9FF0C9F81E931006006EC242 /* PlayerMO+CoreDataProperties.swift in Sources */,
+				9FF4F3F41EBBF0A7003F73FB /* NavigationController.swift in Sources */,
 				9FAC3AB31E7B73EA008F7900 /* ChessBoardThemeCollectionViewCell.swift in Sources */,
 				9F3575AB1E6DF4A3008267B7 /* ChessPieceGraveYard.swift in Sources */,
 				9FCDBB2D1E7A2F7E00ED5B1A /* MenuViewController.swift in Sources */,
@@ -900,6 +1055,7 @@
 /* Begin XCBuildConfiguration section */
 		9F2B51C81E56A87B0046FAC9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6F1415889BF762F1E0B2994 /* Pods-ChessTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 884AY45F52;
@@ -914,6 +1070,7 @@
 		};
 		9F2B51C91E56A87B0046FAC9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16A183F6C440B16742D159D4 /* Pods-ChessTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 884AY45F52;
@@ -1019,6 +1176,7 @@
 		};
 		9FCB75A01E4EAAC100275773 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F53E415BF6955DD46DB378C /* Pods-Chess.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 884AY45F52;
@@ -1039,6 +1197,7 @@
 		};
 		9FCB75A11E4EAAC100275773 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9AE5EF191B29A658CD748357 /* Pods-Chess.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 884AY45F52;

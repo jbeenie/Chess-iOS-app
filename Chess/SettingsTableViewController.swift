@@ -43,6 +43,9 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(false, animated: false)
         self.clearsSelectionOnViewWillAppear = true
+        // register the themeable items once all the view and subviews
+        // have been loaded
+        AppTheme.manager.register(themeable: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {

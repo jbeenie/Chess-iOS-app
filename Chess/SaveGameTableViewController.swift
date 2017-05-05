@@ -83,6 +83,9 @@ class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
         whitePlayerTextField.delegate = self
         blackPlayerTextField.delegate = self
         self.tableView.allowsSelection = false
+        // register the themeable items once all the view and subviews
+        // have been loaded
+        AppTheme.manager.register(themeable: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
