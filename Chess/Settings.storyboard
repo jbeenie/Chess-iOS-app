@@ -124,8 +124,11 @@
                     <navigationItem key="navigationItem" title="Settings" id="fdn-mY-Oxr"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="ChessBoardThemeLabel" destination="pKG-9k-jIs" id="Zs4-zC-z95"/>
                         <outlet property="animationSwitch" destination="4dn-5V-efH" id="sXm-2O-N9y"/>
+                        <outlet property="animationsLabel" destination="8n7-fJ-k4c" id="jXh-36-iFm"/>
                         <outlet property="chessBoardThemeCurrentSelectionLabel" destination="3fA-pg-Abp" id="dg9-Qt-8PQ"/>
+                        <outlet property="chessNotificationLabel" destination="dbt-pq-6MG" id="Rmf-cE-SFS"/>
                         <outlet property="notificationsSwitch" destination="JWJ-F6-8Ph" id="spk-kp-fDS"/>
                     </connections>
                 </tableViewController>

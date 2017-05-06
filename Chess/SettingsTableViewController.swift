@@ -81,13 +81,19 @@ class SettingsTableViewController: ThemeableTableViewController {
 
    
     //MARK: - Outlets
+    //Switches
     @IBOutlet weak var animationSwitch: UISwitch!
-
     @IBOutlet weak var notificationsSwitch: UISwitch!
+    //Labels
     
-
+    @IBOutlet weak var chessNotificationLabel: UILabel!
+    @IBOutlet weak var animationsLabel: UILabel!
+    @IBOutlet weak var ChessBoardThemeLabel: UILabel!
     @IBOutlet weak var chessBoardThemeCurrentSelectionLabel: UILabel!
     
+    
+    
+    //MARK: - Cusotmizing TableViewController
     override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return Constants.shouldHighlightRowAt[indexPath]!
     }
@@ -109,6 +115,24 @@ class SettingsTableViewController: ThemeableTableViewController {
         chessBoardThemeCollectionVC.selectedTheme = globalSettings[ChessSettings.Key.chessBoardTheme] as! ChessBoardTheme!
     }
     
+    //MARK: - Cusotmizing Themeable Conformance
+    override func apply(theme: AppTheme) {
+        super.apply(theme: theme)
+        //Section 1 Cell 1
+        //Left
+        self.chessNotificationLabel.textColor = theme.tableViewCellLeftTextColor
+        
+        //Section 2 Cell 1
+        //Left
+        self.animationsLabel.textColor = theme.tableViewCellLeftTextColor
+        
+        //Section 3 Cell 1
+        //Left
+        self.ChessBoardThemeLabel.textColor = theme.tableViewCellLeftTextColor
+        //Right
+        self.chessBoardThemeCurrentSelectionLabel.textColor = theme.tableViewCellRightTextColor
+        
+    }
     
 
 

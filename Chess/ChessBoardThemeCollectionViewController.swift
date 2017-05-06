@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Themeable
 
 
-class ChessBoardThemeCollectionViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout {
+class ChessBoardThemeCollectionViewController: ThemeableCollectionViewController,UICollectionViewDelegateFlowLayout{
     
     private let reuseIdentifier:String = "ChessBoardTheme"
     
@@ -125,4 +126,5 @@ class ChessBoardThemeCollectionViewController: UICollectionViewController,UIColl
     override func viewWillDisappear(_ animated: Bool) {
         updateSettings()
     }
+    
 }

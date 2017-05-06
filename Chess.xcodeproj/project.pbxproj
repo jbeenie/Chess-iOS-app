@@ -124,8 +124,10 @@
 		9FF4F3FD1EBD0239003F73FB /* ThemeableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F3FC1EBD0239003F73FB /* ThemeableTableViewCell.swift */; };
 		9FF4F3FF1EBD0266003F73FB /* ThemeableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F3FE1EBD0266003F73FB /* ThemeableTableViewController.swift */; };
 		9FF4F4021EBD03CA003F73FB /* ThemeableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F4011EBD03CA003F73FB /* ThemeableNavigationController.swift */; };
-		9FF4F4041EBD04D9003F73FB /* ThemeableCollectionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F4031EBD04D9003F73FB /* ThemeableCollectionCollectionViewController.swift */; };
 		9FF4F4061EBD09C5003F73FB /* ThemeableFetchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F4051EBD09C5003F73FB /* ThemeableFetchResultsTableViewController.swift */; };
+		9FF4F40A1EBD39D7003F73FB /* ThemeableSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F4091EBD39D7003F73FB /* ThemeableSlider.swift */; };
+		9FF4F40C1EBD3E36003F73FB /* ThemeableCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F40B1EBD3E36003F73FB /* ThemeableCollectionViewController.swift */; };
+		9FF4F4101EBD41B0003F73FB /* ThemeableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF4F40F1EBD41B0003F73FB /* ThemeableCollectionViewCell.swift */; };
 		9FFA37471EA1840500BDF1D7 /* SaveGameAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA37461EA1840500BDF1D7 /* SaveGameAlert.swift */; };
 		9FFCC10B1E7DE54600BEAD8C /* ChessPieceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */; };
 		A1D666FAB31CA46B78C363DD /* Pods_ChessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17E813D5890DAE35A0BFF50C /* Pods_ChessTests.framework */; };
@@ -282,8 +284,10 @@
 		9FF4F3FC1EBD0239003F73FB /* ThemeableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableTableViewCell.swift; sourceTree = "<group>"; };
 		9FF4F3FE1EBD0266003F73FB /* ThemeableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableTableViewController.swift; sourceTree = "<group>"; };
 		9FF4F4011EBD03CA003F73FB /* ThemeableNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableNavigationController.swift; sourceTree = "<group>"; };
-		9FF4F4031EBD04D9003F73FB /* ThemeableCollectionCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableCollectionCollectionViewController.swift; sourceTree = "<group>"; };
 		9FF4F4051EBD09C5003F73FB /* ThemeableFetchResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableFetchResultsTableViewController.swift; sourceTree = "<group>"; };
+		9FF4F4091EBD39D7003F73FB /* ThemeableSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableSlider.swift; sourceTree = "<group>"; };
+		9FF4F40B1EBD3E36003F73FB /* ThemeableCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableCollectionViewController.swift; sourceTree = "<group>"; };
+		9FF4F40F1EBD41B0003F73FB /* ThemeableCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableCollectionViewCell.swift; sourceTree = "<group>"; };
 		9FFA37461EA1840500BDF1D7 /* SaveGameAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveGameAlert.swift; sourceTree = "<group>"; };
 		9FFCC10A1E7DE54600BEAD8C /* ChessPieceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceButton.swift; sourceTree = "<group>"; };
 		B6F1415889BF762F1E0B2994 /* Pods-ChessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChessTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChessTests/Pods-ChessTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -701,13 +705,31 @@
 		9FF4F4001EBD0302003F73FB /* ThemeableViews */ = {
 			isa = PBXGroup;
 			children = (
-				9FF4F3FC1EBD0239003F73FB /* ThemeableTableViewCell.swift */,
-				9FF4F3FE1EBD0266003F73FB /* ThemeableTableViewController.swift */,
-				9FF4F4051EBD09C5003F73FB /* ThemeableFetchResultsTableViewController.swift */,
+				9FF4F4091EBD39D7003F73FB /* ThemeableSlider.swift */,
 				9FF4F4011EBD03CA003F73FB /* ThemeableNavigationController.swift */,
-				9FF4F4031EBD04D9003F73FB /* ThemeableCollectionCollectionViewController.swift */,
+				9FF4F40D1EBD4041003F73FB /* TableView */,
+				9FF4F40E1EBD406B003F73FB /* CollectionView */,
 			);
 			name = ThemeableViews;
+			sourceTree = "<group>";
+		};
+		9FF4F40D1EBD4041003F73FB /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				9FF4F4051EBD09C5003F73FB /* ThemeableFetchResultsTableViewController.swift */,
+				9FF4F3FC1EBD0239003F73FB /* ThemeableTableViewCell.swift */,
+				9FF4F3FE1EBD0266003F73FB /* ThemeableTableViewController.swift */,
+			);
+			name = TableView;
+			sourceTree = "<group>";
+		};
+		9FF4F40E1EBD406B003F73FB /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				9FF4F40B1EBD3E36003F73FB /* ThemeableCollectionViewController.swift */,
+				9FF4F40F1EBD41B0003F73FB /* ThemeableCollectionViewCell.swift */,
+			);
+			name = CollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -985,6 +1007,7 @@
 				9F567F3A1E8DD498009B4D4E /* SavedGameCell.swift in Sources */,
 				9F9C893C1E848D0600E717C3 /* WhiteTakebacksViewController.swift in Sources */,
 				9FAC3AA71E7B47F1008F7900 /* IntegerSliderViewController.swift in Sources */,
+				9FF4F40C1EBD3E36003F73FB /* ThemeableCollectionViewController.swift in Sources */,
 				9F82AD4F1E76714E00DBBF00 /* TimeFormatter.swift in Sources */,
 				9FF4F3FF1EBD0266003F73FB /* ThemeableTableViewController.swift in Sources */,
 				9FD74CEF1E551FE700FFC762 /* Rook.swift in Sources */,
@@ -997,12 +1020,12 @@
 				9FB7E15E1E612509007E9A6E /* Move.swift in Sources */,
 				9FF0C9F01E9307BA006EC242 /* Model.xcdatamodeld in Sources */,
 				9FCDBB271E78DA2A00ED5B1A /* ChessNotificationCreator.swift in Sources */,
+				9FF4F4101EBD41B0003F73FB /* ThemeableCollectionViewCell.swift in Sources */,
 				9FF4F3FD1EBD0239003F73FB /* ThemeableTableViewCell.swift in Sources */,
 				9F26CF881EB17D1A0080CA8A /* AppColor.swift in Sources */,
 				9F72FB3D1E8DB1C50094EDA7 /* SaveGameTableViewController.swift in Sources */,
 				9FF0C9FA1E931006006EC242 /* ChessGameSnapShotMO+CoreDataProperties.swift in Sources */,
 				9FF4F3F01EBBDF8B003F73FB /* AppTheme.swift in Sources */,
-				9FF4F4041EBD04D9003F73FB /* ThemeableCollectionCollectionViewController.swift in Sources */,
 				9FCB75931E4EAAC100275773 /* ChessBoardViewController.swift in Sources */,
 				9FCDBB251E78CA9B00ED5B1A /* ChessClockDelegate.swift in Sources */,
 				9FCB75AA1E4ED43900275773 /* ChessPieceView.swift in Sources */,
@@ -1033,6 +1056,7 @@
 				9FF4F4021EBD03CA003F73FB /* ThemeableNavigationController.swift in Sources */,
 				9FD74CF31E551FFF00FFC762 /* King.swift in Sources */,
 				9F3575B21E6E53FB008267B7 /* ModelViewTranslation.swift in Sources */,
+				9FF4F40A1EBD39D7003F73FB /* ThemeableSlider.swift in Sources */,
 				9FCB75911E4EAAC100275773 /* AppDelegate.swift in Sources */,
 				9FB7E15A1E5E53AB007E9A6E /* FoundationExtensions.swift in Sources */,
 				9F110DBA1E9ECB4800832B30 /* FetchResultsTableViewController.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  ThemeableTableViewCell.swift
+//  ThemeableSlider.swift
 //  Chess
 //
 //  Created by Jeremie Benhamron on 2017-05-05.
@@ -8,8 +8,7 @@
 
 import UIKit
 import Themeable
-
-class ThemeableTableViewCell: UITableViewCell, Themeable {
+class ThemeableSlider: UISlider,Themeable {
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,8 +18,12 @@ class ThemeableTableViewCell: UITableViewCell, Themeable {
     }
     
     public func apply(theme: AppTheme) {
-        self.textLabel?.textColor = theme.tableViewCellLeftTextColor
-        self.backgroundColor = theme.tableViewCellBackgroundColor
+        self.thumbTintColor = theme.sliderThumbTintColor
+        self.maximumTrackTintColor = theme.sliderMaximumTrackTintColor
+        self.minimumTrackTintColor = theme.sliderMinimumTrackTintColor
+        self.tintColor = theme.sliderTintColor
+        self.borderColor = theme.sliderBorderColor
+        self.backgroundColor = theme.sliderBackgroundColor
     }
 
 }

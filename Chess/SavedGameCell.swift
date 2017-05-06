@@ -22,6 +22,11 @@ class SavedGameCell: ThemeableTableViewCell {
         // Configure the view for the selected state
     }
     
-    
+    override func apply(theme: AppTheme) {
+        super.apply(theme: theme)
+        self.gameNumberLabel.textColor = theme.tableViewCellLeftTextColor
+        self.dateLabel.textColor = theme.tableViewCellRightTextColor
+        self.timeLabel.textColor = theme.tableViewCellRightTextColor
+    }
 
 }

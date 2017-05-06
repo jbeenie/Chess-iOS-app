@@ -30,10 +30,21 @@ public struct AppTheme: Theme {
     let seperatorColor: UIColor
     let lightBackgroundColor: UIColor
     
+    //MARK: CollectionView
+    let collectionViewBackgroundColor: UIColor
+    let collectionViewBorderColor: UIColor
+    let collectionViewTintColor: UIColor
     
     //MARK: TableViewCell
-    let tableViewCellTextColor:UIColor
+    let tableViewCellLeftTextColor:UIColor
+    let tableViewCellRightTextColor:UIColor
     let tableViewCellBackgroundColor:UIColor
+    
+    //MARK: CollecitonViewCell
+    let collectionViewCellTintColor: UIColor
+    let collectionViewCellborderColor: UIColor
+    let collectionViewCellBackgroundColor: UIColor
+    let collectionViewCellSelectedBackgroundColor: UIColor
     
     //MARK: NavigationBar
     let navigationBarBackgroundColor: UIColor
@@ -43,6 +54,13 @@ public struct AppTheme: Theme {
     let navigationBarBarStyle:UIBarStyle
     let navigationBarTextColor:UIColor
     
+    //MARK: Switch
+    let sliderThumbTintColor: UIColor
+    let sliderMaximumTrackTintColor: UIColor
+    let sliderMinimumTrackTintColor: UIColor
+    let sliderTintColor: UIColor
+    let sliderBorderColor: UIColor
+    let sliderBackgroundColor: UIColor
     
     //MARK: - Themes
     
@@ -61,16 +79,34 @@ public struct AppTheme: Theme {
         //TableView
         seperatorColor: AppColor.greenFromAppIcon,
         lightBackgroundColor: .black,
+        //CollectionView
+        collectionViewBackgroundColor: .darkGray,
+        collectionViewBorderColor: .white,
+        collectionViewTintColor: .white,
         //TableViewCell
-        tableViewCellTextColor: AppColor.greenFromAppIcon,
+        tableViewCellLeftTextColor: AppColor.greenFromAppIcon,
+        tableViewCellRightTextColor: .lightGray,
         tableViewCellBackgroundColor: .darkGray,
+        //CollecitonViewCell
+        collectionViewCellTintColor: .purple,
+        collectionViewCellborderColor: .purple,
+        collectionViewCellBackgroundColor: .purple,
+        collectionViewCellSelectedBackgroundColor: AppColor.greenFromAppIcon,
         //NavigationBar
         navigationBarBackgroundColor: .black,
         navigationBarBorderColor: AppColor.greenFromAppIcon,
         navigationBarTintColor: AppColor.greenFromAppIcon,
         navigationBarBarTintColor: AppColor.greenFromAppIcon,
         navigationBarBarStyle: .black,
-        navigationBarTextColor: .gray
+        navigationBarTextColor: .gray,
+        //Switch
+        sliderThumbTintColor: .gray,
+        sliderMaximumTrackTintColor: .lightGray,
+        sliderMinimumTrackTintColor: AppColor.greenFromAppIcon,
+        sliderTintColor: .clear,
+        sliderBorderColor: AppColor.greenFromAppIcon,
+        sliderBackgroundColor: .clear
+        
     )
     
     

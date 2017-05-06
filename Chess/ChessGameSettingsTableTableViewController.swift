@@ -162,10 +162,17 @@ class ChessGameSettingsTableTableViewController: ThemeableTableViewController{
     //MARK: - Cusotmizing Themeable Conformance
     override func apply(theme: AppTheme) {
         super.apply(theme: theme)
-        self.chessClockLabel.textColor = theme.tableViewCellTextColor
-        self.takebacksLabel.textColor = theme.tableViewCellTextColor
-        self.clockTimeLabel.textColor = theme.tableViewCellTextColor
-        self.maxTakeBacksLabel.textColor = theme.tableViewCellTextColor
+        //Section 1 Cell 2
+        //Left
+        self.chessClockLabel.textColor = theme.tableViewCellLeftTextColor
+        //Right
+        self.clockTimeLabel.textColor = theme.tableViewCellRightTextColor
+        
+        //Section 2 Cell 2
+        //Left
+        self.takebacksLabel.textColor = theme.tableViewCellLeftTextColor
+        //Right
+        self.maxTakeBacksLabel.textColor = theme.tableViewCellRightTextColor
         
     }
     

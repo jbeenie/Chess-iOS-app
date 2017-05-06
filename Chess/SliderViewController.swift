@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Themeable
 
-class SliderViewController: UITableViewController
+class SliderViewController: ThemeableTableViewController
 {
     //MARK: - Processing slider value in String
     private var displayString:String{
@@ -20,6 +21,7 @@ class SliderViewController: UITableViewController
     //MARK: View Controller Life Cycle
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         self.tableView.allowsSelection = false
     }
     
@@ -36,7 +38,7 @@ class SliderViewController: UITableViewController
     
     //MARK: - Outlets
     
-    @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var slider: ThemeableSlider!
     @IBOutlet weak var dataLabel: UILabel!
    
     //MARK: - Actions
@@ -77,5 +79,11 @@ class SliderViewController: UITableViewController
     //when VC disappears
     internal var exitClosure: (()->Void)? = nil
     
+    //MARK: - Customization of Themeable
+    
+    override func apply(theme: AppTheme) {
+        super.apply(theme: theme)
+        self.dataLabel.textColor = theme.tableViewCellLeftTextColor
+    }
    
 }
