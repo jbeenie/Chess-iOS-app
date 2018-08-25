@@ -32,9 +32,9 @@ class ChessPieceGraveYardViewController: UIViewController {
     
     private func nonPawn(firstRow:Bool)->[ChessPiece]{
         if firstRow{
-            return nonPawnsCaptured.enumerated().flatMap{ $0.offset < Constants.numberOfSlotPerRow  ? $0.element : nil }
+            return nonPawnsCaptured.enumerated().compactMap{ $0.offset < Constants.numberOfSlotPerRow  ? $0.element : nil }
         }else{
-            return nonPawnsCaptured.enumerated().flatMap{ $0.offset >= Constants.numberOfSlotPerRow  ? $0.element : nil }
+            return nonPawnsCaptured.enumerated().compactMap{ $0.offset >= Constants.numberOfSlotPerRow  ? $0.element : nil }
         }
     }
     
