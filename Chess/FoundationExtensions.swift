@@ -10,11 +10,11 @@ import Foundation
 
 extension String {
     var length: Int {
-        return self.characters.count
+        return self.count
     }
     
     func containsOnlyLetters() -> Bool {
-        for chr in self.characters {
+        for chr in self {
             if (!(chr >= "a" && chr <= "z") && !(chr >= "A" && chr <= "Z") ) {
                 return false
             }

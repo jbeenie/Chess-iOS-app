@@ -112,7 +112,7 @@ class SettingsTableViewController: ThemeableTableViewController {
     private func prepare(chessBoardThemeCollectionVC:ChessBoardThemeCollectionViewController){
         //select the appropriate chess theme to indicate
         //the theme that was chosen last
-        chessBoardThemeCollectionVC.selectedTheme = globalSettings[ChessSettings.Key.chessBoardTheme] as! ChessBoardTheme!
+        chessBoardThemeCollectionVC.selectedTheme = globalSettings[ChessSettings.Key.chessBoardTheme] as! ChessBoardTheme
     }
     
     //MARK: - Cusotmizing Themeable Conformance
