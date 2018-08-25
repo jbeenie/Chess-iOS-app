@@ -8,6 +8,7 @@ target 'Chess' do
   # Pods for Chess
 
 	pod 'Themeable'
+	pod 'OrderedSet'
 
   target 'ChessTests' do
     inherit! :search_paths
