@@ -9,7 +9,6 @@
 import Foundation
 
 import UIKit
-import AdvancedDataStructures
 
 internal struct AppColor{
     //Flashy Green for icon/logo

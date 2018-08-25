@@ -71,7 +71,7 @@ class ChessGame:NSObject,NSCoding{
     
     var piecesCaptured:([ChessPiece],[ChessPiece]){
         let capturedPieces: (whiteCapturedPieces:[ChessPiece],blackCapturedPieces:[ChessPiece])
-        let allCapturedPieces = moves.flatMap { $0.pieceCaptured }
+        let allCapturedPieces = moves.compactMap { $0.pieceCaptured }
         capturedPieces.whiteCapturedPieces = allCapturedPieces.filter{ $0.color == .White }
         capturedPieces.blackCapturedPieces = allCapturedPieces.filter{ $0.color == .Black }
         return capturedPieces

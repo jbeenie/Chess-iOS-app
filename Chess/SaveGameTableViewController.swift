@@ -8,9 +8,10 @@
 
 import UIKit
 import CoreData
+import Themeable
 
 
-class SaveGameTableViewController: UITableViewController, UITextFieldDelegate {
+class SaveGameTableViewController: ThemeableTableViewController, UITextFieldDelegate {
 
     private struct StoryBoard{
         static let BackFromSaveGameViewController = "BackFromSaveGameViewController"

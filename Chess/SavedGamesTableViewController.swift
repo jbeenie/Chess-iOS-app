@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import Themeable
 
-class SavedGamesTableViewController: FetchResultsTableViewController {
+class SavedGamesTableViewController: ThemeableFetchResultsTableViewController{
     //MARK: - Constants
     private struct StoryBoard{
         static let cellID = "savedGame"
@@ -88,6 +89,9 @@ class SavedGamesTableViewController: FetchResultsTableViewController {
             managedObjectContext: context,
             sectionNameKeyPath: sectionNameKeyPath,
             cacheName: cacheName)
+        // register the themeable items once all the view and subviews
+        // have been loaded
+        AppTheme.manager.register(themeable: self)
     }
 
     // MARK: - Table view data source

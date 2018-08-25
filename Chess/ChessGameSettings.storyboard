@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,7 +22,7 @@
                         <sections>
                             <tableViewSection id="ukI-ah-KmO">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RNI-Xg-vzR">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RNI-Xg-vzR" customClass="ThemeableTableViewCell" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="RNI-Xg-vzR" id="iNH-8P-9Pj">
@@ -50,7 +50,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ln2-Y9-pTy" detailTextLabel="31O-XP-Mjv" style="IBUITableViewCellStyleValue1" id="cfV-Rf-Xpy">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ln2-Y9-pTy" detailTextLabel="31O-XP-Mjv" style="IBUITableViewCellStyleValue1" id="cfV-Rf-Xpy" customClass="ThemeableTableViewCell" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="cfV-Rf-Xpy" id="fWg-xq-RFJ">
@@ -81,7 +81,7 @@
                             </tableViewSection>
                             <tableViewSection id="Zqu-60-qJa">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="eMG-Tb-7Vk">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="eMG-Tb-7Vk" customClass="ThemeableTableViewCell" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="159" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="eMG-Tb-7Vk" id="O1f-3R-lmC">
@@ -109,7 +109,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="sLF-FW-v0t" detailTextLabel="pFK-GA-T8j" style="IBUITableViewCellStyleValue1" id="IO8-h3-x0n">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="sLF-FW-v0t" detailTextLabel="pFK-GA-T8j" style="IBUITableViewCellStyleValue1" id="IO8-h3-x0n" customClass="ThemeableTableViewCell" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="203" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IO8-h3-x0n" id="bJR-ap-F8t">
@@ -160,11 +160,13 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="chessClockLabel" destination="6GH-Fh-IYC" id="0mz-h2-XPe"/>
                         <outlet property="clockSwitch" destination="lFP-zV-zk8" id="lgz-bk-K3J"/>
                         <outlet property="clockTimeCell" destination="cfV-Rf-Xpy" id="HFc-Uy-vCV"/>
                         <outlet property="clockTimeLabel" destination="31O-XP-Mjv" id="hWw-IR-4P8"/>
                         <outlet property="maxTakeBacksCell" destination="IO8-h3-x0n" id="MJ2-3z-1Px"/>
                         <outlet property="maxTakeBacksLabel" destination="pFK-GA-T8j" id="qaQ-Q8-qrd"/>
+                        <outlet property="takebacksLabel" destination="tvg-EC-80O" id="dJ7-1g-jqt"/>
                         <outlet property="takebacksSwitch" destination="cQb-4j-6qs" id="rFg-e6-f6t"/>
                     </connections>
                 </tableViewController>
@@ -191,7 +193,7 @@
                         <sections>
                             <tableViewSection headerTitle="" id="69g-H7-wVL">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="150" id="dfo-ju-ZuO">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="150" id="dfo-ju-ZuO" customClass="ThemeableTableViewCell" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="35" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dfo-ju-ZuO" id="j92-qa-BmB">
@@ -216,14 +218,14 @@
                             </tableViewSection>
                             <tableViewSection id="R0r-qy-Yp8">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="5D9-m8-M39">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="5D9-m8-M39" customClass="ThemeableTableViewCell" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="221" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5D9-m8-M39" id="dl7-gF-uSZ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wvq-Q9-1BS">
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wvq-Q9-1BS" customClass="ThemeableSlider" customModule="Chess" customModuleProvider="target">
                                                     <rect key="frame" x="36" y="6" width="304" height="31"/>
                                                     <connections>
                                                         <action selector="sliderMoved:" destination="Fgh-1V-PqA" eventType="valueChanged" id="9hW-zL-33g"/>
@@ -273,7 +275,7 @@
                         <sections>
                             <tableViewSection headerTitle="" footerTitle="Given in hours and minutes." id="euZ-nS-bhy">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="150" id="1aq-uO-qKY">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="150" id="1aq-uO-qKY" customClass="ThemeableTableViewCell" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="35" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1aq-uO-qKY" id="fRL-pu-mAQ">
@@ -298,14 +300,14 @@
                             </tableViewSection>
                             <tableViewSection id="fqu-LW-vbY">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="egb-J7-WHE">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="egb-J7-WHE" customClass="ThemeableTableViewCell" customModule="Chess" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="233" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="egb-J7-WHE" id="fJB-93-Qyo">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Kch-De-m3i">
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Kch-De-m3i" customClass="ThemeableSlider" customModule="Chess" customModuleProvider="target">
                                                     <rect key="frame" x="36" y="6" width="304" height="31"/>
                                                     <connections>
                                                         <action selector="sliderMoved:" destination="Zku-bd-6kG" eventType="valueChanged" id="MLP-2P-NxD"/>

@@ -7,15 +7,17 @@
 //
 
 import UIKit
+import Themeable
+
 @IBDesignable
-class ChessBoardThemeCollectionViewCell: UICollectionViewCell{
+class ChessBoardThemeCollectionViewCell: ThemeableCollectionViewCell{
     //MARK: - Default values
     struct Default{
         static let theme:ChessBoardTheme = ChessBoardThemes.GrayWhite
     }
     
     struct Selection{
-        static let color = UIColor.blue.withAlphaComponent(0.75)
+        static var color = UIColor.blue.withAlphaComponent(0.75)
     }
     
      var selectionBackgroundView:UIView{
@@ -35,6 +37,7 @@ class ChessBoardThemeCollectionViewCell: UICollectionViewCell{
     }
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         self.selectedBackgroundView = selectionBackgroundView
     }
     
@@ -68,5 +71,11 @@ class ChessBoardThemeCollectionViewCell: UICollectionViewCell{
     @IBOutlet weak var bottomLeftSquare:UIView!
     @IBOutlet weak var topRightSquare:UIView!
     
+    //MARK: - Cusotmizing Themeable
+    
+    override func apply(theme: AppTheme) {
+        super.apply(theme: theme)
+        ChessBoardThemeCollectionViewCell.Selection.color = theme.collectionViewCellSelectedBackgroundColor
+    }
     
 }

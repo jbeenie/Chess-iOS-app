@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Themeable
 
-class ChessGameSettingsTableTableViewController: UITableViewController {
+class ChessGameSettingsTableTableViewController: ThemeableTableViewController{
     //MARK: - Constants
     struct StoryBoard{
         static let MaxTakebacksSegue = "MaxTakebacks"
@@ -46,6 +47,8 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
     @IBOutlet weak var clockSwitch: UISwitch!
     @IBOutlet weak var takebacksSwitch: UISwitch!
     //Labels
+    @IBOutlet weak var takebacksLabel: UILabel!
+    @IBOutlet weak var chessClockLabel: UILabel!
     @IBOutlet weak var clockTimeLabel: UILabel!
     @IBOutlet weak var maxTakeBacksLabel: UILabel!
     //MARK: - View Controller Life Cycle
@@ -154,6 +157,23 @@ class ChessGameSettingsTableTableViewController: UITableViewController {
         chessGameVC.gameSettings = gameSettings
         //save the chosen game settings
         gameSettings.save()
+    }
+    
+    //MARK: - Cusotmizing Themeable Conformance
+    override func apply(theme: AppTheme) {
+        super.apply(theme: theme)
+        //Section 1 Cell 2
+        //Left
+        self.chessClockLabel.textColor = theme.tableViewCellLeftTextColor
+        //Right
+        self.clockTimeLabel.textColor = theme.tableViewCellRightTextColor
+        
+        //Section 2 Cell 2
+        //Left
+        self.takebacksLabel.textColor = theme.tableViewCellLeftTextColor
+        //Right
+        self.maxTakeBacksLabel.textColor = theme.tableViewCellRightTextColor
+        
     }
     
 }

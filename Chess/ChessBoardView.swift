@@ -118,7 +118,7 @@ class ChessBoardView: UIView {
     //MARK: Drawing Indices
     struct ChessBoardIndex{
         static let indexToSquareRatio: CGFloat = 0.24
-        static let labels = "12345678ABCDEFGH".characters
+        static let labels = "12345678ABCDEFGH"
         static let color = UIColor.black
         static let fontSize: CGFloat = 10
         static let positions: [Character:Position] =

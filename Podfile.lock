@@ -1,0 +1,15 @@
+PODS:
+  - OrderedSet (3.0.1)
+  - Themeable (0.8.0)
+
+DEPENDENCIES:
+  - OrderedSet
+  - Themeable
+
+SPEC CHECKSUMS:
+  OrderedSet: 574a9f0269fc70737275cf1073c81f07dda46f19
+  Themeable: 53803cfb6dad2fb51c8e20b9a70daec587ee19d8
+
+PODFILE CHECKSUM: ce6b6aefd0593bbd297d67d6cc8adea6c59b10f2
+
+COCOAPODS: 1.4.0
