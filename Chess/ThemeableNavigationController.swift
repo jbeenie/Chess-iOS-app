@@ -25,7 +25,7 @@ class ThemeableNavigationController: UINavigationController, Themeable {
         self.navigationBar.tintColor = theme.navigationBarTintColor
         self.navigationBar.barTintColor = theme.navigationBarBackgroundColor
         self.navigationBar.barStyle = theme.navigationBarBarStyle
-        self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: theme.navigationBarTextColor]
+        self.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: theme.navigationBarTextColor]
         
     }
 

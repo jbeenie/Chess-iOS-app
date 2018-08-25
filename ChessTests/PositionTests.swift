@@ -132,35 +132,35 @@ class PositionTests: XCTestCase {
         if position1.set(row: 3, col: 3) && position2.set(row: 3, col: 3){
             let answer = 0
             let result = position1.isOnSameDiagonal(as: position2, signed: true)
-            XCTAssert(result == answer, "Result :\(result) != \(answer): Answer")
+            XCTAssert(result == answer, "Result :\(String(describing: result)) != \(answer): Answer")
         }
         
         // diagonal / direction
         if position1.set(row: 7, col: 0) && position2.set(row: 0, col: 7){
             let answer = 7
             let result = position1.isOnSameDiagonal(as: position2, signed: true)
-            XCTAssert(result == answer, "Result :\(result) != \(answer): Answer")
+            XCTAssert(result == answer, "Result :\(String(describing: result)) != \(answer): Answer")
         }
         
         // diagonal / direction
         if position1.set(row: 7, col: 0) && position2.set(row: 0, col: 7){
             let answer = -7
             let result = position2.isOnSameDiagonal(as: position1, signed: true)
-            XCTAssert(result == answer, "Result :\(result) != \(answer): Answer")
+            XCTAssert(result == answer, "Result :\(String(describing: result)) != \(answer): Answer")
         }
         
         // diagonal \ direction
         if position1.set(row: 6, col: 6) && position2.set(row: 1, col: 1){
             let answer = 5
             let result = position1.isOnSameDiagonal(as: position2, signed: true)
-            XCTAssert(result == answer, "Result :\(result) != \(answer): Answer")
+            XCTAssert(result == answer, "Result :\(String(describing: result)) != \(answer): Answer")
         }
         
         // diagonal \ direction
         if position1.set(row: 6, col: 6) && position2.set(row: 1, col: 1){
             let answer = -5
             let result = position2.isOnSameDiagonal(as: position1, signed: true)
-            XCTAssert(result == answer, "Result :\(result) != \(answer): Answer")
+            XCTAssert(result == answer, "Result :\(String(describing: result)) != \(answer): Answer")
         }
     }
     
