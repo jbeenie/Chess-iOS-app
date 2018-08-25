@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import OrderedSet
 
 public struct Injection<Domain:Hashable,Codomain:Hashable>{
     //MARK: - Public API
