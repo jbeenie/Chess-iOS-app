@@ -25,8 +25,6 @@
 		9F3575B81E6E9474008267B7 /* ChessPieceGraveYardRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3575B71E6E9474008267B7 /* ChessPieceGraveYardRowView.swift */; };
 		9F567F3A1E8DD498009B4D4E /* SavedGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F567F391E8DD498009B4D4E /* SavedGameCell.swift */; };
 		9F61AB4B1E63DCCB008141B6 /* PawnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61AB4A1E63DCCB008141B6 /* PawnTests.swift */; };
-		9F6BB0FD1EBA9E1C0010FD31 /* AdvancedDataStructures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6BB0FB1EBA9E1C0010FD31 /* AdvancedDataStructures.framework */; };
-		9F6BB0FE1EBA9E1C0010FD31 /* AdvancedDataStructures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6BB0FB1EBA9E1C0010FD31 /* AdvancedDataStructures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F6BB0FF1EBA9E1C0010FD31 /* OrderedSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6BB0FC1EBA9E1C0010FD31 /* OrderedSet.framework */; };
 		9F6BB1001EBA9E1C0010FD31 /* OrderedSet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6BB0FC1EBA9E1C0010FD31 /* OrderedSet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9F72FB3B1E8DB0BA0094EDA7 /* SaveGame.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F72FB3A1E8DB0BA0094EDA7 /* SaveGame.storyboard */; };
@@ -153,7 +151,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9F6BB0FE1EBA9E1C0010FD31 /* AdvancedDataStructures.framework in Embed Frameworks */,
 				9F6BB1001EBA9E1C0010FD31 /* OrderedSet.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -187,7 +184,6 @@
 		9F3575B71E6E9474008267B7 /* ChessPieceGraveYardRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessPieceGraveYardRowView.swift; sourceTree = "<group>"; };
 		9F567F391E8DD498009B4D4E /* SavedGameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedGameCell.swift; sourceTree = "<group>"; };
 		9F61AB4A1E63DCCB008141B6 /* PawnTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PawnTests.swift; sourceTree = "<group>"; };
-		9F6BB0FB1EBA9E1C0010FD31 /* AdvancedDataStructures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdvancedDataStructures.framework; path = "Frameworks/Debug-universal/AdvancedDataStructures.framework"; sourceTree = "<group>"; };
 		9F6BB0FC1EBA9E1C0010FD31 /* OrderedSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OrderedSet.framework; path = "Frameworks/Debug-universal/OrderedSet.framework"; sourceTree = "<group>"; };
 		9F72FB3A1E8DB0BA0094EDA7 /* SaveGame.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SaveGame.storyboard; sourceTree = "<group>"; };
 		9F72FB3C1E8DB1C50094EDA7 /* SaveGameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveGameTableViewController.swift; sourceTree = "<group>"; };
@@ -310,7 +306,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F6BB0FD1EBA9E1C0010FD31 /* AdvancedDataStructures.framework in Frameworks */,
 				9F6BB0FF1EBA9E1C0010FD31 /* OrderedSet.framework in Frameworks */,
 				BC3D56D5D413AE307C55E9D9 /* Pods_Chess.framework in Frameworks */,
 			);
@@ -553,7 +548,6 @@
 			isa = PBXGroup;
 			children = (
 				9F8ECC17213206F2009B5A50 /* DataStructures */,
-				9F6BB0FB1EBA9E1C0010FD31 /* AdvancedDataStructures.framework */,
 				9F6BB0FC1EBA9E1C0010FD31 /* OrderedSet.framework */,
 				9FCB758F1E4EAAC100275773 /* Chess */,
 				9F2B51C21E56A87B0046FAC9 /* ChessTests */,
