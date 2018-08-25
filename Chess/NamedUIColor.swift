@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AdvancedDataStructures
 
 class NamedUIColor{
     //MARK: -  API
